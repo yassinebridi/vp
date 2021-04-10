@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../src/utils/constants.ts"],
+  "sourcesContent": ["export const CLOUDINARY_NAME = \"quentent\"\n"],
+  "mappings": ";;;;;;AAAA;AAAA;AAAA;AAAA;AAAO,MAAM,kBAAkB;",
+  "names": []
+}

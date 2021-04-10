@@ -1,0 +1,19 @@
+{
+  "name": "@vp/common",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A yup validator between api and web",
+  "author": "Yassine Bridi <ybridi@gmail.com>",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "dependencies": {
+    "yup": "^0.29.3",
+    "esbuild-node-tsc": "^1.3.0"
+  },
+  "devDependencies": {
+    "@types/yup": "^0.29.6"
+  },
+  "scripts": {
+    "build": "etsc"
+  }
+}

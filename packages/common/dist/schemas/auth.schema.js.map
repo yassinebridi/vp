@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../src/schemas/auth.schema.ts"],
+  "sourcesContent": ["import * as yup from 'yup';\n\nexport const LoginSchema = yup.object().shape({\n  email: yup.string().email().required(),\n  password: yup.string().min(8).max(30).required(),\n});\n\nexport const RegisterSchema = yup.object().shape({\n  email: yup.string().email().required(),\n  firstname: yup.string().required(),\n  lastname: yup.string().required(),\n  password: yup.string().min(8).max(30).required(),\n});\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,UAAqB;AAEd,MAAM,cAAc,IAAI,SAAS,MAAM;AAAA,EAC5C,OAAO,IAAI,SAAS,QAAQ;AAAA,EAC5B,UAAU,IAAI,SAAS,IAAI,GAAG,IAAI,IAAI;AAAA;AAGjC,MAAM,iBAAiB,IAAI,SAAS,MAAM;AAAA,EAC/C,OAAO,IAAI,SAAS,QAAQ;AAAA,EAC5B,WAAW,IAAI,SAAS;AAAA,EACxB,UAAU,IAAI,SAAS;AAAA,EACvB,UAAU,IAAI,SAAS,IAAI,GAAG,IAAI,IAAI;AAAA;",
+  "names": []
+}
