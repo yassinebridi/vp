@@ -14,7 +14,7 @@ export class SettingsResolver {
 
   @Mutation(() => Boolean)
   updateSettings(
-    @Args('updateSettingsInput') updateSettingsInput: UpdateSettingsInput
+    @Args('updateSettingsInput') updateSettingsInput: UpdateSettingsInput,
   ) {
     return this.settingsService.updateSettings(updateSettingsInput);
   }

@@ -25,7 +25,7 @@ import { UserEntity } from './user.decorator';
 export class UserResolver {
   constructor(
     private userService: UserService,
-    private prisma: PrismaService
+    private prisma: PrismaService,
   ) {}
 
   @Query(() => User)
@@ -71,12 +71,12 @@ export class UserResolver {
   @Mutation(() => User)
   async changePassword(
     @UserEntity() user: User,
-    @Args('data') changePassword: ChangePasswordInput
+    @Args('data') changePassword: ChangePasswordInput,
   ) {
     return this.userService.changePassword(
       user.id,
       user.password,
-      changePassword
+      changePassword,
     );
   }
 

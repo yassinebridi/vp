@@ -1,0 +1,342 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type SettingsCountAggregate {
+  id: Int
+  defaultRole: Int
+  urls: Int
+  _all: Int!
+}
+
+type SettingsMaxAggregate {
+  id: String
+  defaultRole: Role
+  urls: String
+}
+
+enum Role {
+  admin
+  editor
+  visitor
+}
+
+type SettingsMinAggregate {
+  id: String
+  defaultRole: Role
+  urls: String
+}
+
+type Settings {
+  id: ID!
+  defaultRole: Role!
+  urls: String!
+}
+
+type UserCountAggregate {
+  id: Int
+  email: Int
+  password: Int
+  firstname: Int
+  lastname: Int
+  avatar: Int
+  role: Int
+  googleId: Int
+  facebookId: Int
+  createdAt: Int
+  updatedAt: Int
+  _all: Int!
+}
+
+type UserMaxAggregate {
+  id: String
+  email: String
+  password: String
+  firstname: String
+  lastname: String
+  avatar: String
+  role: Role
+  googleId: String
+  facebookId: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type UserMinAggregate {
+  id: String
+  email: String
+  password: String
+  firstname: String
+  lastname: String
+  avatar: String
+  role: Role
+  googleId: String
+  facebookId: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type User {
+  id: ID!
+  email: String!
+  password: String!
+  firstname: String
+  lastname: String
+  avatar: String
+  role: Role!
+  googleId: String
+  facebookId: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+}
+
+type AuthUser {
+  """JWT access token"""
+  accessToken: String!
+  user: User!
+}
+
+type Query {
+  me: User!
+  getAllUsers(where: UserWhereInput, orderBy: [UserOrderByInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int, distinct: [UserScalarFieldEnum!]): [User!]!
+  getOneUser(where: UserWhereUniqueInput!): User!
+  getOneSettings(where: SettingsWhereUniqueInput!): Settings!
+}
+
+input UserWhereInput {
+  AND: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+  id: StringFilter
+  email: StringFilter
+  password: StringFilter
+  firstname: StringNullableFilter
+  lastname: StringNullableFilter
+  avatar: StringNullableFilter
+  role: EnumRoleFilter
+  googleId: StringNullableFilter
+  facebookId: StringNullableFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+}
+
+input StringFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  mode: QueryMode
+  not: NestedStringFilter
+}
+
+enum QueryMode {
+  default
+  insensitive
+}
+
+input NestedStringFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringFilter
+}
+
+input StringNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  mode: QueryMode
+  not: NestedStringNullableFilter
+}
+
+input NestedStringNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringNullableFilter
+}
+
+input EnumRoleFilter {
+  equals: Role
+  in: [Role!]
+  notIn: [Role!]
+  not: NestedEnumRoleFilter
+}
+
+input NestedEnumRoleFilter {
+  equals: Role
+  in: [Role!]
+  notIn: [Role!]
+  not: NestedEnumRoleFilter
+}
+
+input DateTimeFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeFilter
+}
+
+input NestedDateTimeFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: NestedDateTimeFilter
+}
+
+input UserOrderByInput {
+  id: SortOrder
+  email: SortOrder
+  password: SortOrder
+  firstname: SortOrder
+  lastname: SortOrder
+  avatar: SortOrder
+  role: SortOrder
+  googleId: SortOrder
+  facebookId: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+}
+
+enum SortOrder {
+  asc
+  desc
+}
+
+input UserWhereUniqueInput {
+  id: String
+  email: String
+}
+
+enum UserScalarFieldEnum {
+  id
+  email
+  password
+  firstname
+  lastname
+  avatar
+  role
+  googleId
+  facebookId
+  createdAt
+  updatedAt
+}
+
+input SettingsWhereUniqueInput {
+  id: String
+}
+
+type Mutation {
+  register(data: RegisterInput!): AuthUser!
+  login(data: LoginInput!): AuthUser!
+  logout: Boolean!
+  searchUsers(where: UserWhereInput, orderBy: [UserOrderByInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int, distinct: [UserScalarFieldEnum!]): [User!]!
+  deleteUser(whereUserInput: UserWhereUniqueInput!): Boolean!
+  updateUser(updateUserInput: UpdateUserInput!): Boolean!
+  changePassword(data: ChangePasswordInput!): User!
+  updateSettings(updateSettingsInput: UpdateSettingsInput!): Boolean!
+}
+
+input RegisterInput {
+  email: String!
+  password: String!
+  firstname: String
+  lastname: String
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+input UpdateUserInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateInput!
+}
+
+input UserUpdateInput {
+  id: StringFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
+  firstname: NullableStringFieldUpdateOperationsInput
+  lastname: NullableStringFieldUpdateOperationsInput
+  avatar: NullableStringFieldUpdateOperationsInput
+  role: EnumRoleFieldUpdateOperationsInput
+  googleId: NullableStringFieldUpdateOperationsInput
+  facebookId: NullableStringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
+input StringFieldUpdateOperationsInput {
+  set: String
+}
+
+input NullableStringFieldUpdateOperationsInput {
+  set: String
+}
+
+input EnumRoleFieldUpdateOperationsInput {
+  set: Role
+}
+
+input DateTimeFieldUpdateOperationsInput {
+  set: DateTime
+}
+
+input ChangePasswordInput {
+  oldPassword: String!
+  newPassword: String!
+}
+
+input UpdateSettingsInput {
+  where: SettingsWhereUniqueInput!
+  data: SettingsUpdateInput!
+}
+
+input SettingsUpdateInput {
+  id: StringFieldUpdateOperationsInput
+  defaultRole: EnumRoleFieldUpdateOperationsInput
+  urls: StringFieldUpdateOperationsInput
+}

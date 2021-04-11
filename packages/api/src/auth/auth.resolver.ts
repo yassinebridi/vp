@@ -8,6 +8,7 @@ import {
 } from '@nestjs/graphql';
 import { LoginSchema, RegisterSchema } from '@vp/common';
 import { Response } from 'express';
+import { User } from 'src/@generated';
 import { YupValidationPipe } from '../shared/YupValidationPipe';
 import { AuthUser } from './auth.model';
 import { AuthService } from './auth.service';
@@ -21,23 +22,23 @@ export class AuthResolver {
 
   @Mutation(() => AuthUser)
   @UsePipes(new YupValidationPipe(RegisterSchema))
-  register(@GqlRes() res, @Args('data') data: RegisterInput) {
+  async register(@GqlRes() res, @Args('data') data: RegisterInput) {
     return this.authService.register(data, res);
   }
 
   @Mutation(() => AuthUser)
   @UsePipes(new YupValidationPipe(LoginSchema))
-  login(@GqlRes() res: Response, @Args('data') data: LoginInput) {
+  async login(@GqlRes() res: Response, @Args('data') data: LoginInput) {
     return this.authService.login(data, res);
   }
 
   @Mutation(() => Boolean)
-  logout(@GqlRes() res: Response) {
+  async logout(@GqlRes() res: Response) {
     return this.authService.logout(res);
   }
 
-  @ResolveField('user')
+  @ResolveField('user', () => User)
   async user(@Parent() auth: AuthUser) {
-    return await this.authService.getUserFromToken(auth.accessToken);
+    return this.authService.getUserFromToken(auth.accessToken);
   }
 }

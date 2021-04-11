@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import App from "./App";
 import "./styles/tailwind.css";
 import "./styles/global.css";
+import "focus-visible/dist/focus-visible";
 
 export const queryClient = new QueryClient();
 

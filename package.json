@@ -5,13 +5,17 @@
   "workspaces": {
     "packages": [
       "packages/*"
+    ],
+    "nohoist": [
+      "**/@types/webpack",
+      "**/@types/webpack/**"
     ]
   },
   "scripts": {
     "api": "yarn workspace @vp/api",
     "web": "yarn workspace @vp/web",
     "common": "yarn workspace @vp/common",
-    "dev:api": "yarn workspace @vp/api start:esbuild",
+    "dev:api": "yarn workspace @vp/api start:dev",
     "dev:web": "yarn workspace @vp/web dev",
     "gen:web": "yarn workspace @vp/web gen",
     "nest": "yarn workspace @vp/api nest",

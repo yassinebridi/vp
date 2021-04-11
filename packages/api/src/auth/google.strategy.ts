@@ -10,7 +10,7 @@ import { AuthService } from './auth.service';
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
   constructor(
     private readonly authService: AuthService,
-    readonly configService: ConfigService
+    readonly configService: ConfigService,
   ) {
     super({
       clientID: configService.get<OauthConfig>('oauth').google.clientID,
@@ -23,7 +23,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
   async validate(
     _accessToken: string,
     _refreshToken: string,
-    profile: Profile
+    profile: Profile,
   ): Promise<User> {
     const user = await this.authService.getAuthUser({
       OR: [{ googleId: profile.id }, { email: profile._json.email }],

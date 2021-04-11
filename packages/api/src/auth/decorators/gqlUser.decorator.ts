@@ -6,5 +6,5 @@ export const GqlUser = createParamDecorator(
   (data: unknown, context: ExecutionContext): User => {
     const ctx = GqlExecutionContext.create(context).getContext();
     return ctx.req && ctx.req.user;
-  }
+  },
 );

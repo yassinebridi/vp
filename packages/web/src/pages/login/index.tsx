@@ -17,40 +17,40 @@ const LoginPage: React.FC<LoginProps> = () => {
           </h2>
         </div>
 
-        <div className="flex flex-col text-center sm:flex-row space-y-2 sm:space-y-0 space-x-0 sm:mt-5 lg:mt-0 sm:space-x-4">
-          <Button
-            colorScheme="gray"
-            variant="outline"
-            className="items-center justify-center flex-auto shadow-sm"
-            onClick={() => {
-              window.location.href = `${
-                import.meta.env.VITE_PUBLIC_SERVER_URL
-              }/auth/facebook`;
-            }}
-          >
-            <FaFacebook className="w-5 h-5 mr-2 -ml-1 text-gray-600 dark:text-gray-400" />
-            <span className="text-gray-600 dark:text-gray-400">Facebook</span>
-          </Button>
+        {/* <div className="flex flex-col text-center sm:flex-row space-y-2 sm:space-y-0 space-x-0 sm:mt-5 lg:mt-0 sm:space-x-4"> */}
+        {/*   <Button */}
+        {/*     colorScheme="gray" */}
+        {/*     variant="outline" */}
+        {/*     className="items-center justify-center flex-auto shadow-sm" */}
+        {/*     onClick={() => { */}
+        {/*       window.location.href = `${ */}
+        {/*         import.meta.env.VITE_PUBLIC_SERVER_URL */}
+        {/*       }/auth/facebook`; */}
+        {/*     }} */}
+        {/*   > */}
+        {/*     <FaFacebook className="w-5 h-5 mr-2 -ml-1 text-gray-600 dark:text-gray-400" /> */}
+        {/*     <span className="text-gray-600 dark:text-gray-400">Facebook</span> */}
+        {/*   </Button> */}
 
-          <Button
-            variant="outline"
-            className="shadow-sm"
-            onClick={() => {
-              window.location.href = `${
-                import.meta.env.VITE_PUBLIC_SERVER_URL
-              }/auth/google`;
-            }}
-          >
-            <FaGoogle className="w-4 h-4 mr-2 text-gray-600 dark:text-gray-400 sm:-ml-1 sm:mr-0 sm:-ml-0" />
-            <span className="text-gray-600 dark:text-gray-400 sm:hidden">
-              Google
-            </span>
-          </Button>
-        </div>
+        {/*   <Button */}
+        {/*     variant="outline" */}
+        {/*     className="shadow-sm" */}
+        {/*     onClick={() => { */}
+        {/*       window.location.href = `${ */}
+        {/*         import.meta.env.VITE_PUBLIC_SERVER_URL */}
+        {/*       }/auth/google`; */}
+        {/*     }} */}
+        {/*   > */}
+        {/*     <FaGoogle className="w-4 h-4 mr-2 text-gray-600 dark:text-gray-400 sm:-ml-1 sm:mr-0 sm:-ml-0" /> */}
+        {/*     <span className="text-gray-600 dark:text-gray-400 sm:hidden"> */}
+        {/*       Google */}
+        {/*     </span> */}
+        {/*   </Button> */}
+        {/* </div> */}
 
-        <p className="text-sm text-center text-gray-500 dark:text-gray-400">
-          Or continue with
-        </p>
+        {/* <p className="text-sm text-center text-gray-500 dark:text-gray-400"> */}
+        {/*   Or continue with */}
+        {/* </p> */}
 
         <LoginForm />
       </div>

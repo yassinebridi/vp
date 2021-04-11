@@ -10,7 +10,7 @@ import { AuthService } from './auth.service';
 export class FacebookStrategy extends PassportStrategy(Strategy, 'facebook') {
   constructor(
     private readonly authService: AuthService,
-    readonly configService: ConfigService
+    readonly configService: ConfigService,
   ) {
     super({
       clientID: configService.get<OauthConfig>('oauth').facebook.clientID,
@@ -26,7 +26,7 @@ export class FacebookStrategy extends PassportStrategy(Strategy, 'facebook') {
   async validate(
     _accessToken: string,
     _refreshToken: string,
-    profile: Profile
+    profile: Profile,
   ): Promise<User> {
     const user = await this.authService.getAuthUser({
       OR: [{ facebookId: profile.id }, { email: profile._json.email }],

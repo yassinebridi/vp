@@ -1,8 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
-import {
-  SettingsUpdateInput,
-  SettingsWhereUniqueInput,
-} from 'src/@generated';
+import { SettingsUpdateInput, SettingsWhereUniqueInput } from 'src/@generated';
 
 @InputType()
 export class UpdateSettingsInput {
