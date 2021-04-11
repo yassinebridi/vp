@@ -2,6 +2,8 @@ query me {
   me {
     id
     name
+    firstname
+    lastname
     email
     avatar
   }

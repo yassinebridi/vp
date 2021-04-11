@@ -1,18 +1,19 @@
 import { ChevronRightIcon, HamburgerIcon, SearchIcon } from "@chakra-ui/icons";
 import { Input } from "@chakra-ui/react";
-import DropDown from "@design-system/dropdown";
-import { MeQuery } from "@adapters";
-import { useExpandSidebarStore } from "@utils";
-import { useProfileStore } from "@utils";
-import { useSidebarStore } from "@utils";
-import React from "react";
 import { ThemeChanger } from "@components";
+import DropDown from "@design-system/dropdown";
+import {
+  useExpandSidebarStore,
+  useMe,
+  useProfileStore,
+  useSidebarStore,
+} from "@utils";
+import React from "react";
 
-export interface HeaderProps {
-  me: MeQuery["me"];
-}
-const Header: React.FC<HeaderProps> = ({ me }) => {
+export interface HeaderProps {}
+const Header: React.FC<HeaderProps> = () => {
   const { setSidebarProps, sidebarProps } = useSidebarStore();
+  const { meData } = useMe();
   const { setExpandSidebarProps, expandSidebarProps } = useExpandSidebarStore();
   const { setProfileProps, profileProps } = useProfileStore();
 
@@ -21,7 +22,7 @@ const Header: React.FC<HeaderProps> = ({ me }) => {
       <div className="container flex items-center justify-between h-full px-6 mx-auto text-blue-600 dark:text-blue-300">
         {!expandSidebarProps.expand && (
           <button
-            className="absolute bg-gray-200 dark:bg-gray-900 py-1 left-0 hidden text-white text-blue-600 dark:text-blue-300 top-2.5 lg:block rounded-r-md"
+            className="absolute bg-gray-200 dark:bg-gray-900 py-1 left-0 hidden text-white text-blue-600 dark:text-blue-300 top-1.5 lg:block rounded-r-md"
             onClick={() => setExpandSidebarProps(true)}
             aria-label="Menu"
             title="Expand"
@@ -61,7 +62,7 @@ const Header: React.FC<HeaderProps> = ({ me }) => {
           </li>
 
           <li className="relative">
-            <DropDown me={me} />
+            <DropDown me={meData.me} />
           </li>
         </ul>
       </div>

@@ -457,6 +457,16 @@ export type UpdateSettingsMutation = (
   & Pick<Mutation, 'updateSettings'>
 );
 
+export type UpdateUserMutationVariables = Exact<{
+  updateUserInput: UpdateUserInput;
+}>;
+
+
+export type UpdateUserMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'updateUser'>
+);
+
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -464,7 +474,7 @@ export type MeQuery = (
   { __typename?: 'Query' }
   & { me: (
     { __typename?: 'User' }
-    & Pick<User, 'id' | 'name' | 'email' | 'avatar'>
+    & Pick<User, 'id' | 'name' | 'firstname' | 'lastname' | 'email' | 'avatar'>
   ) }
 );
 
@@ -608,11 +618,26 @@ export const useUpdateSettingsMutation = <
       (variables?: UpdateSettingsMutationVariables) => client<UpdateSettingsMutation, UpdateSettingsMutationVariables>(UpdateSettingsDocument, variables)(),
       options
     );
+export const UpdateUserDocument = `
+    mutation updateUser($updateUserInput: UpdateUserInput!) {
+  updateUser(updateUserInput: $updateUserInput)
+}
+    `;
+export const useUpdateUserMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<UpdateUserMutation, TError, UpdateUserMutationVariables, TContext>) => 
+    useMutation<UpdateUserMutation, TError, UpdateUserMutationVariables, TContext>(
+      (variables?: UpdateUserMutationVariables) => client<UpdateUserMutation, UpdateUserMutationVariables>(UpdateUserDocument, variables)(),
+      options
+    );
 export const MeDocument = `
     query me {
   me {
     id
     name
+    firstname
+    lastname
     email
     avatar
   }
@@ -630,6 +655,8 @@ export const useMeQuery = <
       client<MeQuery, MeQueryVariables>(MeDocument, variables),
       options
     );
+useMeQuery.getKey = (variables?: MeQueryVariables) => ['me', variables];
+
 export const SearchUsersDocument = `
     mutation searchUsers($where: UserWhereInput, $orderBy: [UserOrderByInput!], $cursor: UserWhereUniqueInput, $take: Int, $skip: Int, $distinct: [UserScalarFieldEnum!]) {
   searchUsers(
@@ -671,6 +698,8 @@ export const useGetOneUserQuery = <
       client<GetOneUserQuery, GetOneUserQueryVariables>(GetOneUserDocument, variables),
       options
     );
+useGetOneUserQuery.getKey = (variables: GetOneUserQueryVariables) => ['getOneUser', variables];
+
 export const UsersDocument = `
     query users($where: UserWhereInput, $orderBy: [UserOrderByInput!], $cursor: UserWhereUniqueInput, $take: Int, $skip: Int, $distinct: [UserScalarFieldEnum!]) {
   getAllUsers(
@@ -697,6 +726,8 @@ export const useUsersQuery = <
       client<UsersQuery, UsersQueryVariables>(UsersDocument, variables),
       options
     );
+useUsersQuery.getKey = (variables?: UsersQueryVariables) => ['users', variables];
+
 export const GetOneSettingsDocument = `
     query getOneSettings($where: SettingsWhereUniqueInput!) {
   getOneSettings(where: $where) {
@@ -716,3 +747,4 @@ export const useGetOneSettingsQuery = <
       client<GetOneSettingsQuery, GetOneSettingsQueryVariables>(GetOneSettingsDocument, variables),
       options
     );
+useGetOneSettingsQuery.getKey = (variables: GetOneSettingsQueryVariables) => ['getOneSettings', variables];

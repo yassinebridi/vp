@@ -9,7 +9,7 @@ import React, { FC } from "react";
 import { UseFormRegister } from "react-hook-form";
 
 type MyInputProps = InputProps & {
-  label: string;
+  label?: string;
   placeholder: string;
   register: UseFormRegister<any>;
   name: string;

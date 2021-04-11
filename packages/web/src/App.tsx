@@ -1,5 +1,5 @@
 import { HomeLayout } from "@layouts";
-import { HomePage, LoginPage } from "@pages";
+import { HomePage, LoginPage, SettingsPage } from "@pages";
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -15,6 +15,12 @@ const App: React.FC<AppProps> = () => {
     <Router>
       <Switch>
         <CustomRoute exact path="/" component={HomePage} layout={HomeLayout} />
+        <CustomRoute
+          exact
+          path="/settings"
+          component={SettingsPage}
+          layout={HomeLayout}
+        />
         <Route exact path="/login" component={LoginPage} />
         <Redirect to="/" />
       </Switch>
