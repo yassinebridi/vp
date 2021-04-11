@@ -1,1 +1,1 @@
-export const CLOUDINARY_NAME = "quentent"
+export const CLOUDINARY_NAME = "videplacard";

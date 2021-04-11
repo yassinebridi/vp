@@ -1,0 +1,5 @@
+query getOneUser($where: UserWhereUniqueInput!) {
+  getOneUser(where: $where) {
+    ...UserFields
+  }
+}

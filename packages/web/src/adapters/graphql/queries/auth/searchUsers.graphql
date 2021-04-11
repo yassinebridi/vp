@@ -1,0 +1,19 @@
+mutation searchUsers(
+  $where: UserWhereInput
+  $orderBy: [UserOrderByInput!]
+  $cursor: UserWhereUniqueInput
+  $take: Int
+  $skip: Int
+  $distinct: [UserScalarFieldEnum!]
+) {
+  searchUsers(
+    where: $where
+    orderBy: $orderBy
+    cursor: $cursor
+    take: $take
+    skip: $skip
+    distinct: $distinct
+  ) {
+    ...UserFields
+  }
+}

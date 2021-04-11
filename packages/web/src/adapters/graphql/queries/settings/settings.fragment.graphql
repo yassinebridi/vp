@@ -1,0 +1,5 @@
+fragment SettingsFields on Settings {
+  id
+  urls
+  defaultRole
+}
