@@ -7,6 +7,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
+
 generator nestgraphql {
   provider   = "node ../../node_modules/.bin/prisma-nestjs-graphql"
   output     = "../src/@generated"
@@ -14,33 +18,148 @@ generator nestgraphql {
 }
 
 model User {
-  id         String   @id @default(cuid())
-  email      String   @unique
+  id         String     @id @default(cuid())
+  email      String     @unique
   password   String
   firstname  String?
   lastname   String?
   avatar     String?
-  role       Role
+  role       UserRole
+  status     UserStatus @default(active)
   googleId   String?
   facebookId String?
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  city       City?      @relation(fields: [cityId], references: [id])
+  cityId     String?
+  favorites  Favorite[]
+  likes      Like[]
+  products   Product[]  @relation("createdProducts")
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
 }
 
-model Settings {
-  id          String @id @default(cuid())
-  defaultRole Role
-  urls        String
+model Product {
+  id             String               @id @default(cuid())
+  title          String
+  desc           String
+  price          Float
+  size           ProductSize
+  season         ProductSeason
+  dateOfPurchase DateTime
+  viewsNumber    Int
+  images         ProductImage[]
+  city           City                 @relation(fields: [cityId], references: [id])
+  cityId         String
+  category       Category             @relation(fields: [categoryId], references: [id])
+  categoryId     String
+  brand          Brand                @relation(fields: [brandId], references: [id])
+  brandId        String
+  author         User?                @relation("createdProducts", fields: [authorId], references: [id])
+  authorId       String?
+  favorites      Favorite[]
+  likes          Like[]
+  publishStatus  ProductPublishStatus
+  productStatus  ProductStatus
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
 }
 
-enum Role {
+model ProductImage {
+  id        String   @id @default(cuid())
+  title     String
+  desc      String
+  url       String
+  product   Product? @relation(fields: [productId], references: [id])
+  productId String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Brand {
+  id        String    @id @default(cuid())
+  name      String
+  products  Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  name      String
+  products  Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model City {
+  id        String    @id @default(cuid())
+  name      String
+  products  Product[]
+  users     User[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Favorite {
+  id        String   @id @default(cuid())
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+  product   Product? @relation(fields: [productId], references: [id])
+  productId String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Like {
+  id        String   @id @default(cuid())
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+  product   Product? @relation(fields: [productId], references: [id])
+  productId String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum UserRole {
   admin
   editor
   visitor
 }
 
-enum PostStatus {
+enum UserStatus {
+  blocked
+  active
+}
+
+enum ProductPublishStatus {
   published
   draft
   trash
+}
+
+enum ProductStatus {
+  new_with_tags
+  new
+  like_new
+  medium
+  normal
+  low
+  degraded
+}
+
+enum ProductSeason {
+  spring
+  summer
+  fall
+  winter
+}
+
+enum ProductSize {
+  xs
+  s
+  m
+  l
+  xl
+  xxl
+  xxxl
+  xxxxl
 }

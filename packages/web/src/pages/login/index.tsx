@@ -1,7 +1,5 @@
-import { Button } from "@chakra-ui/react";
 import { LoginForm } from "@components";
 import React from "react";
-import { FaFacebook, FaGoogle } from "react-icons/fa";
 
 export interface LoginProps {}
 const LoginPage: React.FC<LoginProps> = () => {
@@ -9,7 +7,7 @@ const LoginPage: React.FC<LoginProps> = () => {
     <div className="flex items-center justify-center min-h-screen px-4 py-12 text-gray-900 sm:px-6 lg:px-8 dark:text-gray-50 bg-gray-50 dark:bg-gray-900">
       <div className="w-full max-w-md space-y-8">
         <div>
-          <h1 className="mt-6 uppercase text-4xl font-extrabold text-blue-500 text-center">
+          <h1 className="mt-6 text-4xl font-extrabold text-center text-blue-500 uppercase">
             Dashy
           </h1>
           <h2 className="mt-6 text-2xl font-bold text-center">

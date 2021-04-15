@@ -1,0 +1,170 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table User {
+  id String [pk]
+  email String [unique, not null]
+  password String [not null]
+  firstname String
+  lastname String
+  avatar String
+  role UserRole [not null]
+  status UserStatus [not null, default: 'active']
+  googleId String
+  facebookId String
+  city City
+  cityId String
+  favorites Favorite [not null]
+  likes Like [not null]
+  products Product [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table Product {
+  id String [pk]
+  title String [not null]
+  desc String [not null]
+  price Float [not null]
+  size ProductSize [not null]
+  season ProductSeason [not null]
+  dateOfPurchase DateTime [not null]
+  viewsNumber Int [not null]
+  images ProductImage [not null]
+  city City [not null]
+  cityId String [not null]
+  category Category [not null]
+  categoryId String [not null]
+  brand Brand [not null]
+  brandId String [not null]
+  author User
+  authorId String
+  favorites Favorite [not null]
+  likes Like [not null]
+  publishStatus ProductPublishStatus [not null]
+  productStatus ProductStatus [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table ProductImage {
+  id String [pk]
+  title String [not null]
+  desc String [not null]
+  url String [not null]
+  product Product
+  productId String
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table Brand {
+  id String [pk]
+  name String [not null]
+  products Product [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table Category {
+  id String [pk]
+  name String [not null]
+  products Product [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table City {
+  id String [pk]
+  name String [not null]
+  products Product [not null]
+  users User [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table Favorite {
+  id String [pk]
+  user User
+  userId String
+  product Product
+  productId String
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table Like {
+  id String [pk]
+  user User
+  userId String
+  product Product
+  productId String
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Enum UserRole {
+  admin
+  editor
+  visitor
+}
+
+Enum UserStatus {
+  blocked
+  active
+}
+
+Enum ProductPublishStatus {
+  published
+  draft
+  trash
+}
+
+Enum ProductStatus {
+  new_with_tags
+  new
+  like_new
+  medium
+  normal
+  low
+  degraded
+}
+
+Enum ProductSeason {
+  spring
+  summer
+  fall
+  winter
+}
+
+Enum ProductSize {
+  xs
+  s
+  m
+  l
+  xl
+  xxl
+  xxxl
+  xxxxl
+}
+
+Ref: User.cityId > City.id
+
+Ref: Product.cityId > City.id
+
+Ref: Product.categoryId > Category.id
+
+Ref: Product.brandId > Brand.id
+
+Ref: Product.authorId > User.id
+
+Ref: ProductImage.productId > Product.id
+
+Ref: Favorite.userId > User.id
+
+Ref: Favorite.productId > Product.id
+
+Ref: Like.userId > User.id
+
+Ref: Like.productId > Product.id

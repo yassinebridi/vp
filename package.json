@@ -16,6 +16,7 @@
     "web": "yarn workspace @vp/web",
     "common": "yarn workspace @vp/common",
     "dev:api": "yarn workspace @vp/api start:dev",
+    "dev:api:vite": "yarn workspace @vp/api start:dev:vite",
     "dev:web": "yarn workspace @vp/web dev",
     "gen:web": "yarn workspace @vp/web gen",
     "nest": "yarn workspace @vp/api nest",
