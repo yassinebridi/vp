@@ -8,7 +8,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '@prisma/client';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
-import { Role, UserWhereInput } from '../@generated';
+import { UserRole, UserWhereInput } from '../@generated';
 import { SecurityConfig } from '../configs/config.interface';
 import { PrismaService } from '../prisma/prisma.service';
 import { isProd } from '../utils/helpers';
@@ -37,7 +37,7 @@ export class AuthService {
         lastname: profile.name.familyName,
         email: profile._json.email,
         avatar: profile._json.picture,
-        role: Role.visitor,
+        role: UserRole.visitor,
         googleId: profile.id,
         password: '',
       },
@@ -70,7 +70,7 @@ export class AuthService {
         lastname: profile.name.familyName,
         email: profile._json.email,
         avatar: profile._json.picture.data.url,
-        role: Role.visitor,
+        role: UserRole.visitor,
         facebookId: profile.id,
         password: '',
       },
@@ -108,7 +108,7 @@ export class AuthService {
         data: {
           ...payload,
           password: hashedPassword,
-          role: Role.visitor,
+          role: UserRole.visitor,
         },
       });
 

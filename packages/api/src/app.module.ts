@@ -4,7 +4,6 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
 import config from './configs/config';
-import { SettingsModule } from './settings/settings.module';
 import { UserModule } from './users/users.module';
 
 @Module({
@@ -27,7 +26,6 @@ import { UserModule } from './users/users.module';
     }),
     AuthModule,
     UserModule,
-    SettingsModule,
   ],
   providers: [],
 })
