@@ -6,18 +6,22 @@ Table User {
   id String [pk]
   email String [unique, not null]
   password String [not null]
-  firstname String
-  lastname String
+  firstName String [not null]
+  lastName String [not null]
   avatar String
+  phoneNumber String [not null]
+  showPhoneNumber Boolean [not null, default: true]
   role UserRole [not null]
   status UserStatus [not null, default: 'active']
   googleId String
   facebookId String
   city City
   cityId String
+  products Product [not null]
   favorites Favorite [not null]
   likes Like [not null]
-  products Product [not null]
+  followedBy User [not null]
+  following User [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
 }
@@ -102,6 +106,11 @@ Table Like {
   productId String
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
+}
+
+Table UserFollows {
+  followedbyId String [ref: > User.id]
+  followingId String [ref: > User.id]
 }
 
 Enum UserRole {

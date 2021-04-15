@@ -82,6 +82,6 @@ export class UserResolver {
 
   @ResolveField('name', () => String)
   async name(@Parent() user: User) {
-    return `${user.firstname} ${user.lastname}`;
+    return `${user.firstName} ${user.lastName}`;
   }
 }

@@ -18,23 +18,27 @@ generator nestgraphql {
 }
 
 model User {
-  id         String     @id @default(cuid())
-  email      String     @unique
-  password   String
-  firstname  String?
-  lastname   String?
-  avatar     String?
-  role       UserRole
-  status     UserStatus @default(active)
-  googleId   String?
-  facebookId String?
-  city       City?      @relation(fields: [cityId], references: [id])
-  cityId     String?
-  favorites  Favorite[]
-  likes      Like[]
-  products   Product[]  @relation("createdProducts")
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
+  id              String     @id @default(cuid())
+  email           String     @unique
+  password        String
+  firstName       String
+  lastName        String
+  avatar          String?
+  phoneNumber     String
+  showPhoneNumber Boolean    @default(true)
+  role            UserRole
+  status          UserStatus @default(active)
+  googleId        String?
+  facebookId      String?
+  city            City?      @relation(fields: [cityId], references: [id])
+  cityId          String?
+  products        Product[]
+  favorites       Favorite[]
+  likes           Like[]
+  followedBy      User[]     @relation("UserFollows", references: [id])
+  following       User[]     @relation("UserFollows", references: [id])
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
 }
 
 model Product {
@@ -53,7 +57,7 @@ model Product {
   categoryId     String
   brand          Brand                @relation(fields: [brandId], references: [id])
   brandId        String
-  author         User?                @relation("createdProducts", fields: [authorId], references: [id])
+  author         User?                @relation(fields: [authorId], references: [id])
   authorId       String?
   favorites      Favorite[]
   likes          Like[]

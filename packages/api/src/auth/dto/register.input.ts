@@ -8,9 +8,12 @@ export class RegisterInput {
   @Field()
   password: string;
 
-  @Field({ nullable: true })
-  firstname?: string;
+  @Field()
+  firstName: string;
 
-  @Field({ nullable: true })
-  lastname?: string;
+  @Field()
+  lastName: string;
+
+  @Field()
+  phoneNumber: string;
 }

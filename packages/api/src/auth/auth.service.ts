@@ -33,13 +33,14 @@ export class AuthService {
   createGoogleUser(profile: GoogleProfile) {
     return this.prismaService.user.create({
       data: {
-        firstname: profile.name.givenName,
-        lastname: profile.name.familyName,
+        firstName: profile.name.givenName,
+        lastName: profile.name.familyName,
         email: profile._json.email,
         avatar: profile._json.picture,
         role: UserRole.visitor,
         googleId: profile.id,
         password: '',
+        phoneNumber: 's',
       },
     });
   }
@@ -66,13 +67,14 @@ export class AuthService {
   createFacebookUser(profile: FacebookProfile) {
     return this.prismaService.user.create({
       data: {
-        firstname: profile.name.givenName,
-        lastname: profile.name.familyName,
+        firstName: profile.name.givenName,
+        lastName: profile.name.familyName,
         email: profile._json.email,
         avatar: profile._json.picture.data.url,
         role: UserRole.visitor,
         facebookId: profile.id,
         password: '',
+        phoneNumber: 's',
       },
     });
   }

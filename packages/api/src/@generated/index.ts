@@ -11,9 +11,11 @@ export enum UserScalarFieldEnum {
     id = "id",
     email = "email",
     password = "password",
-    firstname = "firstname",
-    lastname = "lastname",
+    firstName = "firstName",
+    lastName = "lastName",
     avatar = "avatar",
+    phoneNumber = "phoneNumber",
+    showPhoneNumber = "showPhoneNumber",
     role = "role",
     status = "status",
     googleId = "googleId",
@@ -3418,6 +3420,34 @@ export class AffectedRows {
 }
 
 @InputType()
+export class BoolFieldUpdateOperationsInput {
+    @Field(() => Boolean, {nullable:true})
+    set?: boolean;
+}
+
+@InputType()
+export class BoolFilter {
+    @Field(() => Boolean, {nullable:true})
+    equals?: boolean;
+    @Field(() => NestedBoolFilter, {nullable:true})
+    not?: InstanceType<typeof NestedBoolFilter>;
+}
+
+@InputType()
+export class BoolWithAggregatesFilter {
+    @Field(() => Boolean, {nullable:true})
+    equals?: boolean;
+    @Field(() => NestedBoolWithAggregatesFilter, {nullable:true})
+    not?: InstanceType<typeof NestedBoolWithAggregatesFilter>;
+    @Field(() => NestedIntFilter, {nullable:true})
+    count?: InstanceType<typeof NestedIntFilter>;
+    @Field(() => NestedBoolFilter, {nullable:true})
+    min?: InstanceType<typeof NestedBoolFilter>;
+    @Field(() => NestedBoolFilter, {nullable:true})
+    max?: InstanceType<typeof NestedBoolFilter>;
+}
+
+@InputType()
 export class DateTimeFieldUpdateOperationsInput {
     @Field(() => Date, {nullable:true})
     set?: Date | string;
@@ -3811,6 +3841,28 @@ export class IntWithAggregatesFilter {
     min?: InstanceType<typeof NestedIntFilter>;
     @Field(() => NestedIntFilter, {nullable:true})
     max?: InstanceType<typeof NestedIntFilter>;
+}
+
+@InputType()
+export class NestedBoolFilter {
+    @Field(() => Boolean, {nullable:true})
+    equals?: boolean;
+    @Field(() => NestedBoolFilter, {nullable:true})
+    not?: InstanceType<typeof NestedBoolFilter>;
+}
+
+@InputType()
+export class NestedBoolWithAggregatesFilter {
+    @Field(() => Boolean, {nullable:true})
+    equals?: boolean;
+    @Field(() => NestedBoolWithAggregatesFilter, {nullable:true})
+    not?: InstanceType<typeof NestedBoolWithAggregatesFilter>;
+    @Field(() => NestedIntFilter, {nullable:true})
+    count?: InstanceType<typeof NestedIntFilter>;
+    @Field(() => NestedBoolFilter, {nullable:true})
+    min?: InstanceType<typeof NestedBoolFilter>;
+    @Field(() => NestedBoolFilter, {nullable:true})
+    max?: InstanceType<typeof NestedBoolFilter>;
 }
 
 @InputType()
@@ -8170,11 +8222,15 @@ export class UserCountAggregateInput {
     @Field(() => Boolean, {nullable:true})
     password?: true;
     @Field(() => Boolean, {nullable:true})
-    firstname?: true;
+    firstName?: true;
     @Field(() => Boolean, {nullable:true})
-    lastname?: true;
+    lastName?: true;
     @Field(() => Boolean, {nullable:true})
     avatar?: true;
+    @Field(() => Boolean, {nullable:true})
+    phoneNumber?: true;
+    @Field(() => Boolean, {nullable:true})
+    showPhoneNumber?: true;
     @Field(() => Boolean, {nullable:true})
     role?: true;
     @Field(() => Boolean, {nullable:true})
@@ -8202,11 +8258,15 @@ export class UserCountAggregate {
     @Field(() => Int, {nullable:true})
     password?: number;
     @Field(() => Int, {nullable:true})
-    firstname?: number;
+    firstName?: number;
     @Field(() => Int, {nullable:true})
-    lastname?: number;
+    lastName?: number;
     @Field(() => Int, {nullable:true})
     avatar?: number;
+    @Field(() => Int, {nullable:true})
+    phoneNumber?: number;
+    @Field(() => Int, {nullable:true})
+    showPhoneNumber?: number;
     @Field(() => Int, {nullable:true})
     role?: number;
     @Field(() => Int, {nullable:true})
@@ -8241,12 +8301,16 @@ export class UserCreateManyCityInput {
     email!: string;
     @Field(() => String, {nullable:false})
     password!: string;
-    @Field(() => String, {nullable:true})
-    firstname?: string;
-    @Field(() => String, {nullable:true})
-    lastname?: string;
+    @Field(() => String, {nullable:false})
+    firstName!: string;
+    @Field(() => String, {nullable:false})
+    lastName!: string;
     @Field(() => String, {nullable:true})
     avatar?: string;
+    @Field(() => String, {nullable:false})
+    phoneNumber!: string;
+    @Field(() => Boolean, {nullable:true})
+    showPhoneNumber?: boolean;
     @Field(() => UserRole, {nullable:false})
     role!: UserRole;
     @Field(() => UserStatus, {nullable:true})
@@ -8269,12 +8333,16 @@ export class UserCreateManyInput {
     email!: string;
     @Field(() => String, {nullable:false})
     password!: string;
-    @Field(() => String, {nullable:true})
-    firstname?: string;
-    @Field(() => String, {nullable:true})
-    lastname?: string;
+    @Field(() => String, {nullable:false})
+    firstName!: string;
+    @Field(() => String, {nullable:false})
+    lastName!: string;
     @Field(() => String, {nullable:true})
     avatar?: string;
+    @Field(() => String, {nullable:false})
+    phoneNumber!: string;
+    @Field(() => Boolean, {nullable:true})
+    showPhoneNumber?: boolean;
     @Field(() => UserRole, {nullable:false})
     role!: UserRole;
     @Field(() => UserStatus, {nullable:true})
@@ -8299,6 +8367,26 @@ export class UserCreateNestedManyWithoutCityInput {
     connectOrCreate?: Array<UserCreateOrConnectWithoutCityInput>;
     @Field(() => UserCreateManyCityInputEnvelope, {nullable:true})
     createMany?: InstanceType<typeof UserCreateManyCityInputEnvelope>;
+    @Field(() => [UserWhereUniqueInput], {nullable:true})
+    connect?: Array<UserWhereUniqueInput>;
+}
+
+@InputType()
+export class UserCreateNestedManyWithoutFollowedByInput {
+    @Field(() => [UserCreateWithoutFollowedByInput], {nullable:true})
+    create?: Array<UserCreateWithoutFollowedByInput>;
+    @Field(() => [UserCreateOrConnectWithoutFollowedByInput], {nullable:true})
+    connectOrCreate?: Array<UserCreateOrConnectWithoutFollowedByInput>;
+    @Field(() => [UserWhereUniqueInput], {nullable:true})
+    connect?: Array<UserWhereUniqueInput>;
+}
+
+@InputType()
+export class UserCreateNestedManyWithoutFollowingInput {
+    @Field(() => [UserCreateWithoutFollowingInput], {nullable:true})
+    create?: Array<UserCreateWithoutFollowingInput>;
+    @Field(() => [UserCreateOrConnectWithoutFollowingInput], {nullable:true})
+    connectOrCreate?: Array<UserCreateOrConnectWithoutFollowingInput>;
     @Field(() => [UserWhereUniqueInput], {nullable:true})
     connect?: Array<UserWhereUniqueInput>;
 }
@@ -8350,6 +8438,22 @@ export class UserCreateOrConnectWithoutFavoritesInput {
 }
 
 @InputType()
+export class UserCreateOrConnectWithoutFollowedByInput {
+    @Field(() => UserWhereUniqueInput, {nullable:false})
+    where!: InstanceType<typeof UserWhereUniqueInput>;
+    @Field(() => UserCreateWithoutFollowedByInput, {nullable:false})
+    create!: InstanceType<typeof UserCreateWithoutFollowedByInput>;
+}
+
+@InputType()
+export class UserCreateOrConnectWithoutFollowingInput {
+    @Field(() => UserWhereUniqueInput, {nullable:false})
+    where!: InstanceType<typeof UserWhereUniqueInput>;
+    @Field(() => UserCreateWithoutFollowingInput, {nullable:false})
+    create!: InstanceType<typeof UserCreateWithoutFollowingInput>;
+}
+
+@InputType()
 export class UserCreateOrConnectWithoutLikesInput {
     @Field(() => UserWhereUniqueInput, {nullable:false})
     where!: InstanceType<typeof UserWhereUniqueInput>;
@@ -8373,12 +8477,16 @@ export class UserCreateWithoutCityInput {
     email!: string;
     @Field(() => String, {nullable:false})
     password!: string;
-    @Field(() => String, {nullable:true})
-    firstname?: string;
-    @Field(() => String, {nullable:true})
-    lastname?: string;
+    @Field(() => String, {nullable:false})
+    firstName!: string;
+    @Field(() => String, {nullable:false})
+    lastName!: string;
     @Field(() => String, {nullable:true})
     avatar?: string;
+    @Field(() => String, {nullable:false})
+    phoneNumber!: string;
+    @Field(() => Boolean, {nullable:true})
+    showPhoneNumber?: boolean;
     @Field(() => UserRole, {nullable:false})
     role!: UserRole;
     @Field(() => UserStatus, {nullable:true})
@@ -8391,12 +8499,16 @@ export class UserCreateWithoutCityInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+    @Field(() => ProductCreateNestedManyWithoutAuthorInput, {nullable:true})
+    products?: InstanceType<typeof ProductCreateNestedManyWithoutAuthorInput>;
     @Field(() => FavoriteCreateNestedManyWithoutUserInput, {nullable:true})
     favorites?: InstanceType<typeof FavoriteCreateNestedManyWithoutUserInput>;
     @Field(() => LikeCreateNestedManyWithoutUserInput, {nullable:true})
     likes?: InstanceType<typeof LikeCreateNestedManyWithoutUserInput>;
-    @Field(() => ProductCreateNestedManyWithoutAuthorInput, {nullable:true})
-    products?: InstanceType<typeof ProductCreateNestedManyWithoutAuthorInput>;
+    @Field(() => UserCreateNestedManyWithoutFollowingInput, {nullable:true})
+    followedBy?: InstanceType<typeof UserCreateNestedManyWithoutFollowingInput>;
+    @Field(() => UserCreateNestedManyWithoutFollowedByInput, {nullable:true})
+    following?: InstanceType<typeof UserCreateNestedManyWithoutFollowedByInput>;
 }
 
 @InputType()
@@ -8407,12 +8519,16 @@ export class UserCreateWithoutFavoritesInput {
     email!: string;
     @Field(() => String, {nullable:false})
     password!: string;
-    @Field(() => String, {nullable:true})
-    firstname?: string;
-    @Field(() => String, {nullable:true})
-    lastname?: string;
+    @Field(() => String, {nullable:false})
+    firstName!: string;
+    @Field(() => String, {nullable:false})
+    lastName!: string;
     @Field(() => String, {nullable:true})
     avatar?: string;
+    @Field(() => String, {nullable:false})
+    phoneNumber!: string;
+    @Field(() => Boolean, {nullable:true})
+    showPhoneNumber?: boolean;
     @Field(() => UserRole, {nullable:false})
     role!: UserRole;
     @Field(() => UserStatus, {nullable:true})
@@ -8427,10 +8543,98 @@ export class UserCreateWithoutFavoritesInput {
     updatedAt?: Date | string;
     @Field(() => CityCreateNestedOneWithoutUsersInput, {nullable:true})
     city?: InstanceType<typeof CityCreateNestedOneWithoutUsersInput>;
-    @Field(() => LikeCreateNestedManyWithoutUserInput, {nullable:true})
-    likes?: InstanceType<typeof LikeCreateNestedManyWithoutUserInput>;
     @Field(() => ProductCreateNestedManyWithoutAuthorInput, {nullable:true})
     products?: InstanceType<typeof ProductCreateNestedManyWithoutAuthorInput>;
+    @Field(() => LikeCreateNestedManyWithoutUserInput, {nullable:true})
+    likes?: InstanceType<typeof LikeCreateNestedManyWithoutUserInput>;
+    @Field(() => UserCreateNestedManyWithoutFollowingInput, {nullable:true})
+    followedBy?: InstanceType<typeof UserCreateNestedManyWithoutFollowingInput>;
+    @Field(() => UserCreateNestedManyWithoutFollowedByInput, {nullable:true})
+    following?: InstanceType<typeof UserCreateNestedManyWithoutFollowedByInput>;
+}
+
+@InputType()
+export class UserCreateWithoutFollowedByInput {
+    @Field(() => String, {nullable:true})
+    id?: string;
+    @Field(() => String, {nullable:false})
+    email!: string;
+    @Field(() => String, {nullable:false})
+    password!: string;
+    @Field(() => String, {nullable:false})
+    firstName!: string;
+    @Field(() => String, {nullable:false})
+    lastName!: string;
+    @Field(() => String, {nullable:true})
+    avatar?: string;
+    @Field(() => String, {nullable:false})
+    phoneNumber!: string;
+    @Field(() => Boolean, {nullable:true})
+    showPhoneNumber?: boolean;
+    @Field(() => UserRole, {nullable:false})
+    role!: UserRole;
+    @Field(() => UserStatus, {nullable:true})
+    status?: UserStatus;
+    @Field(() => String, {nullable:true})
+    googleId?: string;
+    @Field(() => String, {nullable:true})
+    facebookId?: string;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => CityCreateNestedOneWithoutUsersInput, {nullable:true})
+    city?: InstanceType<typeof CityCreateNestedOneWithoutUsersInput>;
+    @Field(() => ProductCreateNestedManyWithoutAuthorInput, {nullable:true})
+    products?: InstanceType<typeof ProductCreateNestedManyWithoutAuthorInput>;
+    @Field(() => FavoriteCreateNestedManyWithoutUserInput, {nullable:true})
+    favorites?: InstanceType<typeof FavoriteCreateNestedManyWithoutUserInput>;
+    @Field(() => LikeCreateNestedManyWithoutUserInput, {nullable:true})
+    likes?: InstanceType<typeof LikeCreateNestedManyWithoutUserInput>;
+    @Field(() => UserCreateNestedManyWithoutFollowedByInput, {nullable:true})
+    following?: InstanceType<typeof UserCreateNestedManyWithoutFollowedByInput>;
+}
+
+@InputType()
+export class UserCreateWithoutFollowingInput {
+    @Field(() => String, {nullable:true})
+    id?: string;
+    @Field(() => String, {nullable:false})
+    email!: string;
+    @Field(() => String, {nullable:false})
+    password!: string;
+    @Field(() => String, {nullable:false})
+    firstName!: string;
+    @Field(() => String, {nullable:false})
+    lastName!: string;
+    @Field(() => String, {nullable:true})
+    avatar?: string;
+    @Field(() => String, {nullable:false})
+    phoneNumber!: string;
+    @Field(() => Boolean, {nullable:true})
+    showPhoneNumber?: boolean;
+    @Field(() => UserRole, {nullable:false})
+    role!: UserRole;
+    @Field(() => UserStatus, {nullable:true})
+    status?: UserStatus;
+    @Field(() => String, {nullable:true})
+    googleId?: string;
+    @Field(() => String, {nullable:true})
+    facebookId?: string;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => CityCreateNestedOneWithoutUsersInput, {nullable:true})
+    city?: InstanceType<typeof CityCreateNestedOneWithoutUsersInput>;
+    @Field(() => ProductCreateNestedManyWithoutAuthorInput, {nullable:true})
+    products?: InstanceType<typeof ProductCreateNestedManyWithoutAuthorInput>;
+    @Field(() => FavoriteCreateNestedManyWithoutUserInput, {nullable:true})
+    favorites?: InstanceType<typeof FavoriteCreateNestedManyWithoutUserInput>;
+    @Field(() => LikeCreateNestedManyWithoutUserInput, {nullable:true})
+    likes?: InstanceType<typeof LikeCreateNestedManyWithoutUserInput>;
+    @Field(() => UserCreateNestedManyWithoutFollowingInput, {nullable:true})
+    followedBy?: InstanceType<typeof UserCreateNestedManyWithoutFollowingInput>;
 }
 
 @InputType()
@@ -8441,12 +8645,16 @@ export class UserCreateWithoutLikesInput {
     email!: string;
     @Field(() => String, {nullable:false})
     password!: string;
-    @Field(() => String, {nullable:true})
-    firstname?: string;
-    @Field(() => String, {nullable:true})
-    lastname?: string;
+    @Field(() => String, {nullable:false})
+    firstName!: string;
+    @Field(() => String, {nullable:false})
+    lastName!: string;
     @Field(() => String, {nullable:true})
     avatar?: string;
+    @Field(() => String, {nullable:false})
+    phoneNumber!: string;
+    @Field(() => Boolean, {nullable:true})
+    showPhoneNumber?: boolean;
     @Field(() => UserRole, {nullable:false})
     role!: UserRole;
     @Field(() => UserStatus, {nullable:true})
@@ -8461,10 +8669,14 @@ export class UserCreateWithoutLikesInput {
     updatedAt?: Date | string;
     @Field(() => CityCreateNestedOneWithoutUsersInput, {nullable:true})
     city?: InstanceType<typeof CityCreateNestedOneWithoutUsersInput>;
-    @Field(() => FavoriteCreateNestedManyWithoutUserInput, {nullable:true})
-    favorites?: InstanceType<typeof FavoriteCreateNestedManyWithoutUserInput>;
     @Field(() => ProductCreateNestedManyWithoutAuthorInput, {nullable:true})
     products?: InstanceType<typeof ProductCreateNestedManyWithoutAuthorInput>;
+    @Field(() => FavoriteCreateNestedManyWithoutUserInput, {nullable:true})
+    favorites?: InstanceType<typeof FavoriteCreateNestedManyWithoutUserInput>;
+    @Field(() => UserCreateNestedManyWithoutFollowingInput, {nullable:true})
+    followedBy?: InstanceType<typeof UserCreateNestedManyWithoutFollowingInput>;
+    @Field(() => UserCreateNestedManyWithoutFollowedByInput, {nullable:true})
+    following?: InstanceType<typeof UserCreateNestedManyWithoutFollowedByInput>;
 }
 
 @InputType()
@@ -8475,12 +8687,16 @@ export class UserCreateWithoutProductsInput {
     email!: string;
     @Field(() => String, {nullable:false})
     password!: string;
-    @Field(() => String, {nullable:true})
-    firstname?: string;
-    @Field(() => String, {nullable:true})
-    lastname?: string;
+    @Field(() => String, {nullable:false})
+    firstName!: string;
+    @Field(() => String, {nullable:false})
+    lastName!: string;
     @Field(() => String, {nullable:true})
     avatar?: string;
+    @Field(() => String, {nullable:false})
+    phoneNumber!: string;
+    @Field(() => Boolean, {nullable:true})
+    showPhoneNumber?: boolean;
     @Field(() => UserRole, {nullable:false})
     role!: UserRole;
     @Field(() => UserStatus, {nullable:true})
@@ -8499,6 +8715,10 @@ export class UserCreateWithoutProductsInput {
     favorites?: InstanceType<typeof FavoriteCreateNestedManyWithoutUserInput>;
     @Field(() => LikeCreateNestedManyWithoutUserInput, {nullable:true})
     likes?: InstanceType<typeof LikeCreateNestedManyWithoutUserInput>;
+    @Field(() => UserCreateNestedManyWithoutFollowingInput, {nullable:true})
+    followedBy?: InstanceType<typeof UserCreateNestedManyWithoutFollowingInput>;
+    @Field(() => UserCreateNestedManyWithoutFollowedByInput, {nullable:true})
+    following?: InstanceType<typeof UserCreateNestedManyWithoutFollowedByInput>;
 }
 
 @InputType()
@@ -8509,12 +8729,16 @@ export class UserCreateInput {
     email!: string;
     @Field(() => String, {nullable:false})
     password!: string;
-    @Field(() => String, {nullable:true})
-    firstname?: string;
-    @Field(() => String, {nullable:true})
-    lastname?: string;
+    @Field(() => String, {nullable:false})
+    firstName!: string;
+    @Field(() => String, {nullable:false})
+    lastName!: string;
     @Field(() => String, {nullable:true})
     avatar?: string;
+    @Field(() => String, {nullable:false})
+    phoneNumber!: string;
+    @Field(() => Boolean, {nullable:true})
+    showPhoneNumber?: boolean;
     @Field(() => UserRole, {nullable:false})
     role!: UserRole;
     @Field(() => UserStatus, {nullable:true})
@@ -8529,12 +8753,16 @@ export class UserCreateInput {
     updatedAt?: Date | string;
     @Field(() => CityCreateNestedOneWithoutUsersInput, {nullable:true})
     city?: InstanceType<typeof CityCreateNestedOneWithoutUsersInput>;
+    @Field(() => ProductCreateNestedManyWithoutAuthorInput, {nullable:true})
+    products?: InstanceType<typeof ProductCreateNestedManyWithoutAuthorInput>;
     @Field(() => FavoriteCreateNestedManyWithoutUserInput, {nullable:true})
     favorites?: InstanceType<typeof FavoriteCreateNestedManyWithoutUserInput>;
     @Field(() => LikeCreateNestedManyWithoutUserInput, {nullable:true})
     likes?: InstanceType<typeof LikeCreateNestedManyWithoutUserInput>;
-    @Field(() => ProductCreateNestedManyWithoutAuthorInput, {nullable:true})
-    products?: InstanceType<typeof ProductCreateNestedManyWithoutAuthorInput>;
+    @Field(() => UserCreateNestedManyWithoutFollowingInput, {nullable:true})
+    followedBy?: InstanceType<typeof UserCreateNestedManyWithoutFollowingInput>;
+    @Field(() => UserCreateNestedManyWithoutFollowedByInput, {nullable:true})
+    following?: InstanceType<typeof UserCreateNestedManyWithoutFollowedByInput>;
 }
 
 @ObjectType()
@@ -8545,12 +8773,16 @@ export class UserGroupBy {
     email!: string;
     @Field(() => String, {nullable:false})
     password!: string;
-    @Field(() => String, {nullable:true})
-    firstname?: string;
-    @Field(() => String, {nullable:true})
-    lastname?: string;
+    @Field(() => String, {nullable:false})
+    firstName!: string;
+    @Field(() => String, {nullable:false})
+    lastName!: string;
     @Field(() => String, {nullable:true})
     avatar?: string;
+    @Field(() => String, {nullable:false})
+    phoneNumber!: string;
+    @Field(() => Boolean, {nullable:false})
+    showPhoneNumber!: boolean;
     @Field(() => UserRole, {nullable:false})
     role!: UserRole;
     @Field(() => UserStatus, {nullable:false})
@@ -8592,11 +8824,15 @@ export class UserMaxAggregateInput {
     @Field(() => Boolean, {nullable:true})
     password?: true;
     @Field(() => Boolean, {nullable:true})
-    firstname?: true;
+    firstName?: true;
     @Field(() => Boolean, {nullable:true})
-    lastname?: true;
+    lastName?: true;
     @Field(() => Boolean, {nullable:true})
     avatar?: true;
+    @Field(() => Boolean, {nullable:true})
+    phoneNumber?: true;
+    @Field(() => Boolean, {nullable:true})
+    showPhoneNumber?: true;
     @Field(() => Boolean, {nullable:true})
     role?: true;
     @Field(() => Boolean, {nullable:true})
@@ -8622,11 +8858,15 @@ export class UserMaxAggregate {
     @Field(() => String, {nullable:true})
     password?: string;
     @Field(() => String, {nullable:true})
-    firstname?: string;
+    firstName?: string;
     @Field(() => String, {nullable:true})
-    lastname?: string;
+    lastName?: string;
     @Field(() => String, {nullable:true})
     avatar?: string;
+    @Field(() => String, {nullable:true})
+    phoneNumber?: string;
+    @Field(() => Boolean, {nullable:true})
+    showPhoneNumber?: boolean;
     @Field(() => UserRole, {nullable:true})
     role?: UserRole;
     @Field(() => UserStatus, {nullable:true})
@@ -8652,11 +8892,15 @@ export class UserMinAggregateInput {
     @Field(() => Boolean, {nullable:true})
     password?: true;
     @Field(() => Boolean, {nullable:true})
-    firstname?: true;
+    firstName?: true;
     @Field(() => Boolean, {nullable:true})
-    lastname?: true;
+    lastName?: true;
     @Field(() => Boolean, {nullable:true})
     avatar?: true;
+    @Field(() => Boolean, {nullable:true})
+    phoneNumber?: true;
+    @Field(() => Boolean, {nullable:true})
+    showPhoneNumber?: true;
     @Field(() => Boolean, {nullable:true})
     role?: true;
     @Field(() => Boolean, {nullable:true})
@@ -8682,11 +8926,15 @@ export class UserMinAggregate {
     @Field(() => String, {nullable:true})
     password?: string;
     @Field(() => String, {nullable:true})
-    firstname?: string;
+    firstName?: string;
     @Field(() => String, {nullable:true})
-    lastname?: string;
+    lastName?: string;
     @Field(() => String, {nullable:true})
     avatar?: string;
+    @Field(() => String, {nullable:true})
+    phoneNumber?: string;
+    @Field(() => Boolean, {nullable:true})
+    showPhoneNumber?: boolean;
     @Field(() => UserRole, {nullable:true})
     role?: UserRole;
     @Field(() => UserStatus, {nullable:true})
@@ -8712,11 +8960,15 @@ export class UserOrderByInput {
     @Field(() => SortOrder, {nullable:true})
     password?: SortOrder;
     @Field(() => SortOrder, {nullable:true})
-    firstname?: SortOrder;
+    firstName?: SortOrder;
     @Field(() => SortOrder, {nullable:true})
-    lastname?: SortOrder;
+    lastName?: SortOrder;
     @Field(() => SortOrder, {nullable:true})
     avatar?: SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    phoneNumber?: SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    showPhoneNumber?: SortOrder;
     @Field(() => SortOrder, {nullable:true})
     role?: SortOrder;
     @Field(() => SortOrder, {nullable:true})
@@ -8755,12 +9007,16 @@ export class UserScalarWhereWithAggregatesInput {
     email?: InstanceType<typeof StringWithAggregatesFilter>;
     @Field(() => StringWithAggregatesFilter, {nullable:true})
     password?: InstanceType<typeof StringWithAggregatesFilter>;
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    firstname?: InstanceType<typeof StringNullableWithAggregatesFilter>;
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    lastname?: InstanceType<typeof StringNullableWithAggregatesFilter>;
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    firstName?: InstanceType<typeof StringWithAggregatesFilter>;
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    lastName?: InstanceType<typeof StringWithAggregatesFilter>;
     @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
     avatar?: InstanceType<typeof StringNullableWithAggregatesFilter>;
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    phoneNumber?: InstanceType<typeof StringWithAggregatesFilter>;
+    @Field(() => BoolWithAggregatesFilter, {nullable:true})
+    showPhoneNumber?: InstanceType<typeof BoolWithAggregatesFilter>;
     @Field(() => EnumUserRoleWithAggregatesFilter, {nullable:true})
     role?: InstanceType<typeof EnumUserRoleWithAggregatesFilter>;
     @Field(() => EnumUserStatusWithAggregatesFilter, {nullable:true})
@@ -8791,12 +9047,16 @@ export class UserScalarWhereInput {
     email?: InstanceType<typeof StringFilter>;
     @Field(() => StringFilter, {nullable:true})
     password?: InstanceType<typeof StringFilter>;
-    @Field(() => StringNullableFilter, {nullable:true})
-    firstname?: InstanceType<typeof StringNullableFilter>;
-    @Field(() => StringNullableFilter, {nullable:true})
-    lastname?: InstanceType<typeof StringNullableFilter>;
+    @Field(() => StringFilter, {nullable:true})
+    firstName?: InstanceType<typeof StringFilter>;
+    @Field(() => StringFilter, {nullable:true})
+    lastName?: InstanceType<typeof StringFilter>;
     @Field(() => StringNullableFilter, {nullable:true})
     avatar?: InstanceType<typeof StringNullableFilter>;
+    @Field(() => StringFilter, {nullable:true})
+    phoneNumber?: InstanceType<typeof StringFilter>;
+    @Field(() => BoolFilter, {nullable:true})
+    showPhoneNumber?: InstanceType<typeof BoolFilter>;
     @Field(() => EnumUserRoleFilter, {nullable:true})
     role?: InstanceType<typeof EnumUserRoleFilter>;
     @Field(() => EnumUserStatusFilter, {nullable:true})
@@ -8833,12 +9093,16 @@ export class UserUncheckedCreateWithoutCityInput {
     email!: string;
     @Field(() => String, {nullable:false})
     password!: string;
-    @Field(() => String, {nullable:true})
-    firstname?: string;
-    @Field(() => String, {nullable:true})
-    lastname?: string;
+    @Field(() => String, {nullable:false})
+    firstName!: string;
+    @Field(() => String, {nullable:false})
+    lastName!: string;
     @Field(() => String, {nullable:true})
     avatar?: string;
+    @Field(() => String, {nullable:false})
+    phoneNumber!: string;
+    @Field(() => Boolean, {nullable:true})
+    showPhoneNumber?: boolean;
     @Field(() => UserRole, {nullable:false})
     role!: UserRole;
     @Field(() => UserStatus, {nullable:true})
@@ -8851,12 +9115,12 @@ export class UserUncheckedCreateWithoutCityInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+    @Field(() => ProductUncheckedCreateNestedManyWithoutAuthorInput, {nullable:true})
+    products?: InstanceType<typeof ProductUncheckedCreateNestedManyWithoutAuthorInput>;
     @Field(() => FavoriteUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
     favorites?: InstanceType<typeof FavoriteUncheckedCreateNestedManyWithoutUserInput>;
     @Field(() => LikeUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
     likes?: InstanceType<typeof LikeUncheckedCreateNestedManyWithoutUserInput>;
-    @Field(() => ProductUncheckedCreateNestedManyWithoutAuthorInput, {nullable:true})
-    products?: InstanceType<typeof ProductUncheckedCreateNestedManyWithoutAuthorInput>;
 }
 
 @InputType()
@@ -8867,12 +9131,16 @@ export class UserUncheckedCreateWithoutFavoritesInput {
     email!: string;
     @Field(() => String, {nullable:false})
     password!: string;
-    @Field(() => String, {nullable:true})
-    firstname?: string;
-    @Field(() => String, {nullable:true})
-    lastname?: string;
+    @Field(() => String, {nullable:false})
+    firstName!: string;
+    @Field(() => String, {nullable:false})
+    lastName!: string;
     @Field(() => String, {nullable:true})
     avatar?: string;
+    @Field(() => String, {nullable:false})
+    phoneNumber!: string;
+    @Field(() => Boolean, {nullable:true})
+    showPhoneNumber?: boolean;
     @Field(() => UserRole, {nullable:false})
     role!: UserRole;
     @Field(() => UserStatus, {nullable:true})
@@ -8887,10 +9155,90 @@ export class UserUncheckedCreateWithoutFavoritesInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => LikeUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
-    likes?: InstanceType<typeof LikeUncheckedCreateNestedManyWithoutUserInput>;
     @Field(() => ProductUncheckedCreateNestedManyWithoutAuthorInput, {nullable:true})
     products?: InstanceType<typeof ProductUncheckedCreateNestedManyWithoutAuthorInput>;
+    @Field(() => LikeUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
+    likes?: InstanceType<typeof LikeUncheckedCreateNestedManyWithoutUserInput>;
+}
+
+@InputType()
+export class UserUncheckedCreateWithoutFollowedByInput {
+    @Field(() => String, {nullable:true})
+    id?: string;
+    @Field(() => String, {nullable:false})
+    email!: string;
+    @Field(() => String, {nullable:false})
+    password!: string;
+    @Field(() => String, {nullable:false})
+    firstName!: string;
+    @Field(() => String, {nullable:false})
+    lastName!: string;
+    @Field(() => String, {nullable:true})
+    avatar?: string;
+    @Field(() => String, {nullable:false})
+    phoneNumber!: string;
+    @Field(() => Boolean, {nullable:true})
+    showPhoneNumber?: boolean;
+    @Field(() => UserRole, {nullable:false})
+    role!: UserRole;
+    @Field(() => UserStatus, {nullable:true})
+    status?: UserStatus;
+    @Field(() => String, {nullable:true})
+    googleId?: string;
+    @Field(() => String, {nullable:true})
+    facebookId?: string;
+    @Field(() => String, {nullable:true})
+    cityId?: string;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => ProductUncheckedCreateNestedManyWithoutAuthorInput, {nullable:true})
+    products?: InstanceType<typeof ProductUncheckedCreateNestedManyWithoutAuthorInput>;
+    @Field(() => FavoriteUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
+    favorites?: InstanceType<typeof FavoriteUncheckedCreateNestedManyWithoutUserInput>;
+    @Field(() => LikeUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
+    likes?: InstanceType<typeof LikeUncheckedCreateNestedManyWithoutUserInput>;
+}
+
+@InputType()
+export class UserUncheckedCreateWithoutFollowingInput {
+    @Field(() => String, {nullable:true})
+    id?: string;
+    @Field(() => String, {nullable:false})
+    email!: string;
+    @Field(() => String, {nullable:false})
+    password!: string;
+    @Field(() => String, {nullable:false})
+    firstName!: string;
+    @Field(() => String, {nullable:false})
+    lastName!: string;
+    @Field(() => String, {nullable:true})
+    avatar?: string;
+    @Field(() => String, {nullable:false})
+    phoneNumber!: string;
+    @Field(() => Boolean, {nullable:true})
+    showPhoneNumber?: boolean;
+    @Field(() => UserRole, {nullable:false})
+    role!: UserRole;
+    @Field(() => UserStatus, {nullable:true})
+    status?: UserStatus;
+    @Field(() => String, {nullable:true})
+    googleId?: string;
+    @Field(() => String, {nullable:true})
+    facebookId?: string;
+    @Field(() => String, {nullable:true})
+    cityId?: string;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => ProductUncheckedCreateNestedManyWithoutAuthorInput, {nullable:true})
+    products?: InstanceType<typeof ProductUncheckedCreateNestedManyWithoutAuthorInput>;
+    @Field(() => FavoriteUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
+    favorites?: InstanceType<typeof FavoriteUncheckedCreateNestedManyWithoutUserInput>;
+    @Field(() => LikeUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
+    likes?: InstanceType<typeof LikeUncheckedCreateNestedManyWithoutUserInput>;
 }
 
 @InputType()
@@ -8901,12 +9249,16 @@ export class UserUncheckedCreateWithoutLikesInput {
     email!: string;
     @Field(() => String, {nullable:false})
     password!: string;
-    @Field(() => String, {nullable:true})
-    firstname?: string;
-    @Field(() => String, {nullable:true})
-    lastname?: string;
+    @Field(() => String, {nullable:false})
+    firstName!: string;
+    @Field(() => String, {nullable:false})
+    lastName!: string;
     @Field(() => String, {nullable:true})
     avatar?: string;
+    @Field(() => String, {nullable:false})
+    phoneNumber!: string;
+    @Field(() => Boolean, {nullable:true})
+    showPhoneNumber?: boolean;
     @Field(() => UserRole, {nullable:false})
     role!: UserRole;
     @Field(() => UserStatus, {nullable:true})
@@ -8921,10 +9273,10 @@ export class UserUncheckedCreateWithoutLikesInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => FavoriteUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
-    favorites?: InstanceType<typeof FavoriteUncheckedCreateNestedManyWithoutUserInput>;
     @Field(() => ProductUncheckedCreateNestedManyWithoutAuthorInput, {nullable:true})
     products?: InstanceType<typeof ProductUncheckedCreateNestedManyWithoutAuthorInput>;
+    @Field(() => FavoriteUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
+    favorites?: InstanceType<typeof FavoriteUncheckedCreateNestedManyWithoutUserInput>;
 }
 
 @InputType()
@@ -8935,12 +9287,16 @@ export class UserUncheckedCreateWithoutProductsInput {
     email!: string;
     @Field(() => String, {nullable:false})
     password!: string;
-    @Field(() => String, {nullable:true})
-    firstname?: string;
-    @Field(() => String, {nullable:true})
-    lastname?: string;
+    @Field(() => String, {nullable:false})
+    firstName!: string;
+    @Field(() => String, {nullable:false})
+    lastName!: string;
     @Field(() => String, {nullable:true})
     avatar?: string;
+    @Field(() => String, {nullable:false})
+    phoneNumber!: string;
+    @Field(() => Boolean, {nullable:true})
+    showPhoneNumber?: boolean;
     @Field(() => UserRole, {nullable:false})
     role!: UserRole;
     @Field(() => UserStatus, {nullable:true})
@@ -8969,12 +9325,16 @@ export class UserUncheckedCreateInput {
     email!: string;
     @Field(() => String, {nullable:false})
     password!: string;
-    @Field(() => String, {nullable:true})
-    firstname?: string;
-    @Field(() => String, {nullable:true})
-    lastname?: string;
+    @Field(() => String, {nullable:false})
+    firstName!: string;
+    @Field(() => String, {nullable:false})
+    lastName!: string;
     @Field(() => String, {nullable:true})
     avatar?: string;
+    @Field(() => String, {nullable:false})
+    phoneNumber!: string;
+    @Field(() => Boolean, {nullable:true})
+    showPhoneNumber?: boolean;
     @Field(() => UserRole, {nullable:false})
     role!: UserRole;
     @Field(() => UserStatus, {nullable:true})
@@ -8989,12 +9349,12 @@ export class UserUncheckedCreateInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+    @Field(() => ProductUncheckedCreateNestedManyWithoutAuthorInput, {nullable:true})
+    products?: InstanceType<typeof ProductUncheckedCreateNestedManyWithoutAuthorInput>;
     @Field(() => FavoriteUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
     favorites?: InstanceType<typeof FavoriteUncheckedCreateNestedManyWithoutUserInput>;
     @Field(() => LikeUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
     likes?: InstanceType<typeof LikeUncheckedCreateNestedManyWithoutUserInput>;
-    @Field(() => ProductUncheckedCreateNestedManyWithoutAuthorInput, {nullable:true})
-    products?: InstanceType<typeof ProductUncheckedCreateNestedManyWithoutAuthorInput>;
 }
 
 @InputType()
@@ -9024,6 +9384,74 @@ export class UserUncheckedUpdateManyWithoutCityInput {
 }
 
 @InputType()
+export class UserUncheckedUpdateManyWithoutFollowedByInput {
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    id?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    email?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    password?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    firstName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    lastName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    avatar?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    phoneNumber?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    showPhoneNumber?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
+    @Field(() => EnumUserRoleFieldUpdateOperationsInput, {nullable:true})
+    role?: InstanceType<typeof EnumUserRoleFieldUpdateOperationsInput>;
+    @Field(() => EnumUserStatusFieldUpdateOperationsInput, {nullable:true})
+    status?: InstanceType<typeof EnumUserStatusFieldUpdateOperationsInput>;
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    googleId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    facebookId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    cityId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
+    createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
+    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
+    updatedAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
+}
+
+@InputType()
+export class UserUncheckedUpdateManyWithoutFollowingInput {
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    id?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    email?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    password?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    firstName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    lastName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    avatar?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    phoneNumber?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    showPhoneNumber?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
+    @Field(() => EnumUserRoleFieldUpdateOperationsInput, {nullable:true})
+    role?: InstanceType<typeof EnumUserRoleFieldUpdateOperationsInput>;
+    @Field(() => EnumUserStatusFieldUpdateOperationsInput, {nullable:true})
+    status?: InstanceType<typeof EnumUserStatusFieldUpdateOperationsInput>;
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    googleId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    facebookId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    cityId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
+    createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
+    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
+    updatedAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
+}
+
+@InputType()
 export class UserUncheckedUpdateManyWithoutUsersInput {
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     id?: InstanceType<typeof StringFieldUpdateOperationsInput>;
@@ -9031,12 +9459,16 @@ export class UserUncheckedUpdateManyWithoutUsersInput {
     email?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     password?: InstanceType<typeof StringFieldUpdateOperationsInput>;
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    firstname?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    lastname?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    firstName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    lastName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     avatar?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    phoneNumber?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    showPhoneNumber?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => EnumUserRoleFieldUpdateOperationsInput, {nullable:true})
     role?: InstanceType<typeof EnumUserRoleFieldUpdateOperationsInput>;
     @Field(() => EnumUserStatusFieldUpdateOperationsInput, {nullable:true})
@@ -9059,12 +9491,16 @@ export class UserUncheckedUpdateManyInput {
     email?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     password?: InstanceType<typeof StringFieldUpdateOperationsInput>;
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    firstname?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    lastname?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    firstName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    lastName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     avatar?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    phoneNumber?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    showPhoneNumber?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => EnumUserRoleFieldUpdateOperationsInput, {nullable:true})
     role?: InstanceType<typeof EnumUserRoleFieldUpdateOperationsInput>;
     @Field(() => EnumUserStatusFieldUpdateOperationsInput, {nullable:true})
@@ -9089,12 +9525,16 @@ export class UserUncheckedUpdateWithoutCityInput {
     email?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     password?: InstanceType<typeof StringFieldUpdateOperationsInput>;
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    firstname?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    lastname?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    firstName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    lastName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     avatar?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    phoneNumber?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    showPhoneNumber?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => EnumUserRoleFieldUpdateOperationsInput, {nullable:true})
     role?: InstanceType<typeof EnumUserRoleFieldUpdateOperationsInput>;
     @Field(() => EnumUserStatusFieldUpdateOperationsInput, {nullable:true})
@@ -9107,12 +9547,12 @@ export class UserUncheckedUpdateWithoutCityInput {
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     updatedAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
+    @Field(() => ProductUncheckedUpdateManyWithoutAuthorInput, {nullable:true})
+    products?: InstanceType<typeof ProductUncheckedUpdateManyWithoutAuthorInput>;
     @Field(() => FavoriteUncheckedUpdateManyWithoutUserInput, {nullable:true})
     favorites?: InstanceType<typeof FavoriteUncheckedUpdateManyWithoutUserInput>;
     @Field(() => LikeUncheckedUpdateManyWithoutUserInput, {nullable:true})
     likes?: InstanceType<typeof LikeUncheckedUpdateManyWithoutUserInput>;
-    @Field(() => ProductUncheckedUpdateManyWithoutAuthorInput, {nullable:true})
-    products?: InstanceType<typeof ProductUncheckedUpdateManyWithoutAuthorInput>;
 }
 
 @InputType()
@@ -9123,12 +9563,16 @@ export class UserUncheckedUpdateWithoutFavoritesInput {
     email?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     password?: InstanceType<typeof StringFieldUpdateOperationsInput>;
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    firstname?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    lastname?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    firstName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    lastName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     avatar?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    phoneNumber?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    showPhoneNumber?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => EnumUserRoleFieldUpdateOperationsInput, {nullable:true})
     role?: InstanceType<typeof EnumUserRoleFieldUpdateOperationsInput>;
     @Field(() => EnumUserStatusFieldUpdateOperationsInput, {nullable:true})
@@ -9143,10 +9587,90 @@ export class UserUncheckedUpdateWithoutFavoritesInput {
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     updatedAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
-    @Field(() => LikeUncheckedUpdateManyWithoutUserInput, {nullable:true})
-    likes?: InstanceType<typeof LikeUncheckedUpdateManyWithoutUserInput>;
     @Field(() => ProductUncheckedUpdateManyWithoutAuthorInput, {nullable:true})
     products?: InstanceType<typeof ProductUncheckedUpdateManyWithoutAuthorInput>;
+    @Field(() => LikeUncheckedUpdateManyWithoutUserInput, {nullable:true})
+    likes?: InstanceType<typeof LikeUncheckedUpdateManyWithoutUserInput>;
+}
+
+@InputType()
+export class UserUncheckedUpdateWithoutFollowedByInput {
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    id?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    email?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    password?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    firstName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    lastName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    avatar?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    phoneNumber?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    showPhoneNumber?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
+    @Field(() => EnumUserRoleFieldUpdateOperationsInput, {nullable:true})
+    role?: InstanceType<typeof EnumUserRoleFieldUpdateOperationsInput>;
+    @Field(() => EnumUserStatusFieldUpdateOperationsInput, {nullable:true})
+    status?: InstanceType<typeof EnumUserStatusFieldUpdateOperationsInput>;
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    googleId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    facebookId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    cityId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
+    createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
+    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
+    updatedAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
+    @Field(() => ProductUncheckedUpdateManyWithoutAuthorInput, {nullable:true})
+    products?: InstanceType<typeof ProductUncheckedUpdateManyWithoutAuthorInput>;
+    @Field(() => FavoriteUncheckedUpdateManyWithoutUserInput, {nullable:true})
+    favorites?: InstanceType<typeof FavoriteUncheckedUpdateManyWithoutUserInput>;
+    @Field(() => LikeUncheckedUpdateManyWithoutUserInput, {nullable:true})
+    likes?: InstanceType<typeof LikeUncheckedUpdateManyWithoutUserInput>;
+}
+
+@InputType()
+export class UserUncheckedUpdateWithoutFollowingInput {
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    id?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    email?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    password?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    firstName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    lastName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    avatar?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    phoneNumber?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    showPhoneNumber?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
+    @Field(() => EnumUserRoleFieldUpdateOperationsInput, {nullable:true})
+    role?: InstanceType<typeof EnumUserRoleFieldUpdateOperationsInput>;
+    @Field(() => EnumUserStatusFieldUpdateOperationsInput, {nullable:true})
+    status?: InstanceType<typeof EnumUserStatusFieldUpdateOperationsInput>;
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    googleId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    facebookId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    cityId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
+    createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
+    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
+    updatedAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
+    @Field(() => ProductUncheckedUpdateManyWithoutAuthorInput, {nullable:true})
+    products?: InstanceType<typeof ProductUncheckedUpdateManyWithoutAuthorInput>;
+    @Field(() => FavoriteUncheckedUpdateManyWithoutUserInput, {nullable:true})
+    favorites?: InstanceType<typeof FavoriteUncheckedUpdateManyWithoutUserInput>;
+    @Field(() => LikeUncheckedUpdateManyWithoutUserInput, {nullable:true})
+    likes?: InstanceType<typeof LikeUncheckedUpdateManyWithoutUserInput>;
 }
 
 @InputType()
@@ -9157,12 +9681,16 @@ export class UserUncheckedUpdateWithoutLikesInput {
     email?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     password?: InstanceType<typeof StringFieldUpdateOperationsInput>;
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    firstname?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    lastname?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    firstName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    lastName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     avatar?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    phoneNumber?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    showPhoneNumber?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => EnumUserRoleFieldUpdateOperationsInput, {nullable:true})
     role?: InstanceType<typeof EnumUserRoleFieldUpdateOperationsInput>;
     @Field(() => EnumUserStatusFieldUpdateOperationsInput, {nullable:true})
@@ -9177,10 +9705,10 @@ export class UserUncheckedUpdateWithoutLikesInput {
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     updatedAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
-    @Field(() => FavoriteUncheckedUpdateManyWithoutUserInput, {nullable:true})
-    favorites?: InstanceType<typeof FavoriteUncheckedUpdateManyWithoutUserInput>;
     @Field(() => ProductUncheckedUpdateManyWithoutAuthorInput, {nullable:true})
     products?: InstanceType<typeof ProductUncheckedUpdateManyWithoutAuthorInput>;
+    @Field(() => FavoriteUncheckedUpdateManyWithoutUserInput, {nullable:true})
+    favorites?: InstanceType<typeof FavoriteUncheckedUpdateManyWithoutUserInput>;
 }
 
 @InputType()
@@ -9191,12 +9719,16 @@ export class UserUncheckedUpdateWithoutProductsInput {
     email?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     password?: InstanceType<typeof StringFieldUpdateOperationsInput>;
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    firstname?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    lastname?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    firstName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    lastName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     avatar?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    phoneNumber?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    showPhoneNumber?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => EnumUserRoleFieldUpdateOperationsInput, {nullable:true})
     role?: InstanceType<typeof EnumUserRoleFieldUpdateOperationsInput>;
     @Field(() => EnumUserStatusFieldUpdateOperationsInput, {nullable:true})
@@ -9225,12 +9757,16 @@ export class UserUncheckedUpdateInput {
     email?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     password?: InstanceType<typeof StringFieldUpdateOperationsInput>;
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    firstname?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    lastname?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    firstName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    lastName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     avatar?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    phoneNumber?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    showPhoneNumber?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => EnumUserRoleFieldUpdateOperationsInput, {nullable:true})
     role?: InstanceType<typeof EnumUserRoleFieldUpdateOperationsInput>;
     @Field(() => EnumUserStatusFieldUpdateOperationsInput, {nullable:true})
@@ -9245,12 +9781,12 @@ export class UserUncheckedUpdateInput {
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     updatedAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
+    @Field(() => ProductUncheckedUpdateManyWithoutAuthorInput, {nullable:true})
+    products?: InstanceType<typeof ProductUncheckedUpdateManyWithoutAuthorInput>;
     @Field(() => FavoriteUncheckedUpdateManyWithoutUserInput, {nullable:true})
     favorites?: InstanceType<typeof FavoriteUncheckedUpdateManyWithoutUserInput>;
     @Field(() => LikeUncheckedUpdateManyWithoutUserInput, {nullable:true})
     likes?: InstanceType<typeof LikeUncheckedUpdateManyWithoutUserInput>;
-    @Field(() => ProductUncheckedUpdateManyWithoutAuthorInput, {nullable:true})
-    products?: InstanceType<typeof ProductUncheckedUpdateManyWithoutAuthorInput>;
 }
 
 @InputType()
@@ -9261,12 +9797,16 @@ export class UserUpdateManyMutationInput {
     email?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     password?: InstanceType<typeof StringFieldUpdateOperationsInput>;
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    firstname?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    lastname?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    firstName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    lastName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     avatar?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    phoneNumber?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    showPhoneNumber?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => EnumUserRoleFieldUpdateOperationsInput, {nullable:true})
     role?: InstanceType<typeof EnumUserRoleFieldUpdateOperationsInput>;
     @Field(() => EnumUserStatusFieldUpdateOperationsInput, {nullable:true})
@@ -9283,6 +9823,22 @@ export class UserUpdateManyMutationInput {
 
 @InputType()
 export class UserUpdateManyWithWhereWithoutCityInput {
+    @Field(() => UserScalarWhereInput, {nullable:false})
+    where!: InstanceType<typeof UserScalarWhereInput>;
+    @Field(() => UserUpdateManyMutationInput, {nullable:false})
+    data!: InstanceType<typeof UserUpdateManyMutationInput>;
+}
+
+@InputType()
+export class UserUpdateManyWithWhereWithoutFollowedByInput {
+    @Field(() => UserScalarWhereInput, {nullable:false})
+    where!: InstanceType<typeof UserScalarWhereInput>;
+    @Field(() => UserUpdateManyMutationInput, {nullable:false})
+    data!: InstanceType<typeof UserUpdateManyMutationInput>;
+}
+
+@InputType()
+export class UserUpdateManyWithWhereWithoutFollowingInput {
     @Field(() => UserScalarWhereInput, {nullable:false})
     where!: InstanceType<typeof UserScalarWhereInput>;
     @Field(() => UserUpdateManyMutationInput, {nullable:false})
@@ -9311,6 +9867,54 @@ export class UserUpdateManyWithoutCityInput {
     update?: Array<UserUpdateWithWhereUniqueWithoutCityInput>;
     @Field(() => [UserUpdateManyWithWhereWithoutCityInput], {nullable:true})
     updateMany?: Array<UserUpdateManyWithWhereWithoutCityInput>;
+    @Field(() => [UserScalarWhereInput], {nullable:true})
+    deleteMany?: Array<UserScalarWhereInput>;
+}
+
+@InputType()
+export class UserUpdateManyWithoutFollowedByInput {
+    @Field(() => [UserCreateWithoutFollowedByInput], {nullable:true})
+    create?: Array<UserCreateWithoutFollowedByInput>;
+    @Field(() => [UserCreateOrConnectWithoutFollowedByInput], {nullable:true})
+    connectOrCreate?: Array<UserCreateOrConnectWithoutFollowedByInput>;
+    @Field(() => [UserUpsertWithWhereUniqueWithoutFollowedByInput], {nullable:true})
+    upsert?: Array<UserUpsertWithWhereUniqueWithoutFollowedByInput>;
+    @Field(() => [UserWhereUniqueInput], {nullable:true})
+    connect?: Array<UserWhereUniqueInput>;
+    @Field(() => [UserWhereUniqueInput], {nullable:true})
+    set?: Array<UserWhereUniqueInput>;
+    @Field(() => [UserWhereUniqueInput], {nullable:true})
+    disconnect?: Array<UserWhereUniqueInput>;
+    @Field(() => [UserWhereUniqueInput], {nullable:true})
+    delete?: Array<UserWhereUniqueInput>;
+    @Field(() => [UserUpdateWithWhereUniqueWithoutFollowedByInput], {nullable:true})
+    update?: Array<UserUpdateWithWhereUniqueWithoutFollowedByInput>;
+    @Field(() => [UserUpdateManyWithWhereWithoutFollowedByInput], {nullable:true})
+    updateMany?: Array<UserUpdateManyWithWhereWithoutFollowedByInput>;
+    @Field(() => [UserScalarWhereInput], {nullable:true})
+    deleteMany?: Array<UserScalarWhereInput>;
+}
+
+@InputType()
+export class UserUpdateManyWithoutFollowingInput {
+    @Field(() => [UserCreateWithoutFollowingInput], {nullable:true})
+    create?: Array<UserCreateWithoutFollowingInput>;
+    @Field(() => [UserCreateOrConnectWithoutFollowingInput], {nullable:true})
+    connectOrCreate?: Array<UserCreateOrConnectWithoutFollowingInput>;
+    @Field(() => [UserUpsertWithWhereUniqueWithoutFollowingInput], {nullable:true})
+    upsert?: Array<UserUpsertWithWhereUniqueWithoutFollowingInput>;
+    @Field(() => [UserWhereUniqueInput], {nullable:true})
+    connect?: Array<UserWhereUniqueInput>;
+    @Field(() => [UserWhereUniqueInput], {nullable:true})
+    set?: Array<UserWhereUniqueInput>;
+    @Field(() => [UserWhereUniqueInput], {nullable:true})
+    disconnect?: Array<UserWhereUniqueInput>;
+    @Field(() => [UserWhereUniqueInput], {nullable:true})
+    delete?: Array<UserWhereUniqueInput>;
+    @Field(() => [UserUpdateWithWhereUniqueWithoutFollowingInput], {nullable:true})
+    update?: Array<UserUpdateWithWhereUniqueWithoutFollowingInput>;
+    @Field(() => [UserUpdateManyWithWhereWithoutFollowingInput], {nullable:true})
+    updateMany?: Array<UserUpdateManyWithWhereWithoutFollowingInput>;
     @Field(() => [UserScalarWhereInput], {nullable:true})
     deleteMany?: Array<UserScalarWhereInput>;
 }
@@ -9378,6 +9982,22 @@ export class UserUpdateWithWhereUniqueWithoutCityInput {
 }
 
 @InputType()
+export class UserUpdateWithWhereUniqueWithoutFollowedByInput {
+    @Field(() => UserWhereUniqueInput, {nullable:false})
+    where!: InstanceType<typeof UserWhereUniqueInput>;
+    @Field(() => UserUpdateWithoutFollowedByInput, {nullable:false})
+    data!: InstanceType<typeof UserUpdateWithoutFollowedByInput>;
+}
+
+@InputType()
+export class UserUpdateWithWhereUniqueWithoutFollowingInput {
+    @Field(() => UserWhereUniqueInput, {nullable:false})
+    where!: InstanceType<typeof UserWhereUniqueInput>;
+    @Field(() => UserUpdateWithoutFollowingInput, {nullable:false})
+    data!: InstanceType<typeof UserUpdateWithoutFollowingInput>;
+}
+
+@InputType()
 export class UserUpdateWithoutCityInput {
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     id?: InstanceType<typeof StringFieldUpdateOperationsInput>;
@@ -9385,12 +10005,16 @@ export class UserUpdateWithoutCityInput {
     email?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     password?: InstanceType<typeof StringFieldUpdateOperationsInput>;
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    firstname?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    lastname?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    firstName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    lastName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     avatar?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    phoneNumber?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    showPhoneNumber?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => EnumUserRoleFieldUpdateOperationsInput, {nullable:true})
     role?: InstanceType<typeof EnumUserRoleFieldUpdateOperationsInput>;
     @Field(() => EnumUserStatusFieldUpdateOperationsInput, {nullable:true})
@@ -9403,12 +10027,16 @@ export class UserUpdateWithoutCityInput {
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     updatedAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
+    @Field(() => ProductUpdateManyWithoutAuthorInput, {nullable:true})
+    products?: InstanceType<typeof ProductUpdateManyWithoutAuthorInput>;
     @Field(() => FavoriteUpdateManyWithoutUserInput, {nullable:true})
     favorites?: InstanceType<typeof FavoriteUpdateManyWithoutUserInput>;
     @Field(() => LikeUpdateManyWithoutUserInput, {nullable:true})
     likes?: InstanceType<typeof LikeUpdateManyWithoutUserInput>;
-    @Field(() => ProductUpdateManyWithoutAuthorInput, {nullable:true})
-    products?: InstanceType<typeof ProductUpdateManyWithoutAuthorInput>;
+    @Field(() => UserUpdateManyWithoutFollowingInput, {nullable:true})
+    followedBy?: InstanceType<typeof UserUpdateManyWithoutFollowingInput>;
+    @Field(() => UserUpdateManyWithoutFollowedByInput, {nullable:true})
+    following?: InstanceType<typeof UserUpdateManyWithoutFollowedByInput>;
 }
 
 @InputType()
@@ -9419,12 +10047,16 @@ export class UserUpdateWithoutFavoritesInput {
     email?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     password?: InstanceType<typeof StringFieldUpdateOperationsInput>;
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    firstname?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    lastname?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    firstName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    lastName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     avatar?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    phoneNumber?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    showPhoneNumber?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => EnumUserRoleFieldUpdateOperationsInput, {nullable:true})
     role?: InstanceType<typeof EnumUserRoleFieldUpdateOperationsInput>;
     @Field(() => EnumUserStatusFieldUpdateOperationsInput, {nullable:true})
@@ -9439,10 +10071,98 @@ export class UserUpdateWithoutFavoritesInput {
     updatedAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => CityUpdateOneWithoutUsersInput, {nullable:true})
     city?: InstanceType<typeof CityUpdateOneWithoutUsersInput>;
-    @Field(() => LikeUpdateManyWithoutUserInput, {nullable:true})
-    likes?: InstanceType<typeof LikeUpdateManyWithoutUserInput>;
     @Field(() => ProductUpdateManyWithoutAuthorInput, {nullable:true})
     products?: InstanceType<typeof ProductUpdateManyWithoutAuthorInput>;
+    @Field(() => LikeUpdateManyWithoutUserInput, {nullable:true})
+    likes?: InstanceType<typeof LikeUpdateManyWithoutUserInput>;
+    @Field(() => UserUpdateManyWithoutFollowingInput, {nullable:true})
+    followedBy?: InstanceType<typeof UserUpdateManyWithoutFollowingInput>;
+    @Field(() => UserUpdateManyWithoutFollowedByInput, {nullable:true})
+    following?: InstanceType<typeof UserUpdateManyWithoutFollowedByInput>;
+}
+
+@InputType()
+export class UserUpdateWithoutFollowedByInput {
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    id?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    email?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    password?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    firstName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    lastName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    avatar?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    phoneNumber?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    showPhoneNumber?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
+    @Field(() => EnumUserRoleFieldUpdateOperationsInput, {nullable:true})
+    role?: InstanceType<typeof EnumUserRoleFieldUpdateOperationsInput>;
+    @Field(() => EnumUserStatusFieldUpdateOperationsInput, {nullable:true})
+    status?: InstanceType<typeof EnumUserStatusFieldUpdateOperationsInput>;
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    googleId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    facebookId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
+    createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
+    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
+    updatedAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
+    @Field(() => CityUpdateOneWithoutUsersInput, {nullable:true})
+    city?: InstanceType<typeof CityUpdateOneWithoutUsersInput>;
+    @Field(() => ProductUpdateManyWithoutAuthorInput, {nullable:true})
+    products?: InstanceType<typeof ProductUpdateManyWithoutAuthorInput>;
+    @Field(() => FavoriteUpdateManyWithoutUserInput, {nullable:true})
+    favorites?: InstanceType<typeof FavoriteUpdateManyWithoutUserInput>;
+    @Field(() => LikeUpdateManyWithoutUserInput, {nullable:true})
+    likes?: InstanceType<typeof LikeUpdateManyWithoutUserInput>;
+    @Field(() => UserUpdateManyWithoutFollowedByInput, {nullable:true})
+    following?: InstanceType<typeof UserUpdateManyWithoutFollowedByInput>;
+}
+
+@InputType()
+export class UserUpdateWithoutFollowingInput {
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    id?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    email?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    password?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    firstName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    lastName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    avatar?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    phoneNumber?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    showPhoneNumber?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
+    @Field(() => EnumUserRoleFieldUpdateOperationsInput, {nullable:true})
+    role?: InstanceType<typeof EnumUserRoleFieldUpdateOperationsInput>;
+    @Field(() => EnumUserStatusFieldUpdateOperationsInput, {nullable:true})
+    status?: InstanceType<typeof EnumUserStatusFieldUpdateOperationsInput>;
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    googleId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    facebookId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
+    createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
+    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
+    updatedAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
+    @Field(() => CityUpdateOneWithoutUsersInput, {nullable:true})
+    city?: InstanceType<typeof CityUpdateOneWithoutUsersInput>;
+    @Field(() => ProductUpdateManyWithoutAuthorInput, {nullable:true})
+    products?: InstanceType<typeof ProductUpdateManyWithoutAuthorInput>;
+    @Field(() => FavoriteUpdateManyWithoutUserInput, {nullable:true})
+    favorites?: InstanceType<typeof FavoriteUpdateManyWithoutUserInput>;
+    @Field(() => LikeUpdateManyWithoutUserInput, {nullable:true})
+    likes?: InstanceType<typeof LikeUpdateManyWithoutUserInput>;
+    @Field(() => UserUpdateManyWithoutFollowingInput, {nullable:true})
+    followedBy?: InstanceType<typeof UserUpdateManyWithoutFollowingInput>;
 }
 
 @InputType()
@@ -9453,12 +10173,16 @@ export class UserUpdateWithoutLikesInput {
     email?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     password?: InstanceType<typeof StringFieldUpdateOperationsInput>;
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    firstname?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    lastname?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    firstName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    lastName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     avatar?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    phoneNumber?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    showPhoneNumber?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => EnumUserRoleFieldUpdateOperationsInput, {nullable:true})
     role?: InstanceType<typeof EnumUserRoleFieldUpdateOperationsInput>;
     @Field(() => EnumUserStatusFieldUpdateOperationsInput, {nullable:true})
@@ -9473,10 +10197,14 @@ export class UserUpdateWithoutLikesInput {
     updatedAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => CityUpdateOneWithoutUsersInput, {nullable:true})
     city?: InstanceType<typeof CityUpdateOneWithoutUsersInput>;
-    @Field(() => FavoriteUpdateManyWithoutUserInput, {nullable:true})
-    favorites?: InstanceType<typeof FavoriteUpdateManyWithoutUserInput>;
     @Field(() => ProductUpdateManyWithoutAuthorInput, {nullable:true})
     products?: InstanceType<typeof ProductUpdateManyWithoutAuthorInput>;
+    @Field(() => FavoriteUpdateManyWithoutUserInput, {nullable:true})
+    favorites?: InstanceType<typeof FavoriteUpdateManyWithoutUserInput>;
+    @Field(() => UserUpdateManyWithoutFollowingInput, {nullable:true})
+    followedBy?: InstanceType<typeof UserUpdateManyWithoutFollowingInput>;
+    @Field(() => UserUpdateManyWithoutFollowedByInput, {nullable:true})
+    following?: InstanceType<typeof UserUpdateManyWithoutFollowedByInput>;
 }
 
 @InputType()
@@ -9487,12 +10215,16 @@ export class UserUpdateWithoutProductsInput {
     email?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     password?: InstanceType<typeof StringFieldUpdateOperationsInput>;
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    firstname?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    lastname?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    firstName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    lastName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     avatar?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    phoneNumber?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    showPhoneNumber?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => EnumUserRoleFieldUpdateOperationsInput, {nullable:true})
     role?: InstanceType<typeof EnumUserRoleFieldUpdateOperationsInput>;
     @Field(() => EnumUserStatusFieldUpdateOperationsInput, {nullable:true})
@@ -9511,6 +10243,10 @@ export class UserUpdateWithoutProductsInput {
     favorites?: InstanceType<typeof FavoriteUpdateManyWithoutUserInput>;
     @Field(() => LikeUpdateManyWithoutUserInput, {nullable:true})
     likes?: InstanceType<typeof LikeUpdateManyWithoutUserInput>;
+    @Field(() => UserUpdateManyWithoutFollowingInput, {nullable:true})
+    followedBy?: InstanceType<typeof UserUpdateManyWithoutFollowingInput>;
+    @Field(() => UserUpdateManyWithoutFollowedByInput, {nullable:true})
+    following?: InstanceType<typeof UserUpdateManyWithoutFollowedByInput>;
 }
 
 @InputType()
@@ -9521,12 +10257,16 @@ export class UserUpdateInput {
     email?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     password?: InstanceType<typeof StringFieldUpdateOperationsInput>;
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    firstname?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    lastname?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    firstName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    lastName?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     avatar?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    phoneNumber?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    showPhoneNumber?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => EnumUserRoleFieldUpdateOperationsInput, {nullable:true})
     role?: InstanceType<typeof EnumUserRoleFieldUpdateOperationsInput>;
     @Field(() => EnumUserStatusFieldUpdateOperationsInput, {nullable:true})
@@ -9541,12 +10281,16 @@ export class UserUpdateInput {
     updatedAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => CityUpdateOneWithoutUsersInput, {nullable:true})
     city?: InstanceType<typeof CityUpdateOneWithoutUsersInput>;
+    @Field(() => ProductUpdateManyWithoutAuthorInput, {nullable:true})
+    products?: InstanceType<typeof ProductUpdateManyWithoutAuthorInput>;
     @Field(() => FavoriteUpdateManyWithoutUserInput, {nullable:true})
     favorites?: InstanceType<typeof FavoriteUpdateManyWithoutUserInput>;
     @Field(() => LikeUpdateManyWithoutUserInput, {nullable:true})
     likes?: InstanceType<typeof LikeUpdateManyWithoutUserInput>;
-    @Field(() => ProductUpdateManyWithoutAuthorInput, {nullable:true})
-    products?: InstanceType<typeof ProductUpdateManyWithoutAuthorInput>;
+    @Field(() => UserUpdateManyWithoutFollowingInput, {nullable:true})
+    followedBy?: InstanceType<typeof UserUpdateManyWithoutFollowingInput>;
+    @Field(() => UserUpdateManyWithoutFollowedByInput, {nullable:true})
+    following?: InstanceType<typeof UserUpdateManyWithoutFollowedByInput>;
 }
 
 @InputType()
@@ -9557,6 +10301,26 @@ export class UserUpsertWithWhereUniqueWithoutCityInput {
     update!: InstanceType<typeof UserUpdateWithoutCityInput>;
     @Field(() => UserCreateWithoutCityInput, {nullable:false})
     create!: InstanceType<typeof UserCreateWithoutCityInput>;
+}
+
+@InputType()
+export class UserUpsertWithWhereUniqueWithoutFollowedByInput {
+    @Field(() => UserWhereUniqueInput, {nullable:false})
+    where!: InstanceType<typeof UserWhereUniqueInput>;
+    @Field(() => UserUpdateWithoutFollowedByInput, {nullable:false})
+    update!: InstanceType<typeof UserUpdateWithoutFollowedByInput>;
+    @Field(() => UserCreateWithoutFollowedByInput, {nullable:false})
+    create!: InstanceType<typeof UserCreateWithoutFollowedByInput>;
+}
+
+@InputType()
+export class UserUpsertWithWhereUniqueWithoutFollowingInput {
+    @Field(() => UserWhereUniqueInput, {nullable:false})
+    where!: InstanceType<typeof UserWhereUniqueInput>;
+    @Field(() => UserUpdateWithoutFollowingInput, {nullable:false})
+    update!: InstanceType<typeof UserUpdateWithoutFollowingInput>;
+    @Field(() => UserCreateWithoutFollowingInput, {nullable:false})
+    create!: InstanceType<typeof UserCreateWithoutFollowingInput>;
 }
 
 @InputType()
@@ -9605,12 +10369,16 @@ export class UserWhereInput {
     email?: InstanceType<typeof StringFilter>;
     @Field(() => StringFilter, {nullable:true})
     password?: InstanceType<typeof StringFilter>;
-    @Field(() => StringNullableFilter, {nullable:true})
-    firstname?: InstanceType<typeof StringNullableFilter>;
-    @Field(() => StringNullableFilter, {nullable:true})
-    lastname?: InstanceType<typeof StringNullableFilter>;
+    @Field(() => StringFilter, {nullable:true})
+    firstName?: InstanceType<typeof StringFilter>;
+    @Field(() => StringFilter, {nullable:true})
+    lastName?: InstanceType<typeof StringFilter>;
     @Field(() => StringNullableFilter, {nullable:true})
     avatar?: InstanceType<typeof StringNullableFilter>;
+    @Field(() => StringFilter, {nullable:true})
+    phoneNumber?: InstanceType<typeof StringFilter>;
+    @Field(() => BoolFilter, {nullable:true})
+    showPhoneNumber?: InstanceType<typeof BoolFilter>;
     @Field(() => EnumUserRoleFilter, {nullable:true})
     role?: InstanceType<typeof EnumUserRoleFilter>;
     @Field(() => EnumUserStatusFilter, {nullable:true})
@@ -9623,12 +10391,16 @@ export class UserWhereInput {
     city?: InstanceType<typeof CityRelationFilter>;
     @Field(() => StringNullableFilter, {nullable:true})
     cityId?: InstanceType<typeof StringNullableFilter>;
+    @Field(() => ProductListRelationFilter, {nullable:true})
+    products?: InstanceType<typeof ProductListRelationFilter>;
     @Field(() => FavoriteListRelationFilter, {nullable:true})
     favorites?: InstanceType<typeof FavoriteListRelationFilter>;
     @Field(() => LikeListRelationFilter, {nullable:true})
     likes?: InstanceType<typeof LikeListRelationFilter>;
-    @Field(() => ProductListRelationFilter, {nullable:true})
-    products?: InstanceType<typeof ProductListRelationFilter>;
+    @Field(() => UserListRelationFilter, {nullable:true})
+    followedBy?: InstanceType<typeof UserListRelationFilter>;
+    @Field(() => UserListRelationFilter, {nullable:true})
+    following?: InstanceType<typeof UserListRelationFilter>;
     @Field(() => DateTimeFilter, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFilter>;
     @Field(() => DateTimeFilter, {nullable:true})
@@ -9643,12 +10415,16 @@ export class User {
     email!: string;
     @Field(() => String, {nullable:false})
     password!: string;
-    @Field(() => String, {nullable:true})
-    firstname?: string;
-    @Field(() => String, {nullable:true})
-    lastname?: string;
+    @Field(() => String, {nullable:false})
+    firstName!: string;
+    @Field(() => String, {nullable:false})
+    lastName!: string;
     @Field(() => String, {nullable:true})
     avatar?: string;
+    @Field(() => String, {nullable:false})
+    phoneNumber!: string;
+    @Field(() => Boolean, {nullable:false,defaultValue:true})
+    showPhoneNumber!: boolean;
     @Field(() => UserRole, {nullable:false})
     role!: UserRole;
     @Field(() => UserStatus, {nullable:false,defaultValue:'active'})
@@ -9661,12 +10437,16 @@ export class User {
     city?: InstanceType<typeof City>;
     @Field(() => String, {nullable:true})
     cityId?: string;
+    @Field(() => [Product], {nullable:true})
+    products?: Array<Product>;
     @Field(() => [Favorite], {nullable:true})
     favorites?: Array<Favorite>;
     @Field(() => [Like], {nullable:true})
     likes?: Array<Like>;
-    @Field(() => [Product], {nullable:true})
-    products?: Array<Product>;
+    @Field(() => [User], {nullable:true})
+    followedBy?: Array<User>;
+    @Field(() => [User], {nullable:true})
+    following?: Array<User>;
     @Field(() => Date, {nullable:false})
     createdAt!: Date | string;
     @Field(() => Date, {nullable:false})

@@ -342,9 +342,11 @@ type UserCountAggregate {
   id: Int
   email: Int
   password: Int
-  firstname: Int
-  lastname: Int
+  firstName: Int
+  lastName: Int
   avatar: Int
+  phoneNumber: Int
+  showPhoneNumber: Int
   role: Int
   status: Int
   googleId: Int
@@ -359,9 +361,11 @@ type UserMaxAggregate {
   id: String
   email: String
   password: String
-  firstname: String
-  lastname: String
+  firstName: String
+  lastName: String
   avatar: String
+  phoneNumber: String
+  showPhoneNumber: Boolean
   role: UserRole
   status: UserStatus
   googleId: String
@@ -386,9 +390,11 @@ type UserMinAggregate {
   id: String
   email: String
   password: String
-  firstname: String
-  lastname: String
+  firstName: String
+  lastName: String
   avatar: String
+  phoneNumber: String
+  showPhoneNumber: Boolean
   role: UserRole
   status: UserStatus
   googleId: String
@@ -402,18 +408,22 @@ type User {
   id: ID!
   email: String!
   password: String!
-  firstname: String
-  lastname: String
+  firstName: String!
+  lastName: String!
   avatar: String
+  phoneNumber: String!
+  showPhoneNumber: Boolean!
   role: UserRole!
   status: UserStatus!
   googleId: String
   facebookId: String
   city: City
   cityId: String
+  products: [Product!]
   favorites: [Favorite!]
   likes: [Like!]
-  products: [Product!]
+  followedBy: [User!]
+  following: [User!]
   createdAt: DateTime!
   updatedAt: DateTime!
   name: String!
@@ -438,18 +448,22 @@ input UserWhereInput {
   id: StringFilter
   email: StringFilter
   password: StringFilter
-  firstname: StringNullableFilter
-  lastname: StringNullableFilter
+  firstName: StringFilter
+  lastName: StringFilter
   avatar: StringNullableFilter
+  phoneNumber: StringFilter
+  showPhoneNumber: BoolFilter
   role: EnumUserRoleFilter
   status: EnumUserStatusFilter
   googleId: StringNullableFilter
   facebookId: StringNullableFilter
   city: CityRelationFilter
   cityId: StringNullableFilter
+  products: ProductListRelationFilter
   favorites: FavoriteListRelationFilter
   likes: LikeListRelationFilter
-  products: ProductListRelationFilter
+  followedBy: UserListRelationFilter
+  following: UserListRelationFilter
   createdAt: DateTimeFilter
   updatedAt: DateTimeFilter
 }
@@ -515,6 +529,16 @@ input NestedStringNullableFilter {
   startsWith: String
   endsWith: String
   not: NestedStringNullableFilter
+}
+
+input BoolFilter {
+  equals: Boolean
+  not: NestedBoolFilter
+}
+
+input NestedBoolFilter {
+  equals: Boolean
+  not: NestedBoolFilter
 }
 
 input EnumUserRoleFilter {
@@ -829,9 +853,11 @@ input UserOrderByInput {
   id: SortOrder
   email: SortOrder
   password: SortOrder
-  firstname: SortOrder
-  lastname: SortOrder
+  firstName: SortOrder
+  lastName: SortOrder
   avatar: SortOrder
+  phoneNumber: SortOrder
+  showPhoneNumber: SortOrder
   role: SortOrder
   status: SortOrder
   googleId: SortOrder
@@ -855,9 +881,11 @@ enum UserScalarFieldEnum {
   id
   email
   password
-  firstname
-  lastname
+  firstName
+  lastName
   avatar
+  phoneNumber
+  showPhoneNumber
   role
   status
   googleId
@@ -880,8 +908,9 @@ type Mutation {
 input RegisterInput {
   email: String!
   password: String!
-  firstname: String
-  lastname: String
+  firstName: String!
+  lastName: String!
+  phoneNumber: String!
 }
 
 input LoginInput {
@@ -898,9 +927,11 @@ input UserUpdateInput {
   id: StringFieldUpdateOperationsInput
   email: StringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
-  firstname: NullableStringFieldUpdateOperationsInput
-  lastname: NullableStringFieldUpdateOperationsInput
+  firstName: StringFieldUpdateOperationsInput
+  lastName: StringFieldUpdateOperationsInput
   avatar: NullableStringFieldUpdateOperationsInput
+  phoneNumber: StringFieldUpdateOperationsInput
+  showPhoneNumber: BoolFieldUpdateOperationsInput
   role: EnumUserRoleFieldUpdateOperationsInput
   status: EnumUserStatusFieldUpdateOperationsInput
   googleId: NullableStringFieldUpdateOperationsInput
@@ -908,9 +939,11 @@ input UserUpdateInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   city: CityUpdateOneWithoutUsersInput
+  products: ProductUpdateManyWithoutAuthorInput
   favorites: FavoriteUpdateManyWithoutUserInput
   likes: LikeUpdateManyWithoutUserInput
-  products: ProductUpdateManyWithoutAuthorInput
+  followedBy: UserUpdateManyWithoutFollowingInput
+  following: UserUpdateManyWithoutFollowedByInput
 }
 
 input StringFieldUpdateOperationsInput {
@@ -919,6 +952,10 @@ input StringFieldUpdateOperationsInput {
 
 input NullableStringFieldUpdateOperationsInput {
   set: String
+}
+
+input BoolFieldUpdateOperationsInput {
+  set: Boolean
 }
 
 input EnumUserRoleFieldUpdateOperationsInput {
@@ -1072,9 +1109,11 @@ input UserCreateWithoutProductsInput {
   id: String
   email: String!
   password: String!
-  firstname: String
-  lastname: String
+  firstName: String!
+  lastName: String!
   avatar: String
+  phoneNumber: String!
+  showPhoneNumber: Boolean
   role: UserRole!
   status: UserStatus
   googleId: String
@@ -1084,6 +1123,8 @@ input UserCreateWithoutProductsInput {
   city: CityCreateNestedOneWithoutUsersInput
   favorites: FavoriteCreateNestedManyWithoutUserInput
   likes: LikeCreateNestedManyWithoutUserInput
+  followedBy: UserCreateNestedManyWithoutFollowingInput
+  following: UserCreateNestedManyWithoutFollowedByInput
 }
 
 input CityCreateNestedOneWithoutUsersInput {
@@ -1167,18 +1208,92 @@ input UserCreateWithoutCityInput {
   id: String
   email: String!
   password: String!
-  firstname: String
-  lastname: String
+  firstName: String!
+  lastName: String!
   avatar: String
+  phoneNumber: String!
+  showPhoneNumber: Boolean
   role: UserRole!
   status: UserStatus
   googleId: String
   facebookId: String
   createdAt: DateTime
   updatedAt: DateTime
+  products: ProductCreateNestedManyWithoutAuthorInput
   favorites: FavoriteCreateNestedManyWithoutUserInput
   likes: LikeCreateNestedManyWithoutUserInput
+  followedBy: UserCreateNestedManyWithoutFollowingInput
+  following: UserCreateNestedManyWithoutFollowedByInput
+}
+
+input ProductCreateNestedManyWithoutAuthorInput {
+  create: [ProductCreateWithoutAuthorInput!]
+  connectOrCreate: [ProductCreateOrConnectWithoutAuthorInput!]
+  createMany: ProductCreateManyAuthorInputEnvelope
+  connect: [ProductWhereUniqueInput!]
+}
+
+input ProductCreateWithoutAuthorInput {
+  id: String
+  title: String!
+  desc: String!
+  price: Float!
+  size: ProductSize!
+  season: ProductSeason!
+  dateOfPurchase: DateTime!
+  viewsNumber: Int!
+  publishStatus: ProductPublishStatus!
+  productStatus: ProductStatus!
+  createdAt: DateTime
+  updatedAt: DateTime
+  images: ProductImageCreateNestedManyWithoutProductInput
+  city: CityCreateNestedOneWithoutProductsInput!
+  category: CategoryCreateNestedOneWithoutProductsInput!
+  brand: BrandCreateNestedOneWithoutProductsInput!
+  favorites: FavoriteCreateNestedManyWithoutProductInput
+  likes: LikeCreateNestedManyWithoutProductInput
+}
+
+input FavoriteCreateNestedManyWithoutProductInput {
+  create: [FavoriteCreateWithoutProductInput!]
+  connectOrCreate: [FavoriteCreateOrConnectWithoutProductInput!]
+  createMany: FavoriteCreateManyProductInputEnvelope
+  connect: [FavoriteWhereUniqueInput!]
+}
+
+input FavoriteCreateWithoutProductInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  user: UserCreateNestedOneWithoutFavoritesInput
+}
+
+input UserCreateNestedOneWithoutFavoritesInput {
+  create: UserCreateWithoutFavoritesInput
+  connectOrCreate: UserCreateOrConnectWithoutFavoritesInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutFavoritesInput {
+  id: String
+  email: String!
+  password: String!
+  firstName: String!
+  lastName: String!
+  avatar: String
+  phoneNumber: String!
+  showPhoneNumber: Boolean
+  role: UserRole!
+  status: UserStatus
+  googleId: String
+  facebookId: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  city: CityCreateNestedOneWithoutUsersInput
   products: ProductCreateNestedManyWithoutAuthorInput
+  likes: LikeCreateNestedManyWithoutUserInput
+  followedBy: UserCreateNestedManyWithoutFollowingInput
+  following: UserCreateNestedManyWithoutFollowedByInput
 }
 
 input LikeCreateNestedManyWithoutUserInput {
@@ -1222,166 +1337,100 @@ input ProductCreateWithoutLikesInput {
   favorites: FavoriteCreateNestedManyWithoutProductInput
 }
 
-input FavoriteCreateNestedManyWithoutProductInput {
-  create: [FavoriteCreateWithoutProductInput!]
-  connectOrCreate: [FavoriteCreateOrConnectWithoutProductInput!]
-  createMany: FavoriteCreateManyProductInputEnvelope
-  connect: [FavoriteWhereUniqueInput!]
-}
-
-input FavoriteCreateWithoutProductInput {
-  id: String
-  createdAt: DateTime
-  updatedAt: DateTime
-  user: UserCreateNestedOneWithoutFavoritesInput
-}
-
-input UserCreateNestedOneWithoutFavoritesInput {
-  create: UserCreateWithoutFavoritesInput
-  connectOrCreate: UserCreateOrConnectWithoutFavoritesInput
-  connect: UserWhereUniqueInput
-}
-
-input UserCreateWithoutFavoritesInput {
-  id: String
-  email: String!
-  password: String!
-  firstname: String
-  lastname: String
-  avatar: String
-  role: UserRole!
-  status: UserStatus
-  googleId: String
-  facebookId: String
-  createdAt: DateTime
-  updatedAt: DateTime
-  city: CityCreateNestedOneWithoutUsersInput
-  likes: LikeCreateNestedManyWithoutUserInput
-  products: ProductCreateNestedManyWithoutAuthorInput
-}
-
-input ProductCreateNestedManyWithoutAuthorInput {
-  create: [ProductCreateWithoutAuthorInput!]
-  connectOrCreate: [ProductCreateOrConnectWithoutAuthorInput!]
-  createMany: ProductCreateManyAuthorInputEnvelope
-  connect: [ProductWhereUniqueInput!]
-}
-
-input ProductCreateWithoutAuthorInput {
-  id: String
-  title: String!
-  desc: String!
-  price: Float!
-  size: ProductSize!
-  season: ProductSeason!
-  dateOfPurchase: DateTime!
-  viewsNumber: Int!
-  publishStatus: ProductPublishStatus!
-  productStatus: ProductStatus!
-  createdAt: DateTime
-  updatedAt: DateTime
-  images: ProductImageCreateNestedManyWithoutProductInput
-  city: CityCreateNestedOneWithoutProductsInput!
-  category: CategoryCreateNestedOneWithoutProductsInput!
-  brand: BrandCreateNestedOneWithoutProductsInput!
-  favorites: FavoriteCreateNestedManyWithoutProductInput
-  likes: LikeCreateNestedManyWithoutProductInput
-}
-
-input LikeCreateNestedManyWithoutProductInput {
-  create: [LikeCreateWithoutProductInput!]
-  connectOrCreate: [LikeCreateOrConnectWithoutProductInput!]
-  createMany: LikeCreateManyProductInputEnvelope
-  connect: [LikeWhereUniqueInput!]
-}
-
-input LikeCreateWithoutProductInput {
-  id: String
-  createdAt: DateTime
-  updatedAt: DateTime
-  user: UserCreateNestedOneWithoutLikesInput
-}
-
-input UserCreateNestedOneWithoutLikesInput {
-  create: UserCreateWithoutLikesInput
-  connectOrCreate: UserCreateOrConnectWithoutLikesInput
-  connect: UserWhereUniqueInput
-}
-
-input UserCreateWithoutLikesInput {
-  id: String
-  email: String!
-  password: String!
-  firstname: String
-  lastname: String
-  avatar: String
-  role: UserRole!
-  status: UserStatus
-  googleId: String
-  facebookId: String
-  createdAt: DateTime
-  updatedAt: DateTime
-  city: CityCreateNestedOneWithoutUsersInput
-  favorites: FavoriteCreateNestedManyWithoutUserInput
-  products: ProductCreateNestedManyWithoutAuthorInput
-}
-
-input UserCreateOrConnectWithoutLikesInput {
-  where: UserWhereUniqueInput!
-  create: UserCreateWithoutLikesInput!
-}
-
-input LikeCreateOrConnectWithoutProductInput {
-  where: LikeWhereUniqueInput!
-  create: LikeCreateWithoutProductInput!
-}
-
-input LikeWhereUniqueInput {
-  id: String
-}
-
-input LikeCreateManyProductInputEnvelope {
-  data: [LikeCreateManyProductInput!]!
-  skipDuplicates: Boolean
-}
-
-input LikeCreateManyProductInput {
-  id: String
-  userId: String
-  createdAt: DateTime
-  updatedAt: DateTime
-}
-
-input ProductCreateOrConnectWithoutAuthorInput {
+input ProductCreateOrConnectWithoutLikesInput {
   where: ProductWhereUniqueInput!
-  create: ProductCreateWithoutAuthorInput!
+  create: ProductCreateWithoutLikesInput!
 }
 
 input ProductWhereUniqueInput {
   id: String
 }
 
-input ProductCreateManyAuthorInputEnvelope {
-  data: [ProductCreateManyAuthorInput!]!
+input LikeCreateOrConnectWithoutUserInput {
+  where: LikeWhereUniqueInput!
+  create: LikeCreateWithoutUserInput!
+}
+
+input LikeWhereUniqueInput {
+  id: String
+}
+
+input LikeCreateManyUserInputEnvelope {
+  data: [LikeCreateManyUserInput!]!
   skipDuplicates: Boolean
 }
 
-input ProductCreateManyAuthorInput {
+input LikeCreateManyUserInput {
   id: String
-  title: String!
-  desc: String!
-  price: Float!
-  size: ProductSize!
-  season: ProductSeason!
-  dateOfPurchase: DateTime!
-  viewsNumber: Int!
-  cityId: String!
-  categoryId: String!
-  brandId: String!
-  publishStatus: ProductPublishStatus!
-  productStatus: ProductStatus!
+  productId: String
   createdAt: DateTime
   updatedAt: DateTime
+}
+
+input UserCreateNestedManyWithoutFollowingInput {
+  create: [UserCreateWithoutFollowingInput!]
+  connectOrCreate: [UserCreateOrConnectWithoutFollowingInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateWithoutFollowingInput {
+  id: String
+  email: String!
+  password: String!
+  firstName: String!
+  lastName: String!
+  avatar: String
+  phoneNumber: String!
+  showPhoneNumber: Boolean
+  role: UserRole!
+  status: UserStatus
+  googleId: String
+  facebookId: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  city: CityCreateNestedOneWithoutUsersInput
+  products: ProductCreateNestedManyWithoutAuthorInput
+  favorites: FavoriteCreateNestedManyWithoutUserInput
+  likes: LikeCreateNestedManyWithoutUserInput
+  followedBy: UserCreateNestedManyWithoutFollowingInput
+}
+
+input UserCreateOrConnectWithoutFollowingInput {
+  where: UserWhereUniqueInput!
+  create: UserCreateWithoutFollowingInput!
+}
+
+input UserCreateNestedManyWithoutFollowedByInput {
+  create: [UserCreateWithoutFollowedByInput!]
+  connectOrCreate: [UserCreateOrConnectWithoutFollowedByInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateWithoutFollowedByInput {
+  id: String
+  email: String!
+  password: String!
+  firstName: String!
+  lastName: String!
+  avatar: String
+  phoneNumber: String!
+  showPhoneNumber: Boolean
+  role: UserRole!
+  status: UserStatus
+  googleId: String
+  facebookId: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  city: CityCreateNestedOneWithoutUsersInput
+  products: ProductCreateNestedManyWithoutAuthorInput
+  favorites: FavoriteCreateNestedManyWithoutUserInput
+  likes: LikeCreateNestedManyWithoutUserInput
+  following: UserCreateNestedManyWithoutFollowedByInput
+}
+
+input UserCreateOrConnectWithoutFollowedByInput {
+  where: UserWhereUniqueInput!
+  create: UserCreateWithoutFollowedByInput!
 }
 
 input UserCreateOrConnectWithoutFavoritesInput {
@@ -1410,24 +1459,94 @@ input FavoriteCreateManyProductInput {
   updatedAt: DateTime
 }
 
-input ProductCreateOrConnectWithoutLikesInput {
-  where: ProductWhereUniqueInput!
-  create: ProductCreateWithoutLikesInput!
+input LikeCreateNestedManyWithoutProductInput {
+  create: [LikeCreateWithoutProductInput!]
+  connectOrCreate: [LikeCreateOrConnectWithoutProductInput!]
+  createMany: LikeCreateManyProductInputEnvelope
+  connect: [LikeWhereUniqueInput!]
 }
 
-input LikeCreateOrConnectWithoutUserInput {
+input LikeCreateWithoutProductInput {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  user: UserCreateNestedOneWithoutLikesInput
+}
+
+input UserCreateNestedOneWithoutLikesInput {
+  create: UserCreateWithoutLikesInput
+  connectOrCreate: UserCreateOrConnectWithoutLikesInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutLikesInput {
+  id: String
+  email: String!
+  password: String!
+  firstName: String!
+  lastName: String!
+  avatar: String
+  phoneNumber: String!
+  showPhoneNumber: Boolean
+  role: UserRole!
+  status: UserStatus
+  googleId: String
+  facebookId: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  city: CityCreateNestedOneWithoutUsersInput
+  products: ProductCreateNestedManyWithoutAuthorInput
+  favorites: FavoriteCreateNestedManyWithoutUserInput
+  followedBy: UserCreateNestedManyWithoutFollowingInput
+  following: UserCreateNestedManyWithoutFollowedByInput
+}
+
+input UserCreateOrConnectWithoutLikesInput {
+  where: UserWhereUniqueInput!
+  create: UserCreateWithoutLikesInput!
+}
+
+input LikeCreateOrConnectWithoutProductInput {
   where: LikeWhereUniqueInput!
-  create: LikeCreateWithoutUserInput!
+  create: LikeCreateWithoutProductInput!
 }
 
-input LikeCreateManyUserInputEnvelope {
-  data: [LikeCreateManyUserInput!]!
+input LikeCreateManyProductInputEnvelope {
+  data: [LikeCreateManyProductInput!]!
   skipDuplicates: Boolean
 }
 
-input LikeCreateManyUserInput {
+input LikeCreateManyProductInput {
   id: String
-  productId: String
+  userId: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input ProductCreateOrConnectWithoutAuthorInput {
+  where: ProductWhereUniqueInput!
+  create: ProductCreateWithoutAuthorInput!
+}
+
+input ProductCreateManyAuthorInputEnvelope {
+  data: [ProductCreateManyAuthorInput!]!
+  skipDuplicates: Boolean
+}
+
+input ProductCreateManyAuthorInput {
+  id: String
+  title: String!
+  desc: String!
+  price: Float!
+  size: ProductSize!
+  season: ProductSeason!
+  dateOfPurchase: DateTime!
+  viewsNumber: Int!
+  cityId: String!
+  categoryId: String!
+  brandId: String!
+  publishStatus: ProductPublishStatus!
+  productStatus: ProductStatus!
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -1446,9 +1565,11 @@ input UserCreateManyCityInput {
   id: String
   email: String!
   password: String!
-  firstname: String
-  lastname: String
+  firstName: String!
+  lastName: String!
   avatar: String
+  phoneNumber: String!
+  showPhoneNumber: Boolean
   role: UserRole!
   status: UserStatus
   googleId: String
@@ -1723,9 +1844,11 @@ input UserUpdateWithoutProductsInput {
   id: StringFieldUpdateOperationsInput
   email: StringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
-  firstname: NullableStringFieldUpdateOperationsInput
-  lastname: NullableStringFieldUpdateOperationsInput
+  firstName: StringFieldUpdateOperationsInput
+  lastName: StringFieldUpdateOperationsInput
   avatar: NullableStringFieldUpdateOperationsInput
+  phoneNumber: StringFieldUpdateOperationsInput
+  showPhoneNumber: BoolFieldUpdateOperationsInput
   role: EnumUserRoleFieldUpdateOperationsInput
   status: EnumUserStatusFieldUpdateOperationsInput
   googleId: NullableStringFieldUpdateOperationsInput
@@ -1735,6 +1858,8 @@ input UserUpdateWithoutProductsInput {
   city: CityUpdateOneWithoutUsersInput
   favorites: FavoriteUpdateManyWithoutUserInput
   likes: LikeUpdateManyWithoutUserInput
+  followedBy: UserUpdateManyWithoutFollowingInput
+  following: UserUpdateManyWithoutFollowedByInput
 }
 
 input FavoriteUpdateManyWithoutUserInput {
@@ -1845,18 +1970,127 @@ input UserUpdateWithoutCityInput {
   id: StringFieldUpdateOperationsInput
   email: StringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
-  firstname: NullableStringFieldUpdateOperationsInput
-  lastname: NullableStringFieldUpdateOperationsInput
+  firstName: StringFieldUpdateOperationsInput
+  lastName: StringFieldUpdateOperationsInput
   avatar: NullableStringFieldUpdateOperationsInput
+  phoneNumber: StringFieldUpdateOperationsInput
+  showPhoneNumber: BoolFieldUpdateOperationsInput
   role: EnumUserRoleFieldUpdateOperationsInput
   status: EnumUserStatusFieldUpdateOperationsInput
   googleId: NullableStringFieldUpdateOperationsInput
   facebookId: NullableStringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
+  products: ProductUpdateManyWithoutAuthorInput
   favorites: FavoriteUpdateManyWithoutUserInput
   likes: LikeUpdateManyWithoutUserInput
+  followedBy: UserUpdateManyWithoutFollowingInput
+  following: UserUpdateManyWithoutFollowedByInput
+}
+
+input ProductUpdateManyWithoutAuthorInput {
+  create: [ProductCreateWithoutAuthorInput!]
+  connectOrCreate: [ProductCreateOrConnectWithoutAuthorInput!]
+  upsert: [ProductUpsertWithWhereUniqueWithoutAuthorInput!]
+  createMany: ProductCreateManyAuthorInputEnvelope
+  connect: [ProductWhereUniqueInput!]
+  set: [ProductWhereUniqueInput!]
+  disconnect: [ProductWhereUniqueInput!]
+  delete: [ProductWhereUniqueInput!]
+  update: [ProductUpdateWithWhereUniqueWithoutAuthorInput!]
+  updateMany: [ProductUpdateManyWithWhereWithoutAuthorInput!]
+  deleteMany: [ProductScalarWhereInput!]
+}
+
+input ProductUpsertWithWhereUniqueWithoutAuthorInput {
+  where: ProductWhereUniqueInput!
+  update: ProductUpdateWithoutAuthorInput!
+  create: ProductCreateWithoutAuthorInput!
+}
+
+input ProductUpdateWithoutAuthorInput {
+  id: StringFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  desc: StringFieldUpdateOperationsInput
+  price: FloatFieldUpdateOperationsInput
+  size: EnumProductSizeFieldUpdateOperationsInput
+  season: EnumProductSeasonFieldUpdateOperationsInput
+  dateOfPurchase: DateTimeFieldUpdateOperationsInput
+  viewsNumber: IntFieldUpdateOperationsInput
+  publishStatus: EnumProductPublishStatusFieldUpdateOperationsInput
+  productStatus: EnumProductStatusFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  images: ProductImageUpdateManyWithoutProductInput
+  city: CityUpdateOneRequiredWithoutProductsInput
+  category: CategoryUpdateOneRequiredWithoutProductsInput
+  brand: BrandUpdateOneRequiredWithoutProductsInput
+  favorites: FavoriteUpdateManyWithoutProductInput
+  likes: LikeUpdateManyWithoutProductInput
+}
+
+input FavoriteUpdateManyWithoutProductInput {
+  create: [FavoriteCreateWithoutProductInput!]
+  connectOrCreate: [FavoriteCreateOrConnectWithoutProductInput!]
+  upsert: [FavoriteUpsertWithWhereUniqueWithoutProductInput!]
+  createMany: FavoriteCreateManyProductInputEnvelope
+  connect: [FavoriteWhereUniqueInput!]
+  set: [FavoriteWhereUniqueInput!]
+  disconnect: [FavoriteWhereUniqueInput!]
+  delete: [FavoriteWhereUniqueInput!]
+  update: [FavoriteUpdateWithWhereUniqueWithoutProductInput!]
+  updateMany: [FavoriteUpdateManyWithWhereWithoutProductInput!]
+  deleteMany: [FavoriteScalarWhereInput!]
+}
+
+input FavoriteUpsertWithWhereUniqueWithoutProductInput {
+  where: FavoriteWhereUniqueInput!
+  update: FavoriteUpdateWithoutProductInput!
+  create: FavoriteCreateWithoutProductInput!
+}
+
+input FavoriteUpdateWithoutProductInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  user: UserUpdateOneWithoutFavoritesInput
+}
+
+input UserUpdateOneWithoutFavoritesInput {
+  create: UserCreateWithoutFavoritesInput
+  connectOrCreate: UserCreateOrConnectWithoutFavoritesInput
+  upsert: UserUpsertWithoutFavoritesInput
+  connect: UserWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: UserUpdateWithoutFavoritesInput
+}
+
+input UserUpsertWithoutFavoritesInput {
+  update: UserUpdateWithoutFavoritesInput!
+  create: UserCreateWithoutFavoritesInput!
+}
+
+input UserUpdateWithoutFavoritesInput {
+  id: StringFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
+  firstName: StringFieldUpdateOperationsInput
+  lastName: StringFieldUpdateOperationsInput
+  avatar: NullableStringFieldUpdateOperationsInput
+  phoneNumber: StringFieldUpdateOperationsInput
+  showPhoneNumber: BoolFieldUpdateOperationsInput
+  role: EnumUserRoleFieldUpdateOperationsInput
+  status: EnumUserStatusFieldUpdateOperationsInput
+  googleId: NullableStringFieldUpdateOperationsInput
+  facebookId: NullableStringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  city: CityUpdateOneWithoutUsersInput
   products: ProductUpdateManyWithoutAuthorInput
+  likes: LikeUpdateManyWithoutUserInput
+  followedBy: UserUpdateManyWithoutFollowingInput
+  following: UserUpdateManyWithoutFollowedByInput
 }
 
 input LikeUpdateManyWithoutUserInput {
@@ -1922,55 +2156,61 @@ input ProductUpdateWithoutLikesInput {
   favorites: FavoriteUpdateManyWithoutProductInput
 }
 
-input FavoriteUpdateManyWithoutProductInput {
-  create: [FavoriteCreateWithoutProductInput!]
-  connectOrCreate: [FavoriteCreateOrConnectWithoutProductInput!]
-  upsert: [FavoriteUpsertWithWhereUniqueWithoutProductInput!]
-  createMany: FavoriteCreateManyProductInputEnvelope
-  connect: [FavoriteWhereUniqueInput!]
-  set: [FavoriteWhereUniqueInput!]
-  disconnect: [FavoriteWhereUniqueInput!]
-  delete: [FavoriteWhereUniqueInput!]
-  update: [FavoriteUpdateWithWhereUniqueWithoutProductInput!]
-  updateMany: [FavoriteUpdateManyWithWhereWithoutProductInput!]
-  deleteMany: [FavoriteScalarWhereInput!]
+input LikeUpdateWithWhereUniqueWithoutUserInput {
+  where: LikeWhereUniqueInput!
+  data: LikeUpdateWithoutUserInput!
 }
 
-input FavoriteUpsertWithWhereUniqueWithoutProductInput {
-  where: FavoriteWhereUniqueInput!
-  update: FavoriteUpdateWithoutProductInput!
-  create: FavoriteCreateWithoutProductInput!
+input LikeUpdateManyWithWhereWithoutUserInput {
+  where: LikeScalarWhereInput!
+  data: LikeUpdateManyMutationInput!
 }
 
-input FavoriteUpdateWithoutProductInput {
+input LikeScalarWhereInput {
+  AND: [LikeScalarWhereInput!]
+  OR: [LikeScalarWhereInput!]
+  NOT: [LikeScalarWhereInput!]
+  id: StringFilter
+  userId: StringNullableFilter
+  productId: StringNullableFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+}
+
+input LikeUpdateManyMutationInput {
   id: StringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
-  user: UserUpdateOneWithoutFavoritesInput
 }
 
-input UserUpdateOneWithoutFavoritesInput {
-  create: UserCreateWithoutFavoritesInput
-  connectOrCreate: UserCreateOrConnectWithoutFavoritesInput
-  upsert: UserUpsertWithoutFavoritesInput
-  connect: UserWhereUniqueInput
-  disconnect: Boolean
-  delete: Boolean
-  update: UserUpdateWithoutFavoritesInput
+input UserUpdateManyWithoutFollowingInput {
+  create: [UserCreateWithoutFollowingInput!]
+  connectOrCreate: [UserCreateOrConnectWithoutFollowingInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutFollowingInput!]
+  connect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  delete: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutFollowingInput!]
+  updateMany: [UserUpdateManyWithWhereWithoutFollowingInput!]
+  deleteMany: [UserScalarWhereInput!]
 }
 
-input UserUpsertWithoutFavoritesInput {
-  update: UserUpdateWithoutFavoritesInput!
-  create: UserCreateWithoutFavoritesInput!
+input UserUpsertWithWhereUniqueWithoutFollowingInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutFollowingInput!
+  create: UserCreateWithoutFollowingInput!
 }
 
-input UserUpdateWithoutFavoritesInput {
+input UserUpdateWithoutFollowingInput {
   id: StringFieldUpdateOperationsInput
   email: StringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
-  firstname: NullableStringFieldUpdateOperationsInput
-  lastname: NullableStringFieldUpdateOperationsInput
+  firstName: StringFieldUpdateOperationsInput
+  lastName: StringFieldUpdateOperationsInput
   avatar: NullableStringFieldUpdateOperationsInput
+  phoneNumber: StringFieldUpdateOperationsInput
+  showPhoneNumber: BoolFieldUpdateOperationsInput
   role: EnumUserRoleFieldUpdateOperationsInput
   status: EnumUserStatusFieldUpdateOperationsInput
   googleId: NullableStringFieldUpdateOperationsInput
@@ -1978,49 +2218,136 @@ input UserUpdateWithoutFavoritesInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   city: CityUpdateOneWithoutUsersInput
-  likes: LikeUpdateManyWithoutUserInput
   products: ProductUpdateManyWithoutAuthorInput
+  favorites: FavoriteUpdateManyWithoutUserInput
+  likes: LikeUpdateManyWithoutUserInput
+  followedBy: UserUpdateManyWithoutFollowingInput
 }
 
-input ProductUpdateManyWithoutAuthorInput {
-  create: [ProductCreateWithoutAuthorInput!]
-  connectOrCreate: [ProductCreateOrConnectWithoutAuthorInput!]
-  upsert: [ProductUpsertWithWhereUniqueWithoutAuthorInput!]
-  createMany: ProductCreateManyAuthorInputEnvelope
-  connect: [ProductWhereUniqueInput!]
-  set: [ProductWhereUniqueInput!]
-  disconnect: [ProductWhereUniqueInput!]
-  delete: [ProductWhereUniqueInput!]
-  update: [ProductUpdateWithWhereUniqueWithoutAuthorInput!]
-  updateMany: [ProductUpdateManyWithWhereWithoutAuthorInput!]
-  deleteMany: [ProductScalarWhereInput!]
+input UserUpdateWithWhereUniqueWithoutFollowingInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutFollowingInput!
 }
 
-input ProductUpsertWithWhereUniqueWithoutAuthorInput {
-  where: ProductWhereUniqueInput!
-  update: ProductUpdateWithoutAuthorInput!
-  create: ProductCreateWithoutAuthorInput!
+input UserUpdateManyWithWhereWithoutFollowingInput {
+  where: UserScalarWhereInput!
+  data: UserUpdateManyMutationInput!
 }
 
-input ProductUpdateWithoutAuthorInput {
+input UserScalarWhereInput {
+  AND: [UserScalarWhereInput!]
+  OR: [UserScalarWhereInput!]
+  NOT: [UserScalarWhereInput!]
+  id: StringFilter
+  email: StringFilter
+  password: StringFilter
+  firstName: StringFilter
+  lastName: StringFilter
+  avatar: StringNullableFilter
+  phoneNumber: StringFilter
+  showPhoneNumber: BoolFilter
+  role: EnumUserRoleFilter
+  status: EnumUserStatusFilter
+  googleId: StringNullableFilter
+  facebookId: StringNullableFilter
+  cityId: StringNullableFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+}
+
+input UserUpdateManyMutationInput {
   id: StringFieldUpdateOperationsInput
-  title: StringFieldUpdateOperationsInput
-  desc: StringFieldUpdateOperationsInput
-  price: FloatFieldUpdateOperationsInput
-  size: EnumProductSizeFieldUpdateOperationsInput
-  season: EnumProductSeasonFieldUpdateOperationsInput
-  dateOfPurchase: DateTimeFieldUpdateOperationsInput
-  viewsNumber: IntFieldUpdateOperationsInput
-  publishStatus: EnumProductPublishStatusFieldUpdateOperationsInput
-  productStatus: EnumProductStatusFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
+  firstName: StringFieldUpdateOperationsInput
+  lastName: StringFieldUpdateOperationsInput
+  avatar: NullableStringFieldUpdateOperationsInput
+  phoneNumber: StringFieldUpdateOperationsInput
+  showPhoneNumber: BoolFieldUpdateOperationsInput
+  role: EnumUserRoleFieldUpdateOperationsInput
+  status: EnumUserStatusFieldUpdateOperationsInput
+  googleId: NullableStringFieldUpdateOperationsInput
+  facebookId: NullableStringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
-  images: ProductImageUpdateManyWithoutProductInput
-  city: CityUpdateOneRequiredWithoutProductsInput
-  category: CategoryUpdateOneRequiredWithoutProductsInput
-  brand: BrandUpdateOneRequiredWithoutProductsInput
-  favorites: FavoriteUpdateManyWithoutProductInput
-  likes: LikeUpdateManyWithoutProductInput
+}
+
+input UserUpdateManyWithoutFollowedByInput {
+  create: [UserCreateWithoutFollowedByInput!]
+  connectOrCreate: [UserCreateOrConnectWithoutFollowedByInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutFollowedByInput!]
+  connect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  delete: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutFollowedByInput!]
+  updateMany: [UserUpdateManyWithWhereWithoutFollowedByInput!]
+  deleteMany: [UserScalarWhereInput!]
+}
+
+input UserUpsertWithWhereUniqueWithoutFollowedByInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutFollowedByInput!
+  create: UserCreateWithoutFollowedByInput!
+}
+
+input UserUpdateWithoutFollowedByInput {
+  id: StringFieldUpdateOperationsInput
+  email: StringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
+  firstName: StringFieldUpdateOperationsInput
+  lastName: StringFieldUpdateOperationsInput
+  avatar: NullableStringFieldUpdateOperationsInput
+  phoneNumber: StringFieldUpdateOperationsInput
+  showPhoneNumber: BoolFieldUpdateOperationsInput
+  role: EnumUserRoleFieldUpdateOperationsInput
+  status: EnumUserStatusFieldUpdateOperationsInput
+  googleId: NullableStringFieldUpdateOperationsInput
+  facebookId: NullableStringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  city: CityUpdateOneWithoutUsersInput
+  products: ProductUpdateManyWithoutAuthorInput
+  favorites: FavoriteUpdateManyWithoutUserInput
+  likes: LikeUpdateManyWithoutUserInput
+  following: UserUpdateManyWithoutFollowedByInput
+}
+
+input UserUpdateWithWhereUniqueWithoutFollowedByInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutFollowedByInput!
+}
+
+input UserUpdateManyWithWhereWithoutFollowedByInput {
+  where: UserScalarWhereInput!
+  data: UserUpdateManyMutationInput!
+}
+
+input FavoriteUpdateWithWhereUniqueWithoutProductInput {
+  where: FavoriteWhereUniqueInput!
+  data: FavoriteUpdateWithoutProductInput!
+}
+
+input FavoriteUpdateManyWithWhereWithoutProductInput {
+  where: FavoriteScalarWhereInput!
+  data: FavoriteUpdateManyMutationInput!
+}
+
+input FavoriteScalarWhereInput {
+  AND: [FavoriteScalarWhereInput!]
+  OR: [FavoriteScalarWhereInput!]
+  NOT: [FavoriteScalarWhereInput!]
+  id: StringFilter
+  userId: StringNullableFilter
+  productId: StringNullableFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+}
+
+input FavoriteUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
 input LikeUpdateManyWithoutProductInput {
@@ -2069,9 +2396,11 @@ input UserUpdateWithoutLikesInput {
   id: StringFieldUpdateOperationsInput
   email: StringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
-  firstname: NullableStringFieldUpdateOperationsInput
-  lastname: NullableStringFieldUpdateOperationsInput
+  firstName: StringFieldUpdateOperationsInput
+  lastName: StringFieldUpdateOperationsInput
   avatar: NullableStringFieldUpdateOperationsInput
+  phoneNumber: StringFieldUpdateOperationsInput
+  showPhoneNumber: BoolFieldUpdateOperationsInput
   role: EnumUserRoleFieldUpdateOperationsInput
   status: EnumUserStatusFieldUpdateOperationsInput
   googleId: NullableStringFieldUpdateOperationsInput
@@ -2079,8 +2408,10 @@ input UserUpdateWithoutLikesInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   city: CityUpdateOneWithoutUsersInput
-  favorites: FavoriteUpdateManyWithoutUserInput
   products: ProductUpdateManyWithoutAuthorInput
+  favorites: FavoriteUpdateManyWithoutUserInput
+  followedBy: UserUpdateManyWithoutFollowingInput
+  following: UserUpdateManyWithoutFollowedByInput
 }
 
 input LikeUpdateWithWhereUniqueWithoutProductInput {
@@ -2091,23 +2422,6 @@ input LikeUpdateWithWhereUniqueWithoutProductInput {
 input LikeUpdateManyWithWhereWithoutProductInput {
   where: LikeScalarWhereInput!
   data: LikeUpdateManyMutationInput!
-}
-
-input LikeScalarWhereInput {
-  AND: [LikeScalarWhereInput!]
-  OR: [LikeScalarWhereInput!]
-  NOT: [LikeScalarWhereInput!]
-  id: StringFilter
-  userId: StringNullableFilter
-  productId: StringNullableFilter
-  createdAt: DateTimeFilter
-  updatedAt: DateTimeFilter
-}
-
-input LikeUpdateManyMutationInput {
-  id: StringFieldUpdateOperationsInput
-  createdAt: DateTimeFieldUpdateOperationsInput
-  updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
 input ProductUpdateWithWhereUniqueWithoutAuthorInput {
@@ -2157,43 +2471,6 @@ input ProductUpdateManyMutationInput {
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
-input FavoriteUpdateWithWhereUniqueWithoutProductInput {
-  where: FavoriteWhereUniqueInput!
-  data: FavoriteUpdateWithoutProductInput!
-}
-
-input FavoriteUpdateManyWithWhereWithoutProductInput {
-  where: FavoriteScalarWhereInput!
-  data: FavoriteUpdateManyMutationInput!
-}
-
-input FavoriteScalarWhereInput {
-  AND: [FavoriteScalarWhereInput!]
-  OR: [FavoriteScalarWhereInput!]
-  NOT: [FavoriteScalarWhereInput!]
-  id: StringFilter
-  userId: StringNullableFilter
-  productId: StringNullableFilter
-  createdAt: DateTimeFilter
-  updatedAt: DateTimeFilter
-}
-
-input FavoriteUpdateManyMutationInput {
-  id: StringFieldUpdateOperationsInput
-  createdAt: DateTimeFieldUpdateOperationsInput
-  updatedAt: DateTimeFieldUpdateOperationsInput
-}
-
-input LikeUpdateWithWhereUniqueWithoutUserInput {
-  where: LikeWhereUniqueInput!
-  data: LikeUpdateWithoutUserInput!
-}
-
-input LikeUpdateManyWithWhereWithoutUserInput {
-  where: LikeScalarWhereInput!
-  data: LikeUpdateManyMutationInput!
-}
-
 input UserUpdateWithWhereUniqueWithoutCityInput {
   where: UserWhereUniqueInput!
   data: UserUpdateWithoutCityInput!
@@ -2202,40 +2479,6 @@ input UserUpdateWithWhereUniqueWithoutCityInput {
 input UserUpdateManyWithWhereWithoutCityInput {
   where: UserScalarWhereInput!
   data: UserUpdateManyMutationInput!
-}
-
-input UserScalarWhereInput {
-  AND: [UserScalarWhereInput!]
-  OR: [UserScalarWhereInput!]
-  NOT: [UserScalarWhereInput!]
-  id: StringFilter
-  email: StringFilter
-  password: StringFilter
-  firstname: StringNullableFilter
-  lastname: StringNullableFilter
-  avatar: StringNullableFilter
-  role: EnumUserRoleFilter
-  status: EnumUserStatusFilter
-  googleId: StringNullableFilter
-  facebookId: StringNullableFilter
-  cityId: StringNullableFilter
-  createdAt: DateTimeFilter
-  updatedAt: DateTimeFilter
-}
-
-input UserUpdateManyMutationInput {
-  id: StringFieldUpdateOperationsInput
-  email: StringFieldUpdateOperationsInput
-  password: StringFieldUpdateOperationsInput
-  firstname: NullableStringFieldUpdateOperationsInput
-  lastname: NullableStringFieldUpdateOperationsInput
-  avatar: NullableStringFieldUpdateOperationsInput
-  role: EnumUserRoleFieldUpdateOperationsInput
-  status: EnumUserStatusFieldUpdateOperationsInput
-  googleId: NullableStringFieldUpdateOperationsInput
-  facebookId: NullableStringFieldUpdateOperationsInput
-  createdAt: DateTimeFieldUpdateOperationsInput
-  updatedAt: DateTimeFieldUpdateOperationsInput
 }
 
 input FavoriteUpdateWithWhereUniqueWithoutUserInput {

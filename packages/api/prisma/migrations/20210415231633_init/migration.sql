@@ -21,9 +21,11 @@ CREATE TABLE "User" (
     "id" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
-    "firstname" TEXT,
-    "lastname" TEXT,
+    "firstName" TEXT NOT NULL,
+    "lastName" TEXT NOT NULL,
     "avatar" TEXT,
+    "phoneNumber" TEXT NOT NULL,
+    "showPhoneNumber" BOOLEAN NOT NULL DEFAULT true,
     "role" "UserRole" NOT NULL,
     "status" "UserStatus" NOT NULL DEFAULT E'active',
     "googleId" TEXT,
@@ -122,8 +124,20 @@ CREATE TABLE "Like" (
     PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "_UserFollows" (
+    "A" TEXT NOT NULL,
+    "B" TEXT NOT NULL
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "User.email_unique" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "_UserFollows_AB_unique" ON "_UserFollows"("A", "B");
+
+-- CreateIndex
+CREATE INDEX "_UserFollows_B_index" ON "_UserFollows"("B");
 
 -- AddForeignKey
 ALTER TABLE "User" ADD FOREIGN KEY ("cityId") REFERENCES "City"("id") ON DELETE SET NULL ON UPDATE CASCADE;
@@ -154,3 +168,9 @@ ALTER TABLE "Like" ADD FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE 
 
 -- AddForeignKey
 ALTER TABLE "Like" ADD FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_UserFollows" ADD FOREIGN KEY ("A") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_UserFollows" ADD FOREIGN KEY ("B") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
