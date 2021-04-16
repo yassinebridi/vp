@@ -4,7 +4,7 @@ export const routes = [
   {
     path: "/",
     icon: HomeIcon,
-    name: "index",
+    name: "Acceuil",
   },
   {
     path: "/login",

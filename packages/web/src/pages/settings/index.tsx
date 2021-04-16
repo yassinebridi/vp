@@ -3,9 +3,8 @@ import {
   useMeQuery,
   useUpdateUserMutation,
 } from "@adapters";
-import { useToast } from "@chakra-ui/react";
+import { Button, useToast } from "@chakra-ui/react";
 import { MyInput } from "@components";
-import { SpinnerIcon } from "@design-system";
 import { useMe } from "@utils";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -30,7 +29,7 @@ const SettingsPage: React.FC<SettingsPageProps> = () => {
   const onSubmit = async (
     data: UpdateUserMutationVariables["updateUserInput"]["data"]
   ) => {
-    const { email, avatar, lastname, firstname } = data;
+    const { email, avatar, lastName, firstName } = data;
 
     try {
       const res = await mutateAsync({
@@ -41,8 +40,8 @@ const SettingsPage: React.FC<SettingsPageProps> = () => {
           data: {
             email,
             avatar,
-            lastname,
-            firstname,
+            lastName,
+            firstName,
           },
         },
       });
@@ -77,20 +76,20 @@ const SettingsPage: React.FC<SettingsPageProps> = () => {
           <div className="flex flex-col items-center justify-center">
             <div className="flex flex-col w-full space-y-4">
               <MyInput
-                defaultValue={meData.me.firstname}
+                defaultValue={meData.me.firstName}
                 register={register}
-                errors={errors?.firstname}
+                errors={errors?.firstName}
                 type="text"
                 placeholder="Prénom"
-                name="firstname.set"
+                name="firstName.set"
               />
               <MyInput
-                defaultValue={meData.me.lastname}
+                defaultValue={meData.me.lastName}
                 register={register}
-                errors={errors?.lastname}
+                errors={errors?.lastName}
                 type="text"
                 placeholder="Nom"
-                name="lastname.set"
+                name="lastName.set"
               />
 
               <MyInput
@@ -102,13 +101,14 @@ const SettingsPage: React.FC<SettingsPageProps> = () => {
                 name="email.set"
               />
 
-              <button
+              <Button
                 type="submit"
-                className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium uppercase whitespace-nowrap rounded-md shadow-sm gradify"
+                colorScheme="blue"
+                isLoading={isLoading}
+                loadingText="Edition"
               >
-                {isLoading && <SpinnerIcon cn="h-5 w-5 text-white" />}
                 Éditer
-              </button>
+              </Button>
             </div>
           </div>
         </form>

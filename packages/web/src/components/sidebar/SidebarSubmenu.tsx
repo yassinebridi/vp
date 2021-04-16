@@ -21,9 +21,10 @@ const SidebarSubmenu: React.FC<SidebarSubmenuProps> = ({ route }) => {
   const routeDisplay = capitalize(route.name);
   return (
     <li
-      className={`relative ${
+      className={clsx(
+        "relative",
         !expandSidebarProps.expand && "flex flex-col items-center"
-      }`}
+      )}
       key={route.name}
     >
       {route.routes ? (

@@ -8,7 +8,7 @@ const LoginPage: React.FC<LoginProps> = () => {
       <div className="w-full max-w-md space-y-8">
         <div>
           <h1 className="mt-6 text-4xl font-extrabold text-center text-blue-500 uppercase">
-            Dashy
+            VidePlacard
           </h1>
           <h2 className="mt-6 text-2xl font-bold text-center">
             Sign in to your account

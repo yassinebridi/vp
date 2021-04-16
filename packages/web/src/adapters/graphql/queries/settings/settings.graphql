@@ -1,5 +1,0 @@
-query getOneSettings($where: SettingsWhereUniqueInput!) {
-  getOneSettings(where: $where) {
-    ...SettingsFields
-  }
-}

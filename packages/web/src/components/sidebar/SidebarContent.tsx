@@ -14,18 +14,22 @@ const SidebarContent: React.FC<SidebarContentProps> = () => {
   return (
     <div className="py-4 text-gray-500 dark:text-gray-400">
       <div
-        className={`text-xl font-extrabold text-gray-800 dark:text-gray-200 flex ${
+        className={clsx(
+          "text-xl font-extrabold text-gray-800 dark:text-gray-200 flex",
           expandSidebarProps.expand
             ? "px-4 items-center justify-between"
             : "justify-center"
-        }`}
+        )}
       >
-        <Link to="/" className="text-sm">
-          Dashy
+        <Link to="/">
+          <a className="flex flex-col items-center text-sm">
+            <span className="text-lg font-extrabold leading-3">Vide</span>
+            <span>Placard</span>
+          </a>
         </Link>
         {expandSidebarProps.expand && (
           <button
-            className="hidden ringify text-blue-600 rounded-md lg:block dark:text-blue-300"
+            className="hidden text-blue-600 ringify rounded-md lg:block dark:text-blue-300"
             onClick={() => setExpandSidebarProps(false)}
             title="Collapse"
           >

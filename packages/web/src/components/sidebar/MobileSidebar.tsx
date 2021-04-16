@@ -20,7 +20,7 @@ const MobileSidebar: React.FC<MobileSidebarProps> = () => {
     >
       <Backdrop onClick={() => setSidebarProps(false)} />
 
-      <aside className="fixed bg-gray-100 inset-y-0 z-50 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white dark:bg-gray-850 lg:hidden">
+      <aside className="fixed bg-gray-100 inset-y-0 z-50 flex-shrink-0 w-64 mt-12 overflow-y-auto bg-white dark:bg-gray-850 lg:hidden">
         <SidebarContent />
       </aside>
     </Transition>
