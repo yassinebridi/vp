@@ -13,10 +13,6 @@ import {
   FindMany<%=Name%>Args,
   FindUnique<%=Name%>Args,
   <%=Name%>CreateInput,
-  <%=Name%>PublishStatus,
-  <%=Name%>Season,
-  <%=Name%>Size,
-  <%=Name%>Status,
   <%=Name%>WhereUniqueInput,
   UpdateOne<%=Name%>Args,
 } from 'src/@generated';

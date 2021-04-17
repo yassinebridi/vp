@@ -1,5 +1,3 @@
-import { CategoriesModule } from './categories/categories.module';
-
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
@@ -14,6 +12,7 @@ import {
 } from 'nestjs-i18n';
 import * as path from 'path';
 import { AuthModule } from './auth/auth.module';
+import { CategoriesModule } from './categories/categories.module';
 import config from './configs/config';
 import { ProductsModule } from './products/products.module';
 import { UserModule } from './users/users.module';
@@ -21,7 +20,6 @@ import { UserModule } from './users/users.module';
 @Module({
   imports: [
     CategoriesModule,
-
     AuthModule,
     UserModule,
     ProductsModule,
