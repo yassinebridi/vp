@@ -12,13 +12,17 @@ import {
 } from 'nestjs-i18n';
 import * as path from 'path';
 import { AuthModule } from './auth/auth.module';
+import { BrandsModule } from './brands/brands.module';
 import { CategoriesModule } from './categories/categories.module';
+import { CitiesModule } from './cities/cities.module';
 import config from './configs/config';
 import { ProductsModule } from './products/products.module';
 import { UserModule } from './users/users.module';
 
 @Module({
   imports: [
+    CitiesModule,
+    BrandsModule,
     CategoriesModule,
     AuthModule,
     UserModule,

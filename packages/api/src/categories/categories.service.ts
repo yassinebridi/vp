@@ -7,14 +7,10 @@ import {
 } from '@nestjs/common';
 import { I18nRequestScopeService } from 'nestjs-i18n';
 import {
+  CategoryCreateInput,
+  CategoryWhereUniqueInput,
   FindManyCategoryArgs,
   FindUniqueCategoryArgs,
-  CategoryCreateInput,
-  CategoryPublishStatus,
-  CategorySeason,
-  CategorySize,
-  CategoryStatus,
-  CategoryWhereUniqueInput,
   UpdateOneCategoryArgs,
 } from 'src/@generated';
 import { PrismaService } from 'src/prisma/prisma.service';

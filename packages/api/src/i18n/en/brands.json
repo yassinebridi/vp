@@ -1,0 +1,9 @@
+{
+  "generics": {
+    "no_item": "This brand doesn't exist",
+    "conflict": "You can't remove this brand, because there is a conflict"
+  },
+  "create": "There was a problem when creating this brand",
+  "update": "There was a problem when updating this brand",
+  "remove": "There was a problem when deleting this brand"
+}

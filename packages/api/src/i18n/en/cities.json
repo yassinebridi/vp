@@ -1,0 +1,9 @@
+{
+  "generics": {
+    "no_item": "This city doesn't exist",
+    "conflict": "You can't remove this city, because there is a conflict"
+  },
+  "create": "There was a problem when creating this city",
+  "update": "There was a problem when updating this city",
+  "remove": "There was a problem when deleting this city"
+}
