@@ -2,8 +2,10 @@ import {
   ConflictException,
   Injectable,
   InternalServerErrorException,
+  Logger,
   NotFoundException,
 } from '@nestjs/common';
+import { I18nRequestScopeService } from 'nestjs-i18n';
 import {
   FindManyProductArgs,
   FindUniqueProductArgs,
@@ -19,7 +21,11 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class ProductsService {
-  constructor(private readonly prismaService: PrismaService) {}
+  private readonly logger = new Logger(ProductsService.name);
+  constructor(
+    private readonly prismaService: PrismaService,
+    private readonly translateService: I18nRequestScopeService,
+  ) {}
 
   async getAllProducts(getAllProductsInput: FindManyProductArgs) {
     return await this.prismaService.product.findMany(getAllProductsInput);
@@ -37,7 +43,10 @@ export class ProductsService {
 
       return true;
     } catch (error) {
-      throw new InternalServerErrorException('حدث خطأ ما عند إنشاء هذه مصاريف');
+      this.logger.error(error);
+      throw new InternalServerErrorException(
+        await this.translateService.translate('products.create'),
+      );
     }
   }
 
@@ -49,7 +58,9 @@ export class ProductsService {
       select: { id: true },
     });
     if (!product) {
-      throw new NotFoundException('هذه مصاريف غير موجود');
+      throw new NotFoundException(
+        await this.translateService.translate('products.generics.no_item'),
+      );
     }
 
     try {
@@ -60,7 +71,10 @@ export class ProductsService {
 
       return true;
     } catch (error) {
-      throw new InternalServerErrorException('حدث خطأ ما عند إنشاء هذه مصاريف');
+      this.logger.error(error);
+      throw new InternalServerErrorException(
+        await this.translateService.translate('products.update'),
+      );
     }
   }
 
@@ -70,17 +84,24 @@ export class ProductsService {
       select: { id: true },
     });
     if (!product) {
-      throw new NotFoundException('هذه مصاريف غير موجود');
+      throw new NotFoundException(
+        await this.translateService.translate('products.generics.no_item'),
+      );
     }
     try {
       await this.prismaService.product.delete({ where });
 
       return true;
     } catch (error) {
+      this.logger.error(error);
       if (error.code === 'P2002') {
-        throw new ConflictException('لا يمكنك الحذف لأن هناك تعارض');
+        throw new ConflictException(
+          await this.translateService.translate('products.generics.conflict'),
+        );
       }
-      throw new InternalServerErrorException('حدث خطأ ما عند حذف هذه مصاريف');
+      throw new InternalServerErrorException(
+        await this.translateService.translate('products.remove'),
+      );
     }
   }
 
@@ -142,8 +163,9 @@ export class ProductsService {
 
       return true;
     } catch (error) {
+      this.logger.error(error);
       throw new ConflictException(
-        'Probably a conflict, try deleting the related entities first.',
+        await this.translateService.translate('products.generics.conflict'),
       );
     }
   }

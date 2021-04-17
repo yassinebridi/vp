@@ -1,3 +1,5 @@
+import { CategoriesModule } from './categories/categories.module';
+
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
@@ -13,11 +15,16 @@ import {
 import * as path from 'path';
 import { AuthModule } from './auth/auth.module';
 import config from './configs/config';
-import { UserModule } from './users/users.module';
 import { ProductsModule } from './products/products.module';
+import { UserModule } from './users/users.module';
 
 @Module({
   imports: [
+    CategoriesModule,
+
+    AuthModule,
+    UserModule,
+    ProductsModule,
     ConfigModule.forRoot({ isGlobal: true, load: [config] }),
     I18nModule.forRoot({
       fallbackLanguage: 'fr',
@@ -55,9 +62,6 @@ import { ProductsModule } from './products/products.module';
         origin: true,
       },
     }),
-    AuthModule,
-    UserModule,
-    ProductsModule,
   ],
   providers: [],
 })

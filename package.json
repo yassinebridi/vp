@@ -15,13 +15,14 @@
     "api": "yarn workspace @vp/api",
     "web": "yarn workspace @vp/web",
     "common": "yarn workspace @vp/common",
-    "dev:api": "yarn workspace @vp/api start:dev",
-    "dev:api:vite": "yarn workspace @vp/api start:dev:vite",
-    "dev:web": "yarn workspace @vp/web dev",
-    "gen:web": "yarn workspace @vp/web gen",
-    "nest": "yarn workspace @vp/api nest",
-    "build:api": "yarn workspace @vp/api build",
-    "build:common": "yarn workspace @vp/common build",
-    "build:common:watch": "yarn workspace @vp/common build:watch"
+    "dev:api": "yarn api start:dev",
+    "dev:api:vite": "yarn api start:dev:vite",
+    "dev:web": "yarn web dev",
+    "gen:web": "yarn web gen",
+    "nest": "yarn api nest",
+    "build:api": "yarn api build",
+    "build:common": "yarn common build",
+    "build:common:watch": "yarn common build:watch",
+    "s": "yarn api scaffold"
   }
 }

@@ -25,7 +25,7 @@ export class ProductsResolver {
 
   @Mutation(() => Product)
   createProduct(
-    @Args('createFeeInput') createProductInput: ProductCreateInput,
+    @Args('createProductInput') createProductInput: ProductCreateInput,
   ) {
     return this.productsService.createProduct(createProductInput);
   }
