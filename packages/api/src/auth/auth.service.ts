@@ -8,13 +8,13 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '@prisma/client';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
+import { Request, Response } from 'express';
+import { Profile as FacebookProfile } from 'passport-facebook';
+import { Profile as GoogleProfile } from 'passport-google-oauth20';
 import { UserRole, UserWhereInput } from '../@generated';
 import { SecurityConfig } from '../configs/config.interface';
 import { PrismaService } from '../prisma/prisma.service';
 import { isProd } from '../utils/helpers';
-import { Request, Response } from 'express';
-import { Profile as FacebookProfile } from 'passport-facebook';
-import { Profile as GoogleProfile } from 'passport-google-oauth20';
 import { TAccessToken } from './access-token.model';
 import { LoginInput } from './dto/login.input';
 import { RegisterInput } from './dto/register.input';
@@ -27,7 +27,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
     private readonly prismaService: PrismaService,
     private readonly passwordService: PasswordService,
-    private readonly configService: ConfigService,
+    private readonly configService: ConfigService, // private readonly transService: I18nRequestScopeService,
   ) {}
 
   createGoogleUser(profile: GoogleProfile) {

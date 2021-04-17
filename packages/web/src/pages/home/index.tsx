@@ -1,3 +1,4 @@
+import { MyTable } from "@design-system";
 import React from "react";
 
 export interface HomePageProps {}
@@ -8,6 +9,7 @@ const HomePage: React.FC<HomePageProps> = () => {
         <h2 className="text-xl text-gray-700 dark:text-gray-400">
           No projects at the moment
         </h2>
+        <MyTable />
       </div>
     </div>
   );
