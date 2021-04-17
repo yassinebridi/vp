@@ -23,19 +23,19 @@ export class ProductsResolver {
     return this.productsService.getOneProduct(getOneProductInput);
   }
 
-  @Mutation(() => Product)
+  @Mutation(() => Boolean)
   createProduct(
     @Args('createProductInput') createProductInput: ProductCreateInput,
   ) {
     return this.productsService.createProduct(createProductInput);
   }
 
-  @Mutation(() => Product)
+  @Mutation(() => Boolean)
   updateProduct(@Args() updateProductInput: UpdateOneProductArgs) {
     return this.productsService.updateProduct(updateProductInput);
   }
 
-  @Mutation(() => Product)
+  @Mutation(() => Boolean)
   removeProduct(
     @Args('whereProductInput') whereProductInput: ProductWhereUniqueInput,
   ) {

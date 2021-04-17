@@ -26,19 +26,19 @@ export class <%=h.inflection.pluralize(Name)%>Resolver {
     return this.<%=h.inflection.pluralize(name)%>Service.getOne<%=Name%>(getOne<%=Name%>Input);
   }
 
-  @Mutation(() => <%=Name%>)
+  @Mutation(() => Boolean)
   create<%=Name%>(
     @Args('create<%=Name%>Input') create<%=Name%>Input: <%=Name%>CreateInput,
   ) {
     return this.<%=h.inflection.pluralize(name)%>Service.create<%=Name%>(create<%=Name%>Input);
   }
 
-  @Mutation(() => <%=Name%>)
+  @Mutation(() => Boolean)
   update<%=Name%>(@Args() update<%=Name%>Input: UpdateOne<%=Name%>Args) {
     return this.<%=h.inflection.pluralize(name)%>Service.update<%=Name%>(update<%=Name%>Input);
   }
 
-  @Mutation(() => <%=Name%>)
+  @Mutation(() => Boolean)
   remove<%=Name%>(
     @Args('where<%=Name%>Input') where<%=Name%>Input: <%=Name%>WhereUniqueInput,
   ) {

@@ -1,10 +1,10 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import {
-  FindManyCategoryArgs,
-  FindUniqueCategoryArgs,
   Category,
   CategoryCreateInput,
   CategoryWhereUniqueInput,
+  FindManyCategoryArgs,
+  FindUniqueCategoryArgs,
   UpdateOneCategoryArgs,
 } from 'src/@generated';
 import { CategoriesService } from './categories.service';
@@ -23,19 +23,19 @@ export class CategoriesResolver {
     return this.categoriesService.getOneCategory(getOneCategoryInput);
   }
 
-  @Mutation(() => Category)
+  @Mutation(() => Boolean)
   createCategory(
     @Args('createCategoryInput') createCategoryInput: CategoryCreateInput,
   ) {
     return this.categoriesService.createCategory(createCategoryInput);
   }
 
-  @Mutation(() => Category)
+  @Mutation(() => Boolean)
   updateCategory(@Args() updateCategoryInput: UpdateOneCategoryArgs) {
     return this.categoriesService.updateCategory(updateCategoryInput);
   }
 
-  @Mutation(() => Category)
+  @Mutation(() => Boolean)
   removeCategory(
     @Args('whereCategoryInput') whereCategoryInput: CategoryWhereUniqueInput,
   ) {

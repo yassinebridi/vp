@@ -1,10 +1,10 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import {
-  FindManyBrandArgs,
-  FindUniqueBrandArgs,
   Brand,
   BrandCreateInput,
   BrandWhereUniqueInput,
+  FindManyBrandArgs,
+  FindUniqueBrandArgs,
   UpdateOneBrandArgs,
 } from 'src/@generated';
 import { BrandsService } from './brands.service';
@@ -23,22 +23,18 @@ export class BrandsResolver {
     return this.brandsService.getOneBrand(getOneBrandInput);
   }
 
-  @Mutation(() => Brand)
-  createBrand(
-    @Args('createBrandInput') createBrandInput: BrandCreateInput,
-  ) {
+  @Mutation(() => Boolean)
+  createBrand(@Args('createBrandInput') createBrandInput: BrandCreateInput) {
     return this.brandsService.createBrand(createBrandInput);
   }
 
-  @Mutation(() => Brand)
+  @Mutation(() => Boolean)
   updateBrand(@Args() updateBrandInput: UpdateOneBrandArgs) {
     return this.brandsService.updateBrand(updateBrandInput);
   }
 
-  @Mutation(() => Brand)
-  removeBrand(
-    @Args('whereBrandInput') whereBrandInput: BrandWhereUniqueInput,
-  ) {
+  @Mutation(() => Boolean)
+  removeBrand(@Args('whereBrandInput') whereBrandInput: BrandWhereUniqueInput) {
     return this.brandsService.removeBrand(whereBrandInput);
   }
 

@@ -1000,19 +1000,19 @@ enum ProductScalarFieldEnum {
 }
 
 type Mutation {
-  createCity(createCityInput: CityCreateInput!): City!
-  updateCity(data: CityUpdateInput!, where: CityWhereUniqueInput!): City!
-  removeCity(whereCityInput: CityWhereUniqueInput!): City!
+  createCity(createCityInput: CityCreateInput!): Boolean!
+  updateCity(data: CityUpdateInput!, where: CityWhereUniqueInput!): Boolean!
+  removeCity(whereCityInput: CityWhereUniqueInput!): Boolean!
   bulkCity(number: Float!): Boolean!
   bulkDeleteCity: Boolean!
-  createBrand(createBrandInput: BrandCreateInput!): Brand!
-  updateBrand(data: BrandUpdateInput!, where: BrandWhereUniqueInput!): Brand!
-  removeBrand(whereBrandInput: BrandWhereUniqueInput!): Brand!
+  createBrand(createBrandInput: BrandCreateInput!): Boolean!
+  updateBrand(data: BrandUpdateInput!, where: BrandWhereUniqueInput!): Boolean!
+  removeBrand(whereBrandInput: BrandWhereUniqueInput!): Boolean!
   bulkBrand(number: Float!): Boolean!
   bulkDeleteBrand: Boolean!
-  createCategory(createCategoryInput: CategoryCreateInput!): Category!
-  updateCategory(data: CategoryUpdateInput!, where: CategoryWhereUniqueInput!): Category!
-  removeCategory(whereCategoryInput: CategoryWhereUniqueInput!): Category!
+  createCategory(createCategoryInput: CategoryCreateInput!): Boolean!
+  updateCategory(data: CategoryUpdateInput!, where: CategoryWhereUniqueInput!): Boolean!
+  removeCategory(whereCategoryInput: CategoryWhereUniqueInput!): Boolean!
   bulkCategory(number: Float!): Boolean!
   bulkDeleteCategory: Boolean!
   register(data: RegisterInput!): AuthUser!
@@ -1022,9 +1022,9 @@ type Mutation {
   deleteUser(whereUserInput: UserWhereUniqueInput!): Boolean!
   updateUser(updateUserInput: UpdateUserInput!): Boolean!
   changePassword(data: ChangePasswordInput!): User!
-  createProduct(createProductInput: ProductCreateInput!): Product!
-  updateProduct(data: ProductUpdateInput!, where: ProductWhereUniqueInput!): Product!
-  removeProduct(whereProductInput: ProductWhereUniqueInput!): Product!
+  createProduct(createProductInput: ProductCreateInput!): Boolean!
+  updateProduct(data: ProductUpdateInput!, where: ProductWhereUniqueInput!): Boolean!
+  removeProduct(whereProductInput: ProductWhereUniqueInput!): Boolean!
   bulkProduct(number: Float!): Boolean!
   bulkDeleteProduct: Boolean!
 }

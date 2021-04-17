@@ -1,10 +1,10 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import {
-  FindManyCityArgs,
-  FindUniqueCityArgs,
   City,
   CityCreateInput,
   CityWhereUniqueInput,
+  FindManyCityArgs,
+  FindUniqueCityArgs,
   UpdateOneCityArgs,
 } from 'src/@generated';
 import { CitiesService } from './cities.service';
@@ -23,22 +23,18 @@ export class CitiesResolver {
     return this.citiesService.getOneCity(getOneCityInput);
   }
 
-  @Mutation(() => City)
-  createCity(
-    @Args('createCityInput') createCityInput: CityCreateInput,
-  ) {
+  @Mutation(() => Boolean)
+  createCity(@Args('createCityInput') createCityInput: CityCreateInput) {
     return this.citiesService.createCity(createCityInput);
   }
 
-  @Mutation(() => City)
+  @Mutation(() => Boolean)
   updateCity(@Args() updateCityInput: UpdateOneCityArgs) {
     return this.citiesService.updateCity(updateCityInput);
   }
 
-  @Mutation(() => City)
-  removeCity(
-    @Args('whereCityInput') whereCityInput: CityWhereUniqueInput,
-  ) {
+  @Mutation(() => Boolean)
+  removeCity(@Args('whereCityInput') whereCityInput: CityWhereUniqueInput) {
     return this.citiesService.removeCity(whereCityInput);
   }
 
