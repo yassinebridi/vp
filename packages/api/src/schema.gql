@@ -439,6 +439,8 @@ type Query {
   me: User!
   getAllUsers(where: UserWhereInput, orderBy: [UserOrderByInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int, distinct: [UserScalarFieldEnum!]): [User!]!
   getOneUser(where: UserWhereUniqueInput!): User!
+  getAllProducts(where: ProductWhereInput, orderBy: [ProductOrderByInput!], cursor: ProductWhereUniqueInput, take: Int, skip: Int, distinct: [ProductScalarFieldEnum!]): [Product!]!
+  getOneProduct(where: ProductWhereUniqueInput!): Product!
 }
 
 input UserWhereInput {
@@ -895,6 +897,48 @@ enum UserScalarFieldEnum {
   updatedAt
 }
 
+input ProductOrderByInput {
+  id: SortOrder
+  title: SortOrder
+  desc: SortOrder
+  price: SortOrder
+  size: SortOrder
+  season: SortOrder
+  dateOfPurchase: SortOrder
+  viewsNumber: SortOrder
+  cityId: SortOrder
+  categoryId: SortOrder
+  brandId: SortOrder
+  authorId: SortOrder
+  publishStatus: SortOrder
+  productStatus: SortOrder
+  createdAt: SortOrder
+  updatedAt: SortOrder
+}
+
+input ProductWhereUniqueInput {
+  id: String
+}
+
+enum ProductScalarFieldEnum {
+  id
+  title
+  desc
+  price
+  size
+  season
+  dateOfPurchase
+  viewsNumber
+  cityId
+  categoryId
+  brandId
+  authorId
+  publishStatus
+  productStatus
+  createdAt
+  updatedAt
+}
+
 type Mutation {
   register(data: RegisterInput!): AuthUser!
   login(data: LoginInput!): AuthUser!
@@ -903,6 +947,11 @@ type Mutation {
   deleteUser(whereUserInput: UserWhereUniqueInput!): Boolean!
   updateUser(updateUserInput: UpdateUserInput!): Boolean!
   changePassword(data: ChangePasswordInput!): User!
+  createProduct(createFeeInput: ProductCreateInput!): Product!
+  updateProduct(data: ProductUpdateInput!, where: ProductWhereUniqueInput!): Product!
+  removeProduct(whereProductInput: ProductWhereUniqueInput!): Product!
+  bulkProduct(number: Float!): Boolean!
+  bulkDeleteProduct: Boolean!
 }
 
 input RegisterInput {
@@ -1340,10 +1389,6 @@ input ProductCreateWithoutLikesInput {
 input ProductCreateOrConnectWithoutLikesInput {
   where: ProductWhereUniqueInput!
   create: ProductCreateWithoutLikesInput!
-}
-
-input ProductWhereUniqueInput {
-  id: String
 }
 
 input LikeCreateOrConnectWithoutUserInput {
@@ -2504,4 +2549,48 @@ input ProductUpdateManyWithWhereWithoutCityInput {
 input ChangePasswordInput {
   oldPassword: String!
   newPassword: String!
+}
+
+input ProductCreateInput {
+  id: String
+  title: String!
+  desc: String!
+  price: Float!
+  size: ProductSize!
+  season: ProductSeason!
+  dateOfPurchase: DateTime!
+  viewsNumber: Int!
+  publishStatus: ProductPublishStatus!
+  productStatus: ProductStatus!
+  createdAt: DateTime
+  updatedAt: DateTime
+  images: ProductImageCreateNestedManyWithoutProductInput
+  city: CityCreateNestedOneWithoutProductsInput!
+  category: CategoryCreateNestedOneWithoutProductsInput!
+  brand: BrandCreateNestedOneWithoutProductsInput!
+  author: UserCreateNestedOneWithoutProductsInput
+  favorites: FavoriteCreateNestedManyWithoutProductInput
+  likes: LikeCreateNestedManyWithoutProductInput
+}
+
+input ProductUpdateInput {
+  id: StringFieldUpdateOperationsInput
+  title: StringFieldUpdateOperationsInput
+  desc: StringFieldUpdateOperationsInput
+  price: FloatFieldUpdateOperationsInput
+  size: EnumProductSizeFieldUpdateOperationsInput
+  season: EnumProductSeasonFieldUpdateOperationsInput
+  dateOfPurchase: DateTimeFieldUpdateOperationsInput
+  viewsNumber: IntFieldUpdateOperationsInput
+  publishStatus: EnumProductPublishStatusFieldUpdateOperationsInput
+  productStatus: EnumProductStatusFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  images: ProductImageUpdateManyWithoutProductInput
+  city: CityUpdateOneRequiredWithoutProductsInput
+  category: CategoryUpdateOneRequiredWithoutProductsInput
+  brand: BrandUpdateOneRequiredWithoutProductsInput
+  author: UserUpdateOneWithoutProductsInput
+  favorites: FavoriteUpdateManyWithoutProductInput
+  likes: LikeUpdateManyWithoutProductInput
 }

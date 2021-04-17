@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
+import { GraphQLError, GraphQLFormattedError } from 'graphql';
 import {
   AcceptLanguageResolver,
   CookieResolver,
@@ -13,6 +14,7 @@ import * as path from 'path';
 import { AuthModule } from './auth/auth.module';
 import config from './configs/config';
 import { UserModule } from './users/users.module';
+import { ProductsModule } from './products/products.module';
 
 @Module({
   imports: [
@@ -36,6 +38,13 @@ import { UserModule } from './users/users.module';
       playground: true,
       installSubscriptionHandlers: true,
       autoSchemaFile: path.join(process.cwd(), 'src/schema.gql'),
+      formatError: (error: GraphQLError) => {
+        const graphQLFormattedError: GraphQLFormattedError = {
+          message:
+            error.extensions?.exception?.response?.message || error.message,
+        };
+        return graphQLFormattedError;
+      },
       path: '/',
       context: ({ req, res, connection }) =>
         connection
@@ -48,6 +57,7 @@ import { UserModule } from './users/users.module';
     }),
     AuthModule,
     UserModule,
+    ProductsModule,
   ],
   providers: [],
 })
