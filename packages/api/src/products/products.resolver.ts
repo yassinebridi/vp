@@ -1,4 +1,4 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import {
   FindManyProductArgs,
   FindUniqueProductArgs,
@@ -43,12 +43,14 @@ export class ProductsResolver {
   }
 
   @Mutation(() => Boolean)
-  async bulkProduct(@Args('number') number: number): Promise<boolean> {
+  async bulkProducts(
+    @Args('number', { type: () => Int }) number: number,
+  ): Promise<boolean> {
     return await this.productsService.bulkProducts(number);
   }
 
   @Mutation(() => Boolean)
-  async bulkDeleteProduct(): Promise<boolean | Error> {
-    return await this.productsService.bulkDeleteProducts();
+  async bulkRemoveProducts(): Promise<boolean | Error> {
+    return await this.productsService.bulkRemoveProducts();
   }
 }

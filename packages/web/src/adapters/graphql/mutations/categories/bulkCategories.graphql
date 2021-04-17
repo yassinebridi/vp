@@ -1,0 +1,3 @@
+mutation bulkCategories($number: Int!) {
+  bulkCategories(number: $number)
+}

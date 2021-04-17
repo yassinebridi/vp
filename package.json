@@ -23,6 +23,7 @@
     "build:api": "yarn api build",
     "build:common": "yarn common build",
     "build:common:watch": "yarn common build:watch",
-    "s": "yarn api scaffold"
+    "sa": "yarn api scaffold",
+    "sw": "yarn web scaffold"
   }
 }

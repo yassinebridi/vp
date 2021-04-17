@@ -1,0 +1,3 @@
+mutation removeCategory($whereCategoryInput: CategoryWhereUniqueInput!) {
+  removeCategory(whereCategoryInput: $whereCategoryInput)
+}

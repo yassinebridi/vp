@@ -157,7 +157,7 @@ export class ProductsService {
     return true;
   }
 
-  async bulkDeleteProducts(): Promise<boolean | Error> {
+  async bulkRemoveProducts(): Promise<boolean | Error> {
     try {
       await this.prismaService.product.deleteMany({});
 

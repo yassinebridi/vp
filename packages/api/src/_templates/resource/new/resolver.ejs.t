@@ -1,7 +1,7 @@
 ---
 to: <%=h.inflection.pluralize(name)%>/<%=h.inflection.pluralize(name)%>.resolver.ts
 ---
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import {
   FindMany<%=Name%>Args,
   FindUnique<%=Name%>Args,
@@ -46,12 +46,14 @@ export class <%=h.inflection.pluralize(Name)%>Resolver {
   }
 
   @Mutation(() => Boolean)
-  async bulk<%=Name%>(@Args('number') number: number): Promise<boolean> {
+  async bulk<%=h.inflection.pluralize(Name)%>(
+    @Args('number', { type: () => Int }) number: number,
+  ): Promise<boolean> {
     return await this.<%=h.inflection.pluralize(name)%>Service.bulk<%=h.inflection.pluralize(Name)%>(number);
   }
 
   @Mutation(() => Boolean)
-  async bulkDelete<%=Name%>(): Promise<boolean | Error> {
-    return await this.<%=h.inflection.pluralize(name)%>Service.bulkDelete<%=h.inflection.pluralize(Name)%>();
+  async bulkRemove<%=h.inflection.pluralize(Name)%>(): Promise<boolean | Error> {
+    return await this.<%=h.inflection.pluralize(name)%>Service.bulkRemove<%=h.inflection.pluralize(Name)%>();
   }
 }

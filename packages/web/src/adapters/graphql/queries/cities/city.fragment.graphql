@@ -1,0 +1,9 @@
+fragment CityFields on City {
+  id
+  name
+  createdAt
+  updatedAt
+  products {
+    ...ProductFields
+  }
+}

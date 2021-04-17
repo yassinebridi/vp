@@ -1,4 +1,4 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import {
   City,
   CityCreateInput,
@@ -39,12 +39,14 @@ export class CitiesResolver {
   }
 
   @Mutation(() => Boolean)
-  async bulkCity(@Args('number') number: number): Promise<boolean> {
+  async bulkCities(
+    @Args('number', { type: () => Int }) number: number,
+  ): Promise<boolean> {
     return await this.citiesService.bulkCities(number);
   }
 
   @Mutation(() => Boolean)
-  async bulkDeleteCity(): Promise<boolean | Error> {
-    return await this.citiesService.bulkDeleteCities();
+  async bulkRemoveCities(): Promise<boolean | Error> {
+    return await this.citiesService.bulkRemoveCities();
   }
 }

@@ -1,0 +1,9 @@
+fragment BrandFields on Brand {
+  id
+  name
+  createdAt
+  updatedAt
+  products {
+    ...ProductFields
+  }
+}

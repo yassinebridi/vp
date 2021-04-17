@@ -1,0 +1,6 @@
+mutation updateCategory(
+  $data: CategoryUpdateInput!
+  $where: CategoryWhereUniqueInput!
+) {
+  updateCategory(data: $data, where: $where)
+}

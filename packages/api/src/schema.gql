@@ -1003,18 +1003,18 @@ type Mutation {
   createCity(createCityInput: CityCreateInput!): Boolean!
   updateCity(data: CityUpdateInput!, where: CityWhereUniqueInput!): Boolean!
   removeCity(whereCityInput: CityWhereUniqueInput!): Boolean!
-  bulkCity(number: Float!): Boolean!
-  bulkDeleteCity: Boolean!
+  bulkCities(number: Int!): Boolean!
+  bulkRemoveCities: Boolean!
   createBrand(createBrandInput: BrandCreateInput!): Boolean!
   updateBrand(data: BrandUpdateInput!, where: BrandWhereUniqueInput!): Boolean!
   removeBrand(whereBrandInput: BrandWhereUniqueInput!): Boolean!
-  bulkBrand(number: Float!): Boolean!
-  bulkDeleteBrand: Boolean!
+  bulkBrands(number: Int!): Boolean!
+  bulkRemoveBrands: Boolean!
   createCategory(createCategoryInput: CategoryCreateInput!): Boolean!
   updateCategory(data: CategoryUpdateInput!, where: CategoryWhereUniqueInput!): Boolean!
   removeCategory(whereCategoryInput: CategoryWhereUniqueInput!): Boolean!
-  bulkCategory(number: Float!): Boolean!
-  bulkDeleteCategory: Boolean!
+  bulkCategories(number: Int!): Boolean!
+  bulkRemoveCategories: Boolean!
   register(data: RegisterInput!): AuthUser!
   login(data: LoginInput!): AuthUser!
   logout: Boolean!
@@ -1025,8 +1025,8 @@ type Mutation {
   createProduct(createProductInput: ProductCreateInput!): Boolean!
   updateProduct(data: ProductUpdateInput!, where: ProductWhereUniqueInput!): Boolean!
   removeProduct(whereProductInput: ProductWhereUniqueInput!): Boolean!
-  bulkProduct(number: Float!): Boolean!
-  bulkDeleteProduct: Boolean!
+  bulkProducts(number: Int!): Boolean!
+  bulkRemoveProducts: Boolean!
 }
 
 input CityCreateInput {

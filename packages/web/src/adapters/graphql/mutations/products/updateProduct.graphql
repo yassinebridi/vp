@@ -1,0 +1,6 @@
+mutation updateProduct(
+  $data: ProductUpdateInput!
+  $where: ProductWhereUniqueInput!
+) {
+  updateProduct(data: $data, where: $where)
+}

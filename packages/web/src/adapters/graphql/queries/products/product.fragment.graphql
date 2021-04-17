@@ -1,0 +1,38 @@
+fragment ProductFields on Product {
+  id
+  title
+  desc
+  price
+  size
+  season
+  dateOfPurchase
+  viewsNumber
+  publishStatus
+  productStatus
+  createdAt
+  updatedAt
+  images {
+    id
+    title
+    desc
+    url
+  }
+  city {
+    id
+  }
+  category {
+    id
+  }
+  brand {
+    id
+  }
+  author {
+    id
+  }
+  favorites {
+    id
+  }
+  likes {
+    id
+  }
+}

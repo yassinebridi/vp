@@ -1,0 +1,19 @@
+query categories(
+  $where: CategoryWhereInput
+  $orderBy: [CategoryOrderByInput!]
+  $cursor: CategoryWhereUniqueInput
+  $take: Int
+  $skip: Int
+  $distinct: [CategoryScalarFieldEnum!]
+) {
+  getAllCategories(
+    where: $where
+    orderBy: $orderBy
+    cursor: $cursor
+    take: $take
+    skip: $skip
+    distinct: $distinct
+  ) {
+    ...CategoryFields
+  }
+}

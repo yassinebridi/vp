@@ -1,0 +1,19 @@
+query cities(
+  $where: CityWhereInput
+  $orderBy: [CityOrderByInput!]
+  $cursor: CityWhereUniqueInput
+  $take: Int
+  $skip: Int
+  $distinct: [CityScalarFieldEnum!]
+) {
+  getAllCities(
+    where: $where
+    orderBy: $orderBy
+    cursor: $cursor
+    take: $take
+    skip: $skip
+    distinct: $distinct
+  ) {
+    ...CityFields
+  }
+}

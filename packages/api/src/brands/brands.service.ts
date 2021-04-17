@@ -7,10 +7,10 @@ import {
 } from '@nestjs/common';
 import { I18nRequestScopeService } from 'nestjs-i18n';
 import {
-  FindManyBrandArgs,
-  FindUniqueBrandArgs,
   BrandCreateInput,
   BrandWhereUniqueInput,
+  FindManyBrandArgs,
+  FindUniqueBrandArgs,
   UpdateOneBrandArgs,
 } from 'src/@generated';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -106,7 +106,7 @@ export class BrandsService {
     return true;
   }
 
-  async bulkDeleteBrands(): Promise<boolean | Error> {
+  async bulkRemoveBrands(): Promise<boolean | Error> {
     try {
       await this.prismaService.brand.deleteMany({});
 

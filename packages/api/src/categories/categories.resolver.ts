@@ -1,4 +1,4 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import {
   Category,
   CategoryCreateInput,
@@ -43,12 +43,14 @@ export class CategoriesResolver {
   }
 
   @Mutation(() => Boolean)
-  async bulkCategory(@Args('number') number: number): Promise<boolean> {
+  async bulkCategories(
+    @Args('number', { type: () => Int }) number: number,
+  ): Promise<boolean> {
     return await this.categoriesService.bulkCategories(number);
   }
 
   @Mutation(() => Boolean)
-  async bulkDeleteCategory(): Promise<boolean | Error> {
-    return await this.categoriesService.bulkDeleteCategories();
+  async bulkRemoveCategories(): Promise<boolean | Error> {
+    return await this.categoriesService.bulkRemoveCategories();
   }
 }

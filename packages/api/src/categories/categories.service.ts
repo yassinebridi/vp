@@ -106,7 +106,7 @@ export class CategoriesService {
     return true;
   }
 
-  async bulkDeleteCategories(): Promise<boolean | Error> {
+  async bulkRemoveCategories(): Promise<boolean | Error> {
     try {
       await this.prismaService.category.deleteMany({});
 

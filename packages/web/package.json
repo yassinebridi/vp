@@ -8,7 +8,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "serve": "vite preview",
-    "gen": "graphql-codegen --config codegen.yml"
+    "gen": "graphql-codegen --config codegen.yml",
+    "scaffold": "cd src && hygen"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.0.9",

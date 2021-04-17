@@ -1,0 +1,3 @@
+mutation removeProduct($whereProductInput: ProductWhereUniqueInput!) {
+  removeProduct(whereProductInput: $whereProductInput)
+}

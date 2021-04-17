@@ -1,0 +1,5 @@
+query product($where: ProductWhereUniqueInput!) {
+  getOneProduct(where: $where) {
+    id
+  }
+}

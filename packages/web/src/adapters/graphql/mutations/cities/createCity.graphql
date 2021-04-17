@@ -1,0 +1,3 @@
+mutation createCity($createCityInput: CityCreateInput!) {
+  createCity(createCityInput: $createCityInput)
+}

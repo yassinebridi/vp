@@ -49,6 +49,14 @@ export type BrandCountAggregate = {
   _all: Scalars['Int'];
 };
 
+export type BrandCreateInput = {
+  id?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  products?: Maybe<ProductCreateNestedManyWithoutBrandInput>;
+};
+
 export type BrandCreateNestedOneWithoutProductsInput = {
   create?: Maybe<BrandCreateWithoutProductsInput>;
   connectOrCreate?: Maybe<BrandCreateOrConnectWithoutProductsInput>;
@@ -83,9 +91,31 @@ export type BrandMinAggregate = {
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
+export type BrandOrderByInput = {
+  id?: Maybe<SortOrder>;
+  name?: Maybe<SortOrder>;
+  createdAt?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+};
+
 export type BrandRelationFilter = {
   is?: Maybe<BrandWhereInput>;
   isNot?: Maybe<BrandWhereInput>;
+};
+
+export enum BrandScalarFieldEnum {
+  Id = 'id',
+  Name = 'name',
+  CreatedAt = 'createdAt',
+  UpdatedAt = 'updatedAt'
+}
+
+export type BrandUpdateInput = {
+  id?: Maybe<StringFieldUpdateOperationsInput>;
+  name?: Maybe<StringFieldUpdateOperationsInput>;
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  products?: Maybe<ProductUpdateManyWithoutBrandInput>;
 };
 
 export type BrandUpdateOneRequiredWithoutProductsInput = {
@@ -141,6 +171,14 @@ export type CategoryCountAggregate = {
   _all: Scalars['Int'];
 };
 
+export type CategoryCreateInput = {
+  id?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  products?: Maybe<ProductCreateNestedManyWithoutCategoryInput>;
+};
+
 export type CategoryCreateNestedOneWithoutProductsInput = {
   create?: Maybe<CategoryCreateWithoutProductsInput>;
   connectOrCreate?: Maybe<CategoryCreateOrConnectWithoutProductsInput>;
@@ -175,9 +213,31 @@ export type CategoryMinAggregate = {
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
+export type CategoryOrderByInput = {
+  id?: Maybe<SortOrder>;
+  name?: Maybe<SortOrder>;
+  createdAt?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+};
+
 export type CategoryRelationFilter = {
   is?: Maybe<CategoryWhereInput>;
   isNot?: Maybe<CategoryWhereInput>;
+};
+
+export enum CategoryScalarFieldEnum {
+  Id = 'id',
+  Name = 'name',
+  CreatedAt = 'createdAt',
+  UpdatedAt = 'updatedAt'
+}
+
+export type CategoryUpdateInput = {
+  id?: Maybe<StringFieldUpdateOperationsInput>;
+  name?: Maybe<StringFieldUpdateOperationsInput>;
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  products?: Maybe<ProductUpdateManyWithoutCategoryInput>;
 };
 
 export type CategoryUpdateOneRequiredWithoutProductsInput = {
@@ -239,6 +299,15 @@ export type CityCountAggregate = {
   _all: Scalars['Int'];
 };
 
+export type CityCreateInput = {
+  id?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  products?: Maybe<ProductCreateNestedManyWithoutCityInput>;
+  users?: Maybe<UserCreateNestedManyWithoutCityInput>;
+};
+
 export type CityCreateNestedOneWithoutProductsInput = {
   create?: Maybe<CityCreateWithoutProductsInput>;
   connectOrCreate?: Maybe<CityCreateOrConnectWithoutProductsInput>;
@@ -293,9 +362,32 @@ export type CityMinAggregate = {
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
+export type CityOrderByInput = {
+  id?: Maybe<SortOrder>;
+  name?: Maybe<SortOrder>;
+  createdAt?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+};
+
 export type CityRelationFilter = {
   is?: Maybe<CityWhereInput>;
   isNot?: Maybe<CityWhereInput>;
+};
+
+export enum CityScalarFieldEnum {
+  Id = 'id',
+  Name = 'name',
+  CreatedAt = 'createdAt',
+  UpdatedAt = 'updatedAt'
+}
+
+export type CityUpdateInput = {
+  id?: Maybe<StringFieldUpdateOperationsInput>;
+  name?: Maybe<StringFieldUpdateOperationsInput>;
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  products?: Maybe<ProductUpdateManyWithoutCityInput>;
+  users?: Maybe<UserUpdateManyWithoutCityInput>;
 };
 
 export type CityUpdateOneRequiredWithoutProductsInput = {
@@ -915,6 +1007,21 @@ export type LoginInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createCity: Scalars['Boolean'];
+  updateCity: Scalars['Boolean'];
+  removeCity: Scalars['Boolean'];
+  bulkCities: Scalars['Boolean'];
+  bulkRemoveCities: Scalars['Boolean'];
+  createBrand: Scalars['Boolean'];
+  updateBrand: Scalars['Boolean'];
+  removeBrand: Scalars['Boolean'];
+  bulkBrands: Scalars['Boolean'];
+  bulkRemoveBrands: Scalars['Boolean'];
+  createCategory: Scalars['Boolean'];
+  updateCategory: Scalars['Boolean'];
+  removeCategory: Scalars['Boolean'];
+  bulkCategories: Scalars['Boolean'];
+  bulkRemoveCategories: Scalars['Boolean'];
   register: AuthUser;
   login: AuthUser;
   logout: Scalars['Boolean'];
@@ -922,6 +1029,74 @@ export type Mutation = {
   deleteUser: Scalars['Boolean'];
   updateUser: Scalars['Boolean'];
   changePassword: User;
+  createProduct: Scalars['Boolean'];
+  updateProduct: Scalars['Boolean'];
+  removeProduct: Scalars['Boolean'];
+  bulkProducts: Scalars['Boolean'];
+  bulkRemoveProducts: Scalars['Boolean'];
+};
+
+
+export type MutationCreateCityArgs = {
+  createCityInput: CityCreateInput;
+};
+
+
+export type MutationUpdateCityArgs = {
+  data: CityUpdateInput;
+  where: CityWhereUniqueInput;
+};
+
+
+export type MutationRemoveCityArgs = {
+  whereCityInput: CityWhereUniqueInput;
+};
+
+
+export type MutationBulkCitiesArgs = {
+  number: Scalars['Int'];
+};
+
+
+export type MutationCreateBrandArgs = {
+  createBrandInput: BrandCreateInput;
+};
+
+
+export type MutationUpdateBrandArgs = {
+  data: BrandUpdateInput;
+  where: BrandWhereUniqueInput;
+};
+
+
+export type MutationRemoveBrandArgs = {
+  whereBrandInput: BrandWhereUniqueInput;
+};
+
+
+export type MutationBulkBrandsArgs = {
+  number: Scalars['Int'];
+};
+
+
+export type MutationCreateCategoryArgs = {
+  createCategoryInput: CategoryCreateInput;
+};
+
+
+export type MutationUpdateCategoryArgs = {
+  data: CategoryUpdateInput;
+  where: CategoryWhereUniqueInput;
+};
+
+
+export type MutationRemoveCategoryArgs = {
+  whereCategoryInput: CategoryWhereUniqueInput;
+};
+
+
+export type MutationBulkCategoriesArgs = {
+  number: Scalars['Int'];
 };
 
 
@@ -957,6 +1132,27 @@ export type MutationUpdateUserArgs = {
 
 export type MutationChangePasswordArgs = {
   data: ChangePasswordInput;
+};
+
+
+export type MutationCreateProductArgs = {
+  createProductInput: ProductCreateInput;
+};
+
+
+export type MutationUpdateProductArgs = {
+  data: ProductUpdateInput;
+  where: ProductWhereUniqueInput;
+};
+
+
+export type MutationRemoveProductArgs = {
+  whereProductInput: ProductWhereUniqueInput;
+};
+
+
+export type MutationBulkProductsArgs = {
+  number: Scalars['Int'];
 };
 
 export type NestedBoolFilter = {
@@ -1125,6 +1321,28 @@ export type ProductCountAggregate = {
   _all: Scalars['Int'];
 };
 
+export type ProductCreateInput = {
+  id?: Maybe<Scalars['String']>;
+  title: Scalars['String'];
+  desc: Scalars['String'];
+  price: Scalars['Float'];
+  size: ProductSize;
+  season: ProductSeason;
+  dateOfPurchase: Scalars['DateTime'];
+  viewsNumber: Scalars['Int'];
+  publishStatus: ProductPublishStatus;
+  productStatus: ProductStatus;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  images?: Maybe<ProductImageCreateNestedManyWithoutProductInput>;
+  city: CityCreateNestedOneWithoutProductsInput;
+  category: CategoryCreateNestedOneWithoutProductsInput;
+  brand: BrandCreateNestedOneWithoutProductsInput;
+  author?: Maybe<UserCreateNestedOneWithoutProductsInput>;
+  favorites?: Maybe<FavoriteCreateNestedManyWithoutProductInput>;
+  likes?: Maybe<LikeCreateNestedManyWithoutProductInput>;
+};
+
 export type ProductCreateManyAuthorInput = {
   id?: Maybe<Scalars['String']>;
   title: Scalars['String'];
@@ -1145,6 +1363,52 @@ export type ProductCreateManyAuthorInput = {
 
 export type ProductCreateManyAuthorInputEnvelope = {
   data: Array<ProductCreateManyAuthorInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
+export type ProductCreateManyBrandInput = {
+  id?: Maybe<Scalars['String']>;
+  title: Scalars['String'];
+  desc: Scalars['String'];
+  price: Scalars['Float'];
+  size: ProductSize;
+  season: ProductSeason;
+  dateOfPurchase: Scalars['DateTime'];
+  viewsNumber: Scalars['Int'];
+  cityId: Scalars['String'];
+  categoryId: Scalars['String'];
+  authorId?: Maybe<Scalars['String']>;
+  publishStatus: ProductPublishStatus;
+  productStatus: ProductStatus;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type ProductCreateManyBrandInputEnvelope = {
+  data: Array<ProductCreateManyBrandInput>;
+  skipDuplicates?: Maybe<Scalars['Boolean']>;
+};
+
+export type ProductCreateManyCategoryInput = {
+  id?: Maybe<Scalars['String']>;
+  title: Scalars['String'];
+  desc: Scalars['String'];
+  price: Scalars['Float'];
+  size: ProductSize;
+  season: ProductSeason;
+  dateOfPurchase: Scalars['DateTime'];
+  viewsNumber: Scalars['Int'];
+  cityId: Scalars['String'];
+  brandId: Scalars['String'];
+  authorId?: Maybe<Scalars['String']>;
+  publishStatus: ProductPublishStatus;
+  productStatus: ProductStatus;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type ProductCreateManyCategoryInputEnvelope = {
+  data: Array<ProductCreateManyCategoryInput>;
   skipDuplicates?: Maybe<Scalars['Boolean']>;
 };
 
@@ -1178,6 +1442,20 @@ export type ProductCreateNestedManyWithoutAuthorInput = {
   connect?: Maybe<Array<ProductWhereUniqueInput>>;
 };
 
+export type ProductCreateNestedManyWithoutBrandInput = {
+  create?: Maybe<Array<ProductCreateWithoutBrandInput>>;
+  connectOrCreate?: Maybe<Array<ProductCreateOrConnectWithoutBrandInput>>;
+  createMany?: Maybe<ProductCreateManyBrandInputEnvelope>;
+  connect?: Maybe<Array<ProductWhereUniqueInput>>;
+};
+
+export type ProductCreateNestedManyWithoutCategoryInput = {
+  create?: Maybe<Array<ProductCreateWithoutCategoryInput>>;
+  connectOrCreate?: Maybe<Array<ProductCreateOrConnectWithoutCategoryInput>>;
+  createMany?: Maybe<ProductCreateManyCategoryInputEnvelope>;
+  connect?: Maybe<Array<ProductWhereUniqueInput>>;
+};
+
 export type ProductCreateNestedManyWithoutCityInput = {
   create?: Maybe<Array<ProductCreateWithoutCityInput>>;
   connectOrCreate?: Maybe<Array<ProductCreateOrConnectWithoutCityInput>>;
@@ -1200,6 +1478,16 @@ export type ProductCreateNestedOneWithoutLikesInput = {
 export type ProductCreateOrConnectWithoutAuthorInput = {
   where: ProductWhereUniqueInput;
   create: ProductCreateWithoutAuthorInput;
+};
+
+export type ProductCreateOrConnectWithoutBrandInput = {
+  where: ProductWhereUniqueInput;
+  create: ProductCreateWithoutBrandInput;
+};
+
+export type ProductCreateOrConnectWithoutCategoryInput = {
+  where: ProductWhereUniqueInput;
+  create: ProductCreateWithoutCategoryInput;
 };
 
 export type ProductCreateOrConnectWithoutCityInput = {
@@ -1234,6 +1522,48 @@ export type ProductCreateWithoutAuthorInput = {
   city: CityCreateNestedOneWithoutProductsInput;
   category: CategoryCreateNestedOneWithoutProductsInput;
   brand: BrandCreateNestedOneWithoutProductsInput;
+  favorites?: Maybe<FavoriteCreateNestedManyWithoutProductInput>;
+  likes?: Maybe<LikeCreateNestedManyWithoutProductInput>;
+};
+
+export type ProductCreateWithoutBrandInput = {
+  id?: Maybe<Scalars['String']>;
+  title: Scalars['String'];
+  desc: Scalars['String'];
+  price: Scalars['Float'];
+  size: ProductSize;
+  season: ProductSeason;
+  dateOfPurchase: Scalars['DateTime'];
+  viewsNumber: Scalars['Int'];
+  publishStatus: ProductPublishStatus;
+  productStatus: ProductStatus;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  images?: Maybe<ProductImageCreateNestedManyWithoutProductInput>;
+  city: CityCreateNestedOneWithoutProductsInput;
+  category: CategoryCreateNestedOneWithoutProductsInput;
+  author?: Maybe<UserCreateNestedOneWithoutProductsInput>;
+  favorites?: Maybe<FavoriteCreateNestedManyWithoutProductInput>;
+  likes?: Maybe<LikeCreateNestedManyWithoutProductInput>;
+};
+
+export type ProductCreateWithoutCategoryInput = {
+  id?: Maybe<Scalars['String']>;
+  title: Scalars['String'];
+  desc: Scalars['String'];
+  price: Scalars['Float'];
+  size: ProductSize;
+  season: ProductSeason;
+  dateOfPurchase: Scalars['DateTime'];
+  viewsNumber: Scalars['Int'];
+  publishStatus: ProductPublishStatus;
+  productStatus: ProductStatus;
+  createdAt?: Maybe<Scalars['DateTime']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  images?: Maybe<ProductImageCreateNestedManyWithoutProductInput>;
+  city: CityCreateNestedOneWithoutProductsInput;
+  brand: BrandCreateNestedOneWithoutProductsInput;
+  author?: Maybe<UserCreateNestedOneWithoutProductsInput>;
   favorites?: Maybe<FavoriteCreateNestedManyWithoutProductInput>;
   likes?: Maybe<LikeCreateNestedManyWithoutProductInput>;
 };
@@ -1513,6 +1843,25 @@ export type ProductMinAggregate = {
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
+export type ProductOrderByInput = {
+  id?: Maybe<SortOrder>;
+  title?: Maybe<SortOrder>;
+  desc?: Maybe<SortOrder>;
+  price?: Maybe<SortOrder>;
+  size?: Maybe<SortOrder>;
+  season?: Maybe<SortOrder>;
+  dateOfPurchase?: Maybe<SortOrder>;
+  viewsNumber?: Maybe<SortOrder>;
+  cityId?: Maybe<SortOrder>;
+  categoryId?: Maybe<SortOrder>;
+  brandId?: Maybe<SortOrder>;
+  authorId?: Maybe<SortOrder>;
+  publishStatus?: Maybe<SortOrder>;
+  productStatus?: Maybe<SortOrder>;
+  createdAt?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
+};
+
 export enum ProductPublishStatus {
   Published = 'published',
   Draft = 'draft',
@@ -1523,6 +1872,25 @@ export type ProductRelationFilter = {
   is?: Maybe<ProductWhereInput>;
   isNot?: Maybe<ProductWhereInput>;
 };
+
+export enum ProductScalarFieldEnum {
+  Id = 'id',
+  Title = 'title',
+  Desc = 'desc',
+  Price = 'price',
+  Size = 'size',
+  Season = 'season',
+  DateOfPurchase = 'dateOfPurchase',
+  ViewsNumber = 'viewsNumber',
+  CityId = 'cityId',
+  CategoryId = 'categoryId',
+  BrandId = 'brandId',
+  AuthorId = 'authorId',
+  PublishStatus = 'publishStatus',
+  ProductStatus = 'productStatus',
+  CreatedAt = 'createdAt',
+  UpdatedAt = 'updatedAt'
+}
 
 export type ProductScalarWhereInput = {
   AND?: Maybe<Array<ProductScalarWhereInput>>;
@@ -1580,6 +1948,28 @@ export type ProductSumAggregate = {
   viewsNumber: Scalars['Int'];
 };
 
+export type ProductUpdateInput = {
+  id?: Maybe<StringFieldUpdateOperationsInput>;
+  title?: Maybe<StringFieldUpdateOperationsInput>;
+  desc?: Maybe<StringFieldUpdateOperationsInput>;
+  price?: Maybe<FloatFieldUpdateOperationsInput>;
+  size?: Maybe<EnumProductSizeFieldUpdateOperationsInput>;
+  season?: Maybe<EnumProductSeasonFieldUpdateOperationsInput>;
+  dateOfPurchase?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  viewsNumber?: Maybe<IntFieldUpdateOperationsInput>;
+  publishStatus?: Maybe<EnumProductPublishStatusFieldUpdateOperationsInput>;
+  productStatus?: Maybe<EnumProductStatusFieldUpdateOperationsInput>;
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  images?: Maybe<ProductImageUpdateManyWithoutProductInput>;
+  city?: Maybe<CityUpdateOneRequiredWithoutProductsInput>;
+  category?: Maybe<CategoryUpdateOneRequiredWithoutProductsInput>;
+  brand?: Maybe<BrandUpdateOneRequiredWithoutProductsInput>;
+  author?: Maybe<UserUpdateOneWithoutProductsInput>;
+  favorites?: Maybe<FavoriteUpdateManyWithoutProductInput>;
+  likes?: Maybe<LikeUpdateManyWithoutProductInput>;
+};
+
 export type ProductUpdateManyMutationInput = {
   id?: Maybe<StringFieldUpdateOperationsInput>;
   title?: Maybe<StringFieldUpdateOperationsInput>;
@@ -1600,6 +1990,16 @@ export type ProductUpdateManyWithWhereWithoutAuthorInput = {
   data: ProductUpdateManyMutationInput;
 };
 
+export type ProductUpdateManyWithWhereWithoutBrandInput = {
+  where: ProductScalarWhereInput;
+  data: ProductUpdateManyMutationInput;
+};
+
+export type ProductUpdateManyWithWhereWithoutCategoryInput = {
+  where: ProductScalarWhereInput;
+  data: ProductUpdateManyMutationInput;
+};
+
 export type ProductUpdateManyWithWhereWithoutCityInput = {
   where: ProductScalarWhereInput;
   data: ProductUpdateManyMutationInput;
@@ -1616,6 +2016,34 @@ export type ProductUpdateManyWithoutAuthorInput = {
   delete?: Maybe<Array<ProductWhereUniqueInput>>;
   update?: Maybe<Array<ProductUpdateWithWhereUniqueWithoutAuthorInput>>;
   updateMany?: Maybe<Array<ProductUpdateManyWithWhereWithoutAuthorInput>>;
+  deleteMany?: Maybe<Array<ProductScalarWhereInput>>;
+};
+
+export type ProductUpdateManyWithoutBrandInput = {
+  create?: Maybe<Array<ProductCreateWithoutBrandInput>>;
+  connectOrCreate?: Maybe<Array<ProductCreateOrConnectWithoutBrandInput>>;
+  upsert?: Maybe<Array<ProductUpsertWithWhereUniqueWithoutBrandInput>>;
+  createMany?: Maybe<ProductCreateManyBrandInputEnvelope>;
+  connect?: Maybe<Array<ProductWhereUniqueInput>>;
+  set?: Maybe<Array<ProductWhereUniqueInput>>;
+  disconnect?: Maybe<Array<ProductWhereUniqueInput>>;
+  delete?: Maybe<Array<ProductWhereUniqueInput>>;
+  update?: Maybe<Array<ProductUpdateWithWhereUniqueWithoutBrandInput>>;
+  updateMany?: Maybe<Array<ProductUpdateManyWithWhereWithoutBrandInput>>;
+  deleteMany?: Maybe<Array<ProductScalarWhereInput>>;
+};
+
+export type ProductUpdateManyWithoutCategoryInput = {
+  create?: Maybe<Array<ProductCreateWithoutCategoryInput>>;
+  connectOrCreate?: Maybe<Array<ProductCreateOrConnectWithoutCategoryInput>>;
+  upsert?: Maybe<Array<ProductUpsertWithWhereUniqueWithoutCategoryInput>>;
+  createMany?: Maybe<ProductCreateManyCategoryInputEnvelope>;
+  connect?: Maybe<Array<ProductWhereUniqueInput>>;
+  set?: Maybe<Array<ProductWhereUniqueInput>>;
+  disconnect?: Maybe<Array<ProductWhereUniqueInput>>;
+  delete?: Maybe<Array<ProductWhereUniqueInput>>;
+  update?: Maybe<Array<ProductUpdateWithWhereUniqueWithoutCategoryInput>>;
+  updateMany?: Maybe<Array<ProductUpdateManyWithWhereWithoutCategoryInput>>;
   deleteMany?: Maybe<Array<ProductScalarWhereInput>>;
 };
 
@@ -1658,6 +2086,16 @@ export type ProductUpdateWithWhereUniqueWithoutAuthorInput = {
   data: ProductUpdateWithoutAuthorInput;
 };
 
+export type ProductUpdateWithWhereUniqueWithoutBrandInput = {
+  where: ProductWhereUniqueInput;
+  data: ProductUpdateWithoutBrandInput;
+};
+
+export type ProductUpdateWithWhereUniqueWithoutCategoryInput = {
+  where: ProductWhereUniqueInput;
+  data: ProductUpdateWithoutCategoryInput;
+};
+
 export type ProductUpdateWithWhereUniqueWithoutCityInput = {
   where: ProductWhereUniqueInput;
   data: ProductUpdateWithoutCityInput;
@@ -1680,6 +2118,48 @@ export type ProductUpdateWithoutAuthorInput = {
   city?: Maybe<CityUpdateOneRequiredWithoutProductsInput>;
   category?: Maybe<CategoryUpdateOneRequiredWithoutProductsInput>;
   brand?: Maybe<BrandUpdateOneRequiredWithoutProductsInput>;
+  favorites?: Maybe<FavoriteUpdateManyWithoutProductInput>;
+  likes?: Maybe<LikeUpdateManyWithoutProductInput>;
+};
+
+export type ProductUpdateWithoutBrandInput = {
+  id?: Maybe<StringFieldUpdateOperationsInput>;
+  title?: Maybe<StringFieldUpdateOperationsInput>;
+  desc?: Maybe<StringFieldUpdateOperationsInput>;
+  price?: Maybe<FloatFieldUpdateOperationsInput>;
+  size?: Maybe<EnumProductSizeFieldUpdateOperationsInput>;
+  season?: Maybe<EnumProductSeasonFieldUpdateOperationsInput>;
+  dateOfPurchase?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  viewsNumber?: Maybe<IntFieldUpdateOperationsInput>;
+  publishStatus?: Maybe<EnumProductPublishStatusFieldUpdateOperationsInput>;
+  productStatus?: Maybe<EnumProductStatusFieldUpdateOperationsInput>;
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  images?: Maybe<ProductImageUpdateManyWithoutProductInput>;
+  city?: Maybe<CityUpdateOneRequiredWithoutProductsInput>;
+  category?: Maybe<CategoryUpdateOneRequiredWithoutProductsInput>;
+  author?: Maybe<UserUpdateOneWithoutProductsInput>;
+  favorites?: Maybe<FavoriteUpdateManyWithoutProductInput>;
+  likes?: Maybe<LikeUpdateManyWithoutProductInput>;
+};
+
+export type ProductUpdateWithoutCategoryInput = {
+  id?: Maybe<StringFieldUpdateOperationsInput>;
+  title?: Maybe<StringFieldUpdateOperationsInput>;
+  desc?: Maybe<StringFieldUpdateOperationsInput>;
+  price?: Maybe<FloatFieldUpdateOperationsInput>;
+  size?: Maybe<EnumProductSizeFieldUpdateOperationsInput>;
+  season?: Maybe<EnumProductSeasonFieldUpdateOperationsInput>;
+  dateOfPurchase?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  viewsNumber?: Maybe<IntFieldUpdateOperationsInput>;
+  publishStatus?: Maybe<EnumProductPublishStatusFieldUpdateOperationsInput>;
+  productStatus?: Maybe<EnumProductStatusFieldUpdateOperationsInput>;
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  images?: Maybe<ProductImageUpdateManyWithoutProductInput>;
+  city?: Maybe<CityUpdateOneRequiredWithoutProductsInput>;
+  brand?: Maybe<BrandUpdateOneRequiredWithoutProductsInput>;
+  author?: Maybe<UserUpdateOneWithoutProductsInput>;
   favorites?: Maybe<FavoriteUpdateManyWithoutProductInput>;
   likes?: Maybe<LikeUpdateManyWithoutProductInput>;
 };
@@ -1753,6 +2233,18 @@ export type ProductUpsertWithWhereUniqueWithoutAuthorInput = {
   create: ProductCreateWithoutAuthorInput;
 };
 
+export type ProductUpsertWithWhereUniqueWithoutBrandInput = {
+  where: ProductWhereUniqueInput;
+  update: ProductUpdateWithoutBrandInput;
+  create: ProductCreateWithoutBrandInput;
+};
+
+export type ProductUpsertWithWhereUniqueWithoutCategoryInput = {
+  where: ProductWhereUniqueInput;
+  update: ProductUpdateWithoutCategoryInput;
+  create: ProductCreateWithoutCategoryInput;
+};
+
 export type ProductUpsertWithWhereUniqueWithoutCityInput = {
   where: ProductWhereUniqueInput;
   update: ProductUpdateWithoutCityInput;
@@ -1804,9 +2296,62 @@ export type ProductWhereUniqueInput = {
 
 export type Query = {
   __typename?: 'Query';
+  getAllCities: Array<City>;
+  getOneCity: City;
+  getAllBrands: Array<Brand>;
+  getOneBrand: Brand;
+  getAllCategories: Array<Category>;
+  getOneCategory: Category;
   me: User;
   getAllUsers: Array<User>;
   getOneUser: User;
+  getAllProducts: Array<Product>;
+  getOneProduct: Product;
+};
+
+
+export type QueryGetAllCitiesArgs = {
+  where?: Maybe<CityWhereInput>;
+  orderBy?: Maybe<Array<CityOrderByInput>>;
+  cursor?: Maybe<CityWhereUniqueInput>;
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  distinct?: Maybe<Array<CityScalarFieldEnum>>;
+};
+
+
+export type QueryGetOneCityArgs = {
+  where: CityWhereUniqueInput;
+};
+
+
+export type QueryGetAllBrandsArgs = {
+  where?: Maybe<BrandWhereInput>;
+  orderBy?: Maybe<Array<BrandOrderByInput>>;
+  cursor?: Maybe<BrandWhereUniqueInput>;
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  distinct?: Maybe<Array<BrandScalarFieldEnum>>;
+};
+
+
+export type QueryGetOneBrandArgs = {
+  where: BrandWhereUniqueInput;
+};
+
+
+export type QueryGetAllCategoriesArgs = {
+  where?: Maybe<CategoryWhereInput>;
+  orderBy?: Maybe<Array<CategoryOrderByInput>>;
+  cursor?: Maybe<CategoryWhereUniqueInput>;
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  distinct?: Maybe<Array<CategoryScalarFieldEnum>>;
+};
+
+
+export type QueryGetOneCategoryArgs = {
+  where: CategoryWhereUniqueInput;
 };
 
 
@@ -1822,6 +2367,21 @@ export type QueryGetAllUsersArgs = {
 
 export type QueryGetOneUserArgs = {
   where: UserWhereUniqueInput;
+};
+
+
+export type QueryGetAllProductsArgs = {
+  where?: Maybe<ProductWhereInput>;
+  orderBy?: Maybe<Array<ProductOrderByInput>>;
+  cursor?: Maybe<ProductWhereUniqueInput>;
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  distinct?: Maybe<Array<ProductScalarFieldEnum>>;
+};
+
+
+export type QueryGetOneProductArgs = {
+  where: ProductWhereUniqueInput;
 };
 
 export enum QueryMode {
@@ -2638,6 +3198,202 @@ export type UpdateUserMutation = (
   & Pick<Mutation, 'updateUser'>
 );
 
+export type BulkBrandsMutationVariables = Exact<{
+  number: Scalars['Int'];
+}>;
+
+
+export type BulkBrandsMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'bulkBrands'>
+);
+
+export type CreateBrandMutationVariables = Exact<{
+  createBrandInput: BrandCreateInput;
+}>;
+
+
+export type CreateBrandMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'createBrand'>
+);
+
+export type RemoveBrandMutationVariables = Exact<{
+  whereBrandInput: BrandWhereUniqueInput;
+}>;
+
+
+export type RemoveBrandMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'removeBrand'>
+);
+
+export type BulkRemoveBrandsMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type BulkRemoveBrandsMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'bulkRemoveBrands'>
+);
+
+export type UpdateBrandMutationVariables = Exact<{
+  data: BrandUpdateInput;
+  where: BrandWhereUniqueInput;
+}>;
+
+
+export type UpdateBrandMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'updateBrand'>
+);
+
+export type BulkCategoriesMutationVariables = Exact<{
+  number: Scalars['Int'];
+}>;
+
+
+export type BulkCategoriesMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'bulkCategories'>
+);
+
+export type CreateCategoryMutationVariables = Exact<{
+  createCategoryInput: CategoryCreateInput;
+}>;
+
+
+export type CreateCategoryMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'createCategory'>
+);
+
+export type BulkRemoveCategoriesMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type BulkRemoveCategoriesMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'bulkRemoveCategories'>
+);
+
+export type RemoveCategoryMutationVariables = Exact<{
+  whereCategoryInput: CategoryWhereUniqueInput;
+}>;
+
+
+export type RemoveCategoryMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'removeCategory'>
+);
+
+export type UpdateCategoryMutationVariables = Exact<{
+  data: CategoryUpdateInput;
+  where: CategoryWhereUniqueInput;
+}>;
+
+
+export type UpdateCategoryMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'updateCategory'>
+);
+
+export type BulkCitiesMutationVariables = Exact<{
+  number: Scalars['Int'];
+}>;
+
+
+export type BulkCitiesMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'bulkCities'>
+);
+
+export type CreateCityMutationVariables = Exact<{
+  createCityInput: CityCreateInput;
+}>;
+
+
+export type CreateCityMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'createCity'>
+);
+
+export type BulkRemoveCitiesMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type BulkRemoveCitiesMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'bulkRemoveCities'>
+);
+
+export type RemoveCityMutationVariables = Exact<{
+  whereCityInput: CityWhereUniqueInput;
+}>;
+
+
+export type RemoveCityMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'removeCity'>
+);
+
+export type UpdateCityMutationVariables = Exact<{
+  data: CityUpdateInput;
+  where: CityWhereUniqueInput;
+}>;
+
+
+export type UpdateCityMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'updateCity'>
+);
+
+export type BulkProductsMutationVariables = Exact<{
+  number: Scalars['Int'];
+}>;
+
+
+export type BulkProductsMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'bulkProducts'>
+);
+
+export type CreateProductMutationVariables = Exact<{
+  createProductInput: ProductCreateInput;
+}>;
+
+
+export type CreateProductMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'createProduct'>
+);
+
+export type RemoveProductMutationVariables = Exact<{
+  whereProductInput: ProductWhereUniqueInput;
+}>;
+
+
+export type RemoveProductMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'removeProduct'>
+);
+
+export type BulkRemoveProductsMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type BulkRemoveProductsMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'bulkRemoveProducts'>
+);
+
+export type UpdateProductMutationVariables = Exact<{
+  data: ProductUpdateInput;
+  where: ProductWhereUniqueInput;
+}>;
+
+
+export type UpdateProductMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'updateProduct'>
+);
+
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -2703,6 +3459,184 @@ export type UsersQuery = (
   )> }
 );
 
+export type BrandFieldsFragment = (
+  { __typename?: 'Brand' }
+  & Pick<Brand, 'id' | 'name' | 'createdAt' | 'updatedAt'>
+  & { products?: Maybe<Array<(
+    { __typename?: 'Product' }
+    & ProductFieldsFragment
+  )>> }
+);
+
+export type BrandQueryVariables = Exact<{
+  where: BrandWhereUniqueInput;
+}>;
+
+
+export type BrandQuery = (
+  { __typename?: 'Query' }
+  & { getOneBrand: (
+    { __typename?: 'Brand' }
+    & Pick<Brand, 'id'>
+  ) }
+);
+
+export type BrandsQueryVariables = Exact<{
+  where?: Maybe<BrandWhereInput>;
+  orderBy?: Maybe<Array<BrandOrderByInput> | BrandOrderByInput>;
+  cursor?: Maybe<BrandWhereUniqueInput>;
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  distinct?: Maybe<Array<BrandScalarFieldEnum> | BrandScalarFieldEnum>;
+}>;
+
+
+export type BrandsQuery = (
+  { __typename?: 'Query' }
+  & { getAllBrands: Array<(
+    { __typename?: 'Brand' }
+    & BrandFieldsFragment
+  )> }
+);
+
+export type CategoriesQueryVariables = Exact<{
+  where?: Maybe<CategoryWhereInput>;
+  orderBy?: Maybe<Array<CategoryOrderByInput> | CategoryOrderByInput>;
+  cursor?: Maybe<CategoryWhereUniqueInput>;
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  distinct?: Maybe<Array<CategoryScalarFieldEnum> | CategoryScalarFieldEnum>;
+}>;
+
+
+export type CategoriesQuery = (
+  { __typename?: 'Query' }
+  & { getAllCategories: Array<(
+    { __typename?: 'Category' }
+    & CategoryFieldsFragment
+  )> }
+);
+
+export type CategoryFieldsFragment = (
+  { __typename?: 'Category' }
+  & Pick<Category, 'id' | 'name' | 'createdAt' | 'updatedAt'>
+  & { products?: Maybe<Array<(
+    { __typename?: 'Product' }
+    & ProductFieldsFragment
+  )>> }
+);
+
+export type CategoryQueryVariables = Exact<{
+  where: CategoryWhereUniqueInput;
+}>;
+
+
+export type CategoryQuery = (
+  { __typename?: 'Query' }
+  & { getOneCategory: (
+    { __typename?: 'Category' }
+    & Pick<Category, 'id'>
+  ) }
+);
+
+export type CitiesQueryVariables = Exact<{
+  where?: Maybe<CityWhereInput>;
+  orderBy?: Maybe<Array<CityOrderByInput> | CityOrderByInput>;
+  cursor?: Maybe<CityWhereUniqueInput>;
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  distinct?: Maybe<Array<CityScalarFieldEnum> | CityScalarFieldEnum>;
+}>;
+
+
+export type CitiesQuery = (
+  { __typename?: 'Query' }
+  & { getAllCities: Array<(
+    { __typename?: 'City' }
+    & CityFieldsFragment
+  )> }
+);
+
+export type CityFieldsFragment = (
+  { __typename?: 'City' }
+  & Pick<City, 'id' | 'name' | 'createdAt' | 'updatedAt'>
+  & { products?: Maybe<Array<(
+    { __typename?: 'Product' }
+    & ProductFieldsFragment
+  )>> }
+);
+
+export type CityQueryVariables = Exact<{
+  where: CityWhereUniqueInput;
+}>;
+
+
+export type CityQuery = (
+  { __typename?: 'Query' }
+  & { getOneCity: (
+    { __typename?: 'City' }
+    & Pick<City, 'id'>
+  ) }
+);
+
+export type ProductFieldsFragment = (
+  { __typename?: 'Product' }
+  & Pick<Product, 'id' | 'title' | 'desc' | 'price' | 'size' | 'season' | 'dateOfPurchase' | 'viewsNumber' | 'publishStatus' | 'productStatus' | 'createdAt' | 'updatedAt'>
+  & { images?: Maybe<Array<(
+    { __typename?: 'ProductImage' }
+    & Pick<ProductImage, 'id' | 'title' | 'desc' | 'url'>
+  )>>, city: (
+    { __typename?: 'City' }
+    & Pick<City, 'id'>
+  ), category: (
+    { __typename?: 'Category' }
+    & Pick<Category, 'id'>
+  ), brand: (
+    { __typename?: 'Brand' }
+    & Pick<Brand, 'id'>
+  ), author?: Maybe<(
+    { __typename?: 'User' }
+    & Pick<User, 'id'>
+  )>, favorites?: Maybe<Array<(
+    { __typename?: 'Favorite' }
+    & Pick<Favorite, 'id'>
+  )>>, likes?: Maybe<Array<(
+    { __typename?: 'Like' }
+    & Pick<Like, 'id'>
+  )>> }
+);
+
+export type ProductQueryVariables = Exact<{
+  where: ProductWhereUniqueInput;
+}>;
+
+
+export type ProductQuery = (
+  { __typename?: 'Query' }
+  & { getOneProduct: (
+    { __typename?: 'Product' }
+    & Pick<Product, 'id'>
+  ) }
+);
+
+export type ProductsQueryVariables = Exact<{
+  where?: Maybe<ProductWhereInput>;
+  orderBy?: Maybe<Array<ProductOrderByInput> | ProductOrderByInput>;
+  cursor?: Maybe<ProductWhereUniqueInput>;
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  distinct?: Maybe<Array<ProductScalarFieldEnum> | ProductScalarFieldEnum>;
+}>;
+
+
+export type ProductsQuery = (
+  { __typename?: 'Query' }
+  & { getAllProducts: Array<(
+    { __typename?: 'Product' }
+    & ProductFieldsFragment
+  )> }
+);
+
 export const UserFieldsFragmentDoc = `
     fragment UserFields on User {
   id
@@ -2716,6 +3650,79 @@ export const UserFieldsFragmentDoc = `
   updatedAt
 }
     `;
+export const ProductFieldsFragmentDoc = `
+    fragment ProductFields on Product {
+  id
+  title
+  desc
+  price
+  size
+  season
+  dateOfPurchase
+  viewsNumber
+  publishStatus
+  productStatus
+  createdAt
+  updatedAt
+  images {
+    id
+    title
+    desc
+    url
+  }
+  city {
+    id
+  }
+  category {
+    id
+  }
+  brand {
+    id
+  }
+  author {
+    id
+  }
+  favorites {
+    id
+  }
+  likes {
+    id
+  }
+}
+    `;
+export const BrandFieldsFragmentDoc = `
+    fragment BrandFields on Brand {
+  id
+  name
+  createdAt
+  updatedAt
+  products {
+    ...ProductFields
+  }
+}
+    ${ProductFieldsFragmentDoc}`;
+export const CategoryFieldsFragmentDoc = `
+    fragment CategoryFields on Category {
+  id
+  name
+  createdAt
+  updatedAt
+  products {
+    ...ProductFields
+  }
+}
+    ${ProductFieldsFragmentDoc}`;
+export const CityFieldsFragmentDoc = `
+    fragment CityFields on City {
+  id
+  name
+  createdAt
+  updatedAt
+  products {
+    ...ProductFields
+  }
+}
+    ${ProductFieldsFragmentDoc}`;
 export const LoginDocument = `
     mutation login($email: String!, $password: String!) {
   login(data: {email: $email, password: $password}) {
@@ -2758,6 +3765,266 @@ export const useUpdateUserMutation = <
     >(options?: UseMutationOptions<UpdateUserMutation, TError, UpdateUserMutationVariables, TContext>) => 
     useMutation<UpdateUserMutation, TError, UpdateUserMutationVariables, TContext>(
       (variables?: UpdateUserMutationVariables) => client<UpdateUserMutation, UpdateUserMutationVariables>(UpdateUserDocument, variables)(),
+      options
+    );
+export const BulkBrandsDocument = `
+    mutation bulkBrands($number: Int!) {
+  bulkBrands(number: $number)
+}
+    `;
+export const useBulkBrandsMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<BulkBrandsMutation, TError, BulkBrandsMutationVariables, TContext>) => 
+    useMutation<BulkBrandsMutation, TError, BulkBrandsMutationVariables, TContext>(
+      (variables?: BulkBrandsMutationVariables) => client<BulkBrandsMutation, BulkBrandsMutationVariables>(BulkBrandsDocument, variables)(),
+      options
+    );
+export const CreateBrandDocument = `
+    mutation createBrand($createBrandInput: BrandCreateInput!) {
+  createBrand(createBrandInput: $createBrandInput)
+}
+    `;
+export const useCreateBrandMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<CreateBrandMutation, TError, CreateBrandMutationVariables, TContext>) => 
+    useMutation<CreateBrandMutation, TError, CreateBrandMutationVariables, TContext>(
+      (variables?: CreateBrandMutationVariables) => client<CreateBrandMutation, CreateBrandMutationVariables>(CreateBrandDocument, variables)(),
+      options
+    );
+export const RemoveBrandDocument = `
+    mutation removeBrand($whereBrandInput: BrandWhereUniqueInput!) {
+  removeBrand(whereBrandInput: $whereBrandInput)
+}
+    `;
+export const useRemoveBrandMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<RemoveBrandMutation, TError, RemoveBrandMutationVariables, TContext>) => 
+    useMutation<RemoveBrandMutation, TError, RemoveBrandMutationVariables, TContext>(
+      (variables?: RemoveBrandMutationVariables) => client<RemoveBrandMutation, RemoveBrandMutationVariables>(RemoveBrandDocument, variables)(),
+      options
+    );
+export const BulkRemoveBrandsDocument = `
+    mutation bulkRemoveBrands {
+  bulkRemoveBrands
+}
+    `;
+export const useBulkRemoveBrandsMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<BulkRemoveBrandsMutation, TError, BulkRemoveBrandsMutationVariables, TContext>) => 
+    useMutation<BulkRemoveBrandsMutation, TError, BulkRemoveBrandsMutationVariables, TContext>(
+      (variables?: BulkRemoveBrandsMutationVariables) => client<BulkRemoveBrandsMutation, BulkRemoveBrandsMutationVariables>(BulkRemoveBrandsDocument, variables)(),
+      options
+    );
+export const UpdateBrandDocument = `
+    mutation updateBrand($data: BrandUpdateInput!, $where: BrandWhereUniqueInput!) {
+  updateBrand(data: $data, where: $where)
+}
+    `;
+export const useUpdateBrandMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<UpdateBrandMutation, TError, UpdateBrandMutationVariables, TContext>) => 
+    useMutation<UpdateBrandMutation, TError, UpdateBrandMutationVariables, TContext>(
+      (variables?: UpdateBrandMutationVariables) => client<UpdateBrandMutation, UpdateBrandMutationVariables>(UpdateBrandDocument, variables)(),
+      options
+    );
+export const BulkCategoriesDocument = `
+    mutation bulkCategories($number: Int!) {
+  bulkCategories(number: $number)
+}
+    `;
+export const useBulkCategoriesMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<BulkCategoriesMutation, TError, BulkCategoriesMutationVariables, TContext>) => 
+    useMutation<BulkCategoriesMutation, TError, BulkCategoriesMutationVariables, TContext>(
+      (variables?: BulkCategoriesMutationVariables) => client<BulkCategoriesMutation, BulkCategoriesMutationVariables>(BulkCategoriesDocument, variables)(),
+      options
+    );
+export const CreateCategoryDocument = `
+    mutation createCategory($createCategoryInput: CategoryCreateInput!) {
+  createCategory(createCategoryInput: $createCategoryInput)
+}
+    `;
+export const useCreateCategoryMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<CreateCategoryMutation, TError, CreateCategoryMutationVariables, TContext>) => 
+    useMutation<CreateCategoryMutation, TError, CreateCategoryMutationVariables, TContext>(
+      (variables?: CreateCategoryMutationVariables) => client<CreateCategoryMutation, CreateCategoryMutationVariables>(CreateCategoryDocument, variables)(),
+      options
+    );
+export const BulkRemoveCategoriesDocument = `
+    mutation bulkRemoveCategories {
+  bulkRemoveCategories
+}
+    `;
+export const useBulkRemoveCategoriesMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<BulkRemoveCategoriesMutation, TError, BulkRemoveCategoriesMutationVariables, TContext>) => 
+    useMutation<BulkRemoveCategoriesMutation, TError, BulkRemoveCategoriesMutationVariables, TContext>(
+      (variables?: BulkRemoveCategoriesMutationVariables) => client<BulkRemoveCategoriesMutation, BulkRemoveCategoriesMutationVariables>(BulkRemoveCategoriesDocument, variables)(),
+      options
+    );
+export const RemoveCategoryDocument = `
+    mutation removeCategory($whereCategoryInput: CategoryWhereUniqueInput!) {
+  removeCategory(whereCategoryInput: $whereCategoryInput)
+}
+    `;
+export const useRemoveCategoryMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<RemoveCategoryMutation, TError, RemoveCategoryMutationVariables, TContext>) => 
+    useMutation<RemoveCategoryMutation, TError, RemoveCategoryMutationVariables, TContext>(
+      (variables?: RemoveCategoryMutationVariables) => client<RemoveCategoryMutation, RemoveCategoryMutationVariables>(RemoveCategoryDocument, variables)(),
+      options
+    );
+export const UpdateCategoryDocument = `
+    mutation updateCategory($data: CategoryUpdateInput!, $where: CategoryWhereUniqueInput!) {
+  updateCategory(data: $data, where: $where)
+}
+    `;
+export const useUpdateCategoryMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<UpdateCategoryMutation, TError, UpdateCategoryMutationVariables, TContext>) => 
+    useMutation<UpdateCategoryMutation, TError, UpdateCategoryMutationVariables, TContext>(
+      (variables?: UpdateCategoryMutationVariables) => client<UpdateCategoryMutation, UpdateCategoryMutationVariables>(UpdateCategoryDocument, variables)(),
+      options
+    );
+export const BulkCitiesDocument = `
+    mutation bulkCities($number: Int!) {
+  bulkCities(number: $number)
+}
+    `;
+export const useBulkCitiesMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<BulkCitiesMutation, TError, BulkCitiesMutationVariables, TContext>) => 
+    useMutation<BulkCitiesMutation, TError, BulkCitiesMutationVariables, TContext>(
+      (variables?: BulkCitiesMutationVariables) => client<BulkCitiesMutation, BulkCitiesMutationVariables>(BulkCitiesDocument, variables)(),
+      options
+    );
+export const CreateCityDocument = `
+    mutation createCity($createCityInput: CityCreateInput!) {
+  createCity(createCityInput: $createCityInput)
+}
+    `;
+export const useCreateCityMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<CreateCityMutation, TError, CreateCityMutationVariables, TContext>) => 
+    useMutation<CreateCityMutation, TError, CreateCityMutationVariables, TContext>(
+      (variables?: CreateCityMutationVariables) => client<CreateCityMutation, CreateCityMutationVariables>(CreateCityDocument, variables)(),
+      options
+    );
+export const BulkRemoveCitiesDocument = `
+    mutation bulkRemoveCities {
+  bulkRemoveCities
+}
+    `;
+export const useBulkRemoveCitiesMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<BulkRemoveCitiesMutation, TError, BulkRemoveCitiesMutationVariables, TContext>) => 
+    useMutation<BulkRemoveCitiesMutation, TError, BulkRemoveCitiesMutationVariables, TContext>(
+      (variables?: BulkRemoveCitiesMutationVariables) => client<BulkRemoveCitiesMutation, BulkRemoveCitiesMutationVariables>(BulkRemoveCitiesDocument, variables)(),
+      options
+    );
+export const RemoveCityDocument = `
+    mutation removeCity($whereCityInput: CityWhereUniqueInput!) {
+  removeCity(whereCityInput: $whereCityInput)
+}
+    `;
+export const useRemoveCityMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<RemoveCityMutation, TError, RemoveCityMutationVariables, TContext>) => 
+    useMutation<RemoveCityMutation, TError, RemoveCityMutationVariables, TContext>(
+      (variables?: RemoveCityMutationVariables) => client<RemoveCityMutation, RemoveCityMutationVariables>(RemoveCityDocument, variables)(),
+      options
+    );
+export const UpdateCityDocument = `
+    mutation updateCity($data: CityUpdateInput!, $where: CityWhereUniqueInput!) {
+  updateCity(data: $data, where: $where)
+}
+    `;
+export const useUpdateCityMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<UpdateCityMutation, TError, UpdateCityMutationVariables, TContext>) => 
+    useMutation<UpdateCityMutation, TError, UpdateCityMutationVariables, TContext>(
+      (variables?: UpdateCityMutationVariables) => client<UpdateCityMutation, UpdateCityMutationVariables>(UpdateCityDocument, variables)(),
+      options
+    );
+export const BulkProductsDocument = `
+    mutation bulkProducts($number: Int!) {
+  bulkProducts(number: $number)
+}
+    `;
+export const useBulkProductsMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<BulkProductsMutation, TError, BulkProductsMutationVariables, TContext>) => 
+    useMutation<BulkProductsMutation, TError, BulkProductsMutationVariables, TContext>(
+      (variables?: BulkProductsMutationVariables) => client<BulkProductsMutation, BulkProductsMutationVariables>(BulkProductsDocument, variables)(),
+      options
+    );
+export const CreateProductDocument = `
+    mutation createProduct($createProductInput: ProductCreateInput!) {
+  createProduct(createProductInput: $createProductInput)
+}
+    `;
+export const useCreateProductMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<CreateProductMutation, TError, CreateProductMutationVariables, TContext>) => 
+    useMutation<CreateProductMutation, TError, CreateProductMutationVariables, TContext>(
+      (variables?: CreateProductMutationVariables) => client<CreateProductMutation, CreateProductMutationVariables>(CreateProductDocument, variables)(),
+      options
+    );
+export const RemoveProductDocument = `
+    mutation removeProduct($whereProductInput: ProductWhereUniqueInput!) {
+  removeProduct(whereProductInput: $whereProductInput)
+}
+    `;
+export const useRemoveProductMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<RemoveProductMutation, TError, RemoveProductMutationVariables, TContext>) => 
+    useMutation<RemoveProductMutation, TError, RemoveProductMutationVariables, TContext>(
+      (variables?: RemoveProductMutationVariables) => client<RemoveProductMutation, RemoveProductMutationVariables>(RemoveProductDocument, variables)(),
+      options
+    );
+export const BulkRemoveProductsDocument = `
+    mutation bulkRemoveProducts {
+  bulkRemoveProducts
+}
+    `;
+export const useBulkRemoveProductsMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<BulkRemoveProductsMutation, TError, BulkRemoveProductsMutationVariables, TContext>) => 
+    useMutation<BulkRemoveProductsMutation, TError, BulkRemoveProductsMutationVariables, TContext>(
+      (variables?: BulkRemoveProductsMutationVariables) => client<BulkRemoveProductsMutation, BulkRemoveProductsMutationVariables>(BulkRemoveProductsDocument, variables)(),
+      options
+    );
+export const UpdateProductDocument = `
+    mutation updateProduct($data: ProductUpdateInput!, $where: ProductWhereUniqueInput!) {
+  updateProduct(data: $data, where: $where)
+}
+    `;
+export const useUpdateProductMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<UpdateProductMutation, TError, UpdateProductMutationVariables, TContext>) => 
+    useMutation<UpdateProductMutation, TError, UpdateProductMutationVariables, TContext>(
+      (variables?: UpdateProductMutationVariables) => client<UpdateProductMutation, UpdateProductMutationVariables>(UpdateProductDocument, variables)(),
       options
     );
 export const MeDocument = `
@@ -2851,3 +4118,199 @@ export const useUsersQuery = <
       options
     );
 useUsersQuery.getKey = (variables?: UsersQueryVariables) => ['users', variables];
+
+export const BrandDocument = `
+    query brand($where: BrandWhereUniqueInput!) {
+  getOneBrand(where: $where) {
+    id
+  }
+}
+    `;
+export const useBrandQuery = <
+      TData = BrandQuery,
+      TError = unknown
+    >(
+      variables: BrandQueryVariables, 
+      options?: UseQueryOptions<BrandQuery, TError, TData>
+    ) => 
+    useQuery<BrandQuery, TError, TData>(
+      ['brand', variables],
+      client<BrandQuery, BrandQueryVariables>(BrandDocument, variables),
+      options
+    );
+useBrandQuery.getKey = (variables: BrandQueryVariables) => ['brand', variables];
+
+export const BrandsDocument = `
+    query brands($where: BrandWhereInput, $orderBy: [BrandOrderByInput!], $cursor: BrandWhereUniqueInput, $take: Int, $skip: Int, $distinct: [BrandScalarFieldEnum!]) {
+  getAllBrands(
+    where: $where
+    orderBy: $orderBy
+    cursor: $cursor
+    take: $take
+    skip: $skip
+    distinct: $distinct
+  ) {
+    ...BrandFields
+  }
+}
+    ${BrandFieldsFragmentDoc}`;
+export const useBrandsQuery = <
+      TData = BrandsQuery,
+      TError = unknown
+    >(
+      variables?: BrandsQueryVariables, 
+      options?: UseQueryOptions<BrandsQuery, TError, TData>
+    ) => 
+    useQuery<BrandsQuery, TError, TData>(
+      ['brands', variables],
+      client<BrandsQuery, BrandsQueryVariables>(BrandsDocument, variables),
+      options
+    );
+useBrandsQuery.getKey = (variables?: BrandsQueryVariables) => ['brands', variables];
+
+export const CategoriesDocument = `
+    query categories($where: CategoryWhereInput, $orderBy: [CategoryOrderByInput!], $cursor: CategoryWhereUniqueInput, $take: Int, $skip: Int, $distinct: [CategoryScalarFieldEnum!]) {
+  getAllCategories(
+    where: $where
+    orderBy: $orderBy
+    cursor: $cursor
+    take: $take
+    skip: $skip
+    distinct: $distinct
+  ) {
+    ...CategoryFields
+  }
+}
+    ${CategoryFieldsFragmentDoc}`;
+export const useCategoriesQuery = <
+      TData = CategoriesQuery,
+      TError = unknown
+    >(
+      variables?: CategoriesQueryVariables, 
+      options?: UseQueryOptions<CategoriesQuery, TError, TData>
+    ) => 
+    useQuery<CategoriesQuery, TError, TData>(
+      ['categories', variables],
+      client<CategoriesQuery, CategoriesQueryVariables>(CategoriesDocument, variables),
+      options
+    );
+useCategoriesQuery.getKey = (variables?: CategoriesQueryVariables) => ['categories', variables];
+
+export const CategoryDocument = `
+    query category($where: CategoryWhereUniqueInput!) {
+  getOneCategory(where: $where) {
+    id
+  }
+}
+    `;
+export const useCategoryQuery = <
+      TData = CategoryQuery,
+      TError = unknown
+    >(
+      variables: CategoryQueryVariables, 
+      options?: UseQueryOptions<CategoryQuery, TError, TData>
+    ) => 
+    useQuery<CategoryQuery, TError, TData>(
+      ['category', variables],
+      client<CategoryQuery, CategoryQueryVariables>(CategoryDocument, variables),
+      options
+    );
+useCategoryQuery.getKey = (variables: CategoryQueryVariables) => ['category', variables];
+
+export const CitiesDocument = `
+    query cities($where: CityWhereInput, $orderBy: [CityOrderByInput!], $cursor: CityWhereUniqueInput, $take: Int, $skip: Int, $distinct: [CityScalarFieldEnum!]) {
+  getAllCities(
+    where: $where
+    orderBy: $orderBy
+    cursor: $cursor
+    take: $take
+    skip: $skip
+    distinct: $distinct
+  ) {
+    ...CityFields
+  }
+}
+    ${CityFieldsFragmentDoc}`;
+export const useCitiesQuery = <
+      TData = CitiesQuery,
+      TError = unknown
+    >(
+      variables?: CitiesQueryVariables, 
+      options?: UseQueryOptions<CitiesQuery, TError, TData>
+    ) => 
+    useQuery<CitiesQuery, TError, TData>(
+      ['cities', variables],
+      client<CitiesQuery, CitiesQueryVariables>(CitiesDocument, variables),
+      options
+    );
+useCitiesQuery.getKey = (variables?: CitiesQueryVariables) => ['cities', variables];
+
+export const CityDocument = `
+    query city($where: CityWhereUniqueInput!) {
+  getOneCity(where: $where) {
+    id
+  }
+}
+    `;
+export const useCityQuery = <
+      TData = CityQuery,
+      TError = unknown
+    >(
+      variables: CityQueryVariables, 
+      options?: UseQueryOptions<CityQuery, TError, TData>
+    ) => 
+    useQuery<CityQuery, TError, TData>(
+      ['city', variables],
+      client<CityQuery, CityQueryVariables>(CityDocument, variables),
+      options
+    );
+useCityQuery.getKey = (variables: CityQueryVariables) => ['city', variables];
+
+export const ProductDocument = `
+    query product($where: ProductWhereUniqueInput!) {
+  getOneProduct(where: $where) {
+    id
+  }
+}
+    `;
+export const useProductQuery = <
+      TData = ProductQuery,
+      TError = unknown
+    >(
+      variables: ProductQueryVariables, 
+      options?: UseQueryOptions<ProductQuery, TError, TData>
+    ) => 
+    useQuery<ProductQuery, TError, TData>(
+      ['product', variables],
+      client<ProductQuery, ProductQueryVariables>(ProductDocument, variables),
+      options
+    );
+useProductQuery.getKey = (variables: ProductQueryVariables) => ['product', variables];
+
+export const ProductsDocument = `
+    query products($where: ProductWhereInput, $orderBy: [ProductOrderByInput!], $cursor: ProductWhereUniqueInput, $take: Int, $skip: Int, $distinct: [ProductScalarFieldEnum!]) {
+  getAllProducts(
+    where: $where
+    orderBy: $orderBy
+    cursor: $cursor
+    take: $take
+    skip: $skip
+    distinct: $distinct
+  ) {
+    ...ProductFields
+  }
+}
+    ${ProductFieldsFragmentDoc}`;
+export const useProductsQuery = <
+      TData = ProductsQuery,
+      TError = unknown
+    >(
+      variables?: ProductsQueryVariables, 
+      options?: UseQueryOptions<ProductsQuery, TError, TData>
+    ) => 
+    useQuery<ProductsQuery, TError, TData>(
+      ['products', variables],
+      client<ProductsQuery, ProductsQueryVariables>(ProductsDocument, variables),
+      options
+    );
+useProductsQuery.getKey = (variables?: ProductsQueryVariables) => ['products', variables];

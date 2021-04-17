@@ -1,0 +1,3 @@
+mutation bulkProducts($number: Int!) {
+  bulkProducts(number: $number)
+}

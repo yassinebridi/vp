@@ -109,7 +109,7 @@ export class <%=h.inflection.pluralize(Name)%>Service {
     return true;
   }
 
-  async bulkDelete<%=h.inflection.pluralize(Name)%>(): Promise<boolean | Error> {
+  async bulkRemove<%=h.inflection.pluralize(Name)%>(): Promise<boolean | Error> {
     try {
       await this.prismaService.<%=name%>.deleteMany({});
 

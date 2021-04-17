@@ -1,0 +1,6 @@
+mutation updateBrand(
+  $data: BrandUpdateInput!
+  $where: BrandWhereUniqueInput!
+) {
+  updateBrand(data: $data, where: $where)
+}

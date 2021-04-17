@@ -7,10 +7,10 @@ import {
 } from '@nestjs/common';
 import { I18nRequestScopeService } from 'nestjs-i18n';
 import {
-  FindManyCityArgs,
-  FindUniqueCityArgs,
   CityCreateInput,
   CityWhereUniqueInput,
+  FindManyCityArgs,
+  FindUniqueCityArgs,
   UpdateOneCityArgs,
 } from 'src/@generated';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -106,7 +106,7 @@ export class CitiesService {
     return true;
   }
 
-  async bulkDeleteCities(): Promise<boolean | Error> {
+  async bulkRemoveCities(): Promise<boolean | Error> {
     try {
       await this.prismaService.city.deleteMany({});
 

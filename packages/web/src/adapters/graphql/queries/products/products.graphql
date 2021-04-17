@@ -1,0 +1,19 @@
+query products(
+  $where: ProductWhereInput
+  $orderBy: [ProductOrderByInput!]
+  $cursor: ProductWhereUniqueInput
+  $take: Int
+  $skip: Int
+  $distinct: [ProductScalarFieldEnum!]
+) {
+  getAllProducts(
+    where: $where
+    orderBy: $orderBy
+    cursor: $cursor
+    take: $take
+    skip: $skip
+    distinct: $distinct
+  ) {
+    ...ProductFields
+  }
+}

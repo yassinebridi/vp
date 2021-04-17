@@ -1,0 +1,19 @@
+query brands(
+  $where: BrandWhereInput
+  $orderBy: [BrandOrderByInput!]
+  $cursor: BrandWhereUniqueInput
+  $take: Int
+  $skip: Int
+  $distinct: [BrandScalarFieldEnum!]
+) {
+  getAllBrands(
+    where: $where
+    orderBy: $orderBy
+    cursor: $cursor
+    take: $take
+    skip: $skip
+    distinct: $distinct
+  ) {
+    ...BrandFields
+  }
+}
