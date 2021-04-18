@@ -1,4 +1,11 @@
-import { HomeIcon, MoonIcon } from "@heroicons/react/solid";
+import {
+  CollectionIcon,
+  GlobeIcon,
+  HomeIcon,
+  TableIcon,
+  TemplateIcon,
+  UsersIcon,
+} from "@heroicons/react/solid";
 
 export const routes = [
   {
@@ -7,60 +14,28 @@ export const routes = [
     name: "Acceuil",
   },
   {
-    path: "/login",
-    icon: MoonIcon,
-    name: "login",
-  },
-  {
-    name: "pages",
-    icon: MoonIcon,
+    name: "Gestion",
+    icon: TableIcon,
     routes: [
       {
-        path: "/login",
-        icon: MoonIcon,
-        name: "login",
+        path: "/users",
+        icon: UsersIcon,
+        name: "users",
       },
       {
-        path: "/login",
-        icon: MoonIcon,
-        name: "login",
+        path: "/categories",
+        icon: CollectionIcon,
+        name: "categories",
       },
       {
-        path: "/login",
-        icon: MoonIcon,
-        name: "login",
-      },
-    ],
-  },
-  {
-    name: "pages",
-    icon: MoonIcon,
-    routes: [
-      {
-        path: "/login",
-        icon: MoonIcon,
-        name: "login",
+        path: "/brands",
+        icon: TemplateIcon,
+        name: "brands",
       },
       {
-        path: "/login",
-        icon: MoonIcon,
-        name: "login",
-      },
-      {
-        name: "pages",
-        icon: MoonIcon,
-        routes: [
-          {
-            path: "/login",
-            icon: MoonIcon,
-            name: "login",
-          },
-          {
-            path: "/login",
-            icon: MoonIcon,
-            name: "login",
-          },
-        ],
+        path: "/cities",
+        icon: GlobeIcon,
+        name: "cities",
       },
     ],
   },

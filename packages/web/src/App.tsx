@@ -14,8 +14,15 @@ const App: React.FC<AppProps> = () => {
   return (
     <Router>
       <Switch>
-        <CustomRoute exact path="/" component={HomePage} layout={HomeLayout} />
         <CustomRoute
+          title="Home | Videplacard"
+          exact
+          path="/"
+          component={HomePage}
+          layout={HomeLayout}
+        />
+        <CustomRoute
+          title="Settings | Videplacard"
           exact
           path="/settings"
           component={SettingsPage}
@@ -34,12 +41,18 @@ export interface RoutesProps extends RouteProps {
   layout?: React.FC<any>;
   component?: React.FC<any>;
   path: string;
+  title?: string;
 }
 const CustomRoute: React.FC<RoutesProps> = ({
   layout: Layout,
   component: Component,
   path,
+  title,
 }) => {
+  React.useEffect(() => {
+    document.title = title || "Videplacard dashboard";
+  }, [title]);
+
   return (
     <Layout>
       <Route exact path={path} component={Component} />
