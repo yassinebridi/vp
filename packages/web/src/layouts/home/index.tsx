@@ -6,6 +6,7 @@ import {
   Sidebar,
 } from "@components";
 import { MeProvider, useSidebarStore } from "@utils";
+import clsx from "clsx";
 import React from "react";
 import { useHistory } from "react-router";
 
@@ -26,9 +27,10 @@ const HomeLayout: React.FC<HomeLayoutProps> = ({ children }) => {
   return (
     <MeProvider me={data}>
       <div
-        className={`flex h-screen text-gray-900 dark:text-gray-50 bg-gray-50 dark:bg-gray-900 ${
+        className={clsx(
+          "flex h-screen text-gray-900 dark:text-gray-50 bg-gray-100 dark:bg-gray-900",
           sidebarProps && "overflow-hidden"
-        }`}
+        )}
       >
         <Sidebar />
 

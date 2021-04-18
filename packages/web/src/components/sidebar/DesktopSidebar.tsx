@@ -1,4 +1,5 @@
 import { useExpandSidebarStore } from "@utils";
+import clsx from "clsx";
 import React from "react";
 import SidebarContent from "./SidebarContent";
 
@@ -8,9 +9,10 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = () => {
 
   return (
     <aside
-      className={`z-30 flex-shrink-0 hidden ${
+      className={clsx(
+        "z-30 flex-shrink-0 hidden overflow-y-auto bg-white dark:bg-gray-850 lg:block bg-gray-50",
         expandSidebarProps.expand && `w-56`
-      } overflow-y-auto bg-white dark:bg-gray-850 lg:block bg-gray-100`}
+      )}
     >
       <SidebarContent />
     </aside>

@@ -1,4 +1,5 @@
 import { ChakraTheme, theme as chakraTheme } from "@chakra-ui/theme";
+import { colors } from "tailwindcss/defaultTheme";
 
 export const theme: ChakraTheme = {
   ...chakraTheme,
@@ -43,6 +44,6 @@ export const theme: ChakraTheme = {
     body: "Open Sans, sans-serif",
   },
   colors: {
-    ...chakraTheme.colors,
+    ...colors,
   },
 };

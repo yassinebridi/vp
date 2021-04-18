@@ -47,13 +47,6 @@ import { UserModule } from './users/users.module';
       playground: true,
       installSubscriptionHandlers: true,
       autoSchemaFile: path.join(process.cwd(), 'src/schema.gql'),
-      formatError: (error: GraphQLError) => {
-        const graphQLFormattedError: GraphQLFormattedError = {
-          message:
-            error.extensions?.exception?.response?.message || error.message,
-        };
-        return graphQLFormattedError;
-      },
       path: '/',
       context: ({ req, res, connection }) =>
         connection

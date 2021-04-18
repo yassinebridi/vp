@@ -18,7 +18,7 @@ const Header: React.FC<HeaderProps> = () => {
   const { setProfileProps, profileProps } = useProfileStore();
 
   return (
-    <header className="relative z-40 py-2 bg-white shadow-bottom dark:bg-gray-800">
+    <header className="relative z-40 py-2 bg-white bg-gray-100 shadow-bottom dark:bg-gray-800">
       <div className="container flex items-center justify-between h-full px-6 mx-auto text-blue-600 dark:text-blue-300">
         {!expandSidebarProps.expand && (
           <button
