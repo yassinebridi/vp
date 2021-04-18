@@ -1,15 +1,14 @@
-import { MeQuery, useLogoutMutation } from "@adapters";
-import { Avatar } from "@chakra-ui/react";
+import { useLogoutMutation } from "@adapters";
 import { Menu, Transition } from "@headlessui/react";
-import { capitalize } from "@utils";
+import { useExpandSidebarStore, useMe } from "@utils";
 import clsx from "clsx";
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
 
-export interface DropDownProps {
-  me: MeQuery["me"];
-}
-const DropDown: FC<DropDownProps> = ({ me }) => {
+export interface DropDownProps {}
+const DropDown: FC<DropDownProps> = ({ children }) => {
+  const { expandSidebarProps } = useExpandSidebarStore();
+  const { meData } = useMe();
   const { mutateAsync } = useLogoutMutation();
 
   const logout = async () => {
@@ -18,13 +17,11 @@ const DropDown: FC<DropDownProps> = ({ me }) => {
   };
 
   return (
-    <div className="relative inline-block text-left text-gray-500 dark:text-gray-400">
+    <div className={clsx("w-full", expandSidebarProps.expand && "relative")}>
       <Menu>
         {({ open }) => (
           <>
-            <Menu.Button className="rounded-full ringify">
-              <Avatar size="sm" name={capitalize(me.name)} src={me.avatar} />
-            </Menu.Button>
+            <Menu.Button className="w-full">{children}</Menu.Button>
 
             <Transition
               show={open}
@@ -37,12 +34,14 @@ const DropDown: FC<DropDownProps> = ({ me }) => {
             >
               <Menu.Items
                 static
-                className="absolute right-0 w-56 mt-2 bg-white border border-gray-200 shadow-lg outline-none dark:border-gray-700 dark:bg-gray-800 origin-top-right divide-y dark:divide-gray-700 divide-gray-100 rounded-md"
+                className="absolute inset-x-0 m-4 shadow-2xl outline-none bottom-20 bg-white dark:bg-[#38393c] origin-center divide-y dark:divide-gray-600 divide-gray-200 rounded-md dark:text-gray-100"
               >
                 <div className="px-4 py-3">
-                  <p className="text-sm leading-5">Logged in as</p>
-                  <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300 leading-5">
-                    {me.email}
+                  <p className="text-sm leading-5 dark:text-gray-400">
+                    Logged in as
+                  </p>
+                  <p className="text-sm font-medium truncate leading-5">
+                    {meData.me.email}
                   </p>
                 </div>
 

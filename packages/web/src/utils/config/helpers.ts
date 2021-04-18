@@ -1,5 +1,6 @@
 import { CLOUDINARY_NAME } from "@vp/common";
 import * as dayjs from "dayjs";
+import { useLocation } from "react-router-dom";
 
 export const capitalize = (text: string) => {
   let wordsArray = text.toLowerCase().split(" ");
@@ -44,4 +45,22 @@ export const removeItem = <T>(arr: T[], item: T) => {
 
 export const formatDate = (date: Date) => {
   return dayjs(date, { locale: "fr" }).format("DD MMM HH:mm");
+};
+
+export const getRandomAvatar = () => {
+  const colors = ["#37B679", "#DA3C3C", "#3291FF", "#7928CA", "#79FFE1"];
+  const getRandomIdx = () => Math.floor(Math.random() * colors.length) + 0;
+
+  let idx = getRandomIdx();
+  let idx2 = getRandomIdx();
+
+  while (idx2 === idx) {
+    idx2 = getRandomIdx();
+  }
+
+  return `linear-gradient(140deg, ${colors[idx]}, ${colors[idx2]} 100%)`;
+};
+
+export const useQueryParams = () => {
+  return new URLSearchParams(useLocation().search);
 };

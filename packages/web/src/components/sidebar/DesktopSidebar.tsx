@@ -10,7 +10,7 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = () => {
   return (
     <aside
       className={clsx(
-        "z-30 flex-shrink-0 hidden lg:block",
+        "z-30 flex-shrink-0 hidden lg:block h-full",
         expandSidebarProps.expand && `w-64`
       )}
     >

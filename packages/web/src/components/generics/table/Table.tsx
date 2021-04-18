@@ -6,16 +6,29 @@ import {
   DotsHorizontalIcon,
   SearchIcon,
 } from "@heroicons/react/outline";
+import { useQueryParams } from "@utils";
 import clsx from "clsx";
 import React from "react";
+import { useHistory } from "react-router";
 import { useRowSelect, useSortBy, useTable } from "react-table";
 import { IndeterminateCheckbox } from ".";
 
 export interface TableProps {
+  component: string;
   dataArray: any;
   columnsArray: any;
 }
-const Table: React.FC<TableProps> = ({ dataArray, columnsArray }) => {
+const Table: React.FC<TableProps> = ({
+  component,
+  dataArray,
+  columnsArray,
+}) => {
+  const router = useHistory();
+  const query = useQueryParams();
+  const searchTerm = query.get("search");
+  const [searchValue, setSearchValue] = React.useState(
+    searchTerm ? searchTerm : undefined
+  );
   const data = React.useMemo(() => dataArray, []);
   const columns = React.useMemo(() => columnsArray, []);
 
@@ -44,16 +57,29 @@ const Table: React.FC<TableProps> = ({ dataArray, columnsArray }) => {
     ]);
   });
 
+  const handleSearchSumbit = () => {
+    router.push({
+      pathname: component,
+      search: `?search=${searchValue}`,
+    });
+  };
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.currentTarget.value);
+  };
   return (
     <div className="flex flex-col">
       <div className="overflow-hidden">
         <div className="flex justify-between min-w-full px-6 my-3 text-gray-600 dark:text-gray-400">
           <div className="flex items-center space-x-6 text">
             <SearchIcon className="w-5 h-5" />
-            <input
-              className="w-[300px]  bg-white dark:bg-gray-900 outline-none"
-              placeholder="Search by name..."
-            />
+            <form onSubmit={handleSearchSumbit}>
+              <input
+                value={searchValue}
+                onChange={handleSearchChange}
+                className="w-[300px]  bg-white dark:bg-gray-900 outline-none"
+                placeholder="Search by name..."
+              />
+            </form>
           </div>
           <div className="flex justify-between space-x-6">
             <button className="flex items-center space-x-2">
@@ -113,7 +139,6 @@ const Table: React.FC<TableProps> = ({ dataArray, columnsArray }) => {
                   {row.cells.map((cell, i) => (
                     <td
                       {...cell.getCellProps()}
-                      isNumeric={cell.column.isNumeric}
                       className={clsx(
                         "whitespace-nowrap px-6 py-3",
                         i === 0 && "rounded-l-lg",

@@ -1,11 +1,15 @@
 import { useBrandsQuery } from "@adapters";
 import { Table } from "@components";
-import { formatDate } from "@utils";
+import { formatDate, useQueryParams } from "@utils";
 import React from "react";
 
 export interface BrandsTableProps {}
 const BrandsTable: React.FC<BrandsTableProps> = () => {
-  const { data: brandsData, isLoading } = useBrandsQuery();
+  const query = useQueryParams();
+  const searchTerm = query.get("search");
+  const { data: brandsData, isLoading } = useBrandsQuery({
+    where: { name: { contains: searchTerm ? searchTerm : undefined } },
+  });
 
   if (isLoading) return <div>loading</div>;
   if (brandsData.getAllBrands.length === 0) return <div>no items</div>;
