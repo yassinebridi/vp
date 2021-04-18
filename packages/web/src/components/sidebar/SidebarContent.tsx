@@ -1,11 +1,9 @@
-import { ChevronLeftIcon } from "@chakra-ui/icons";
 import { Icon, Tooltip } from "@chakra-ui/react";
 import { ActiveLink } from "@components";
-import { MenuIcon } from "@heroicons/react/outline";
 import {
-  useExpandSidebarStore,
-  routes,
   capitalize,
+  routes,
+  useExpandSidebarStore,
   useSidebarStore,
 } from "@utils";
 import clsx from "clsx";
@@ -36,28 +34,11 @@ const SidebarContent: React.FC<SidebarContentProps> = () => {
             </a>
           </Link>
         ) : (
-          <button
-            className="p-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-            onClick={() => {
-              setExpandSidebarProps(!expandSidebarProps.expand);
-            }}
-            aria-label="Menu"
-          >
-            <MenuIcon className="w-6 h-6" aria-hidden="true" />
-          </button>
-        )}
-        {expandSidebarProps.expand && (
-          <button
-            className="hidden text-blue-600 ringify rounded-md lg:block dark:text-blue-300"
-            onClick={() => setExpandSidebarProps(false)}
-            title="Collapse"
-          >
-            <ChevronLeftIcon
-              className="p-1 bg-gray-200 dark:bg-gray-900 rounded-md"
-              width="35x"
-              height="35px"
-            />
-          </button>
+          <Link to="/">
+            <a className="flex flex-col items-center text-sm">
+              <span className="text-lg font-extrabold">VP</span>
+            </a>
+          </Link>
         )}
       </div>
       <ul className="mt-6">

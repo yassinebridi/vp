@@ -1,5 +1,5 @@
 import { HomeLayout } from "@layouts";
-import { HomePage, LoginPage, SettingsPage } from "@pages";
+import { BrandsPage, HomePage, LoginPage, SettingsPage } from "@pages";
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -15,10 +15,10 @@ const App: React.FC<AppProps> = () => {
     <Router>
       <Switch>
         <CustomRoute
-          title="Home | Videplacard"
+          title="Brands | Videplacard"
           exact
-          path="/"
-          component={HomePage}
+          path="/brands"
+          component={BrandsPage}
           layout={HomeLayout}
         />
         <CustomRoute
@@ -26,6 +26,13 @@ const App: React.FC<AppProps> = () => {
           exact
           path="/settings"
           component={SettingsPage}
+          layout={HomeLayout}
+        />
+        <CustomRoute
+          title="Home | Videplacard"
+          exact
+          path="/"
+          component={HomePage}
           layout={HomeLayout}
         />
         <Route exact path="/login" component={LoginPage} />

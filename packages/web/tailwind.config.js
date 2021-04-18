@@ -1,5 +1,4 @@
 const { fontFamily } = require("tailwindcss/defaultTheme");
-const colors = require("tailwindcss/colors");
 
 module.exports = {
   purge: ["./src/**/*.{js,ts,jsx,tsx}"],
@@ -26,7 +25,7 @@ module.exports = {
           850: "#26252b",
           900: "#212026",
         },
-        primary: "#2563eb",
+        primary: "#8b5cf6",
         secondary: "#11F054",
       },
       fontFamily: {
