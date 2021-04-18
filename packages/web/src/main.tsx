@@ -9,7 +9,13 @@ import "./styles/tailwind.css";
 import "./styles/global.css";
 import "focus-visible/dist/focus-visible";
 
-export const queryClient = new QueryClient();
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 ReactDOM.render(
   <React.StrictMode>

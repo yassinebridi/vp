@@ -1,7 +1,11 @@
-import { ChevronRightIcon, HamburgerIcon, SearchIcon } from "@chakra-ui/icons";
 import { Input } from "@chakra-ui/react";
 import { ThemeChanger } from "@components";
 import DropDown from "@design-system/dropdown";
+import {
+  ChevronRightIcon,
+  MenuIcon,
+  SearchIcon,
+} from "@heroicons/react/outline";
 import {
   useExpandSidebarStore,
   useMe,
@@ -19,28 +23,23 @@ const Header: React.FC<HeaderProps> = () => {
 
   return (
     <header className="relative z-40 py-2 bg-white bg-gray-100 shadow-bottom dark:bg-gray-800">
-      <div className="container flex items-center justify-between h-full px-6 mx-auto text-blue-600 dark:text-blue-300">
+      <div className="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
         {!expandSidebarProps.expand && (
           <button
-            className="absolute bg-gray-200 dark:bg-gray-900 py-1 left-0 hidden text-white text-blue-600 dark:text-blue-300 top-1.5 lg:block rounded-r-md"
+            className="absolute bg-gray-200 dark:bg-gray-900 py-1 left-0 hidden text-white text-purple-600 dark:text-purple-300 top-1.5 lg:block rounded-r-md"
             onClick={() => setExpandSidebarProps(true)}
             aria-label="Menu"
             title="Expand"
           >
-            <ChevronRightIcon
-              className="rounded-r-md"
-              aria-hidden="true"
-              w="25px"
-              h="30px"
-            />
+            <ChevronRightIcon className="rounded-r-md h-6 w-6" />
           </button>
         )}
         <button
-          className="p-1 mr-5 -ml-1 rounded-md lg:hidden focus:outline-none focus:shadow-outline-blue"
+          className="p-1 mr-5 -ml-1 rounded-md lg:hidden focus:outline-none focus:shadow-outline-purple"
           onClick={() => setSidebarProps(!sidebarProps.open)}
           aria-label="Menu"
         >
-          <HamburgerIcon className="w-6 h-6" aria-hidden="true" />
+          <MenuIcon className="w-6 h-6" aria-hidden="true" />
         </button>
         <div className="flex justify-center flex-1 lg:mr-32">
           <div className="relative w-full max-w-xl mr-6">

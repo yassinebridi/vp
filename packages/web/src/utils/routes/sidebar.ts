@@ -5,7 +5,7 @@ import {
   TableIcon,
   TemplateIcon,
   UsersIcon,
-} from "@heroicons/react/solid";
+} from "@heroicons/react/outline";
 
 export const routes = [
   {

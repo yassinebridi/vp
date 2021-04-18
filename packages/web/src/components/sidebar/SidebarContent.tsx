@@ -1,7 +1,13 @@
 import { ChevronLeftIcon } from "@chakra-ui/icons";
 import { Icon, Tooltip } from "@chakra-ui/react";
 import { ActiveLink } from "@components";
-import { useExpandSidebarStore, routes, capitalize } from "@utils";
+import { MenuIcon } from "@heroicons/react/outline";
+import {
+  useExpandSidebarStore,
+  routes,
+  capitalize,
+  useSidebarStore,
+} from "@utils";
 import clsx from "clsx";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -10,9 +16,10 @@ import SidebarSubmenu from "./SidebarSubmenu";
 export interface SidebarContentProps {}
 const SidebarContent: React.FC<SidebarContentProps> = () => {
   const { expandSidebarProps, setExpandSidebarProps } = useExpandSidebarStore();
+  const { setSidebarProps, sidebarProps } = useSidebarStore();
 
   return (
-    <div className="py-4 text-gray-500 dark:text-gray-400">
+    <div className="py-4 text-gray-800 dark:text-gray-100">
       <div
         className={clsx(
           "text-xl font-extrabold text-gray-800 dark:text-gray-200 flex",
@@ -21,12 +28,24 @@ const SidebarContent: React.FC<SidebarContentProps> = () => {
             : "justify-center"
         )}
       >
-        <Link to="/">
-          <a className="flex flex-col items-center text-sm">
-            <span className="text-lg font-extrabold leading-3">Vide</span>
-            <span>Placard</span>
-          </a>
-        </Link>
+        {expandSidebarProps.expand ? (
+          <Link to="/">
+            <a className="flex flex-col items-center text-sm">
+              <span className="text-lg font-extrabold leading-3">Vide</span>
+              <span>Placard</span>
+            </a>
+          </Link>
+        ) : (
+          <button
+            className="p-1 rounded-md focus:outline-none focus:shadow-outline-purple"
+            onClick={() => {
+              setExpandSidebarProps(!expandSidebarProps.expand);
+            }}
+            aria-label="Menu"
+          >
+            <MenuIcon className="w-6 h-6" aria-hidden="true" />
+          </button>
+        )}
         {expandSidebarProps.expand && (
           <button
             className="hidden text-blue-600 ringify rounded-md lg:block dark:text-blue-300"
@@ -45,11 +64,11 @@ const SidebarContent: React.FC<SidebarContentProps> = () => {
         {routes.map((route, i) => {
           const routeDisplay = capitalize(route.name);
           return route.routes ? (
-            <div key={i} className="px-4">
+            <li key={i}>
               <SidebarSubmenu route={route} />
-            </div>
+            </li>
           ) : (
-            <li className="relative px-4" key={i}>
+            <li key={i}>
               <Tooltip
                 label={routeDisplay}
                 placement="auto-start"
@@ -78,4 +97,4 @@ const SidebarContent: React.FC<SidebarContentProps> = () => {
 export default SidebarContent;
 
 export const sidebarButtonStyle =
-  "ringify inline-flex items-center w-full py-2 my-2 text-sm font-semibold rounded-md transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200";
+  "ringify inline-flex items-center w-full py-3 px-6 my-2 text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200";

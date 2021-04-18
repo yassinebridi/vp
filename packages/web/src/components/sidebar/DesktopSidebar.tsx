@@ -11,7 +11,7 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = () => {
     <aside
       className={clsx(
         "z-30 flex-shrink-0 hidden overflow-y-auto bg-white dark:bg-gray-850 lg:block bg-gray-50",
-        expandSidebarProps.expand && `w-56`
+        expandSidebarProps.expand && `w-64`
       )}
     >
       <SidebarContent />

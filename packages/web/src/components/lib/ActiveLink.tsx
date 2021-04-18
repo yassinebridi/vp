@@ -7,11 +7,13 @@ export interface ActiveLinkProps {
   href: string;
   name: string;
   className: string;
+  isSub?: boolean;
 }
 const ActiveLink: React.FC<ActiveLinkProps> = ({
   href,
   name,
   className,
+  isSub,
   children,
 }) => {
   const { expandSidebarProps } = useExpandSidebarStore();
@@ -22,6 +24,11 @@ const ActiveLink: React.FC<ActiveLinkProps> = ({
   const classNames = clsx(
     activeClassName,
     className,
+    isSub && "dark:text-gray-400 text-gray-500 font-medium",
+    isSub && !isActive && "hover:text-gray-600",
+    isSub &&
+      isActive &&
+      "dark:bg-gray-900 bg-gray-100 text-purple-600 hover:text-purple-700",
     !expandSidebarProps.expand && "flex flex-col items-center p-2"
   );
 
@@ -32,15 +39,18 @@ const ActiveLink: React.FC<ActiveLinkProps> = ({
 
   return (
     <a href={href} onClick={handleClick} className={classNames} title={name}>
-      {isActive && (
-        <span
-          className="absolute inset-y-0 left-0 w-1 bg-blue-600 rounded-tr-lg rounded-br-lg"
-          aria-hidden="true"
-        ></span>
-      )}
       {children}
     </a>
   );
 };
 
 export default ActiveLink;
+
+// {
+//   isActive && (
+//     <span
+//       className="absolute inset-y-0 left-0 w-1 bg-blue-600 rounded-tr-lg rounded-br-lg"
+//       aria-hidden="true"
+//     ></span>
+//   );
+// }

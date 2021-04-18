@@ -41,9 +41,22 @@ export const theme: ChakraTheme = {
     },
   },
   fonts: {
-    body: "Open Sans, sans-serif",
+    body: "Inter, sans-serif",
   },
   colors: {
     ...colors,
+    gray: {
+      50: "#f9faf9",
+      100: "#f0f1f3",
+      200: "#dcdee4",
+      300: "#b6bcc5",
+      400: "#89939d",
+      500: "#6b7178",
+      600: "#55565b",
+      700: "#414044",
+      800: "#2c2b2f",
+      850: "#26252b",
+      900: "#212026",
+    },
   },
 };

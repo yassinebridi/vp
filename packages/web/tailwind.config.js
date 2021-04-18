@@ -1,4 +1,5 @@
 const { fontFamily } = require("tailwindcss/defaultTheme");
+const colors = require("tailwindcss/colors");
 
 module.exports = {
   purge: ["./src/**/*.{js,ts,jsx,tsx}"],
@@ -13,13 +14,23 @@ module.exports = {
           orange: "#f77500",
         },
         gray: {
-          850: "#162033",
+          50: "#f9faf9",
+          100: "#f0f1f3",
+          200: "#dcdee4",
+          300: "#b6bcc5",
+          400: "#89939d",
+          500: "#6b7178",
+          600: "#55565b",
+          700: "#414044",
+          800: "#2c2b2f",
+          850: "#26252b",
+          900: "#212026",
         },
         primary: "#2563eb",
         secondary: "#11F054",
       },
       fontFamily: {
-        sans: ["Open Sans", ...fontFamily.sans],
+        sans: ["Inter", ...fontFamily.sans],
       },
     },
   },

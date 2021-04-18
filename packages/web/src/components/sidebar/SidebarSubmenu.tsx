@@ -1,7 +1,8 @@
-import { ChevronDownIcon, ChevronUpIcon, Icon } from "@chakra-ui/icons";
+import { Icon } from "@chakra-ui/icons";
 import { Tooltip } from "@chakra-ui/react";
 import { ActiveLink } from "@components";
 import { Transition } from "@headlessui/react";
+import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/outline";
 import { routes, useExpandSidebarStore, capitalize } from "@utils";
 import clsx from "clsx";
 import React, { useState } from "react";
@@ -20,9 +21,8 @@ const SidebarSubmenu: React.FC<SidebarSubmenuProps> = ({ route }) => {
 
   const routeDisplay = capitalize(route.name);
   return (
-    <li
+    <div
       className={clsx(
-        "relative",
         !expandSidebarProps.expand && "flex flex-col items-center"
       )}
       key={route.name}
@@ -56,12 +56,9 @@ const SidebarSubmenu: React.FC<SidebarSubmenuProps> = ({ route }) => {
             {expandSidebarProps.expand && (
               <>
                 {isDropdownMenuOpen ? (
-                  <ChevronUpIcon className="w-5 h-4 ml-2" aria-hidden="true" />
+                  <ChevronUpIcon className="w-5 h-5 ml-2" />
                 ) : (
-                  <ChevronDownIcon
-                    className="w-4 h-4 ml-2"
-                    aria-hidden="true"
-                  />
+                  <ChevronDownIcon className="w-5 h-5 ml-2" />
                 )}
               </>
             )}
@@ -78,6 +75,7 @@ const SidebarSubmenu: React.FC<SidebarSubmenuProps> = ({ route }) => {
             name={routeDisplay}
             href={route.path}
             className={clsx(sidebarButtonStyle)}
+            isSub={true}
           >
             <Icon boxSize={5} aria-hidden="true" as={route.icon} />
             {expandSidebarProps.expand && (
@@ -98,14 +96,14 @@ const SidebarSubmenu: React.FC<SidebarSubmenuProps> = ({ route }) => {
         >
           {route.routes.map((r, i) => {
             return (
-              <div key={i} className={`${expandSidebarProps.expand && "pl-4"}`}>
+              <div key={i}>
                 <SidebarSubmenu route={r} />
               </div>
             );
           })}
         </Transition>
       )}
-    </li>
+    </div>
   );
 };
 

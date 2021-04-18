@@ -53,7 +53,7 @@ const MyTable: React.FC<MyTableProps> = () => {
 
   return (
     <div className="flex flex-col">
-      <div className="overflow-hidden border-b dark:border-gray-700 border-gray-200 shadow sm:rounded-lg">
+      <div className="overflow-hidden border-b border-gray-200 shadow dark:border-gray-700 sm:rounded-lg">
         <table
           {...getTableProps()}
           className="min-w-full divide-y dark:divide-gray-700 divide-gray-200"
