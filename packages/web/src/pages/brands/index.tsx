@@ -1,4 +1,4 @@
-import { PageHeader, Table } from "@components";
+import { PageHeader, BrandsTable } from "@components";
 import React from "react";
 
 export interface BrandsPageProps {}
@@ -7,7 +7,7 @@ const BrandsPage: React.FC<BrandsPageProps> = () => {
     <div className="px-6 py-6">
       <PageHeader title="Brands" />
       <div className="mt-6">
-        <Table />
+        <BrandsTable />
       </div>
     </div>
   );

@@ -4,6 +4,6 @@ fragment CityFields on City {
   createdAt
   updatedAt
   products {
-    ...ProductFields
+    id
   }
 }

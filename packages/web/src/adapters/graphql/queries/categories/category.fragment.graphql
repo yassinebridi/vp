@@ -4,6 +4,6 @@ fragment CategoryFields on Category {
   createdAt
   updatedAt
   products {
-    ...ProductFields
+    id
   }
 }

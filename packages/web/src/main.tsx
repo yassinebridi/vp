@@ -8,6 +8,10 @@ import App from "./App";
 import "./styles/tailwind.css";
 import "./styles/global.css";
 import "focus-visible/dist/focus-visible";
+import * as dayjs from "dayjs";
+import "dayjs/locale/fr";
+
+dayjs.locale("fr");
 
 export const queryClient = new QueryClient({
   defaultOptions: {

@@ -1,4 +1,5 @@
 import { CLOUDINARY_NAME } from "@vp/common";
+import * as dayjs from "dayjs";
 
 export const capitalize = (text: string) => {
   let wordsArray = text.toLowerCase().split(" ");
@@ -14,18 +15,6 @@ export const toDateTime = (secs: string) => {
   var t = new Date(1970, 0, 1); // Epoch
   t.setSeconds(parseInt(secs));
   return t;
-};
-
-export const formatDate = (date: Date) => {
-  const options = {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-  };
-  const formatedDate = date.toLocaleDateString("en-US", options);
-  return formatedDate;
 };
 
 export const dotify = (text: string, maxLimit: number) => {
@@ -51,4 +40,8 @@ export const getCloudinaryAudioUrl = (cldPublicName: string) => {
 
 export const removeItem = <T>(arr: T[], item: T) => {
   return arr.filter((f) => f !== item);
+};
+
+export const formatDate = (date: Date) => {
+  return dayjs(date, { locale: "fr" }).format("DD MMM HH:mm");
 };

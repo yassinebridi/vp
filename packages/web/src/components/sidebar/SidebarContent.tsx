@@ -1,5 +1,5 @@
 import { Icon, Tooltip } from "@chakra-ui/react";
-import { ActiveLink } from "@components";
+import { ActiveLink, ThemeChanger } from "@components";
 import {
   capitalize,
   routes,
@@ -13,7 +13,7 @@ import SidebarSubmenu from "./SidebarSubmenu";
 
 export interface SidebarContentProps {}
 const SidebarContent: React.FC<SidebarContentProps> = () => {
-  const { expandSidebarProps, setExpandSidebarProps } = useExpandSidebarStore();
+  const { expandSidebarProps } = useExpandSidebarStore();
   const { setSidebarProps, sidebarProps } = useSidebarStore();
 
   return (
@@ -27,12 +27,15 @@ const SidebarContent: React.FC<SidebarContentProps> = () => {
         )}
       >
         {expandSidebarProps.expand ? (
-          <Link to="/">
-            <a className="flex flex-col items-center text-sm">
-              <span className="text-lg font-extrabold leading-3">Vide</span>
-              <span>Placard</span>
-            </a>
-          </Link>
+          <>
+            <Link to="/">
+              <a className="flex flex-col items-center text-sm">
+                <span className="text-lg font-extrabold leading-3">Vide</span>
+                <span>Placard</span>
+              </a>
+            </Link>
+            <ThemeChanger />
+          </>
         ) : (
           <Link to="/">
             <a className="flex flex-col items-center text-sm">

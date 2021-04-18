@@ -21,6 +21,7 @@
     "@hookform/resolvers": "^2.3.2",
     "@vp/common": "*",
     "clsx": "^1.1.1",
+    "dayjs": "^1.10.4",
     "focus-visible": "^5.2.0",
     "framer-motion": "^4",
     "graphql": "^15.5.0",

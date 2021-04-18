@@ -4,3 +4,11 @@ body,
 #root > div {
   height: 100%;
 }
+
+/* Space between header and body of tables */
+tbody:before {
+  content: "@";
+  display: block;
+  line-height: 20px;
+  text-indent: -99999px;
+}

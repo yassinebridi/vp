@@ -28,7 +28,7 @@ const ActiveLink: React.FC<ActiveLinkProps> = ({
     isSub && !isActive && "hover:text-gray-600",
     isSub &&
       isActive &&
-      "dark:bg-gray-900 bg-gray-100 text-purple-600 hover:text-purple-700",
+      "dark:bg-gray-900 bg-gray-200 text-purple-600 hover:text-purple-700",
     !expandSidebarProps.expand && "flex flex-col items-center p-2"
   );
 

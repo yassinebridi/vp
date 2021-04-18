@@ -1,17 +1,30 @@
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Int,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import {
   Brand,
   BrandCreateInput,
   BrandWhereUniqueInput,
   FindManyBrandArgs,
   FindUniqueBrandArgs,
+  Product,
   UpdateOneBrandArgs,
 } from 'src/@generated';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { BrandsService } from './brands.service';
 
 @Resolver(() => Brand)
 export class BrandsResolver {
-  constructor(private readonly brandsService: BrandsService) {}
+  constructor(
+    private readonly brandsService: BrandsService,
+    private readonly prismaService: PrismaService,
+  ) {}
 
   @Query(() => [Brand])
   getAllBrands(@Args() getAllBrandsInput: FindManyBrandArgs) {
@@ -48,5 +61,12 @@ export class BrandsResolver {
   @Mutation(() => Boolean)
   async bulkRemoveBrands(): Promise<boolean | Error> {
     return await this.brandsService.bulkRemoveBrands();
+  }
+
+  @ResolveField('products', () => Product)
+  async products(@Parent() brand: Brand) {
+    return this.prismaService.product.findMany({
+      where: { brand: { id: brand.id } },
+    });
   }
 }

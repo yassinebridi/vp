@@ -4,6 +4,6 @@ fragment BrandFields on Brand {
   createdAt
   updatedAt
   products {
-    ...ProductFields
+    id
   }
 }

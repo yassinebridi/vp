@@ -28,13 +28,15 @@ const HomeLayout: React.FC<HomeLayoutProps> = ({ children }) => {
     <MeProvider me={data}>
       <div
         className={clsx(
-          "flex h-screen text-gray-900 dark:text-gray-50 bg-gray-100 dark:bg-gray-900",
+          "flex h-screen text-gray-900 dark:text-gray-50",
           sidebarProps && "overflow-hidden"
         )}
       >
-        <Sidebar />
+        <div className="dark:bg-gray-850 lg:block bg-gray-100 overflow-y-auto">
+          <Sidebar />
+        </div>
 
-        <div className="flex flex-col flex-1 w-full">
+        <div className="flex flex-col flex-1 w-full bg-white dark:bg-gray-900">
           {/* <Header /> */}
           <main className="h-full overflow-y-auto">
             <div className="container h-full px-6 mx-auto grid">{children}</div>

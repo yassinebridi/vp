@@ -10,7 +10,7 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = () => {
   return (
     <aside
       className={clsx(
-        "z-30 flex-shrink-0 hidden overflow-y-auto bg-white dark:bg-gray-850 lg:block bg-gray-50",
+        "z-30 flex-shrink-0 hidden lg:block",
         expandSidebarProps.expand && `w-64`
       )}
     >

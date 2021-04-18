@@ -8,49 +8,17 @@ import {
 } from "@heroicons/react/outline";
 import clsx from "clsx";
 import React from "react";
-import { useSortBy, useTable, useRowSelect } from "react-table";
+import { useRowSelect, useSortBy, useTable } from "react-table";
+import { IndeterminateCheckbox } from ".";
 
-export interface TableProps {}
-const Table: React.FC<TableProps> = () => {
-  const data = React.useMemo(
-    () => [
-      {
-        fromUnit: "inches",
-        toUnit: "millimetres (mm)",
-        factor: 25.4,
-      },
-      {
-        fromUnit: "feet",
-        toUnit: "centimetres (cm)",
-        factor: 30.48,
-      },
-      {
-        fromUnit: "yards",
-        toUnit: "metres (m)",
-        factor: 0.91444,
-      },
-    ],
-    []
-  );
+export interface TableProps {
+  dataArray: any;
+  columnsArray: any;
+}
+const Table: React.FC<TableProps> = ({ dataArray, columnsArray }) => {
+  const data = React.useMemo(() => dataArray, []);
+  const columns = React.useMemo(() => columnsArray, []);
 
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: "To convert",
-        accessor: "fromUnit",
-      },
-      {
-        Header: "Into",
-        accessor: "toUnit",
-      },
-      {
-        Header: "Multiply by",
-        accessor: "factor",
-        isNumeric: true,
-      },
-    ],
-    []
-  );
   const {
     getTableProps,
     getTableBodyProps,
@@ -63,18 +31,12 @@ const Table: React.FC<TableProps> = () => {
         id: "selection",
         Header: ({ getToggleAllRowsSelectedProps }) => (
           <div>
-            <IndeterminateCheckbox
-              {...getToggleAllRowsSelectedProps()}
-              cs="dark:bg-[#29282e]"
-            />
+            <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
           </div>
         ),
         Cell: ({ row }) => (
           <div>
-            <IndeterminateCheckbox
-              {...row.getToggleRowSelectedProps()}
-              cs="dark:bg-gray-900"
-            />
+            <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
           </div>
         ),
       },
@@ -85,11 +47,11 @@ const Table: React.FC<TableProps> = () => {
   return (
     <div className="flex flex-col">
       <div className="overflow-hidden">
-        <div className="flex justify-between min-w-full px-6 my-3 dark:text-gray-400">
-          <div className="flex items-center space-x-6">
+        <div className="flex justify-between min-w-full px-6 my-3 text-gray-600 dark:text-gray-400">
+          <div className="flex items-center space-x-6 text">
             <SearchIcon className="w-5 h-5" />
             <input
-              className="w-[300px] bg-gray-900 outline-none"
+              className="w-[300px]  bg-white dark:bg-gray-900 outline-none"
               placeholder="Search by name..."
             />
           </div>
@@ -111,9 +73,8 @@ const Table: React.FC<TableProps> = () => {
                 {headerGroup.headers.map((column, i) => (
                   <th
                     {...column.getHeaderProps(column.getSortByToggleProps())}
-                    isNumeric={column.isNumeric}
                     className={clsx(
-                      "bg-gray-50 dark:bg-[#29282e] px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-400",
+                      "bg-[#f7f7f7] dark:bg-[#29282e] px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-400",
                       i === 0 && "rounded-l-lg",
                       i === headerGroup.headers.length - 1 && "rounded-r-lg"
                     )}
@@ -145,12 +106,19 @@ const Table: React.FC<TableProps> = () => {
             {rows.map((row) => {
               prepareRow(row);
               return (
-                <tr {...row.getRowProps()}>
-                  {row.cells.map((cell) => (
+                <tr
+                  {...row.getRowProps()}
+                  className="cursor-pointer hover:bg-[#f7f7f7] active:bg-gray-100 dark:active:bg-gray-800 dark:hover:bg-gray-850"
+                >
+                  {row.cells.map((cell, i) => (
                     <td
                       {...cell.getCellProps()}
                       isNumeric={cell.column.isNumeric}
-                      className="px-6 py-4 whitespace-nowrap"
+                      className={clsx(
+                        "whitespace-nowrap px-6 py-3",
+                        i === 0 && "rounded-l-lg",
+                        i === row.cells.length - 1 && "rounded-r-lg"
+                      )}
                     >
                       {cell.render("Cell")}
                     </td>
@@ -161,7 +129,7 @@ const Table: React.FC<TableProps> = () => {
           </tbody>
         </table>
 
-        <div className="flex items-center justify-between min-w-full px-6 my-3 mt-4 text-sm space-x-6 dark:text-gray-300">
+        <div className="flex items-center justify-between min-w-full px-6 my-3 mt-6 text-sm space-x-6 dark:text-gray-300">
           <span>1 - 25 of 1,042</span>
           <div className="flex items-center space-x-4">
             <span>1 of 41</span>
@@ -174,29 +142,3 @@ const Table: React.FC<TableProps> = () => {
 };
 
 export default Table;
-
-const IndeterminateCheckbox = React.forwardRef<
-  HTMLInputElement,
-  { indeterminate: any; cs: string }
->(({ indeterminate, cs, ...rest }, ref) => {
-  const defaultRef = React.useRef<HTMLInputElement>();
-  const resolvedRef = (ref ||
-    defaultRef) as React.MutableRefObject<HTMLInputElement>;
-
-  React.useEffect(() => {
-    resolvedRef.current.indeterminate = indeterminate;
-  }, [resolvedRef, indeterminate]);
-
-  return (
-    <>
-      <input
-        type="checkbox"
-        className={clsx(
-          "form-checkbox ringify h-5 p-1 w-5 text-purple-500 bg-gray-500 rounded-md"
-        )}
-        ref={resolvedRef}
-        {...rest}
-      />
-    </>
-  );
-});

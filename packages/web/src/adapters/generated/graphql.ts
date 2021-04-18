@@ -3464,7 +3464,7 @@ export type BrandFieldsFragment = (
   & Pick<Brand, 'id' | 'name' | 'createdAt' | 'updatedAt'>
   & { products?: Maybe<Array<(
     { __typename?: 'Product' }
-    & ProductFieldsFragment
+    & Pick<Product, 'id'>
   )>> }
 );
 
@@ -3522,7 +3522,7 @@ export type CategoryFieldsFragment = (
   & Pick<Category, 'id' | 'name' | 'createdAt' | 'updatedAt'>
   & { products?: Maybe<Array<(
     { __typename?: 'Product' }
-    & ProductFieldsFragment
+    & Pick<Product, 'id'>
   )>> }
 );
 
@@ -3562,7 +3562,7 @@ export type CityFieldsFragment = (
   & Pick<City, 'id' | 'name' | 'createdAt' | 'updatedAt'>
   & { products?: Maybe<Array<(
     { __typename?: 'Product' }
-    & ProductFieldsFragment
+    & Pick<Product, 'id'>
   )>> }
 );
 
@@ -3650,6 +3650,39 @@ export const UserFieldsFragmentDoc = `
   updatedAt
 }
     `;
+export const BrandFieldsFragmentDoc = `
+    fragment BrandFields on Brand {
+  id
+  name
+  createdAt
+  updatedAt
+  products {
+    id
+  }
+}
+    `;
+export const CategoryFieldsFragmentDoc = `
+    fragment CategoryFields on Category {
+  id
+  name
+  createdAt
+  updatedAt
+  products {
+    id
+  }
+}
+    `;
+export const CityFieldsFragmentDoc = `
+    fragment CityFields on City {
+  id
+  name
+  createdAt
+  updatedAt
+  products {
+    id
+  }
+}
+    `;
 export const ProductFieldsFragmentDoc = `
     fragment ProductFields on Product {
   id
@@ -3690,39 +3723,6 @@ export const ProductFieldsFragmentDoc = `
   }
 }
     `;
-export const BrandFieldsFragmentDoc = `
-    fragment BrandFields on Brand {
-  id
-  name
-  createdAt
-  updatedAt
-  products {
-    ...ProductFields
-  }
-}
-    ${ProductFieldsFragmentDoc}`;
-export const CategoryFieldsFragmentDoc = `
-    fragment CategoryFields on Category {
-  id
-  name
-  createdAt
-  updatedAt
-  products {
-    ...ProductFields
-  }
-}
-    ${ProductFieldsFragmentDoc}`;
-export const CityFieldsFragmentDoc = `
-    fragment CityFields on City {
-  id
-  name
-  createdAt
-  updatedAt
-  products {
-    ...ProductFields
-  }
-}
-    ${ProductFieldsFragmentDoc}`;
 export const LoginDocument = `
     mutation login($email: String!, $password: String!) {
   login(data: {email: $email, password: $password}) {

@@ -9,7 +9,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ title }) => {
   const { expandSidebarProps, setExpandSidebarProps } = useExpandSidebarStore();
 
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between px-[1.06rem]">
       <div className="flex items-center space-x-4">
         <button
           className="p-1 rounded-md focus:outline-none focus:shadow-outline-purple"
@@ -18,13 +18,15 @@ const PageHeader: React.FC<PageHeaderProps> = ({ title }) => {
           }}
           aria-label="Menu"
         >
-          <MenuIcon className="w-6 h-6 text-gray-400" />
+          <MenuIcon className="w-6 h-6 text-gray-500 dark:text-gray-400" />
         </button>
-        <h2 className="text-2xl font-semibold text-gray-100">{title}</h2>
+        <h2 className="text-2xl font-semibold text-gray-700 dark:text-gray-100">
+          {title}
+        </h2>
       </div>
 
       <div>
-        <button className="bg-purple-500 rounded-full hover:bg-purple-600 active:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50">
+        <button className="text-white bg-purple-500 rounded-full hover:bg-purple-600 active:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50">
           <PlusIcon className="w-10 h-10 p-2" />
         </button>
       </div>
