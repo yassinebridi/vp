@@ -1,22 +1,15 @@
-import { useBrandsQuery } from "@adapters";
+import { BrandsQuery } from "@adapters";
 import { Table } from "@components";
-import { formatDate, useQueryParams } from "@utils";
+import { formatDate } from "@utils";
 import React from "react";
 
-export interface BrandsTableProps {}
-const BrandsTable: React.FC<BrandsTableProps> = () => {
-  const query = useQueryParams();
-  const searchTerm = query.get("search");
-  const { data: brandsData, isLoading } = useBrandsQuery({
-    where: { name: { contains: searchTerm ? searchTerm : undefined } },
-  });
-
-  if (isLoading) return <div>loading</div>;
-  if (brandsData.getAllBrands.length === 0) return <div>no items</div>;
-
+export interface BrandsTableProps {
+  brands: BrandsQuery;
+}
+const BrandsTable: React.FC<BrandsTableProps> = ({ brands }) => {
   let dataArray: { name: string; products: number; date: string }[] = [];
-  brandsData.getAllBrands &&
-    brandsData.getAllBrands.map((brand) => {
+  brands.getAllBrands &&
+    brands.getAllBrands.map((brand) => {
       dataArray.push({
         name: brand.name,
         products: brand.products.length,
@@ -45,10 +38,11 @@ const BrandsTable: React.FC<BrandsTableProps> = () => {
       accessor: "date",
     },
   ];
+
   return (
-    <div>
+    <>
       <Table dataArray={dataArray} columnsArray={columnsArray} />
-    </div>
+    </>
   );
 };
 

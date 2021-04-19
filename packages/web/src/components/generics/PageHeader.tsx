@@ -1,11 +1,12 @@
 import { MenuIcon, PlusIcon } from "@heroicons/react/outline";
-import { useExpandSidebarStore } from "@utils";
+import { capitalize, useExpandSidebarStore } from "@utils";
 import React from "react";
+import { Link } from "react-router-dom";
 
 export interface PageHeaderProps {
-  title: string;
+  component: string;
 }
-const PageHeader: React.FC<PageHeaderProps> = ({ title }) => {
+const PageHeader: React.FC<PageHeaderProps> = ({ component }) => {
   const { expandSidebarProps, setExpandSidebarProps } = useExpandSidebarStore();
 
   return (
@@ -20,9 +21,11 @@ const PageHeader: React.FC<PageHeaderProps> = ({ title }) => {
         >
           <MenuIcon className="w-6 h-6 text-gray-500 dark:text-gray-400" />
         </button>
-        <h2 className="text-2xl font-semibold text-gray-700 dark:text-gray-100">
-          {title}
-        </h2>
+        <Link to={`/${component}`}>
+          <h2 className="text-2xl font-semibold text-gray-700 dark:text-gray-100">
+            {capitalize(component)}
+          </h2>
+        </Link>
       </div>
 
       <div>
