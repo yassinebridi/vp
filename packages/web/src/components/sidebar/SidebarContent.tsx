@@ -4,11 +4,11 @@ import { DropDown } from "@design-system";
 import { DotsHorizontalIcon } from "@heroicons/react/outline";
 import {
   capitalize,
-  getRandomAvatar,
   routes,
   useExpandSidebarStore,
   useMe,
   useSidebarStore,
+  useUserAvatar,
 } from "@utils";
 import clsx from "clsx";
 import React from "react";
@@ -18,6 +18,7 @@ import SidebarSubmenu from "./SidebarSubmenu";
 export interface SidebarContentProps {}
 const SidebarContent: React.FC<SidebarContentProps> = () => {
   const { expandSidebarProps } = useExpandSidebarStore();
+  const { userAvatar } = useUserAvatar();
   const { setSidebarProps, sidebarProps } = useSidebarStore();
 
   const { meData } = useMe();
@@ -85,10 +86,10 @@ const SidebarContent: React.FC<SidebarContentProps> = () => {
 
       {expandSidebarProps.expand && (
         <DropDown>
-          <div className="flex items-center justify-center w-full py-2 my-4 cursor-pointer group active:bg-gray-300 hover:bg-gray-200 dark:hover:bg-gray-900 active:bg-gray-800">
+          <div className="flex items-center justify-center w-full py-2 my-4 cursor-pointer group active:bg-gray-300 hover:bg-gray-200 dark:hover:bg-gray-900">
             {meData.me.avatar === null ? (
               <div
-                style={{ backgroundImage: getRandomAvatar() }}
+                style={{ backgroundImage: userAvatar }}
                 className={clsx(
                   expandSidebarProps.expand ? "w-10 h-10" : "w-8 h-8",
                   "rounded-full"
@@ -108,7 +109,7 @@ const SidebarContent: React.FC<SidebarContentProps> = () => {
               <>
                 <span className="ml-4">{meData.me.name}</span>
                 <button className="ml-6">
-                  <DotsHorizontalIcon className="w-6 h-6 dark:text-gray-400 text-gray-500 group-hover:text-gray-400 group-active:text-gray-500 dark:group-hover:text-gray-300 dark:group-active:text-gray-400" />
+                  <DotsHorizontalIcon className="w-6 h-6 text-gray-500 dark:text-gray-400 group-hover:text-gray-400 group-active:text-gray-500 dark:group-hover:text-gray-300 dark:group-active:text-gray-400" />
                 </button>
               </>
             )}

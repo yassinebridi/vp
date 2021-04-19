@@ -34,7 +34,7 @@ const DropDown: FC<DropDownProps> = ({ children }) => {
             >
               <Menu.Items
                 static
-                className="absolute inset-x-0 m-4 shadow-2xl outline-none bottom-20 bg-white dark:bg-[#38393c] origin-center divide-y dark:divide-gray-600 divide-gray-200 rounded-md dark:text-gray-100"
+                className="shadow-2xl absolute inset-x-0 m-4 outline-none bottom-20 bg-white dark:bg-[#38393c] origin-center divide-y dark:divide-gray-600 divide-gray-200 rounded-md dark:text-gray-100"
               >
                 <div className="px-4 py-3">
                   <p className="text-sm leading-5 dark:text-gray-400">
