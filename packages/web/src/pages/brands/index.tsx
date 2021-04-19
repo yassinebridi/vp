@@ -5,6 +5,7 @@ import {
   TableSearch,
   TableSettingsDropdown,
 } from "@components";
+import BulkAction from "@components/generics/table/BulkAction";
 import { SpinnerIcon } from "@design-system";
 import { ArrowRightIcon, ChevronDownIcon } from "@heroicons/react/outline";
 import { useQueryParams } from "@utils";
@@ -54,6 +55,7 @@ const BrandsPage: React.FC<BrandsPageProps> = () => {
             <ArrowRightIcon className="w-5 h-5" />
           </div>
         </div>
+        <BulkAction />
       </div>
     </div>
   );

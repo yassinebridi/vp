@@ -15,7 +15,7 @@ const Table: React.FC<TableProps> = ({
   columnsArray,
   hiddenColumnsArray,
 }) => {
-  const { setColumns, setTableState } = useTableContext();
+  const { setColumns, setTableState, setTableActions } = useTableContext();
 
   const data = React.useMemo(() => dataArray, []);
   const columns = React.useMemo(() => columnsArray, []);
@@ -29,6 +29,7 @@ const Table: React.FC<TableProps> = ({
     prepareRow,
     allColumns,
     state,
+    toggleAllRowsSelected,
   } = useTable(
     { columns, data, initialState: { hiddenColumns } },
     useSortBy,
@@ -56,7 +57,8 @@ const Table: React.FC<TableProps> = ({
   React.useEffect(() => {
     setColumns(allColumns);
     setTableState(state);
-  }, [setColumns]);
+    setTableActions({ toggleAllRowsSelected });
+  }, [setColumns, setTableState, state]);
   return (
     <div className="flex flex-col">
       <div className="overflow-hidden">
