@@ -38,10 +38,15 @@ const BrandsTable: React.FC<BrandsTableProps> = ({ brands }) => {
       accessor: "date",
     },
   ];
+  const hiddenColumnsArray = [];
 
   return (
     <>
-      <Table dataArray={dataArray} columnsArray={columnsArray} />
+      <Table
+        dataArray={dataArray}
+        columnsArray={columnsArray}
+        hiddenColumnsArray={hiddenColumnsArray}
+      />
     </>
   );
 };

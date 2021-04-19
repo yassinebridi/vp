@@ -1,4 +1,5 @@
 import { ArrowDownIcon, ArrowUpIcon } from "@heroicons/react/outline";
+import { useTableContext } from "@utils";
 import clsx from "clsx";
 import React from "react";
 import { useRowSelect, useSortBy, useTable } from "react-table";
@@ -7,10 +8,18 @@ import { IndeterminateCheckbox } from ".";
 export interface TableProps {
   dataArray: any;
   columnsArray: any;
+  hiddenColumnsArray: any;
 }
-const Table: React.FC<TableProps> = ({ dataArray, columnsArray }) => {
+const Table: React.FC<TableProps> = ({
+  dataArray,
+  columnsArray,
+  hiddenColumnsArray,
+}) => {
+  const { setColumns, setTableState } = useTableContext();
+
   const data = React.useMemo(() => dataArray, []);
   const columns = React.useMemo(() => columnsArray, []);
+  const hiddenColumns = React.useMemo(() => hiddenColumnsArray, []);
 
   const {
     getTableProps,
@@ -18,25 +27,36 @@ const Table: React.FC<TableProps> = ({ dataArray, columnsArray }) => {
     headerGroups,
     rows,
     prepareRow,
-  } = useTable({ columns, data }, useSortBy, useRowSelect, (hooks) => {
-    hooks.visibleColumns.push((columns) => [
-      {
-        id: "selection",
-        Header: ({ getToggleAllRowsSelectedProps }) => (
-          <div>
-            <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
-          </div>
-        ),
-        Cell: ({ row }) => (
-          <div>
-            <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
-          </div>
-        ),
-      },
-      ...columns,
-    ]);
-  });
+    allColumns,
+    state,
+  } = useTable(
+    { columns, data, initialState: { hiddenColumns } },
+    useSortBy,
+    useRowSelect,
+    (hooks) => {
+      hooks.visibleColumns.push((columns) => [
+        {
+          id: "selection",
+          Header: ({ getToggleAllRowsSelectedProps }) => (
+            <div>
+              <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
+            </div>
+          ),
+          Cell: ({ row }) => (
+            <div>
+              <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
+            </div>
+          ),
+        },
+        ...columns,
+      ]);
+    }
+  );
 
+  React.useEffect(() => {
+    setColumns(allColumns);
+    setTableState(state);
+  }, [setColumns]);
   return (
     <div className="flex flex-col">
       <div className="overflow-hidden">

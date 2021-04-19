@@ -1,5 +1,6 @@
 import { HomeLayout } from "@layouts";
 import { BrandsPage, HomePage, LoginPage, SettingsPage } from "@pages";
+import { TableProvider } from "@utils";
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -18,6 +19,7 @@ const App: React.FC<AppProps> = () => {
           title="Brands | Videplacard"
           exact
           path="/brands"
+          isTable={true}
           component={BrandsPage}
           layout={HomeLayout}
         />
@@ -49,12 +51,14 @@ export interface RoutesProps extends RouteProps {
   component?: React.FC<any>;
   path: string;
   title?: string;
+  isTable?: boolean;
 }
 const CustomRoute: React.FC<RoutesProps> = ({
   layout: Layout,
   component: Component,
   path,
   title,
+  isTable,
 }) => {
   React.useEffect(() => {
     document.title = title || "Videplacard dashboard";
@@ -62,7 +66,13 @@ const CustomRoute: React.FC<RoutesProps> = ({
 
   return (
     <Layout>
-      <Route exact path={path} component={Component} />
+      {isTable ? (
+        <TableProvider>
+          <Route exact path={path} component={Component} />
+        </TableProvider>
+      ) : (
+        <Route exact path={path} component={Component} />
+      )}
     </Layout>
   );
 };
