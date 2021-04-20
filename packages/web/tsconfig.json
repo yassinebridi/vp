@@ -2,46 +2,22 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@components": [
-        "src/components"
-      ],
-      "@components/*": [
-        "src/components/*"
-      ],
-      "@layouts": [
-        "src/layouts"
-      ],
-      "@layouts/*": [
-        "src/layouts/*"
-      ],
-      "@design-system": [
-        "src/design-system"
-      ],
-      "@design-system/*": [
-        "src/design-system/*"
-      ],
-      "@pages": [
-        "src/pages"
-      ],
-      "@pages/*": [
-        "src/pages/*"
-      ],
-      "@adapters": [
-        "src/adapters"
-      ],
-      "@adapters/*": [
-        "src/adapters/*"
-      ],
-      "@utils": [
-        "src/utils"
-      ],
-      "@utils/*": [
-        "src/utils/*"
-      ]
+      "@components": ["src/components"],
+      "@components/*": ["src/components/*"],
+      "@layouts": ["src/layouts"],
+      "@layouts/*": ["src/layouts/*"],
+      "@design-system": ["src/design-system"],
+      "@design-system/*": ["src/design-system/*"],
+      "@pages": ["src/pages"],
+      "@pages/*": ["src/pages/*"],
+      "@adapters": ["src/adapters"],
+      "@adapters/*": ["src/adapters/*"],
+      "@utils": ["src/utils"],
+      "@utils/*": ["src/utils/*"]
     },
     "target": "ESNext",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "types": ["vite/client", "node"],
+    "lib": ["DOM", "DOM.Iterable", "ESNext", "WebWorker"],
+    "types": ["vite/client", "vite-plugin-pwa/client", "node"],
     "allowJs": false,
     "skipLibCheck": false,
     "esModuleInterop": false,
