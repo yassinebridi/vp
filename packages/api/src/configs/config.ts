@@ -6,7 +6,7 @@ const config: Config = {
   },
   cors: {
     enabled: true,
-    consumerUrls: process.env.CONSUMER_URLS,
+    consumerUrls: import.meta.env.CONSUMER_URLS,
   },
   graphql: {
     playgroundEnabled: true,
@@ -17,20 +17,20 @@ const config: Config = {
   security: {
     expiresIn: '2m',
     refreshIn: '7d',
-    jwtSecret: process.env.JWT_SECRET,
+    jwtSecret: import.meta.env.JWT_SECRET,
     bcryptSaltOrRound: 10,
   },
   oauth: {
     google: {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: `${process.env.BASE_URL}/auth/google/callback`,
+      clientID: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+      clientSecret: import.meta.env.VITE_GOOGLE_CLIENT_SECRET,
+      callbackURL: `${import.meta.env.VITE_BASE_URL}/auth/google/callback`,
       scope: ['profile', 'email'],
     },
     facebook: {
-      clientID: process.env.FACEBOOK_CLIENT_ID,
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-      callbackURL: `${process.env.BASE_URL}/auth/facebook/callback`,
+      clientID: import.meta.env.VITE_FACEBOOK_CLIENT_ID,
+      clientSecret: import.meta.env.VITE_FACEBOOK_CLIENT_SECRET,
+      callbackURL: `${import.meta.env.VITE_BASE_URL}/auth/facebook/callback`,
       scope: ['email'],
       profileFields: ['id', 'emails', 'name', 'picture'],
     },

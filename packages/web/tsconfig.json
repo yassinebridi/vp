@@ -37,7 +37,7 @@
       ],
       "@utils/*": [
         "src/utils/*"
-      ],
+      ]
     },
     "target": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],

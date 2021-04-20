@@ -4,22 +4,26 @@ import * as cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
 import { CorsConfig, NestConfig } from './configs/config.interface';
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+if (process.env.NODE_ENV === 'production') {
+  async function bootstrap() {
+    const app = await NestFactory.create(AppModule);
 
-  const configService = app.get(ConfigService);
-  const nestConfig = configService.get<NestConfig>('nest');
-  const corsConfig = configService.get<CorsConfig>('cors');
+    const configService = app.get(ConfigService);
+    const nestConfig = configService.get<NestConfig>('nest');
+    const corsConfig = configService.get<CorsConfig>('cors');
 
-  const consumerUrlsArray = corsConfig.consumerUrls.split(',');
+    const consumerUrlsArray = corsConfig.consumerUrls.split(',');
 
-  app.enableCors({
-    origin: consumerUrlsArray,
-    credentials: true,
-  });
+    app.enableCors({
+      origin: consumerUrlsArray,
+      credentials: true,
+    });
 
-  app.use(cookieParser());
+    app.use(cookieParser());
 
-  await app.listen(process.env.PORT || nestConfig.port || 4000);
+    await app.listen(process.env.PORT || nestConfig.port || 4000);
+  }
+  bootstrap();
 }
-bootstrap();
+
+export const createViteNodeApp = NestFactory.create(AppModule);

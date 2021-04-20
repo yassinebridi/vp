@@ -7,13 +7,19 @@ export interface BrandsTableProps {
   brands: BrandsQuery;
 }
 const BrandsTable: React.FC<BrandsTableProps> = ({ brands }) => {
-  let dataArray: { name: string; products: number; date: string }[] = [];
+  let dataArray: {
+    id: string;
+    name: string;
+    products: number;
+    date: string;
+  }[] = [];
   brands.getAllBrands &&
     brands.getAllBrands.map((brand) => {
       dataArray.push({
+        id: brand.id,
         name: brand.name,
         products: brand.products.length,
-        date: formatDate(brand.createdAt),
+        date: brand.createdAt,
       });
     });
 
@@ -36,6 +42,7 @@ const BrandsTable: React.FC<BrandsTableProps> = ({ brands }) => {
     {
       Header: "Date",
       accessor: "date",
+      Cell: (props) => formatDate(props.cell.value),
     },
   ];
   const hiddenColumnsArray = [];
