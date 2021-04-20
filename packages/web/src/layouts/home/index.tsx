@@ -1,10 +1,5 @@
 import { useMeQuery } from "@adapters";
-import {
-  FullPageErrorFallback,
-  FullPageSpinner,
-  Header,
-  Sidebar,
-} from "@components";
+import { FullPageErrorFallback, FullPageSpinner, Sidebar } from "@components";
 import { MeProvider, useSidebarStore } from "@utils";
 import clsx from "clsx";
 import React from "react";

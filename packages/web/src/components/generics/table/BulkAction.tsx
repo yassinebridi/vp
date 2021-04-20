@@ -12,15 +12,15 @@ const BulkAction: React.FC<BulkActionProps> = () => {
   return (
     <div className="fixed inset-x-0 bottom-0 z-50 flex justify-between px-6 py-4 bg-purple-500 transition transform origin-top-right dark:bg-[#2e2d33]">
       <div className="flex items-center space-x-4">
-        <span className="flex items-center space-x-2">
+        <span className="flex items-center text-white space-x-2 dark:text-gray-200">
           <span className="font-bold">
             {Object.keys(tableState.selectedRowIds).length}
           </span>
-          <span className="text-sm text-gray-200">selected</span>
+          <span className="text-sm">selected</span>
         </span>
         <button
           onClick={() => tableActions.toggleAllRowsSelected(false)}
-          className="px-3 py-2 text-sm font-bold rounded-lg ringify dark:active:bg-gray-850 dark:hover:bg-gray-600 dark:bg-gray-700"
+          className="px-3 py-2 text-sm font-bold text-white bg-purple-700 hover:bg-purple-600 active:bg-purple-800 rounded-lg ringify dark:active:bg-gray-850 dark:hover:bg-gray-600 dark:bg-gray-700"
         >
           Deselect
         </button>
@@ -28,9 +28,9 @@ const BulkAction: React.FC<BulkActionProps> = () => {
       <div className="flex items-center space-x-2">
         <button
           onClick={() => {
-            console.log(selectedIds);
+            alert(selectedIds);
           }}
-          className="px-3 py-2 text-sm font-bold rounded-lg ringify dark:active:bg-red-800 dark:hover:bg-red-600 dark:bg-red-700"
+          className="px-3 py-2 text-sm font-bold text-white bg-red-600 rounded-lg ringify active:bg-red-700 hover:bg-red-500 dark:active:bg-red-800 dark:hover:bg-red-600 dark:bg-red-700"
         >
           Trash
         </button>
