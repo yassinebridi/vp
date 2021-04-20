@@ -3,7 +3,7 @@ import React from "react";
 
 export interface BulkActionProps {}
 const BulkAction: React.FC<BulkActionProps> = () => {
-  const { tableState, tableActions } = useTableContext();
+  const { tableState, tableActions, selectedIds } = useTableContext();
   const tableStateReady = tableState !== undefined;
   const selectedRowsSize =
     (tableStateReady && Object.keys(tableState.selectedRowIds).length) || 0;
@@ -26,7 +26,12 @@ const BulkAction: React.FC<BulkActionProps> = () => {
         </button>
       </div>
       <div className="flex items-center space-x-2">
-        <button className="px-3 py-2 text-sm font-bold rounded-lg ringify dark:active:bg-red-800 dark:hover:bg-red-600 dark:bg-red-700">
+        <button
+          onClick={() => {
+            console.log(selectedIds);
+          }}
+          className="px-3 py-2 text-sm font-bold rounded-lg ringify dark:active:bg-red-800 dark:hover:bg-red-600 dark:bg-red-700"
+        >
           Trash
         </button>
       </div>

@@ -8,14 +8,19 @@ import { IndeterminateCheckbox } from ".";
 export interface TableProps {
   dataArray: any;
   columnsArray: any;
-  hiddenColumnsArray: any;
+  hiddenColumnsArray: string[];
 }
 const Table: React.FC<TableProps> = ({
   dataArray,
   columnsArray,
   hiddenColumnsArray,
 }) => {
-  const { setColumns, setTableState, setTableActions } = useTableContext();
+  const {
+    setColumns,
+    setTableState,
+    setTableActions,
+    setSelectedIds,
+  } = useTableContext();
 
   const data = React.useMemo(() => dataArray, []);
   const columns = React.useMemo(() => columnsArray, []);
@@ -30,6 +35,7 @@ const Table: React.FC<TableProps> = ({
     allColumns,
     state,
     toggleAllRowsSelected,
+    selectedFlatRows,
   } = useTable(
     { columns, data, initialState: { hiddenColumns } },
     useSortBy,
@@ -55,10 +61,15 @@ const Table: React.FC<TableProps> = ({
   );
 
   React.useEffect(() => {
+    let selectedFlatRowsId = [];
+    selectedFlatRows.map((row) => {
+      selectedFlatRowsId.push(row.original.id);
+    });
     setColumns(allColumns);
     setTableState(state);
+    setSelectedIds(selectedFlatRowsId);
     setTableActions({ toggleAllRowsSelected });
-  }, [setColumns, setTableState, state]);
+  }, [setColumns, setTableState, state, selectedFlatRows]);
   return (
     <div className="flex flex-col">
       <div className="overflow-hidden">

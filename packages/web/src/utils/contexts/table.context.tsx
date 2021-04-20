@@ -15,6 +15,8 @@ type TableActionsType = {
 type TableContextType = {
   searchValue: string;
   setSearchValue: React.Dispatch<React.SetStateAction<string>>;
+  selectedIds: string[];
+  setSelectedIds: React.Dispatch<React.SetStateAction<string[]>>;
   columns: any[];
   setColumns: React.Dispatch<React.SetStateAction<any[]>>;
   tableState: TableStateType;
@@ -39,6 +41,7 @@ const TableProvider: React.FC<TableProps> = ({ children }) => {
 
   const [columns, setColumns] = React.useState([]);
   const [tableState, setTableState] = React.useState<TableStateType>();
+  const [selectedIds, setSelectedIds] = React.useState<string[]>();
   const [tableActions, setTableActions] = React.useState<TableActionsType>();
 
   return (
@@ -52,6 +55,8 @@ const TableProvider: React.FC<TableProps> = ({ children }) => {
         setTableState,
         tableActions,
         setTableActions,
+        selectedIds,
+        setSelectedIds,
       }}
     >
       {children}
