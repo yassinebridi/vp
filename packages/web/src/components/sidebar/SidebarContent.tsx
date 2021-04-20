@@ -36,19 +36,15 @@ const SidebarContent: React.FC<SidebarContentProps> = () => {
         >
           {expandSidebarProps.expand ? (
             <>
-              <Link to="/">
-                <a className="flex flex-col items-center text-sm">
-                  <span className="text-lg font-extrabold leading-3">Vide</span>
-                  <span>Placard</span>
-                </a>
+              <Link to="/" className="flex flex-col items-center text-sm">
+                <span className="text-lg font-extrabold leading-3">Vide</span>
+                <span>Placard</span>
               </Link>
               <ThemeChanger />
             </>
           ) : (
-            <Link to="/">
-              <a className="flex flex-col items-center text-sm">
-                <span className="text-lg font-extrabold">VP</span>
-              </a>
+            <Link to="/" className="flex flex-col items-center text-sm">
+              <span className="text-lg font-extrabold">VP</span>
             </Link>
           )}
         </div>
@@ -67,16 +63,19 @@ const SidebarContent: React.FC<SidebarContentProps> = () => {
                   isDisabled={expandSidebarProps.expand}
                   hasArrow
                 >
-                  <ActiveLink
-                    name={routeDisplay}
-                    href={route.path}
-                    className={clsx(sidebarButtonStyle)}
-                  >
-                    <Icon boxSize={5} aria-hidden="true" as={route.icon} />
-                    {expandSidebarProps.expand && (
-                      <span className="ml-4">{routeDisplay}</span>
-                    )}
-                  </ActiveLink>
+                  {/* Tooltip's child need to use React.forwardRef, so i need a span here */}
+                  <span>
+                    <ActiveLink
+                      name={routeDisplay}
+                      href={route.path}
+                      className={clsx(sidebarButtonStyle)}
+                    >
+                      <Icon boxSize={5} aria-hidden="true" as={route.icon} />
+                      {expandSidebarProps.expand && (
+                        <span className="ml-4">{routeDisplay}</span>
+                      )}
+                    </ActiveLink>
+                  </span>
                 </Tooltip>
               </li>
             );

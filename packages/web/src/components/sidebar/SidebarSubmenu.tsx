@@ -71,17 +71,20 @@ const SidebarSubmenu: React.FC<SidebarSubmenuProps> = ({ route }) => {
           isDisabled={expandSidebarProps.expand}
           hasArrow
         >
-          <ActiveLink
-            name={routeDisplay}
-            href={route.path}
-            className={clsx(sidebarButtonStyle)}
-            isSub={true}
-          >
-            <Icon boxSize={5} aria-hidden="true" as={route.icon} />
-            {expandSidebarProps.expand && (
-              <span className="ml-4">{routeDisplay}</span>
-            )}
-          </ActiveLink>
+          {/* Tooltip's child need to use React.forwardRef, so i need a span here */}
+          <span>
+            <ActiveLink
+              name={routeDisplay}
+              href={route.path}
+              className={clsx(sidebarButtonStyle)}
+              isSub={true}
+            >
+              <Icon boxSize={5} aria-hidden="true" as={route.icon} />
+              {expandSidebarProps.expand && (
+                <span className="ml-4">{routeDisplay}</span>
+              )}
+            </ActiveLink>
+          </span>
         </Tooltip>
       )}
       {route.routes && (

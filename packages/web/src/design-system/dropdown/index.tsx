@@ -21,7 +21,9 @@ const DropDown: FC<DropDownProps> = ({ children }) => {
       <Menu>
         {({ open }) => (
           <>
-            <Menu.Button className="w-full">{children}</Menu.Button>
+            <Menu.Button as="div" className="w-full">
+              {children}
+            </Menu.Button>
 
             <Transition
               show={open}
