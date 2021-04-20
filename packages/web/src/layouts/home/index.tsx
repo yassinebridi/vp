@@ -37,7 +37,6 @@ const HomeLayout: React.FC<HomeLayoutProps> = ({ children }) => {
         </div>
 
         <div className="flex flex-col flex-1 w-full bg-white dark:bg-gray-900">
-          {/* <Header /> */}
           <main className="h-full overflow-y-auto">
             <div className="container h-full px-6 mx-auto grid">{children}</div>
           </main>
