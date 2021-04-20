@@ -4,26 +4,26 @@ import * as cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
 import { CorsConfig, NestConfig } from './configs/config.interface';
 
-if (process.env.NODE_ENV === 'production') {
-  async function bootstrap() {
-    const app = await NestFactory.create(AppModule);
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
 
-    const configService = app.get(ConfigService);
-    const nestConfig = configService.get<NestConfig>('nest');
-    const corsConfig = configService.get<CorsConfig>('cors');
+  const configService = app.get(ConfigService);
+  const nestConfig = configService.get<NestConfig>('nest');
+  const corsConfig = configService.get<CorsConfig>('cors');
 
-    const consumerUrlsArray = corsConfig.consumerUrls.split(',');
+  const consumerUrlsArray = corsConfig.consumerUrls.split(',');
 
-    app.enableCors({
-      origin: consumerUrlsArray,
-      credentials: true,
-    });
+  app.enableCors({
+    origin: consumerUrlsArray,
+    credentials: true,
+  });
 
-    app.use(cookieParser());
+  app.use(cookieParser());
 
-    await app.listen(process.env.PORT || nestConfig.port || 4000);
-  }
-  bootstrap();
+  await app.listen(process.env.PORT || nestConfig.port || 4000);
 }
+bootstrap();
 
-export const createViteNodeApp = NestFactory.create(AppModule);
+// export const createViteNodeApp = NestFactory.create(AppModule, {
+//   cors: { origin: 'http://localhost:3000', credentials: true },
+// });

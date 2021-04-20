@@ -32,7 +32,7 @@ import { UserModule } from './users/users.module';
       fallbackLanguage: 'fr',
       parser: I18nJsonParser,
       parserOptions: {
-        path: path.join('/home/yaslix/projects/vp/packages/api/src', '/i18n'),
+        path: path.join(__dirname, '/i18n/'),
         watch: true,
       },
       resolvers: [
