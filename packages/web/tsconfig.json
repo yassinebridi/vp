@@ -17,7 +17,7 @@
     },
     "target": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext", "WebWorker"],
-    "types": ["vite/client", "vite-plugin-pwa/client", "node"],
+    "types": ["vite/client", "node"],
     "allowJs": false,
     "skipLibCheck": false,
     "esModuleInterop": false,
