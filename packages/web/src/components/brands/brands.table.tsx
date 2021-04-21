@@ -48,13 +48,11 @@ const BrandsTable: React.FC<BrandsTableProps> = ({ brands }) => {
   const hiddenColumnsArray = [];
 
   return (
-    <>
-      <Table
-        dataArray={dataArray}
-        columnsArray={columnsArray}
-        hiddenColumnsArray={hiddenColumnsArray}
-      />
-    </>
+    <Table
+      dataArray={dataArray}
+      columnsArray={columnsArray}
+      hiddenColumnsArray={hiddenColumnsArray}
+    />
   );
 };
 

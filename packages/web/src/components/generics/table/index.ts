@@ -1,6 +1,13 @@
 import { IndeterminateCheckbox } from "./IndeterminateCheckbox";
 import Table from "./Table";
+import TableFilters from "./TableFilters";
 import TableSearch from "./TableSearch";
 import TableSettingsDropdown from "./TableSettingsDropdown";
 
-export { Table, TableSearch, TableSettingsDropdown, IndeterminateCheckbox };
+export {
+  Table,
+  TableSearch,
+  TableSettingsDropdown,
+  TableFilters,
+  IndeterminateCheckbox,
+};

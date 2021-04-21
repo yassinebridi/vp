@@ -2,39 +2,62 @@ import { useBrandsQuery } from "@adapters";
 import {
   BrandsTable,
   PageHeader,
+  TableFilters,
   TableSearch,
   TableSettingsDropdown,
 } from "@components";
 import BulkAction from "@components/generics/table/BulkAction";
 import { SpinnerIcon } from "@design-system";
-import { ArrowRightIcon, ChevronDownIcon } from "@heroicons/react/outline";
-import { useQueryParams } from "@utils";
+import {
+  ArrowRightIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+} from "@heroicons/react/outline";
+import { useQueryParams, useFilterStore } from "@utils";
 import React from "react";
 
 export interface BrandsPageProps {}
 const BrandsPage: React.FC<BrandsPageProps> = () => {
   const query = useQueryParams();
+  const { filterProps, setFilterProps } = useFilterStore();
   const searchTerm = query.get("search");
 
   const { data: brandsData, isLoading } = useBrandsQuery({
     where: { name: { contains: searchTerm ? searchTerm : undefined } },
   });
+  const openFilters = () => {
+    setFilterProps(!filterProps.open);
+  };
 
   return (
     <div className="px-6 py-6">
       <PageHeader component="brands" />
       <div className="mt-6">
-        <div className="flex justify-between min-w-full px-6 my-3 text-gray-600 dark:text-gray-400">
+        <div className="flex justify-between min-w-full px-6 text-gray-600 dark:text-gray-400">
           <TableSearch />
 
-          <div className="flex items-center justify-between space-x-6">
-            <button className="flex items-center space-x-2">
+          <div className="flex items-center justify-between space-x-3">
+            <button
+              onClick={openFilters}
+              className="flex items-center w-full p-3 text-sm font-medium space-x-2 active:shadow-lg rounded-md dark:hover:bg-gray-800 dark:active:bg-gray-850 ringify"
+            >
               <span>Filters</span>
-              <ChevronDownIcon className="w-4 h-4" />
+              {filterProps.open ? (
+                <ChevronUpIcon className="w-4 h-4" />
+              ) : (
+                <ChevronDownIcon className="w-4 h-4" />
+              )}
             </button>
+
             <TableSettingsDropdown />
           </div>
         </div>
+
+        {filterProps.open && (
+          <div className="my-2">
+            <TableFilters />
+          </div>
+        )}
 
         {isLoading ? (
           <div className="flex flex-col items-center justify-center h-44 ">

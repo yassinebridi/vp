@@ -1,4 +1,9 @@
 const { fontFamily } = require("tailwindcss/defaultTheme");
+const plugin = require("tailwindcss/plugin");
+
+function half(value) {
+  return value.replace(/\d+(.\d+)?/, (number) => number / 2);
+}
 
 module.exports = {
   purge: ["./src/**/*.{js,ts,jsx,tsx}"],
@@ -36,5 +41,24 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [require("@tailwindcss/forms")],
+  plugins: [
+    require("@tailwindcss/forms"),
+    plugin(({ addUtilities, e, theme, variants }) => {
+      Object.entries(theme("gap")).forEach(([key, value]) =>
+        addUtilities(
+          {
+            [`.flex-gap-${e(key)}`]: {
+              marginTop: `-${half(value)}`,
+              marginLeft: `-${half(value)}`,
+              "& > *": {
+                marginTop: half(value),
+                marginLeft: half(value),
+              },
+            },
+          },
+          variants("gap")
+        )
+      );
+    }),
+  ],
 };

@@ -1,6 +1,7 @@
 import ActionBar from "./ActionBar";
+import MyDialog from "./MyDialog";
 import PageHeader from "./PageHeader";
 
 export * from "./form";
 export * from "./table";
-export { ActionBar, PageHeader };
+export { ActionBar, PageHeader, MyDialog };

@@ -73,7 +73,7 @@ const Table: React.FC<TableProps> = ({
   return (
     <div className="flex flex-col">
       <div className="overflow-hidden">
-        <table {...getTableProps()} className="min-w-full mt-6">
+        <table {...getTableProps()} className="min-w-full mt-3">
           <thead className="">
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()} className="">
