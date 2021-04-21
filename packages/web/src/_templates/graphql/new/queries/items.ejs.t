@@ -17,6 +17,9 @@ query <%=h.inflection.pluralize(name)%>(
     skip: $skip
     distinct: $distinct
   ) {
-    ...<%=Name%>Fields
+    totalPages
+    nodes {
+      ...<%=Name%>Fields
+    }
   }
 }

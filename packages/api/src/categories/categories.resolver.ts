@@ -1,19 +1,20 @@
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import {
+  FindManyCategoryArgs,
+  FindUniqueCategoryArgs,
   Category,
   CategoryCreateInput,
   CategoryWhereUniqueInput,
-  FindManyCategoryArgs,
-  FindUniqueCategoryArgs,
   UpdateOneCategoryArgs,
 } from 'src/@generated';
+import { Categories } from './all-categories.model';
 import { CategoriesService } from './categories.service';
 
 @Resolver(() => Category)
 export class CategoriesResolver {
   constructor(private readonly categoriesService: CategoriesService) {}
 
-  @Query(() => [Category])
+  @Query(() => Categories)
   getAllCategories(@Args() getAllCategoriesInput: FindManyCategoryArgs) {
     return this.categoriesService.getAllCategories(getAllCategoriesInput);
   }

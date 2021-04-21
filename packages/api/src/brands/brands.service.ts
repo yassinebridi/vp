@@ -7,10 +7,10 @@ import {
 } from '@nestjs/common';
 import { I18nRequestScopeService } from 'nestjs-i18n';
 import {
-  BrandCreateInput,
-  BrandWhereUniqueInput,
   FindManyBrandArgs,
   FindUniqueBrandArgs,
+  BrandCreateInput,
+  BrandWhereUniqueInput,
   UpdateOneBrandArgs,
 } from 'src/@generated';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -24,7 +24,15 @@ export class BrandsService {
   ) {}
 
   async getAllBrands(getAllBrandsInput: FindManyBrandArgs) {
-    return await this.prismaService.brand.findMany(getAllBrandsInput);
+    const brandsTransaction = await this.prismaService.$transaction([
+      this.prismaService.brand.count(),
+      this.prismaService.brand.findMany(getAllBrandsInput),
+    ]);
+
+    return {
+      totalPages: brandsTransaction[0],
+      nodes: brandsTransaction[1],
+    };
   }
 
   async getOneBrand(getOneBrandInput: FindUniqueBrandArgs) {

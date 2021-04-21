@@ -7,13 +7,14 @@ import {
   ProductWhereUniqueInput,
   UpdateOneProductArgs,
 } from 'src/@generated';
+import { Products } from './all-products.model';
 import { ProductsService } from './products.service';
 
 @Resolver(() => Product)
 export class ProductsResolver {
   constructor(private readonly productsService: ProductsService) {}
 
-  @Query(() => [Product])
+  @Query(() => Products)
   getAllProducts(@Args() getAllProductsInput: FindManyProductArgs) {
     return this.productsService.getAllProducts(getAllProductsInput);
   }

@@ -81,7 +81,7 @@ const BrandsPage: React.FC<BrandsPageProps> = () => {
           <div className="flex flex-col items-center justify-center h-44">
             <SpinnerIcon cn="w-8 h-8" />
           </div>
-        ) : brandsData.getAllBrands.length === 0 ? (
+        ) : brandsData.getAllBrands.totalPages === 0 ? (
           <div className="flex flex-col items-center justify-center text-gray-600 h-44 dark:text-gray-300">
             No items at the moment
           </div>

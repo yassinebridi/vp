@@ -27,7 +27,15 @@ export class <%=h.inflection.pluralize(Name)%>Service {
   ) {}
 
   async getAll<%=h.inflection.pluralize(Name)%>(getAll<%=h.inflection.pluralize(Name)%>Input: FindMany<%=Name%>Args) {
-    return await this.prismaService.<%=name%>.findMany(getAll<%=h.inflection.pluralize(Name)%>Input);
+    const <%=h.inflection.pluralize(name)%>Transaction = await this.prismaService.$transaction([
+      this.prismaService.<%=name%>.count(),
+      this.prismaService.<%=name%>.findMany(getAll<%=h.inflection.pluralize(Name)%>Input),
+    ]);
+
+    return {
+      totalPages: <%=h.inflection.pluralize(name)%>Transaction[0],
+      nodes: <%=h.inflection.pluralize(name)%>Transaction[1],
+    };
   }
 
   async getOne<%=Name%>(getOne<%=Name%>Input: FindUnique<%=Name%>Args) {

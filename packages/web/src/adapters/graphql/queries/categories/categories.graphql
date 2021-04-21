@@ -14,6 +14,9 @@ query categories(
     skip: $skip
     distinct: $distinct
   ) {
-    ...CategoryFields
+    totalPages
+    nodes {
+      ...CategoryFields
+    }
   }
 }

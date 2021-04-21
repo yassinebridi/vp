@@ -8,15 +8,16 @@ import {
   Resolver,
 } from '@nestjs/graphql';
 import {
+  FindManyBrandArgs,
+  FindUniqueBrandArgs,
   Brand,
   BrandCreateInput,
   BrandWhereUniqueInput,
-  FindManyBrandArgs,
-  FindUniqueBrandArgs,
-  Product,
   UpdateOneBrandArgs,
+  Product,
 } from 'src/@generated';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { Brands } from './all-brands.model';
 import { BrandsService } from './brands.service';
 
 @Resolver(() => Brand)
@@ -26,7 +27,7 @@ export class BrandsResolver {
     private readonly prismaService: PrismaService,
   ) {}
 
-  @Query(() => [Brand])
+  @Query(() => Brands)
   getAllBrands(@Args() getAllBrandsInput: FindManyBrandArgs) {
     return this.brandsService.getAllBrands(getAllBrandsInput);
   }

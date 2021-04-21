@@ -153,6 +153,18 @@ export type BrandWhereUniqueInput = {
   id?: Maybe<Scalars['String']>;
 };
 
+export type Brands = {
+  __typename?: 'Brands';
+  totalPages: Scalars['Int'];
+  nodes: Array<Brand>;
+};
+
+export type Categories = {
+  __typename?: 'Categories';
+  totalPages: Scalars['Int'];
+  nodes: Array<Category>;
+};
+
 export type Category = {
   __typename?: 'Category';
   id: Scalars['ID'];
@@ -278,6 +290,12 @@ export type CategoryWhereUniqueInput = {
 export type ChangePasswordInput = {
   oldPassword: Scalars['String'];
   newPassword: Scalars['String'];
+};
+
+export type Cities = {
+  __typename?: 'Cities';
+  totalPages: Scalars['Int'];
+  nodes: Array<City>;
 };
 
 export type City = {
@@ -1007,21 +1025,26 @@ export type LoginInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createCity: Scalars['Boolean'];
-  updateCity: Scalars['Boolean'];
-  removeCity: Scalars['Boolean'];
-  bulkCities: Scalars['Boolean'];
-  bulkRemoveCities: Scalars['Boolean'];
   createBrand: Scalars['Boolean'];
   updateBrand: Scalars['Boolean'];
   removeBrand: Scalars['Boolean'];
   bulkBrands: Scalars['Boolean'];
   bulkRemoveBrands: Scalars['Boolean'];
+  createProduct: Scalars['Boolean'];
+  updateProduct: Scalars['Boolean'];
+  removeProduct: Scalars['Boolean'];
+  bulkProducts: Scalars['Boolean'];
+  bulkRemoveProducts: Scalars['Boolean'];
   createCategory: Scalars['Boolean'];
   updateCategory: Scalars['Boolean'];
   removeCategory: Scalars['Boolean'];
   bulkCategories: Scalars['Boolean'];
   bulkRemoveCategories: Scalars['Boolean'];
+  createCity: Scalars['Boolean'];
+  updateCity: Scalars['Boolean'];
+  removeCity: Scalars['Boolean'];
+  bulkCities: Scalars['Boolean'];
+  bulkRemoveCities: Scalars['Boolean'];
   register: AuthUser;
   login: AuthUser;
   logout: Scalars['Boolean'];
@@ -1029,32 +1052,6 @@ export type Mutation = {
   deleteUser: Scalars['Boolean'];
   updateUser: Scalars['Boolean'];
   changePassword: User;
-  createProduct: Scalars['Boolean'];
-  updateProduct: Scalars['Boolean'];
-  removeProduct: Scalars['Boolean'];
-  bulkProducts: Scalars['Boolean'];
-  bulkRemoveProducts: Scalars['Boolean'];
-};
-
-
-export type MutationCreateCityArgs = {
-  createCityInput: CityCreateInput;
-};
-
-
-export type MutationUpdateCityArgs = {
-  data: CityUpdateInput;
-  where: CityWhereUniqueInput;
-};
-
-
-export type MutationRemoveCityArgs = {
-  whereCityInput: CityWhereUniqueInput;
-};
-
-
-export type MutationBulkCitiesArgs = {
-  number: Scalars['Int'];
 };
 
 
@@ -1079,6 +1076,27 @@ export type MutationBulkBrandsArgs = {
 };
 
 
+export type MutationCreateProductArgs = {
+  createProductInput: ProductCreateInput;
+};
+
+
+export type MutationUpdateProductArgs = {
+  data: ProductUpdateInput;
+  where: ProductWhereUniqueInput;
+};
+
+
+export type MutationRemoveProductArgs = {
+  whereProductInput: ProductWhereUniqueInput;
+};
+
+
+export type MutationBulkProductsArgs = {
+  number: Scalars['Int'];
+};
+
+
 export type MutationCreateCategoryArgs = {
   createCategoryInput: CategoryCreateInput;
 };
@@ -1096,6 +1114,27 @@ export type MutationRemoveCategoryArgs = {
 
 
 export type MutationBulkCategoriesArgs = {
+  number: Scalars['Int'];
+};
+
+
+export type MutationCreateCityArgs = {
+  createCityInput: CityCreateInput;
+};
+
+
+export type MutationUpdateCityArgs = {
+  data: CityUpdateInput;
+  where: CityWhereUniqueInput;
+};
+
+
+export type MutationRemoveCityArgs = {
+  whereCityInput: CityWhereUniqueInput;
+};
+
+
+export type MutationBulkCitiesArgs = {
   number: Scalars['Int'];
 };
 
@@ -1132,27 +1171,6 @@ export type MutationUpdateUserArgs = {
 
 export type MutationChangePasswordArgs = {
   data: ChangePasswordInput;
-};
-
-
-export type MutationCreateProductArgs = {
-  createProductInput: ProductCreateInput;
-};
-
-
-export type MutationUpdateProductArgs = {
-  data: ProductUpdateInput;
-  where: ProductWhereUniqueInput;
-};
-
-
-export type MutationRemoveProductArgs = {
-  whereProductInput: ProductWhereUniqueInput;
-};
-
-
-export type MutationBulkProductsArgs = {
-  number: Scalars['Int'];
 };
 
 export type NestedBoolFilter = {
@@ -2294,34 +2312,25 @@ export type ProductWhereUniqueInput = {
   id?: Maybe<Scalars['String']>;
 };
 
+export type Products = {
+  __typename?: 'Products';
+  totalPages: Scalars['Int'];
+  nodes: Array<Product>;
+};
+
 export type Query = {
   __typename?: 'Query';
-  getAllCities: Array<City>;
-  getOneCity: City;
-  getAllBrands: Array<Brand>;
+  getAllBrands: Brands;
   getOneBrand: Brand;
-  getAllCategories: Array<Category>;
+  getAllProducts: Products;
+  getOneProduct: Product;
+  getAllCategories: Categories;
   getOneCategory: Category;
+  getAllCities: Cities;
+  getOneCity: City;
   me: User;
   getAllUsers: Array<User>;
   getOneUser: User;
-  getAllProducts: Array<Product>;
-  getOneProduct: Product;
-};
-
-
-export type QueryGetAllCitiesArgs = {
-  where?: Maybe<CityWhereInput>;
-  orderBy?: Maybe<Array<CityOrderByInput>>;
-  cursor?: Maybe<CityWhereUniqueInput>;
-  take?: Maybe<Scalars['Int']>;
-  skip?: Maybe<Scalars['Int']>;
-  distinct?: Maybe<Array<CityScalarFieldEnum>>;
-};
-
-
-export type QueryGetOneCityArgs = {
-  where: CityWhereUniqueInput;
 };
 
 
@@ -2340,6 +2349,21 @@ export type QueryGetOneBrandArgs = {
 };
 
 
+export type QueryGetAllProductsArgs = {
+  where?: Maybe<ProductWhereInput>;
+  orderBy?: Maybe<Array<ProductOrderByInput>>;
+  cursor?: Maybe<ProductWhereUniqueInput>;
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  distinct?: Maybe<Array<ProductScalarFieldEnum>>;
+};
+
+
+export type QueryGetOneProductArgs = {
+  where: ProductWhereUniqueInput;
+};
+
+
 export type QueryGetAllCategoriesArgs = {
   where?: Maybe<CategoryWhereInput>;
   orderBy?: Maybe<Array<CategoryOrderByInput>>;
@@ -2355,6 +2379,21 @@ export type QueryGetOneCategoryArgs = {
 };
 
 
+export type QueryGetAllCitiesArgs = {
+  where?: Maybe<CityWhereInput>;
+  orderBy?: Maybe<Array<CityOrderByInput>>;
+  cursor?: Maybe<CityWhereUniqueInput>;
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  distinct?: Maybe<Array<CityScalarFieldEnum>>;
+};
+
+
+export type QueryGetOneCityArgs = {
+  where: CityWhereUniqueInput;
+};
+
+
 export type QueryGetAllUsersArgs = {
   where?: Maybe<UserWhereInput>;
   orderBy?: Maybe<Array<UserOrderByInput>>;
@@ -2367,21 +2406,6 @@ export type QueryGetAllUsersArgs = {
 
 export type QueryGetOneUserArgs = {
   where: UserWhereUniqueInput;
-};
-
-
-export type QueryGetAllProductsArgs = {
-  where?: Maybe<ProductWhereInput>;
-  orderBy?: Maybe<Array<ProductOrderByInput>>;
-  cursor?: Maybe<ProductWhereUniqueInput>;
-  take?: Maybe<Scalars['Int']>;
-  skip?: Maybe<Scalars['Int']>;
-  distinct?: Maybe<Array<ProductScalarFieldEnum>>;
-};
-
-
-export type QueryGetOneProductArgs = {
-  where: ProductWhereUniqueInput;
 };
 
 export enum QueryMode {
@@ -3493,10 +3517,14 @@ export type BrandsQueryVariables = Exact<{
 
 export type BrandsQuery = (
   { __typename?: 'Query' }
-  & { getAllBrands: Array<(
-    { __typename?: 'Brand' }
-    & BrandFieldsFragment
-  )> }
+  & { getAllBrands: (
+    { __typename?: 'Brands' }
+    & Pick<Brands, 'totalPages'>
+    & { nodes: Array<(
+      { __typename?: 'Brand' }
+      & BrandFieldsFragment
+    )> }
+  ) }
 );
 
 export type CategoriesQueryVariables = Exact<{
@@ -3511,10 +3539,14 @@ export type CategoriesQueryVariables = Exact<{
 
 export type CategoriesQuery = (
   { __typename?: 'Query' }
-  & { getAllCategories: Array<(
-    { __typename?: 'Category' }
-    & CategoryFieldsFragment
-  )> }
+  & { getAllCategories: (
+    { __typename?: 'Categories' }
+    & Pick<Categories, 'totalPages'>
+    & { nodes: Array<(
+      { __typename?: 'Category' }
+      & CategoryFieldsFragment
+    )> }
+  ) }
 );
 
 export type CategoryFieldsFragment = (
@@ -3551,10 +3583,14 @@ export type CitiesQueryVariables = Exact<{
 
 export type CitiesQuery = (
   { __typename?: 'Query' }
-  & { getAllCities: Array<(
-    { __typename?: 'City' }
-    & CityFieldsFragment
-  )> }
+  & { getAllCities: (
+    { __typename?: 'Cities' }
+    & Pick<Cities, 'totalPages'>
+    & { nodes: Array<(
+      { __typename?: 'City' }
+      & CityFieldsFragment
+    )> }
+  ) }
 );
 
 export type CityFieldsFragment = (
@@ -3581,7 +3617,7 @@ export type CityQuery = (
 
 export type ProductFieldsFragment = (
   { __typename?: 'Product' }
-  & Pick<Product, 'id' | 'title' | 'desc' | 'price' | 'size' | 'season' | 'dateOfPurchase' | 'viewsNumber' | 'publishStatus' | 'productStatus' | 'createdAt' | 'updatedAt'>
+  & Pick<Product, 'title' | 'desc' | 'price' | 'size' | 'season' | 'dateOfPurchase' | 'viewsNumber' | 'publishStatus' | 'productStatus' | 'createdAt'>
   & { images?: Maybe<Array<(
     { __typename?: 'ProductImage' }
     & Pick<ProductImage, 'id' | 'title' | 'desc' | 'url'>
@@ -3631,10 +3667,14 @@ export type ProductsQueryVariables = Exact<{
 
 export type ProductsQuery = (
   { __typename?: 'Query' }
-  & { getAllProducts: Array<(
-    { __typename?: 'Product' }
-    & ProductFieldsFragment
-  )> }
+  & { getAllProducts: (
+    { __typename?: 'Products' }
+    & Pick<Products, 'totalPages'>
+    & { nodes: Array<(
+      { __typename?: 'Product' }
+      & ProductFieldsFragment
+    )> }
+  ) }
 );
 
 export const UserFieldsFragmentDoc = `
@@ -3685,7 +3725,6 @@ export const CityFieldsFragmentDoc = `
     `;
 export const ProductFieldsFragmentDoc = `
     fragment ProductFields on Product {
-  id
   title
   desc
   price
@@ -3696,7 +3735,6 @@ export const ProductFieldsFragmentDoc = `
   publishStatus
   productStatus
   createdAt
-  updatedAt
   images {
     id
     title
@@ -4150,7 +4188,10 @@ export const BrandsDocument = `
     skip: $skip
     distinct: $distinct
   ) {
-    ...BrandFields
+    totalPages
+    nodes {
+      ...BrandFields
+    }
   }
 }
     ${BrandFieldsFragmentDoc}`;
@@ -4178,7 +4219,10 @@ export const CategoriesDocument = `
     skip: $skip
     distinct: $distinct
   ) {
-    ...CategoryFields
+    totalPages
+    nodes {
+      ...CategoryFields
+    }
   }
 }
     ${CategoryFieldsFragmentDoc}`;
@@ -4227,7 +4271,10 @@ export const CitiesDocument = `
     skip: $skip
     distinct: $distinct
   ) {
-    ...CityFields
+    totalPages
+    nodes {
+      ...CityFields
+    }
   }
 }
     ${CityFieldsFragmentDoc}`;
@@ -4297,7 +4344,10 @@ export const ProductsDocument = `
     skip: $skip
     distinct: $distinct
   ) {
-    ...ProductFields
+    totalPages
+    nodes {
+      ...ProductFields
+    }
   }
 }
     ${ProductFieldsFragmentDoc}`;

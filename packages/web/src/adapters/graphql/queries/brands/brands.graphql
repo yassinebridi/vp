@@ -14,6 +14,9 @@ query brands(
     skip: $skip
     distinct: $distinct
   ) {
-    ...BrandFields
+    totalPages
+    nodes {
+      ...BrandFields
+    }
   }
 }

@@ -8,7 +8,7 @@ const TableSearch: React.FC<TableSearchProps> = () => {
   const { searchValue, setSearchValue } = React.useContext(TableContext);
   const [_, setSearch] = useQueryParam("search", StringParam);
 
-  const handleSearchSumbit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSearch(searchValue);
   };
@@ -19,7 +19,7 @@ const TableSearch: React.FC<TableSearchProps> = () => {
   return (
     <div className="flex items-center space-x-6 text">
       <SearchIcon className="w-5 h-5" />
-      <form onSubmit={handleSearchSumbit}>
+      <form onSubmit={handleSearchSubmit}>
         <input
           value={searchValue}
           onChange={handleSearchChange}

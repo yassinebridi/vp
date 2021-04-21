@@ -10,13 +10,14 @@ import {
   <%=Name%>WhereUniqueInput,
   UpdateOne<%=Name%>Args,
 } from 'src/@generated';
+import { <%=h.inflection.pluralize(Name)%> } from './all-<%=h.inflection.pluralize(name)%>.model';
 import { <%=h.inflection.pluralize(Name)%>Service } from './<%=h.inflection.pluralize(name)%>.service';
 
 @Resolver(() => <%=Name%>)
 export class <%=h.inflection.pluralize(Name)%>Resolver {
   constructor(private readonly <%=h.inflection.pluralize(name)%>Service: <%=h.inflection.pluralize(Name)%>Service) {}
 
-  @Query(() => [<%=Name%>])
+  @Query(() => <%=h.inflection.pluralize(Name)%>)
   getAll<%=h.inflection.pluralize(Name)%>(@Args() getAll<%=h.inflection.pluralize(Name)%>Input: FindMany<%=Name%>Args) {
     return this.<%=h.inflection.pluralize(name)%>Service.getAll<%=h.inflection.pluralize(Name)%>(getAll<%=h.inflection.pluralize(Name)%>Input);
   }

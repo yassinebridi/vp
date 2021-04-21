@@ -14,7 +14,7 @@ const BrandsTable: React.FC<BrandsTableProps> = ({ brands }) => {
     date: string;
   }[] = [];
   brands.getAllBrands &&
-    brands.getAllBrands.map((brand) => {
+    brands.getAllBrands.nodes.map((brand) => {
       dataArray.push({
         id: brand.id,
         name: brand.name,

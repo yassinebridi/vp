@@ -7,10 +7,10 @@ import {
 } from '@nestjs/common';
 import { I18nRequestScopeService } from 'nestjs-i18n';
 import {
-  CityCreateInput,
-  CityWhereUniqueInput,
   FindManyCityArgs,
   FindUniqueCityArgs,
+  CityCreateInput,
+  CityWhereUniqueInput,
   UpdateOneCityArgs,
 } from 'src/@generated';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -24,7 +24,15 @@ export class CitiesService {
   ) {}
 
   async getAllCities(getAllCitiesInput: FindManyCityArgs) {
-    return await this.prismaService.city.findMany(getAllCitiesInput);
+    const citiesTransaction = await this.prismaService.$transaction([
+      this.prismaService.city.count(),
+      this.prismaService.city.findMany(getAllCitiesInput),
+    ]);
+
+    return {
+      totalPages: citiesTransaction[0],
+      nodes: citiesTransaction[1],
+    };
   }
 
   async getOneCity(getOneCityInput: FindUniqueCityArgs) {

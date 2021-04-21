@@ -1,9 +1,9 @@
 {
   "generics": {
-    "no_item": "Ce produit n'existe pas",
-    "conflict": "Vous ne pouvez pas supprimer ce produit, car il y a un conflit"
+    "no_item": "Ce product n'existe pas",
+    "conflict": "Vous ne pouvez pas supprimer ce product, car il y a un conflit"
   },
-  "create": "Un problème est survenu lors de la création de ce produit ",
-  "update": "Un problème est survenu lors de l'édition  de ce produit",
-  "remove": "Un problème est survenu lors de la suppression de ce produit"
+  "create": "Un problème est survenu lors de la création de ce product ",
+  "update": "Un problème est survenu lors de l'édition  de ce product",
+  "remove": "Un problème est survenu lors de la suppression de ce product"
 }

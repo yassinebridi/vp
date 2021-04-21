@@ -7,10 +7,10 @@ import {
 } from '@nestjs/common';
 import { I18nRequestScopeService } from 'nestjs-i18n';
 import {
-  CategoryCreateInput,
-  CategoryWhereUniqueInput,
   FindManyCategoryArgs,
   FindUniqueCategoryArgs,
+  CategoryCreateInput,
+  CategoryWhereUniqueInput,
   UpdateOneCategoryArgs,
 } from 'src/@generated';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -24,7 +24,15 @@ export class CategoriesService {
   ) {}
 
   async getAllCategories(getAllCategoriesInput: FindManyCategoryArgs) {
-    return await this.prismaService.category.findMany(getAllCategoriesInput);
+    const categoriesTransaction = await this.prismaService.$transaction([
+      this.prismaService.category.count(),
+      this.prismaService.category.findMany(getAllCategoriesInput),
+    ]);
+
+    return {
+      totalPages: categoriesTransaction[0],
+      nodes: categoriesTransaction[1],
+    };
   }
 
   async getOneCategory(getOneCategoryInput: FindUniqueCategoryArgs) {

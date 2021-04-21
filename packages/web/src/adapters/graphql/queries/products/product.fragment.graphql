@@ -1,5 +1,4 @@
 fragment ProductFields on Product {
-  id
   title
   desc
   price
@@ -10,7 +9,6 @@ fragment ProductFields on Product {
   publishStatus
   productStatus
   createdAt
-  updatedAt
   images {
     id
     title
