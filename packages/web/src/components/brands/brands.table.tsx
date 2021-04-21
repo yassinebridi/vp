@@ -1,5 +1,5 @@
 import { BrandsQuery } from "@adapters";
-import { Table } from "@components";
+import { ColumnActions, Table } from "@components";
 import { formatDate } from "@utils";
 import React from "react";
 
@@ -27,6 +27,7 @@ const BrandsTable: React.FC<BrandsTableProps> = ({ brands }) => {
     {
       Header: "Name",
       accessor: "name",
+      width: "20%",
       kind: "string",
       Cell: (props) => {
         return (
@@ -40,12 +41,22 @@ const BrandsTable: React.FC<BrandsTableProps> = ({ brands }) => {
       Header: "Products",
       accessor: "products",
       kind: "number",
+      width: "20%",
     },
     {
       Header: "Date",
       accessor: "date",
       kind: "date",
       Cell: (props) => formatDate(props.cell.value),
+    },
+    {
+      Header: "actions",
+      accessor: "actions",
+      kind: "string",
+      width: "6%",
+      Cell: (props) => {
+        return <ColumnActions id={props.cell.row.original.id} />;
+      },
     },
   ];
   const hiddenColumnsArray = [];

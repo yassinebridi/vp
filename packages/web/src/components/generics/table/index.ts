@@ -1,3 +1,5 @@
+import BulkAction from "./BulkAction";
+import ColumnActions from "./ColumnActions";
 import Filters from "./Filters";
 import IndeterminateCheckbox from "./IndeterminateCheckbox";
 import Table from "./Table";
@@ -12,4 +14,6 @@ export {
   TableFilters,
   IndeterminateCheckbox,
   Filters,
+  BulkAction,
+  ColumnActions,
 };

@@ -34,6 +34,7 @@ const TableSettingsDropdown: React.FC<TableSettingsDropdownProps> = () => {
                 tableStateReady &&
                 columns
                   .filter((col) => col.id !== "selection")
+                  .filter((col) => col.id !== "actions")
                   .map((column) => (
                     <div key={column.id}>
                       <label className="flex items-center w-full px-4 py-2 text-sm cursor-pointer space-x-4 leading-5">

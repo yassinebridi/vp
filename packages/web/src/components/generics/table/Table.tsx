@@ -44,6 +44,7 @@ const Table: React.FC<TableProps> = ({
       hooks.visibleColumns.push((columns) => [
         {
           id: "selection",
+          width: "6%",
           Header: ({ getToggleAllRowsSelectedProps }) => (
             <div>
               <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
@@ -72,7 +73,7 @@ const Table: React.FC<TableProps> = ({
   }, [setColumns, setTableState, state, selectedFlatRows]);
   return (
     <div className="flex flex-col">
-      <div className="overflow-hidden">
+      <div className="">
         <table {...getTableProps()} className="min-w-full mt-3">
           <thead className="">
             {headerGroups.map((headerGroup) => (
@@ -80,6 +81,7 @@ const Table: React.FC<TableProps> = ({
                 {headerGroup.headers.map((column, i) => (
                   <th
                     {...column.getHeaderProps(column.getSortByToggleProps())}
+                    style={{ width: column.width }}
                     className={clsx(
                       "bg-[#f7f7f7] dark:bg-[#29282e] px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-400",
                       i === 0 && "rounded-l-lg",

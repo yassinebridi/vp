@@ -124,7 +124,7 @@ const TableFilters: React.FC<TableFiltersProps> = () => {
                     .map((column) => (
                       <div
                         key={column.id}
-                        className="px-4 py-2 text-sm text-gray-600 cursor-pointer dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        className="px-4 py-2 text-sm text-gray-800 cursor-pointer dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                         onClick={() => handleAddFilter(column.id, column.kind)}
                       >
                         {column.Header}

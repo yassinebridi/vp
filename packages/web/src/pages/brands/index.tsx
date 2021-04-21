@@ -1,12 +1,12 @@
 import { useBrandsQuery } from "@adapters";
 import {
   BrandsTable,
+  BulkAction,
   PageHeader,
   TableFilters,
   TableSearch,
   TableSettingsDropdown,
 } from "@components";
-import BulkAction from "@components/generics/table/BulkAction";
 import { SpinnerIcon } from "@design-system";
 import {
   ArrowRightIcon,
@@ -61,7 +61,7 @@ const BrandsPage: React.FC<BrandsPageProps> = () => {
                 <ChevronDownIcon className="w-4 h-4" />
               )}
               {filter && (
-                <span className="absolute top-0 right-0 flex items-center px-1 text-xs font-bold text-white bg-purple-600 dark:text-gray-800 rounded-full dark:bg-gray-300">
+                <span className="absolute top-0 right-0 flex items-center px-1 text-xs font-bold text-white bg-purple-600 rounded-full dark:text-gray-800 dark:bg-gray-300">
                   <span>{Object.keys(filter).length}</span>
                 </span>
               )}
