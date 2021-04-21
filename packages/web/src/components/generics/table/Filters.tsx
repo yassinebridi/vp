@@ -110,7 +110,7 @@ const FilterInput: React.FC<FilterInputProps> = ({
     <input
       value={inputValue}
       onChange={handleInputChange}
-      className="px-4 py-2 bg-white outline-none rounded-md dark:text-gray-200 dark:bg-gray-900 ringify"
+      className="px-4 py-2 text-gray-700 bg-gray-200 outline-none rounded-md dark:text-gray-200 dark:bg-gray-900 ringify"
       placeholder="Some value"
     />
   );

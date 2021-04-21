@@ -1,9 +1,9 @@
 import { Filters, MyDialog } from "@components";
 import { Popover, Transition } from "@headlessui/react";
 import { PlusIcon, XIcon } from "@heroicons/react/outline";
-import { getQueryParams, useTableContext } from "@utils";
+import { capitalize, getQueryParams, useTableContext } from "@utils";
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router";
 import { useQueryParam } from "use-query-params";
 import { KindType } from "./Filters";
 
@@ -15,9 +15,13 @@ const stringStateMapper = {
 
 export interface TableFiltersProps {}
 const TableFilters: React.FC<TableFiltersProps> = () => {
+  const history = useHistory();
   const { search } = useLocation();
-  const queryString = getQueryParams(search);
+  const queryParams = new URLSearchParams(location.search);
+  const filterQueries = getQueryParams(search).filter as Object;
 
+  const { columns, tableState } = useTableContext();
+  let [isOpen, setIsOpen] = React.useState(false);
   const [inputValue, setInputValue] = React.useState<string>();
   const [stringState, setStringState] = React.useState<string>("is");
 
@@ -25,8 +29,13 @@ const TableFilters: React.FC<TableFiltersProps> = () => {
     name: string;
     kind: KindType;
   }>();
-  let [isOpen, setIsOpen] = React.useState(false);
-  const { columns, tableState } = useTableContext();
+
+  const [_, setFiltersQuery] = useQueryParam(
+    filterState
+      ? `filter.${filterState.name}.${stringStateMapper[stringState]}`
+      : ""
+  );
+
   const tableStateReady = tableState !== undefined;
   const columnsReady = columns.length > 0 && columns;
 
@@ -34,41 +43,55 @@ const TableFilters: React.FC<TableFiltersProps> = () => {
     console.log("click filter");
   };
   const handleCloseFilter = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    query: string
   ) => {
     e.stopPropagation();
-    console.log("close filter");
+    queryParams.delete(query);
+    history.replace({
+      search: queryParams.toString(),
+    });
   };
   const handleAddFilter = (name, kind) => {
     setFilterState({ name, kind });
     setIsOpen(true);
   };
-  const [_, setFiltersQuery] = useQueryParam(
-    filterState
-      ? `filter.${filterState.name}.${stringStateMapper[stringState]}`
-      : ""
-  );
   const handleDone = () => {
-    setFiltersQuery(inputValue, "push");
+    if (inputValue.length > 0) {
+      setFiltersQuery(inputValue, "push");
+    }
   };
   return (
     <div className="flex flex-wrap flex-gap-4">
-      <button
-        onClick={handleClickFilter}
-        className="flex items-center px-4 py-2 text-sm bg-gray-100 rounded-lg space-x-2 active:shadow-lg dark:bg-gray-800 dark:hover:bg-gray-800 dark:active:bg-gray-850 ringify hover:bg-[#f7f7f7] active:bg-gray-200"
-      >
-        <div>
-          <span className="text-gray-700 dark:text-white">Email</span>{" "}
-          <span className="text-gray-500 dark:text-gray-300">contains</span>{" "}
-          <span className="text-gray-700 dark:text-white">gmail</span>
-        </div>
-        <div
-          className="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md"
-          onClick={handleCloseFilter}
-        >
-          <XIcon className="w-4 h-4" />
-        </div>
-      </button>
+      {filterQueries &&
+        Object.entries(filterQueries).map(([key, value]) => {
+          return (
+            <button
+              onClick={handleClickFilter}
+              className="flex items-center px-4 py-2 text-sm bg-gray-100 rounded-lg space-x-2 active:shadow-lg dark:bg-gray-800 dark:hover:bg-gray-800 dark:active:bg-gray-850 ringify hover:bg-[#f7f7f7] active:bg-gray-200"
+            >
+              <div>
+                <span className="text-gray-700 dark:text-white">
+                  {capitalize(key)}
+                </span>{" "}
+                <span className="text-gray-500 dark:text-gray-300">
+                  {Object.keys(value)[0]}
+                </span>{" "}
+                <span className="text-gray-700 dark:text-white">
+                  {value[Object.keys(value)[0]]}
+                </span>
+              </div>
+              <div
+                className="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md"
+                onClick={(e) =>
+                  handleCloseFilter(e, `filter.${key}.${Object.keys(value)[0]}`)
+                }
+              >
+                <XIcon className="w-4 h-4" />
+              </div>
+            </button>
+          );
+        })}
 
       <Popover as="div" className="relative inline-block">
         {({ open }) => (
@@ -76,7 +99,7 @@ const TableFilters: React.FC<TableFiltersProps> = () => {
             {/* TODO:Title To translate */}
             <Popover.Button
               title="New filter"
-              className="h-full dark:text-gray-400 text-gray-700 flex items-center px-2 text-sm bg-gray-100 rounded-lg space-x-2 active:shadow-lg dark:bg-gray-800 dark:hover:bg-gray-800 dark:active:bg-gray-850 ringify hover:bg-[#f7f7f7] active:bg-gray-200"
+              className="h-full dark:text-gray-400 text-gray-700 flex items-center p-2 text-sm bg-gray-100 rounded-lg space-x-2 active:shadow-lg dark:bg-gray-800 dark:hover:bg-gray-800 dark:active:bg-gray-850 ringify hover:bg-[#f7f7f7] active:bg-gray-200"
             >
               <PlusIcon className="w-6 h-6" />
             </Popover.Button>
@@ -115,7 +138,7 @@ const TableFilters: React.FC<TableFiltersProps> = () => {
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
                 handleDone={handleDone}
-                handleCancel={() => console.log("cancel")}
+                handleCancel={() => null}
                 title="Payment successful"
               >
                 <Filters

@@ -52,13 +52,18 @@ const BrandsPage: React.FC<BrandsPageProps> = () => {
           <div className="flex items-center justify-between space-x-3">
             <button
               onClick={openFilters}
-              className="flex items-center w-full p-3 text-sm font-medium space-x-2 active:shadow-lg rounded-md dark:hover:bg-gray-800 dark:active:bg-gray-850 ringify"
+              className="relative flex items-center w-full p-3 text-sm font-medium hover:bg-gray-100 active:bg-gray-200 space-x-2 active:shadow-lg rounded-md dark:hover:bg-gray-800 dark:active:bg-gray-850 ringify"
             >
               <span>Filters</span>
               {filterProps.open ? (
                 <ChevronUpIcon className="w-4 h-4" />
               ) : (
                 <ChevronDownIcon className="w-4 h-4" />
+              )}
+              {filter && (
+                <span className="absolute top-0 right-0 flex items-center px-1 text-xs font-bold text-white bg-purple-600 dark:text-gray-800 rounded-full dark:bg-gray-300">
+                  <span>{Object.keys(filter).length}</span>
+                </span>
               )}
             </button>
 

@@ -13,7 +13,7 @@ const TableSettingsDropdown: React.FC<TableSettingsDropdownProps> = () => {
     <Popover as="div" className="relative inline-block">
       {({ open }) => (
         <>
-          <Popover.Button className="inline-flex justify-center w-full p-3 text-sm font-medium active:shadow-lg rounded-md dark:hover:bg-gray-800 dark:active:bg-gray-850 ringify">
+          <Popover.Button className="inline-flex justify-center w-full p-3 text-sm font-medium hover:bg-gray-100 active:bg-gray-200 active:shadow-lg rounded-md dark:hover:bg-gray-800 dark:active:bg-gray-850 ringify">
             <DotsHorizontalIcon className="w-5 h-5" />
           </Popover.Button>
 
@@ -28,7 +28,7 @@ const TableSettingsDropdown: React.FC<TableSettingsDropdownProps> = () => {
           >
             <Popover.Panel
               static
-              className="absolute right-0 w-32 py-2 mt-2 text-gray-300 bg-white shadow-2xl origin-top-right rounded-md ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-[#2b2a2f]"
+              className="absolute right-0 w-32 py-2 mt-2 text-gray-700 dark:text-gray-300 bg-white shadow-2xl origin-top-right rounded-md ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-[#2b2a2f]"
             >
               {columnsReady &&
                 tableStateReady &&
@@ -38,7 +38,7 @@ const TableSettingsDropdown: React.FC<TableSettingsDropdownProps> = () => {
                     <div key={column.id}>
                       <label className="flex items-center w-full px-4 py-2 text-sm cursor-pointer space-x-4 leading-5">
                         <input
-                          className="w-5 h-5 p-1 text-purple-500 form-checkbox ringify dark:bg-gray-500 rounded-md"
+                          className="w-5 h-5 p-1 text-purple-500 form-checkbox ringify dark:text-gray-500 dark:bg-gray-500 rounded-md"
                           type="checkbox"
                           {...column.getToggleHiddenProps()}
                           checked={column.getToggleHiddenProps().isVisible}
