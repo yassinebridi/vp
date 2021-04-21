@@ -1,19 +1,16 @@
 import { SearchIcon } from "@heroicons/react/outline";
 import { TableContext } from "@utils";
 import React from "react";
-import { useHistory } from "react-router";
+import { StringParam, useQueryParam } from "use-query-params";
 
 export interface TableSearchProps {}
 const TableSearch: React.FC<TableSearchProps> = () => {
   const { searchValue, setSearchValue } = React.useContext(TableContext);
+  const [_, setSearch] = useQueryParam("search", StringParam);
 
-  const router = useHistory();
   const handleSearchSumbit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    router.push({
-      pathname: "brands",
-      search: `?search=${searchValue}`,
-    });
+    setSearch(searchValue);
   };
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.currentTarget.value);

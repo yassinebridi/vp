@@ -1,11 +1,30 @@
-import { PlusIcon, XIcon } from "@heroicons/react/outline";
+import { Filters, MyDialog } from "@components";
 import { Popover, Transition } from "@headlessui/react";
+import { PlusIcon, XIcon } from "@heroicons/react/outline";
+import { getQueryParams, useTableContext } from "@utils";
 import React from "react";
-import { useTableContext } from "@utils";
-import { MyDialog } from "@components";
+import { useLocation } from "react-router-dom";
+import { useQueryParam } from "use-query-params";
+import { KindType } from "./Filters";
+
+const stringStateMapper = {
+  is: "is",
+  "is not": "isNot",
+  contains: "contains",
+};
 
 export interface TableFiltersProps {}
 const TableFilters: React.FC<TableFiltersProps> = () => {
+  const { search } = useLocation();
+  const queryString = getQueryParams(search);
+
+  const [inputValue, setInputValue] = React.useState<string>();
+  const [stringState, setStringState] = React.useState<string>("is");
+
+  let [filterState, setFilterState] = React.useState<{
+    name: string;
+    kind: KindType;
+  }>();
   let [isOpen, setIsOpen] = React.useState(false);
   const { columns, tableState } = useTableContext();
   const tableStateReady = tableState !== undefined;
@@ -20,8 +39,17 @@ const TableFilters: React.FC<TableFiltersProps> = () => {
     e.stopPropagation();
     console.log("close filter");
   };
-  const handleAddFilter = () => {
-    console.log("add filter");
+  const handleAddFilter = (name, kind) => {
+    setFilterState({ name, kind });
+    setIsOpen(true);
+  };
+  const [_, setFiltersQuery] = useQueryParam(
+    filterState
+      ? `filter.${filterState.name}.${stringStateMapper[stringState]}`
+      : ""
+  );
+  const handleDone = () => {
+    setFiltersQuery(inputValue, "push");
   };
   return (
     <div className="flex flex-wrap flex-gap-4">
@@ -42,19 +70,14 @@ const TableFilters: React.FC<TableFiltersProps> = () => {
         </div>
       </button>
 
-      {/* TODO:To translate */}
-      {/* <button */}
-      {/*   onClick={handleAddFilter} */}
-      {/*   title="New filter" */}
-      {/*   className="dark:text-gray-400 text-gray-700 flex items-center px-2 text-sm bg-gray-100 rounded-lg space-x-2 active:shadow-lg dark:bg-gray-800 dark:hover:bg-gray-800 dark:active:bg-gray-850 ringify hover:bg-[#f7f7f7] active:bg-gray-200" */}
-      {/* > */}
-      {/*   <PlusIcon className="w-6 h-6" /> */}
-      {/* </button> */}
-
       <Popover as="div" className="relative inline-block">
         {({ open }) => (
           <>
-            <Popover.Button className="h-full dark:text-gray-400 text-gray-700 flex items-center px-2 text-sm bg-gray-100 rounded-lg space-x-2 active:shadow-lg dark:bg-gray-800 dark:hover:bg-gray-800 dark:active:bg-gray-850 ringify hover:bg-[#f7f7f7] active:bg-gray-200">
+            {/* TODO:Title To translate */}
+            <Popover.Button
+              title="New filter"
+              className="h-full dark:text-gray-400 text-gray-700 flex items-center px-2 text-sm bg-gray-100 rounded-lg space-x-2 active:shadow-lg dark:bg-gray-800 dark:hover:bg-gray-800 dark:active:bg-gray-850 ringify hover:bg-[#f7f7f7] active:bg-gray-200"
+            >
               <PlusIcon className="w-6 h-6" />
             </Popover.Button>
 
@@ -69,7 +92,7 @@ const TableFilters: React.FC<TableFiltersProps> = () => {
             >
               <Popover.Panel
                 static
-                className="absolute left-0 w-32 py-2 space-y-1 mt-2 text-gray-300 bg-white shadow-2xl origin-top-right rounded-md ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-[#2b2a2f]"
+                className="absolute left-0 w-32 py-2 space-y-1 mt-2 bg-white shadow-2xl origin-top-right rounded-md ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-[#2b2a2f]"
               >
                 {columnsReady &&
                   tableStateReady &&
@@ -78,21 +101,33 @@ const TableFilters: React.FC<TableFiltersProps> = () => {
                     .map((column) => (
                       <div
                         key={column.id}
-                        className="px-4 py-2 text-sm cursor-pointer dark:hover:bg-gray-700"
-                        onClick={() => setIsOpen(true)}
+                        className="px-4 py-2 text-sm text-gray-600 cursor-pointer dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        onClick={() => handleAddFilter(column.id, column.kind)}
                       >
                         {column.Header}
                       </div>
                     ))}
               </Popover.Panel>
             </Transition>
-            <MyDialog
-              isOpen={isOpen}
-              setIsOpen={setIsOpen}
-              handleDone={() => console.log("done")}
-              handleCancel={() => console.log("cancel")}
-              title="Payment successful"
-            />
+            {filterState && (
+              <MyDialog
+                width="max-w-xs"
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+                handleDone={handleDone}
+                handleCancel={() => console.log("cancel")}
+                title="Payment successful"
+              >
+                <Filters
+                  kind={filterState.kind}
+                  handleDone={handleDone}
+                  inputValue={inputValue}
+                  setInputValue={setInputValue}
+                  stringState={stringState}
+                  setStringState={setStringState}
+                />
+              </MyDialog>
+            )}
           </>
         )}
       </Popover>

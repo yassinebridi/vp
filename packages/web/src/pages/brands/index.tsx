@@ -13,17 +13,30 @@ import {
   ChevronDownIcon,
   ChevronUpIcon,
 } from "@heroicons/react/outline";
-import { useQueryParams, useFilterStore } from "@utils";
+import { getQueryParams, useFilterStore } from "@utils";
 import React from "react";
+import { useLocation } from "react-router";
 
 export interface BrandsPageProps {}
 const BrandsPage: React.FC<BrandsPageProps> = () => {
-  const query = useQueryParams();
+  const { search } = useLocation();
   const { filterProps, setFilterProps } = useFilterStore();
-  const searchTerm = query.get("search");
+  const params = getQueryParams(search) as any;
+  const searchTerm = params.search;
+  const filter = params.filter;
 
   const { data: brandsData, isLoading } = useBrandsQuery({
-    where: { name: { contains: searchTerm ? searchTerm : undefined } },
+    where: {
+      name: {
+        contains: searchTerm
+          ? searchTerm
+          : filter
+          ? filter.name.contains
+          : undefined,
+        equals: filter ? filter.name.is : undefined,
+        not: { equals: filter ? filter.name.isNot : undefined },
+      },
+    },
   });
   const openFilters = () => {
     setFilterProps(!filterProps.open);

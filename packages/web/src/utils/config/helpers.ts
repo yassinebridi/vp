@@ -1,5 +1,6 @@
 import { CLOUDINARY_NAME } from "@vp/common";
 import * as dayjs from "dayjs";
+import qs from "qs";
 import { useLocation } from "react-router-dom";
 
 export const capitalize = (text: string) => {
@@ -63,4 +64,8 @@ export const getRandomAvatar = () => {
 
 export const useQueryParams = () => {
   return new URLSearchParams(useLocation().search);
+};
+
+export const getQueryParams = (search: string) => {
+  return qs.parse(search, { allowDots: true, ignoreQueryPrefix: true });
 };

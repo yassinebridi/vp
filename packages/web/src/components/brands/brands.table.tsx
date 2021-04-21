@@ -27,6 +27,7 @@ const BrandsTable: React.FC<BrandsTableProps> = ({ brands }) => {
     {
       Header: "Name",
       accessor: "name",
+      kind: "string",
       Cell: (props) => {
         return (
           <span className="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded-md">
@@ -38,10 +39,12 @@ const BrandsTable: React.FC<BrandsTableProps> = ({ brands }) => {
     {
       Header: "Products",
       accessor: "products",
+      kind: "number",
     },
     {
       Header: "Date",
       accessor: "date",
+      kind: "date",
       Cell: (props) => formatDate(props.cell.value),
     },
   ];

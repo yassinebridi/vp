@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import React from "react";
 
-export const IndeterminateCheckbox = React.forwardRef<
+const IndeterminateCheckbox = React.forwardRef<
   HTMLInputElement,
   { indeterminate: any; cs: string }
 >(({ indeterminate, cs, ...rest }, ref) => {
@@ -18,7 +18,7 @@ export const IndeterminateCheckbox = React.forwardRef<
       <input
         type="checkbox"
         className={clsx(
-          "form-checkbox ringify h-5 p-1 w-5 text-purple-500 dark:bg-gray-500 rounded-md"
+          "form-checkbox ringify h-5 p-1 w-5 text-purple-500 dark:text-gray-500 dark:bg-gray-500 rounded-md"
         )}
         ref={resolvedRef}
         {...rest}
@@ -26,3 +26,4 @@ export const IndeterminateCheckbox = React.forwardRef<
     </>
   );
 });
+export default IndeterminateCheckbox;

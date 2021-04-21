@@ -9,37 +9,40 @@ import {
   RouteProps,
   Switch,
 } from "react-router-dom";
+import { QueryParamProvider } from "use-query-params";
 
 export interface AppProps {}
 const App: React.FC<AppProps> = () => {
   return (
     <Router>
-      <Switch>
-        <CustomRoute
-          title="Brands | Videplacard"
-          exact
-          path="/brands"
-          isTable={true}
-          component={BrandsPage}
-          layout={HomeLayout}
-        />
-        <CustomRoute
-          title="Settings | Videplacard"
-          exact
-          path="/settings"
-          component={SettingsPage}
-          layout={HomeLayout}
-        />
-        <CustomRoute
-          title="Home | Videplacard"
-          exact
-          path="/"
-          component={HomePage}
-          layout={HomeLayout}
-        />
-        <Route exact path="/login" component={LoginPage} />
-        <Redirect to="/" />
-      </Switch>
+      <QueryParamProvider ReactRouterRoute={Route}>
+        <Switch>
+          <CustomRoute
+            title="Brands | Videplacard"
+            exact
+            path="/brands"
+            isTable={true}
+            component={BrandsPage}
+            layout={HomeLayout}
+          />
+          <CustomRoute
+            title="Settings | Videplacard"
+            exact
+            path="/settings"
+            component={SettingsPage}
+            layout={HomeLayout}
+          />
+          <CustomRoute
+            title="Home | Videplacard"
+            exact
+            path="/"
+            component={HomePage}
+            layout={HomeLayout}
+          />
+          <Route exact path="/login" component={LoginPage} />
+          <Redirect to="/" />
+        </Switch>
+      </QueryParamProvider>
     </Router>
   );
 };
