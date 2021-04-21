@@ -88,7 +88,7 @@ const Table: React.FC<TableProps> = ({
                       i === headerGroup.headers.length - 1 && "rounded-r-lg"
                     )}
                   >
-                    <div className="flex flex-row space-x-1">
+                    <div className="flex flex-row cursor-pointer space-x-1">
                       <span>{column.render("Header")}</span>
                       <span className="">
                         {column.isSorted ? (

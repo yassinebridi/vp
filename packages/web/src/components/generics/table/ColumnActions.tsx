@@ -1,15 +1,49 @@
-import React from "react";
+import { useRemoveBrandMutation } from "@adapters";
+import { useToast } from "@chakra-ui/react";
+import { MyDialog } from "@components";
 import { Popover, Transition } from "@headlessui/react";
-import {
-  DotsHorizontalIcon,
-  PencilAltIcon,
-  TrashIcon,
-} from "@heroicons/react/outline";
+import { DotsHorizontalIcon, TrashIcon } from "@heroicons/react/outline";
+import { capitalize } from "@utils";
+import React from "react";
+import { useQueryClient } from "react-query";
 
 export interface ColumnActionsProps {
   id: string;
 }
 const ColumnActions: React.FC<ColumnActionsProps> = ({ id }) => {
+  const toast = useToast();
+  const [isOpen, setIsOpen] = React.useState(false);
+  const queryClient = useQueryClient();
+  const [actionKind, setActionKind] = React.useState<"edit" | "remove">();
+  const { mutateAsync, isLoading } = useRemoveBrandMutation();
+  const handleDone = async () => {
+    try {
+      const res = await mutateAsync({ whereBrandInput: { id } });
+      if (res.removeBrand) {
+        queryClient.resetQueries({ queryKey: "brands" });
+        toast({
+          position: "bottom-right",
+          title: "The product has been deleted successfully",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+      }
+    } catch (error) {
+      toast({
+        position: "bottom-right",
+        title: "Error",
+        description: error.message,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
+  const handleRemove = () => {
+    setIsOpen(true);
+    setActionKind("remove");
+  };
   return (
     <Popover as="div" className="relative inline-block">
       {({ open }) => (
@@ -37,39 +71,31 @@ const ColumnActions: React.FC<ColumnActionsProps> = ({ id }) => {
             >
               <div
                 className="flex px-4 py-2 text-sm text-gray-800 cursor-pointer space-x-2 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-                onClick={() => alert(id)}
-              >
-                <PencilAltIcon className="w-5 h-5" />
-                <span>Edit</span>
-              </div>
-              <div
-                className="flex px-4 py-2 text-sm text-gray-800 cursor-pointer space-x-2 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-                onClick={() => alert(id)}
+                onClick={handleRemove}
               >
                 <TrashIcon className="w-5 h-5" />
                 <span>Trash</span>
               </div>
             </Popover.Panel>
           </Transition>
-          {/* {filterState && ( */}
-          {/*   <MyDialog */}
-          {/*     width="max-w-xs" */}
-          {/*     isOpen={isOpen} */}
-          {/*     setIsOpen={setIsOpen} */}
-          {/*     handleDone={handleDone} */}
-          {/*     handleCancel={() => null} */}
-          {/*     title="Payment successful" */}
-          {/*   > */}
-          {/*     <Filters */}
-          {/*       kind={filterState.kind} */}
-          {/*       handleDone={handleDone} */}
-          {/*       inputValue={inputValue} */}
-          {/*       setInputValue={setInputValue} */}
-          {/*       stringState={stringState} */}
-          {/*       setStringState={setStringState} */}
-          {/*     /> */}
-          {/*   </MyDialog> */}
-          {/* )} */}
+          {/* TODO: Translate this */}
+          {isOpen && (
+            <MyDialog
+              width="max-w-sm"
+              isOpen={isOpen}
+              setIsOpen={setIsOpen}
+              handleDone={handleDone}
+              handleCancel={() => null}
+              title={`${capitalize(actionKind)}ing an item`}
+              actionButton={{
+                title: actionKind === "remove" ? "Remove" : null,
+                cs: "bg-red-500 hover:bg-red-400 active:bg-red-600",
+                isLoading,
+              }}
+            >
+              Are you sure you want to {actionKind} this item
+            </MyDialog>
+          )}
         </>
       )}
     </Popover>

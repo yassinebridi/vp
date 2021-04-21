@@ -1,14 +1,21 @@
+import { SpinnerIcon } from "@design-system";
 import { Dialog, Transition } from "@headlessui/react";
 import clsx from "clsx";
 import React from "react";
 import { useHistory } from "react-router";
 
+type ActionButtonType = {
+  title: string;
+  cs?: string;
+  isLoading?: boolean;
+};
 export interface MyDialogProps {
   width?: "max-w-xs" | "max-w-sm" | "max-w-md" | "max-w-lg";
   title: string;
   isOpen: boolean;
   handleCancel: () => void;
   handleDone: () => void;
+  actionButton: ActionButtonType;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const MyDialog: React.FC<MyDialogProps> = ({
@@ -18,6 +25,7 @@ const MyDialog: React.FC<MyDialogProps> = ({
   setIsOpen,
   handleCancel,
   handleDone,
+  actionButton,
   children,
 }) => {
   const history = useHistory();
@@ -90,7 +98,9 @@ const MyDialog: React.FC<MyDialogProps> = ({
               >
                 {title}
               </Dialog.Title>
-              <div className="my-4">{children}</div>
+              <div className="my-4 text-gray-600 dark:text-gray-200">
+                {children}
+              </div>
 
               <div className="flex justify-between mt-4 space-x-4">
                 <button
@@ -103,12 +113,16 @@ const MyDialog: React.FC<MyDialogProps> = ({
                 <button
                   type="button"
                   className={clsx(
-                    "inline-flex justify-center px-4 py-2 text-sm font-semibold text-white bg-purple-500 border border-transparent rounded-md hover:bg-purple-400 active:bg-purple-600 ringify",
+                    "inline-flex justify-center px-4 py-2 text-sm font-semibold text-white border border-transparent rounded-md ringify",
+                    actionButton.cs
+                      ? actionButton.cs
+                      : "bg-purple-500 hover:bg-purple-400 active:bg-purple-600",
                     width === "max-w-xs" ? "w-full" : null
                   )}
                   onClick={handleDoneFn}
                 >
-                  Apply filters
+                  {actionButton.isLoading && <SpinnerIcon cn="h-5 w-5" />}
+                  {actionButton.title}
                 </button>
               </div>
             </div>

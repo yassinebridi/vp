@@ -13,7 +13,7 @@ import { useQueryClient } from "react-query";
 export interface SettingsPageProps {}
 const SettingsPage: React.FC<SettingsPageProps> = () => {
   const { meData } = useMe();
-  const queyClient = useQueryClient();
+  const queryClient = useQueryClient();
 
   const { mutateAsync, isLoading } = useUpdateUserMutation();
   const toast = useToast();
@@ -48,7 +48,7 @@ const SettingsPage: React.FC<SettingsPageProps> = () => {
 
       if (res && res.updateUser) {
         const meKey = useMeQuery.getKey();
-        queyClient.refetchQueries({ queryKey: meKey });
+        queryClient.refetchQueries({ queryKey: meKey });
         toast({
           position: "bottom-right",
           title: "Vos changements ont été enregistrés",

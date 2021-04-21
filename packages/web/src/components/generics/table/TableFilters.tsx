@@ -140,6 +140,7 @@ const TableFilters: React.FC<TableFiltersProps> = () => {
                 handleDone={handleDone}
                 handleCancel={() => null}
                 title="Payment successful"
+                actionButton={{ title: "Apply filters" }}
               >
                 <Filters
                   kind={filterState.kind}
