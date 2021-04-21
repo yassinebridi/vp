@@ -69,3 +69,9 @@ export const useQueryParams = () => {
 export const getQueryParams = (search: string) => {
   return qs.parse(search, { allowDots: true, ignoreQueryPrefix: true });
 };
+
+export const getFilterKind = (value: string) => {
+  return Object.keys(value)[0] === "contains" || "is" || "isNot"
+    ? "string"
+    : null;
+};

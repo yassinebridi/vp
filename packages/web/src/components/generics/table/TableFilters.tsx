@@ -1,7 +1,12 @@
 import { Filters, MyDialog } from "@components";
 import { Popover, Transition } from "@headlessui/react";
 import { PlusIcon, XIcon } from "@heroicons/react/outline";
-import { capitalize, getQueryParams, useTableContext } from "@utils";
+import {
+  capitalize,
+  getFilterKind,
+  getQueryParams,
+  useTableContext,
+} from "@utils";
 import React from "react";
 import { useHistory, useLocation } from "react-router";
 import { useQueryParam } from "use-query-params";
@@ -23,7 +28,7 @@ const TableFilters: React.FC<TableFiltersProps> = () => {
   const { columns, tableState } = useTableContext();
   let [isOpen, setIsOpen] = React.useState(false);
   const [inputValue, setInputValue] = React.useState<string>();
-  const [stringState, setStringState] = React.useState<string>("is");
+  const [stringState, setStringState] = React.useState<string>();
 
   let [filterState, setFilterState] = React.useState<{
     name: string;
@@ -39,8 +44,11 @@ const TableFilters: React.FC<TableFiltersProps> = () => {
   const tableStateReady = tableState !== undefined;
   const columnsReady = columns.length > 0 && columns;
 
-  const handleClickFilter = () => {
-    console.log("click filter");
+  const handleClickFilter = (name, kind, stringState, inputValue) => {
+    setFilterState({ name, kind });
+    setStringState(stringState);
+    setInputValue(inputValue);
+    setIsOpen(true);
   };
   const handleCloseFilter = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -54,6 +62,8 @@ const TableFilters: React.FC<TableFiltersProps> = () => {
   };
   const handleAddFilter = (name, kind) => {
     setFilterState({ name, kind });
+    setStringState("is");
+    setInputValue("");
     setIsOpen(true);
   };
   const handleDone = () => {
@@ -65,9 +75,17 @@ const TableFilters: React.FC<TableFiltersProps> = () => {
     <div className="flex flex-wrap flex-gap-4">
       {filterQueries &&
         Object.entries(filterQueries).map(([key, value]) => {
+          const kind = getFilterKind(value);
+          const stringState =
+            Object.keys(value)[0] === "isNot"
+              ? "is not"
+              : Object.keys(value)[0];
+          const inputValue = value[Object.keys(value)[0]];
           return (
             <button
-              onClick={handleClickFilter}
+              onClick={() =>
+                handleClickFilter(key, kind, stringState, inputValue)
+              }
               className="flex items-center px-4 py-2 text-sm bg-gray-100 rounded-lg space-x-2 active:shadow-lg dark:bg-gray-800 dark:hover:bg-gray-800 dark:active:bg-gray-850 ringify hover:bg-[#f7f7f7] active:bg-gray-200"
             >
               <div>
@@ -75,10 +93,10 @@ const TableFilters: React.FC<TableFiltersProps> = () => {
                   {capitalize(key)}
                 </span>{" "}
                 <span className="text-gray-500 dark:text-gray-300">
-                  {Object.keys(value)[0]}
+                  {stringState}
                 </span>{" "}
                 <span className="text-gray-700 dark:text-white">
-                  {value[Object.keys(value)[0]]}
+                  {inputValue}
                 </span>
               </div>
               <div
@@ -132,6 +150,7 @@ const TableFilters: React.FC<TableFiltersProps> = () => {
                     ))}
               </Popover.Panel>
             </Transition>
+            {/* TODO: Translate title */}
             {filterState && (
               <MyDialog
                 width="max-w-xs"
@@ -139,7 +158,7 @@ const TableFilters: React.FC<TableFiltersProps> = () => {
                 setIsOpen={setIsOpen}
                 handleDone={handleDone}
                 handleCancel={() => null}
-                title="Payment successful"
+                title="Adding a filter"
                 actionButton={{ title: "Apply filters" }}
               >
                 <Filters
