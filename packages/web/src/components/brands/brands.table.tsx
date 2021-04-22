@@ -54,6 +54,7 @@ const BrandsTable: React.FC<BrandsTableProps> = ({ brands }) => {
       accessor: "actions",
       kind: "string",
       width: "6%",
+      disableSortBy: true,
       Cell: (props) => {
         return <ColumnActions id={props.cell.row.original.id} />;
       },
