@@ -4,11 +4,12 @@ import { PlusIcon, XIcon } from "@heroicons/react/outline";
 import {
   capitalize,
   getFilterKind,
-  getQueryParams,
+  useMyParams,
   useTableContext,
 } from "@utils";
 import React from "react";
-import { useHistory, useLocation } from "react-router";
+import { useQueryClient } from "react-query";
+import { useHistory } from "react-router";
 import { useQueryParam } from "use-query-params";
 import { KindType } from "./Filters";
 
@@ -20,10 +21,10 @@ const stringStateMapper = {
 
 export interface TableFiltersProps {}
 const TableFilters: React.FC<TableFiltersProps> = () => {
-  const history = useHistory();
-  const { search } = useLocation();
+  const queryClient = useQueryClient();
+  const router = useHistory();
   const queryParams = new URLSearchParams(location.search);
-  const filterQueries = getQueryParams(search).filter as Object;
+  const [filter] = useMyParams<[object]>([{ query: "filter", type: "object" }]);
 
   const { columns, tableState } = useTableContext();
   let [isOpen, setIsOpen] = React.useState(false);
@@ -41,6 +42,8 @@ const TableFilters: React.FC<TableFiltersProps> = () => {
       : ""
   );
 
+  const [__, setPageNo] = useQueryParam("pageNo");
+
   const tableStateReady = tableState !== undefined;
   const columnsReady = columns.length > 0 && columns;
 
@@ -56,9 +59,10 @@ const TableFilters: React.FC<TableFiltersProps> = () => {
   ) => {
     e.stopPropagation();
     queryParams.delete(query);
-    history.replace({
+    router.push({
       search: queryParams.toString(),
     });
+    queryClient.resetQueries({ queryKey: ["brands"] });
   };
   const handleAddFilter = (name, kind) => {
     setFilterState({ name, kind });
@@ -68,13 +72,15 @@ const TableFilters: React.FC<TableFiltersProps> = () => {
   };
   const handleDone = () => {
     if (inputValue.length > 0) {
-      setFiltersQuery(inputValue, "pushIn");
+      setFiltersQuery(inputValue, "replace");
+      setPageNo(1);
+      queryClient.resetQueries({ queryKey: ["brands"] });
     }
   };
   return (
     <div className="flex flex-wrap flex-gap-4">
-      {filterQueries &&
-        Object.entries(filterQueries).map(([key, value]) => {
+      {filter &&
+        Object.entries(filter).map(([key, value]) => {
           const kind = getFilterKind(value);
           const stringState =
             Object.keys(value)[0] === "isNot"

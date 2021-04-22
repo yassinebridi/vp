@@ -1,7 +1,10 @@
 import BulkAction from "./BulkAction";
 import ColumnActions from "./ColumnActions";
+import FilterButton from "./FilterButton";
 import Filters from "./Filters";
 import IndeterminateCheckbox from "./IndeterminateCheckbox";
+import PageSizeSelect from "./PageSizeSelect";
+import Pagination from "./Pagination";
 import Table from "./Table";
 import TableFilters from "./TableFilters";
 import TableSearch from "./TableSearch";
@@ -16,4 +19,7 @@ export {
   Filters,
   BulkAction,
   ColumnActions,
+  PageSizeSelect,
+  FilterButton,
+  Pagination,
 };
