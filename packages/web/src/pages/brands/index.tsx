@@ -24,8 +24,8 @@ const BrandsPage: React.FC<BrandsPageProps> = () => {
   const params = getQueryParams(search) as any;
   const searchTerm = params.search;
   const filter = params.filter;
-  const pageNo = +params.pageNo;
-  const pageSize = +params.pageSize;
+  const pageNo = +params.pageNo || 1;
+  const pageSize = +params.pageSize || 25;
 
   const skip = (pageNo - 1) * pageSize;
   const take = pageSize;
