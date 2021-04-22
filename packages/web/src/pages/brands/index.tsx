@@ -5,23 +5,27 @@ import {
   FilterButton,
   PageHeader,
   Pagination,
+  SortButton,
   TableFilters,
   TableSearch,
   TableSettingsDropdown,
+  TableSorts,
 } from "@components";
 import { SpinnerIcon } from "@design-system";
-import { paginate, useFilterStore, useMyParams } from "@utils";
+import { paginate, useFilterStore, useMyParams, useSortStore } from "@utils";
 import React from "react";
 
 export interface BrandsPageProps {}
 const BrandsPage: React.FC<BrandsPageProps> = () => {
   const { filterProps } = useFilterStore();
+  const { sortProps } = useSortStore();
 
-  const [searchTerm, filter, pageNoQuery, pageSizeQuery] = useMyParams<
-    [string, any, number, number]
+  const [searchTerm, filter, sort, pageNoQuery, pageSizeQuery] = useMyParams<
+    [string, any, any, number, number]
   >([
     { query: "search", type: "string" },
     { query: "filter", type: "object" },
+    { query: "sort", type: "object" },
     { query: "pageNo", type: "number" },
     { query: "pageSize", type: "number" },
   ]);
@@ -31,9 +35,15 @@ const BrandsPage: React.FC<BrandsPageProps> = () => {
   const skip = (pageNo - 1) * pageSize;
   const take = pageSize;
 
+  let orderBy: BrandsQueryVariables["orderBy"] = [];
+  if (sort) {
+    sort.name ? orderBy.push({ name: sort.name }) : undefined;
+    sort.date ? orderBy.push({ createdAt: sort.date }) : undefined;
+  }
   const brandsVariables: BrandsQueryVariables = {
     take,
     skip,
+    orderBy,
     where: {
       name:
         searchTerm || filter
@@ -51,6 +61,7 @@ const BrandsPage: React.FC<BrandsPageProps> = () => {
           : undefined,
     },
   };
+
   const { data: brandsData, isLoading } = useBrandsQuery(brandsVariables);
 
   const paginator =
@@ -61,11 +72,11 @@ const BrandsPage: React.FC<BrandsPageProps> = () => {
     <div className="px-6 py-6">
       <PageHeader component="brands" />
       <div className="mt-6">
-        <div className="flex justify-between min-w-full px-6 text-gray-600 dark:text-gray-400">
+        <div className="flex items-center justify-between min-w-full px-6 text-gray-600 dark:text-gray-400">
           <TableSearch />
 
           <div className="flex items-center justify-between space-x-3">
-            <FilterButton />
+            <SortButton />
             <FilterButton />
             <TableSettingsDropdown />
           </div>
@@ -74,6 +85,11 @@ const BrandsPage: React.FC<BrandsPageProps> = () => {
         {filterProps.open && (
           <div className="my-2">
             <TableFilters />
+          </div>
+        )}
+        {sortProps.open && (
+          <div className="my-2">
+            <TableSorts />
           </div>
         )}
 

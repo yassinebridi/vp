@@ -17,7 +17,7 @@ const TableSearch: React.FC<TableSearchProps> = () => {
   };
 
   return (
-    <div className="flex items-center space-x-6 text">
+    <div className="flex items-center space-x-6">
       <SearchIcon className="w-5 h-5" />
       <form onSubmit={handleSearchSubmit}>
         <input

@@ -75,6 +75,11 @@ export const getFilterKind = (value: string) => {
     ? "string"
     : null;
 };
+export const getSortKind = (value: string) => {
+  return Object.keys(value)[0] === "contains" || "is" || "isNot"
+    ? "string"
+    : null;
+};
 
 export const paginate = (
   totalItems: number,

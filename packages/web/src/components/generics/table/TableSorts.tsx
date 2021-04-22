@@ -1,45 +1,35 @@
-import { Filters, MyDialog } from "@components";
+import { Sorts, MyDialog } from "@components";
 import { Popover, Transition } from "@headlessui/react";
 import { PlusIcon, XIcon } from "@heroicons/react/outline";
-import {
-  capitalize,
-  getFilterKind,
-  useMyParams,
-  useTableContext,
-} from "@utils";
+import { capitalize, getSortKind, useMyParams, useTableContext } from "@utils";
 import React from "react";
 import { useQueryClient } from "react-query";
 import { useHistory } from "react-router";
 import { useQueryParam } from "use-query-params";
-import { KindType } from "./Filters";
+import { KindType } from "./Sorts";
 
-const stringStateMapper = {
-  is: "is",
-  "is not": "isNot",
-  contains: "contains",
-};
-
-export interface TableFiltersProps {}
-const TableFilters: React.FC<TableFiltersProps> = () => {
+export interface TableSortsProps {}
+const TableSorts: React.FC<TableSortsProps> = () => {
+  const sortsMapper = {
+    asc: "Ascending",
+    desc: "Descending",
+  };
   const queryClient = useQueryClient();
   const router = useHistory();
   const queryParams = new URLSearchParams(location.search);
-  const [filter] = useMyParams<[object]>([{ query: "filter", type: "object" }]);
+  const [sort] = useMyParams<[object]>([{ query: "sort", type: "object" }]);
 
   const { columns, tableState } = useTableContext();
   let [isOpen, setIsOpen] = React.useState(false);
   const [inputValue, setInputValue] = React.useState<string>();
-  const [stringState, setStringState] = React.useState<string>();
 
-  let [filterState, setFilterState] = React.useState<{
+  let [sortState, setSortState] = React.useState<{
     name: string;
     kind: KindType;
   }>();
 
-  const [_, setFiltersQuery] = useQueryParam(
-    filterState
-      ? `filter.${filterState.name}.${stringStateMapper[stringState]}`
-      : ""
+  const [_, setSortsQuery] = useQueryParam(
+    sortState ? `sort.${sortState.name}` : ""
   );
 
   const [__, setPageNo] = useQueryParam("pageNo");
@@ -47,13 +37,12 @@ const TableFilters: React.FC<TableFiltersProps> = () => {
   const tableStateReady = tableState !== undefined;
   const columnsReady = columns.length > 0 && columns;
 
-  const handleClickFilter = (name, kind, stringState, inputValue) => {
-    setFilterState({ name, kind });
-    setStringState(stringState);
+  const handleClickSort = (name, kind, inputValue) => {
+    setSortState({ name, kind });
     setInputValue(inputValue);
     setIsOpen(true);
   };
-  const handleCloseFilter = (
+  const handleCloseSort = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
     query: string
   ) => {
@@ -64,53 +53,41 @@ const TableFilters: React.FC<TableFiltersProps> = () => {
     });
     queryClient.resetQueries({ queryKey: ["brands"] });
   };
-  const handleAddFilter = (name, kind) => {
-    setFilterState({ name, kind });
-    setStringState("is");
+  const handleAddSort = (name, kind) => {
+    setSortState({ name, kind });
     setInputValue("");
     setIsOpen(true);
   };
   const handleDone = () => {
     if (inputValue.length > 0) {
-      setFiltersQuery(inputValue, "replace");
+      setSortsQuery(inputValue, "pushIn");
       setPageNo(1);
       queryClient.resetQueries({ queryKey: ["brands"] });
     }
   };
   return (
     <div className="flex flex-wrap flex-gap-4">
-      {filter &&
-        Object.entries(filter).map(([key, value]) => {
-          const kind = getFilterKind(value);
-          const stringState =
-            Object.keys(value)[0] === "isNot"
-              ? "is not"
-              : Object.keys(value)[0];
-          const inputValue = value[Object.keys(value)[0]];
+      {sort &&
+        Object.entries(sort).map(([key, value]) => {
+          const kind = getSortKind(value);
           return (
             <button
               key={key}
-              onClick={() =>
-                handleClickFilter(key, kind, stringState, inputValue)
-              }
+              onClick={() => handleClickSort(key, kind, inputValue)}
               className="flex items-center px-4 py-2 text-sm bg-gray-100 rounded-lg space-x-2 active:shadow-lg dark:bg-gray-800 dark:hover:bg-gray-800 dark:active:bg-gray-850 ringify hover:bg-[#f7f7f7] active:bg-gray-200"
             >
               <div>
                 <span className="text-gray-700 dark:text-white">
                   {capitalize(key)}
                 </span>{" "}
-                <span className="text-gray-500 dark:text-gray-300">
-                  {stringState}
-                </span>{" "}
+                <span>:</span>{" "}
                 <span className="text-gray-700 dark:text-white">
-                  {inputValue}
+                  {sortsMapper[value]}
                 </span>
               </div>
               <div
                 className="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md"
-                onClick={(e) =>
-                  handleCloseFilter(e, `filter.${key}.${Object.keys(value)[0]}`)
-                }
+                onClick={(e) => handleCloseSort(e, `sort.${key}`)}
               >
                 <XIcon className="w-4 h-4" />
               </div>
@@ -123,11 +100,11 @@ const TableFilters: React.FC<TableFiltersProps> = () => {
           <>
             {/* TODO:Title To translate */}
             <Popover.Button
-              title="New filter"
-              className="h-full items-center dark:text-gray-400 text-gray-700 flex items-center p-2 text-sm bg-gray-100 rounded-lg space-x-1 active:shadow-lg dark:bg-gray-800 dark:hover:bg-gray-800 dark:active:bg-gray-850 ringify hover:bg-[#f7f7f7] active:bg-gray-200"
+              title="New sort"
+              className="h-full dark:text-gray-400 text-gray-700 flex items-center p-2 text-sm bg-gray-100 rounded-lg space-x-1 active:shadow-lg dark:bg-gray-800 dark:hover:bg-gray-800 dark:active:bg-gray-850 ringify hover:bg-[#f7f7f7] active:bg-gray-200"
             >
               <PlusIcon className="w-6 h-6" />
-              {!filter && <span className="pr-1">New filter</span>}
+              {!sort && <span className="pr-1">New sort</span>}
             </Popover.Button>
 
             <Transition
@@ -152,7 +129,7 @@ const TableFilters: React.FC<TableFiltersProps> = () => {
                       <div
                         key={column.id}
                         className="px-4 py-2 text-sm text-gray-800 cursor-pointer dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-                        onClick={() => handleAddFilter(column.id, column.kind)}
+                        onClick={() => handleAddSort(column.id, column.kind)}
                       >
                         {column.Header}
                       </div>
@@ -160,23 +137,20 @@ const TableFilters: React.FC<TableFiltersProps> = () => {
               </Popover.Panel>
             </Transition>
             {/* TODO: Translate title */}
-            {filterState && (
+            {sortState && (
               <MyDialog
                 width="max-w-xs"
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
                 handleDone={handleDone}
                 handleCancel={() => null}
-                title="Adding a filter"
-                actionButton={{ title: "Apply filters" }}
+                title="Adding a sort"
+                actionButton={{ title: "Apply sorts" }}
               >
-                <Filters
-                  kind={filterState.kind}
-                  handleDone={handleDone}
+                <Sorts
                   inputValue={inputValue}
                   setInputValue={setInputValue}
-                  stringState={stringState}
-                  setStringState={setStringState}
+                  kind={sortState.kind}
                 />
               </MyDialog>
             )}
@@ -187,4 +161,4 @@ const TableFilters: React.FC<TableFiltersProps> = () => {
   );
 };
 
-export default TableFilters;
+export default TableSorts;
