@@ -123,7 +123,7 @@ const Table: React.FC<TableProps> = ({
                     <td
                       {...cell.getCellProps()}
                       className={clsx(
-                        "whitespace-nowrap px-6 py-3",
+                        "whitespace-nowrap px-6 py-2",
                         i === 0 && "rounded-l-lg",
                         i === row.cells.length - 1 && "rounded-r-lg"
                       )}

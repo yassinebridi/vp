@@ -28,7 +28,7 @@ const TableSettingsDropdown: React.FC<TableSettingsDropdownProps> = () => {
           >
             <Popover.Panel
               static
-              className="absolute right-0 w-32 py-2 mt-2 text-gray-700 dark:text-gray-300 bg-white shadow-2xl origin-top-right rounded-md ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-[#2b2a2f]"
+              className="absolute right-0 w-32 z-10 py-2 mt-2 text-gray-700 dark:text-gray-300 bg-white shadow-2xl origin-top-right rounded-md ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-[#2b2a2f]"
             >
               {columnsReady &&
                 tableStateReady &&

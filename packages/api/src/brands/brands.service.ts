@@ -14,6 +14,7 @@ import {
   UpdateOneBrandArgs,
 } from 'src/@generated';
 import { PrismaService } from 'src/prisma/prisma.service';
+import * as Chance from 'chance';
 
 @Injectable()
 export class BrandsService {
@@ -110,7 +111,12 @@ export class BrandsService {
   }
 
   async bulkBrands(number: number) {
-    console.log('number: ', number);
+    const chance = new Chance();
+    await this.prismaService.brand.createMany({
+      data: Array.from({ length: number }).map(() => {
+        return { name: chance.word() };
+      }),
+    });
     return true;
   }
 

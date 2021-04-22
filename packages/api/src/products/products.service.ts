@@ -10,6 +10,10 @@ import {
   FindManyProductArgs,
   FindUniqueProductArgs,
   ProductCreateInput,
+  ProductPublishStatus,
+  ProductSeason,
+  ProductSize,
+  ProductStatus,
   ProductWhereUniqueInput,
   UpdateOneProductArgs,
 } from 'src/@generated';
@@ -110,7 +114,54 @@ export class ProductsService {
   }
 
   async bulkProducts(number: number) {
-    console.log('number: ', number);
+    let i: number;
+    for (i = 0; i < number; i++) {
+      await this.prismaService.product.create({
+        data: {
+          title: '',
+          desc: '',
+          size: ProductSize.xl,
+          season: ProductSeason.spring,
+          price: 50,
+          viewsNumber: 122,
+          productStatus: ProductStatus.like_new,
+          publishStatus: ProductPublishStatus.published,
+          dateOfPurchase: new Date(),
+          author: {
+            connect: {
+              email: 'ybridi@gmail.com',
+            },
+          },
+          brand: {
+            create: {
+              name: '',
+            },
+          },
+          city: {
+            create: {
+              name: '',
+            },
+          },
+          category: {
+            create: {
+              name: '',
+            },
+          },
+          images: {
+            createMany: {
+              skipDuplicates: true,
+              data: [
+                {
+                  title: '',
+                  desc: '',
+                  url: '',
+                },
+              ],
+            },
+          },
+        },
+      });
+    }
     return true;
   }
 

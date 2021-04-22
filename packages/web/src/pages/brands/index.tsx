@@ -13,7 +13,7 @@ import {
   ChevronDownIcon,
   ChevronUpIcon,
 } from "@heroicons/react/outline";
-import { getQueryParams, useFilterStore } from "@utils";
+import { getQueryParams, paginate, useFilterStore } from "@utils";
 import React from "react";
 import { useLocation } from "react-router";
 
@@ -24,8 +24,15 @@ const BrandsPage: React.FC<BrandsPageProps> = () => {
   const params = getQueryParams(search) as any;
   const searchTerm = params.search;
   const filter = params.filter;
+  const pageNo = +params.pageNo;
+  const pageSize = +params.pageSize;
+
+  const skip = (pageNo - 1) * pageSize;
+  const take = pageSize;
 
   const { data: brandsData, isLoading } = useBrandsQuery({
+    take,
+    skip,
     where: {
       name: {
         contains: searchTerm
@@ -41,6 +48,10 @@ const BrandsPage: React.FC<BrandsPageProps> = () => {
   const openFilters = () => {
     setFilterProps(!filterProps.open);
   };
+
+  const pagintation =
+    !isLoading &&
+    paginate(brandsData.getAllBrands.totalPages, pageNo, pageSize, 100);
 
   return (
     <div className="px-6 py-6">
@@ -90,9 +101,23 @@ const BrandsPage: React.FC<BrandsPageProps> = () => {
         )}
 
         <div className="flex items-center justify-between min-w-full px-6 my-3 mt-6 text-sm space-x-6 dark:text-gray-300">
-          <span>1 - 25 of 1,042</span>
+          {isLoading ? (
+            <span>loading..</span>
+          ) : (
+            <span>
+              {pagintation.startIndex} <span className="text-gray-400">-</span>{" "}
+              {pagintation.endIndex} <span className="text-gray-400">of</span>{" "}
+              {pagintation.totalItems}
+            </span>
+          )}
           <div className="flex items-center space-x-4">
-            <span>1 of 41</span>
+            {isLoading ? (
+              <span>loading..</span>
+            ) : (
+              <span>
+                {pagintation.currentPage} of {pagintation.totalPages}
+              </span>
+            )}
             <ArrowRightIcon className="w-5 h-5" />
           </div>
         </div>
