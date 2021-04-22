@@ -25,7 +25,7 @@ export class CitiesService {
 
   async getAllCities(getAllCitiesInput: FindManyCityArgs) {
     const citiesTransaction = await this.prismaService.$transaction([
-      this.prismaService.city.count(),
+      this.prismaService.city.count(getAllCitiesInput),
       this.prismaService.city.findMany(getAllCitiesInput),
     ]);
 

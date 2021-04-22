@@ -26,7 +26,10 @@ export class BrandsService {
 
   async getAllBrands(getAllBrandsInput: FindManyBrandArgs) {
     const brandsTransaction = await this.prismaService.$transaction([
-      this.prismaService.brand.count(),
+      this.prismaService.brand.count({
+        where: getAllBrandsInput.where,
+        orderBy: getAllBrandsInput.orderBy,
+      }),
       this.prismaService.brand.findMany(getAllBrandsInput),
     ]);
 

@@ -28,7 +28,7 @@ export class <%=h.inflection.pluralize(Name)%>Service {
 
   async getAll<%=h.inflection.pluralize(Name)%>(getAll<%=h.inflection.pluralize(Name)%>Input: FindMany<%=Name%>Args) {
     const <%=h.inflection.pluralize(name)%>Transaction = await this.prismaService.$transaction([
-      this.prismaService.<%=name%>.count(),
+      this.prismaService.<%=name%>.count(getAll<%=h.inflection.pluralize(Name)%>Input),
       this.prismaService.<%=name%>.findMany(getAll<%=h.inflection.pluralize(Name)%>Input),
     ]);
 

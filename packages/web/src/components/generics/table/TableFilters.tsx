@@ -68,7 +68,7 @@ const TableFilters: React.FC<TableFiltersProps> = () => {
   };
   const handleDone = () => {
     if (inputValue.length > 0) {
-      setFiltersQuery(inputValue, "push");
+      setFiltersQuery(inputValue, "pushIn");
     }
   };
   return (
@@ -83,6 +83,7 @@ const TableFilters: React.FC<TableFiltersProps> = () => {
           const inputValue = value[Object.keys(value)[0]];
           return (
             <button
+              key={key}
               onClick={() =>
                 handleClickFilter(key, kind, stringState, inputValue)
               }

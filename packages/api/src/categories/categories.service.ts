@@ -25,7 +25,7 @@ export class CategoriesService {
 
   async getAllCategories(getAllCategoriesInput: FindManyCategoryArgs) {
     const categoriesTransaction = await this.prismaService.$transaction([
-      this.prismaService.category.count(),
+      this.prismaService.category.count(getAllCategoriesInput),
       this.prismaService.category.findMany(getAllCategoriesInput),
     ]);
 

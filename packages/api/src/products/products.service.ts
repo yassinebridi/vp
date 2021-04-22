@@ -29,7 +29,7 @@ export class ProductsService {
 
   async getAllProducts(getAllProductsInput: FindManyProductArgs) {
     const productsTransaction = await this.prismaService.$transaction([
-      this.prismaService.product.count(),
+      this.prismaService.product.count(getAllProductsInput),
       this.prismaService.product.findMany(getAllProductsInput),
     ]);
 

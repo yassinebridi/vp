@@ -1,4 +1,4 @@
-import { useBrandsQuery } from "@adapters";
+import { BrandsQueryVariables, useBrandsQuery } from "@adapters";
 import {
   BrandsTable,
   BulkAction,
@@ -7,30 +7,42 @@ import {
   TableSearch,
   TableSettingsDropdown,
 } from "@components";
+import PageSizeSelect from "@components/generics/table/PageSizeSelect";
 import { SpinnerIcon } from "@design-system";
 import {
+  ArrowLeftIcon,
   ArrowRightIcon,
   ChevronDownIcon,
   ChevronUpIcon,
 } from "@heroicons/react/outline";
 import { getQueryParams, paginate, useFilterStore } from "@utils";
+import clsx from "clsx";
 import React from "react";
+import { useQueryClient } from "react-query";
 import { useLocation } from "react-router";
+import { useQueryParam } from "use-query-params";
 
 export interface BrandsPageProps {}
 const BrandsPage: React.FC<BrandsPageProps> = () => {
   const { search } = useLocation();
+  const queryClient = useQueryClient();
   const { filterProps, setFilterProps } = useFilterStore();
   const params = getQueryParams(search) as any;
   const searchTerm = params.search;
   const filter = params.filter;
   const pageNo = +params.pageNo || 1;
-  const pageSize = +params.pageSize || 25;
+  const pageSize = +params.pageSize || 20;
 
   const skip = (pageNo - 1) * pageSize;
   const take = pageSize;
 
-  const { data: brandsData, isLoading } = useBrandsQuery({
+  const openFilters = () => {
+    setFilterProps(!filterProps.open);
+  };
+
+  const [_, setPageNo] = useQueryParam("pageNo");
+
+  const brandsVariables: BrandsQueryVariables = {
     take,
     skip,
     where: {
@@ -44,10 +56,16 @@ const BrandsPage: React.FC<BrandsPageProps> = () => {
         not: { equals: filter ? filter.name.isNot : undefined },
       },
     },
-  });
-  const openFilters = () => {
-    setFilterProps(!filterProps.open);
   };
+  const handleNext = () => {
+    setPageNo(pagintation.nextPage, "pushIn");
+    queryClient.resetQueries({ queryKey: ["brands"] });
+  };
+  const handlePrev = () => {
+    setPageNo(pagintation.prevPage, "pushIn");
+    queryClient.resetQueries({ queryKey: ["brands"] });
+  };
+  const { data: brandsData, isLoading } = useBrandsQuery(brandsVariables);
 
   const pagintation =
     !isLoading &&
@@ -105,12 +123,26 @@ const BrandsPage: React.FC<BrandsPageProps> = () => {
             <span>loading..</span>
           ) : (
             <span>
-              {pagintation.startIndex} <span className="text-gray-400">-</span>{" "}
-              {pagintation.endIndex} <span className="text-gray-400">of</span>{" "}
-              {pagintation.totalItems}
+              {pagintation.startIndex + 1}{" "}
+              <span className="text-gray-400">-</span>{" "}
+              {pagintation.endIndex + 1}{" "}
+              <span className="text-gray-400">of</span>{" "}
+              {pagintation.totalItems + 1}
             </span>
           )}
+          <div>
+            <PageSizeSelect />
+          </div>
           <div className="flex items-center space-x-4">
+            <button
+              disabled={!pagintation.hasPrev}
+              className={clsx(
+                "disabled:opacity-50 disabled:cursor-not-allowed ringify"
+              )}
+              onClick={handlePrev}
+            >
+              <ArrowLeftIcon className="w-5 h-5" />
+            </button>
             {isLoading ? (
               <span>loading..</span>
             ) : (
@@ -118,7 +150,15 @@ const BrandsPage: React.FC<BrandsPageProps> = () => {
                 {pagintation.currentPage} of {pagintation.totalPages}
               </span>
             )}
-            <ArrowRightIcon className="w-5 h-5" />
+            <button
+              disabled={!pagintation.hasNext}
+              className={clsx(
+                "disabled:opacity-50 disabled:cursor-not-allowed ringify"
+              )}
+              onClick={handleNext}
+            >
+              <ArrowRightIcon className="w-5 h-5" />
+            </button>
           </div>
         </div>
         <BulkAction />
