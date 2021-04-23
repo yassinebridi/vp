@@ -1,26 +1,35 @@
-import { useRemoveBrandMutation } from "@adapters";
 import { useToast } from "@chakra-ui/react";
 import { MyDialog } from "@components";
+import { RestoreIcon } from "@design-system";
 import { Popover, Transition } from "@headlessui/react";
 import { DotsHorizontalIcon, TrashIcon } from "@heroicons/react/outline";
-import { capitalize } from "@utils";
+import { usePageState } from "@utils";
 import React from "react";
 import { useQueryClient } from "react-query";
 
+export type ActionKindType = "remove" | "restore";
 export interface ColumnActionsProps {
   id: string;
+  handleAsyncRemove: (id: string, type: ActionKindType) => Promise<boolean>;
+  isLoading: boolean;
 }
-const ColumnActions: React.FC<ColumnActionsProps> = ({ id }) => {
+const ColumnActions: React.FC<ColumnActionsProps> = ({
+  id,
+  handleAsyncRemove,
+  isLoading,
+}) => {
+  const { component, countComponent, isTrash } = usePageState();
+
   const toast = useToast();
   const [isOpen, setIsOpen] = React.useState(false);
   const queryClient = useQueryClient();
-  const [actionKind, setActionKind] = React.useState<"edit" | "remove">();
-  const { mutateAsync, isLoading } = useRemoveBrandMutation();
+  const [actionKind, setActionKind] = React.useState<ActionKindType>();
   const handleDone = async () => {
     try {
-      const res = await mutateAsync({ whereBrandInput: { id } });
-      if (res.removeBrand) {
-        queryClient.resetQueries({ queryKey: "brands" });
+      const res = await handleAsyncRemove(id, actionKind);
+      if (res) {
+        queryClient.resetQueries({ queryKey: [component] });
+        queryClient.resetQueries({ queryKey: [countComponent] });
         toast({
           position: "bottom-right",
           title: "The product has been deleted successfully",
@@ -43,6 +52,10 @@ const ColumnActions: React.FC<ColumnActionsProps> = ({ id }) => {
   const handleRemove = () => {
     setIsOpen(true);
     setActionKind("remove");
+  };
+  const handleRestore = () => {
+    setIsOpen(true);
+    setActionKind("restore");
   };
   return (
     <Popover as="div" className="relative inline-block">
@@ -74,8 +87,17 @@ const ColumnActions: React.FC<ColumnActionsProps> = ({ id }) => {
                 onClick={handleRemove}
               >
                 <TrashIcon className="w-5 h-5" />
-                <span>Trash</span>
+                <span>{isTrash ? "Remove" : "Trash"}</span>
               </div>
+              {isTrash && (
+                <div
+                  className="flex px-4 py-2 text-sm text-gray-800 cursor-pointer space-x-2 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                  onClick={handleRestore}
+                >
+                  <RestoreIcon cn="w-5 h-5 text-gray-800 dark:text-gray-300" />
+                  <span>Restore</span>
+                </div>
+              )}
             </Popover.Panel>
           </Transition>
           {/* TODO: Translate this */}
@@ -86,10 +108,26 @@ const ColumnActions: React.FC<ColumnActionsProps> = ({ id }) => {
               setIsOpen={setIsOpen}
               handleDone={handleDone}
               handleCancel={() => null}
-              title={`${capitalize(actionKind)}ing an item`}
+              title={
+                actionKind === "remove"
+                  ? "Removing an item"
+                  : actionKind === "restore"
+                  ? "Restoring an item"
+                  : null
+              }
               actionButton={{
-                title: actionKind === "remove" ? "Remove" : null,
-                cs: "bg-red-500 hover:bg-red-400 active:bg-red-600",
+                title:
+                  actionKind === "remove"
+                    ? "Remove"
+                    : actionKind === "restore"
+                    ? "Restore"
+                    : null,
+                cs:
+                  actionKind === "remove"
+                    ? "bg-red-500 hover:bg-red-400 active:bg-red-600"
+                    : actionKind === "restore"
+                    ? "bg-blue-500 hover:bg-blue-400 active:bg-blue-600"
+                    : null,
                 isLoading,
               }}
             >

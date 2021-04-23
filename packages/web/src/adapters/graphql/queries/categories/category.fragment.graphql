@@ -1,6 +1,7 @@
 fragment CategoryFields on Category {
   id
   name
+  isTrash
   createdAt
   updatedAt
   products {

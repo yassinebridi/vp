@@ -1,5 +1,6 @@
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/outline";
+import { usePageState } from "@utils";
 import clsx from "clsx";
 import React from "react";
 import { useQueryClient } from "react-query";
@@ -7,6 +8,8 @@ import { useQueryParam } from "use-query-params";
 
 export interface PageSizeSelectProps {}
 const PageSizeSelect: React.FC<PageSizeSelectProps> = () => {
+  const { component } = usePageState();
+
   const queryClient = useQueryClient();
   const [selected, setSelected] = React.useState(sizes[1]);
   const [__, setPageSize] = useQueryParam("pageSize");
@@ -14,7 +17,7 @@ const PageSizeSelect: React.FC<PageSizeSelectProps> = () => {
   const handleSizeChange = (e) => {
     setSelected(e);
     setPageSize(e.name);
-    queryClient.resetQueries({ queryKey: ["brands"] });
+    queryClient.resetQueries({ queryKey: [component] });
   };
 
   return (

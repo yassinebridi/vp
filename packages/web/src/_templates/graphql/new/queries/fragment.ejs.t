@@ -3,4 +3,5 @@ to: adapters/graphql/queries/<%=h.inflection.pluralize(name)%>/<%=name%>.fragmen
 ---
 fragment <%=Name%>Fields on <%=Name%> {
   id
+  isTrash
 }

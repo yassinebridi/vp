@@ -1,12 +1,71 @@
-import { BrandsQuery } from "@adapters";
+import {
+  BrandsQuery,
+  useRemoveBrandMutation,
+  useUpdateBrandMutation,
+} from "@adapters";
 import { ColumnActions, Table } from "@components";
-import { formatDate } from "@utils";
+import { ActionKindType } from "@components/generics/table/ColumnActions";
+import { formatDate, usePageState } from "@utils";
 import React from "react";
 
 export interface BrandsTableProps {
   brands: BrandsQuery;
 }
 const BrandsTable: React.FC<BrandsTableProps> = ({ brands }) => {
+  const { isTrash } = usePageState();
+
+  const {
+    mutateAsync: updateBrandMutateAsync,
+    isLoading: isUpdateBrandLoading,
+  } = useUpdateBrandMutation();
+  const {
+    mutateAsync: removeBrandMutateAsync,
+    isLoading: isRemoveBrandLoading,
+  } = useRemoveBrandMutation();
+
+  const isLoading = isTrash ? isRemoveBrandLoading : isUpdateBrandLoading;
+
+  const handleAsyncRemove = async (
+    id: string,
+    type: ActionKindType
+  ): Promise<boolean> => {
+    if (isTrash && type === "remove") {
+      const res = await removeBrandMutateAsync({ whereBrandInput: { id } });
+      if (res.removeBrand) {
+        return true;
+      } else {
+        return false;
+      }
+    } else if (isTrash && type === "restore") {
+      const res = await updateBrandMutateAsync({
+        where: { id },
+        data: {
+          isTrash: {
+            set: false,
+          },
+        },
+      });
+      if (res.updateBrand) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      const res = await updateBrandMutateAsync({
+        where: { id },
+        data: {
+          isTrash: {
+            set: true,
+          },
+        },
+      });
+      if (res.updateBrand) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  };
   let dataArray: {
     id: string;
     name: string;
@@ -56,7 +115,13 @@ const BrandsTable: React.FC<BrandsTableProps> = ({ brands }) => {
       width: "6%",
       disableSortBy: true,
       Cell: (props) => {
-        return <ColumnActions id={props.cell.row.original.id} />;
+        return (
+          <ColumnActions
+            id={props.cell.row.original.id}
+            handleAsyncRemove={handleAsyncRemove}
+            isLoading={isLoading}
+          />
+        );
       },
     },
   ];

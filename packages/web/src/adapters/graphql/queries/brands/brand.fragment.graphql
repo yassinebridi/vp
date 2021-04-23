@@ -1,6 +1,7 @@
 fragment BrandFields on Brand {
   id
   name
+  isTrash
   createdAt
   updatedAt
   products {

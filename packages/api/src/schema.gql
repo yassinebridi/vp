@@ -5,6 +5,7 @@
 type BrandCountAggregate {
   id: Int
   name: Int
+  isTrash: Int
   createdAt: Int
   updatedAt: Int
   _all: Int!
@@ -13,6 +14,7 @@ type BrandCountAggregate {
 type BrandMaxAggregate {
   id: String
   name: String
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -25,6 +27,7 @@ scalar DateTime
 type BrandMinAggregate {
   id: String
   name: String
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -33,6 +36,7 @@ type Brand {
   id: ID!
   name: String!
   products: [Product!]
+  isTrash: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -40,6 +44,7 @@ type Brand {
 type CategoryCountAggregate {
   id: Int
   name: Int
+  isTrash: Int
   createdAt: Int
   updatedAt: Int
   _all: Int!
@@ -48,6 +53,7 @@ type CategoryCountAggregate {
 type CategoryMaxAggregate {
   id: String
   name: String
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -55,6 +61,7 @@ type CategoryMaxAggregate {
 type CategoryMinAggregate {
   id: String
   name: String
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -63,6 +70,7 @@ type Category {
   id: ID!
   name: String!
   products: [Product!]
+  isTrash: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -70,6 +78,7 @@ type Category {
 type CityCountAggregate {
   id: Int
   name: Int
+  isTrash: Int
   createdAt: Int
   updatedAt: Int
   _all: Int!
@@ -78,6 +87,7 @@ type CityCountAggregate {
 type CityMaxAggregate {
   id: String
   name: String
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -85,6 +95,7 @@ type CityMaxAggregate {
 type CityMinAggregate {
   id: String
   name: String
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -94,6 +105,7 @@ type City {
   name: String!
   products: [Product!]
   users: [User!]
+  isTrash: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -188,6 +200,7 @@ type ProductCountAggregate {
   authorId: Int
   publishStatus: Int
   productStatus: Int
+  isTrash: Int
   createdAt: Int
   updatedAt: Int
   _all: Int!
@@ -208,6 +221,7 @@ type ProductMaxAggregate {
   authorId: String
   publishStatus: ProductPublishStatus
   productStatus: ProductStatus
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -233,7 +247,6 @@ enum ProductSeason {
 enum ProductPublishStatus {
   published
   draft
-  trash
 }
 
 enum ProductStatus {
@@ -261,6 +274,7 @@ type ProductMinAggregate {
   authorId: String
   publishStatus: ProductPublishStatus
   productStatus: ProductStatus
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -292,6 +306,7 @@ type Product {
   likes: [Like!]
   publishStatus: ProductPublishStatus!
   productStatus: ProductStatus!
+  isTrash: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -352,6 +367,7 @@ type UserCountAggregate {
   googleId: Int
   facebookId: Int
   cityId: Int
+  isTrash: Int
   createdAt: Int
   updatedAt: Int
   _all: Int!
@@ -371,6 +387,7 @@ type UserMaxAggregate {
   googleId: String
   facebookId: String
   cityId: String
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -400,6 +417,7 @@ type UserMinAggregate {
   googleId: String
   facebookId: String
   cityId: String
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -424,6 +442,7 @@ type User {
   likes: [Like!]
   followedBy: [User!]
   following: [User!]
+  isTrash: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
   name: String!
@@ -457,6 +476,7 @@ type AuthUser {
 
 type Query {
   getAllBrands(where: BrandWhereInput, orderBy: [BrandOrderByInput!], cursor: BrandWhereUniqueInput, take: Int, skip: Int, distinct: [BrandScalarFieldEnum!]): Brands!
+  countBrands(where: BrandWhereInput, orderBy: [BrandOrderByInput!], cursor: BrandWhereUniqueInput, take: Int, skip: Int, distinct: [BrandScalarFieldEnum!]): Float!
   getOneBrand(where: BrandWhereUniqueInput!): Brand!
   getAllProducts(where: ProductWhereInput, orderBy: [ProductOrderByInput!], cursor: ProductWhereUniqueInput, take: Int, skip: Int, distinct: [ProductScalarFieldEnum!]): Products!
   getOneProduct(where: ProductWhereUniqueInput!): Product!
@@ -476,6 +496,7 @@ input BrandWhereInput {
   id: StringFilter
   name: StringFilter
   products: ProductListRelationFilter
+  isTrash: BoolFilter
   createdAt: DateTimeFilter
   updatedAt: DateTimeFilter
 }
@@ -545,6 +566,7 @@ input ProductWhereInput {
   likes: LikeListRelationFilter
   publishStatus: EnumProductPublishStatusFilter
   productStatus: EnumProductStatusFilter
+  isTrash: BoolFilter
   createdAt: DateTimeFilter
   updatedAt: DateTimeFilter
 }
@@ -710,6 +732,7 @@ input CityWhereInput {
   name: StringFilter
   products: ProductListRelationFilter
   users: UserListRelationFilter
+  isTrash: BoolFilter
   createdAt: DateTimeFilter
   updatedAt: DateTimeFilter
 }
@@ -743,6 +766,7 @@ input UserWhereInput {
   likes: LikeListRelationFilter
   followedBy: UserListRelationFilter
   following: UserListRelationFilter
+  isTrash: BoolFilter
   createdAt: DateTimeFilter
   updatedAt: DateTimeFilter
 }
@@ -840,6 +864,7 @@ input CategoryWhereInput {
   id: StringFilter
   name: StringFilter
   products: ProductListRelationFilter
+  isTrash: BoolFilter
   createdAt: DateTimeFilter
   updatedAt: DateTimeFilter
 }
@@ -880,6 +905,7 @@ input NestedEnumProductStatusFilter {
 input BrandOrderByInput {
   id: SortOrder
   name: SortOrder
+  isTrash: SortOrder
   createdAt: SortOrder
   updatedAt: SortOrder
 }
@@ -896,6 +922,7 @@ input BrandWhereUniqueInput {
 enum BrandScalarFieldEnum {
   id
   name
+  isTrash
   createdAt
   updatedAt
 }
@@ -915,6 +942,7 @@ input ProductOrderByInput {
   authorId: SortOrder
   publishStatus: SortOrder
   productStatus: SortOrder
+  isTrash: SortOrder
   createdAt: SortOrder
   updatedAt: SortOrder
 }
@@ -938,6 +966,7 @@ enum ProductScalarFieldEnum {
   authorId
   publishStatus
   productStatus
+  isTrash
   createdAt
   updatedAt
 }
@@ -945,6 +974,7 @@ enum ProductScalarFieldEnum {
 input CategoryOrderByInput {
   id: SortOrder
   name: SortOrder
+  isTrash: SortOrder
   createdAt: SortOrder
   updatedAt: SortOrder
 }
@@ -956,6 +986,7 @@ input CategoryWhereUniqueInput {
 enum CategoryScalarFieldEnum {
   id
   name
+  isTrash
   createdAt
   updatedAt
 }
@@ -963,6 +994,7 @@ enum CategoryScalarFieldEnum {
 input CityOrderByInput {
   id: SortOrder
   name: SortOrder
+  isTrash: SortOrder
   createdAt: SortOrder
   updatedAt: SortOrder
 }
@@ -974,6 +1006,7 @@ input CityWhereUniqueInput {
 enum CityScalarFieldEnum {
   id
   name
+  isTrash
   createdAt
   updatedAt
 }
@@ -992,6 +1025,7 @@ input UserOrderByInput {
   googleId: SortOrder
   facebookId: SortOrder
   cityId: SortOrder
+  isTrash: SortOrder
   createdAt: SortOrder
   updatedAt: SortOrder
 }
@@ -1015,6 +1049,7 @@ enum UserScalarFieldEnum {
   googleId
   facebookId
   cityId
+  isTrash
   createdAt
   updatedAt
 }
@@ -1022,7 +1057,9 @@ enum UserScalarFieldEnum {
 type Mutation {
   createBrand(createBrandInput: BrandCreateInput!): Boolean!
   updateBrand(data: BrandUpdateInput!, where: BrandWhereUniqueInput!): Boolean!
+  updateBrands(data: BrandUpdateManyMutationInput!, where: BrandWhereInput): Boolean!
   removeBrand(whereBrandInput: BrandWhereUniqueInput!): Boolean!
+  removeBrands(where: BrandWhereInput): Boolean!
   bulkBrands(number: Int!): Boolean!
   bulkRemoveBrands: Boolean!
   createProduct(createProductInput: ProductCreateInput!): Boolean!
@@ -1052,6 +1089,7 @@ type Mutation {
 input BrandCreateInput {
   id: String
   name: String!
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
   products: ProductCreateNestedManyWithoutBrandInput
@@ -1075,6 +1113,7 @@ input ProductCreateWithoutBrandInput {
   viewsNumber: Int!
   publishStatus: ProductPublishStatus!
   productStatus: ProductStatus!
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
   images: ProductImageCreateNestedManyWithoutProductInput
@@ -1133,6 +1172,7 @@ input CityCreateNestedOneWithoutProductsInput {
 input CityCreateWithoutProductsInput {
   id: String
   name: String!
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
   users: UserCreateNestedManyWithoutCityInput
@@ -1158,6 +1198,7 @@ input UserCreateWithoutCityInput {
   status: UserStatus
   googleId: String
   facebookId: String
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
   products: ProductCreateNestedManyWithoutAuthorInput
@@ -1185,6 +1226,7 @@ input ProductCreateWithoutAuthorInput {
   viewsNumber: Int!
   publishStatus: ProductPublishStatus!
   productStatus: ProductStatus!
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
   images: ProductImageCreateNestedManyWithoutProductInput
@@ -1204,6 +1246,7 @@ input CategoryCreateNestedOneWithoutProductsInput {
 input CategoryCreateWithoutProductsInput {
   id: String
   name: String!
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -1222,6 +1265,7 @@ input BrandCreateNestedOneWithoutProductsInput {
 input BrandCreateWithoutProductsInput {
   id: String
   name: String!
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -1264,6 +1308,7 @@ input UserCreateWithoutFavoritesInput {
   status: UserStatus
   googleId: String
   facebookId: String
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
   city: CityCreateNestedOneWithoutUsersInput
@@ -1282,6 +1327,7 @@ input CityCreateNestedOneWithoutUsersInput {
 input CityCreateWithoutUsersInput {
   id: String
   name: String!
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
   products: ProductCreateNestedManyWithoutCityInput
@@ -1305,6 +1351,7 @@ input ProductCreateWithoutCityInput {
   viewsNumber: Int!
   publishStatus: ProductPublishStatus!
   productStatus: ProductStatus!
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
   images: ProductImageCreateNestedManyWithoutProductInput
@@ -1334,6 +1381,7 @@ input UserCreateWithoutProductsInput {
   status: UserStatus
   googleId: String
   facebookId: String
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
   city: CityCreateNestedOneWithoutUsersInput
@@ -1374,6 +1422,7 @@ input ProductCreateWithoutFavoritesInput {
   viewsNumber: Int!
   publishStatus: ProductPublishStatus!
   productStatus: ProductStatus!
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
   images: ProductImageCreateNestedManyWithoutProductInput
@@ -1417,6 +1466,7 @@ input UserCreateWithoutLikesInput {
   status: UserStatus
   googleId: String
   facebookId: String
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
   city: CityCreateNestedOneWithoutUsersInput
@@ -1445,6 +1495,7 @@ input UserCreateWithoutFollowingInput {
   status: UserStatus
   googleId: String
   facebookId: String
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
   city: CityCreateNestedOneWithoutUsersInput
@@ -1485,6 +1536,7 @@ input ProductCreateWithoutLikesInput {
   viewsNumber: Int!
   publishStatus: ProductPublishStatus!
   productStatus: ProductStatus!
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
   images: ProductImageCreateNestedManyWithoutProductInput
@@ -1545,6 +1597,7 @@ input UserCreateWithoutFollowedByInput {
   status: UserStatus
   googleId: String
   facebookId: String
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
   city: CityCreateNestedOneWithoutUsersInput
@@ -1636,6 +1689,7 @@ input ProductCreateManyCityInput {
   authorId: String
   publishStatus: ProductPublishStatus!
   productStatus: ProductStatus!
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -1691,6 +1745,7 @@ input ProductCreateManyAuthorInput {
   brandId: String!
   publishStatus: ProductPublishStatus!
   productStatus: ProductStatus!
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -1718,6 +1773,7 @@ input UserCreateManyCityInput {
   status: UserStatus
   googleId: String
   facebookId: String
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -1751,6 +1807,7 @@ input ProductCreateManyBrandInput {
   authorId: String
   publishStatus: ProductPublishStatus!
   productStatus: ProductStatus!
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -1758,6 +1815,7 @@ input ProductCreateManyBrandInput {
 input BrandUpdateInput {
   id: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
+  isTrash: BoolFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   products: ProductUpdateManyWithoutBrandInput
@@ -1765,6 +1823,10 @@ input BrandUpdateInput {
 
 input StringFieldUpdateOperationsInput {
   set: String
+}
+
+input BoolFieldUpdateOperationsInput {
+  set: Boolean
 }
 
 input DateTimeFieldUpdateOperationsInput {
@@ -1802,6 +1864,7 @@ input ProductUpdateWithoutBrandInput {
   viewsNumber: IntFieldUpdateOperationsInput
   publishStatus: EnumProductPublishStatusFieldUpdateOperationsInput
   productStatus: EnumProductStatusFieldUpdateOperationsInput
+  isTrash: BoolFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   images: ProductImageUpdateManyWithoutProductInput
@@ -1921,6 +1984,7 @@ input CityUpsertWithoutProductsInput {
 input CityUpdateWithoutProductsInput {
   id: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
+  isTrash: BoolFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   users: UserUpdateManyWithoutCityInput
@@ -1959,6 +2023,7 @@ input UserUpdateWithoutCityInput {
   status: EnumUserStatusFieldUpdateOperationsInput
   googleId: NullableStringFieldUpdateOperationsInput
   facebookId: NullableStringFieldUpdateOperationsInput
+  isTrash: BoolFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   products: ProductUpdateManyWithoutAuthorInput
@@ -1970,10 +2035,6 @@ input UserUpdateWithoutCityInput {
 
 input NullableStringFieldUpdateOperationsInput {
   set: String
-}
-
-input BoolFieldUpdateOperationsInput {
-  set: Boolean
 }
 
 input EnumUserRoleFieldUpdateOperationsInput {
@@ -2015,6 +2076,7 @@ input ProductUpdateWithoutAuthorInput {
   viewsNumber: IntFieldUpdateOperationsInput
   publishStatus: EnumProductPublishStatusFieldUpdateOperationsInput
   productStatus: EnumProductStatusFieldUpdateOperationsInput
+  isTrash: BoolFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   images: ProductImageUpdateManyWithoutProductInput
@@ -2041,6 +2103,7 @@ input CategoryUpsertWithoutProductsInput {
 input CategoryUpdateWithoutProductsInput {
   id: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
+  isTrash: BoolFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
@@ -2061,6 +2124,7 @@ input BrandUpsertWithoutProductsInput {
 input BrandUpdateWithoutProductsInput {
   id: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
+  isTrash: BoolFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
@@ -2120,6 +2184,7 @@ input UserUpdateWithoutFavoritesInput {
   status: EnumUserStatusFieldUpdateOperationsInput
   googleId: NullableStringFieldUpdateOperationsInput
   facebookId: NullableStringFieldUpdateOperationsInput
+  isTrash: BoolFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   city: CityUpdateOneWithoutUsersInput
@@ -2147,6 +2212,7 @@ input CityUpsertWithoutUsersInput {
 input CityUpdateWithoutUsersInput {
   id: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
+  isTrash: BoolFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   products: ProductUpdateManyWithoutCityInput
@@ -2183,6 +2249,7 @@ input ProductUpdateWithoutCityInput {
   viewsNumber: IntFieldUpdateOperationsInput
   publishStatus: EnumProductPublishStatusFieldUpdateOperationsInput
   productStatus: EnumProductStatusFieldUpdateOperationsInput
+  isTrash: BoolFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   images: ProductImageUpdateManyWithoutProductInput
@@ -2221,6 +2288,7 @@ input UserUpdateWithoutProductsInput {
   status: EnumUserStatusFieldUpdateOperationsInput
   googleId: NullableStringFieldUpdateOperationsInput
   facebookId: NullableStringFieldUpdateOperationsInput
+  isTrash: BoolFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   city: CityUpdateOneWithoutUsersInput
@@ -2283,6 +2351,7 @@ input ProductUpdateWithoutFavoritesInput {
   viewsNumber: IntFieldUpdateOperationsInput
   publishStatus: EnumProductPublishStatusFieldUpdateOperationsInput
   productStatus: EnumProductStatusFieldUpdateOperationsInput
+  isTrash: BoolFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   images: ProductImageUpdateManyWithoutProductInput
@@ -2348,6 +2417,7 @@ input UserUpdateWithoutLikesInput {
   status: EnumUserStatusFieldUpdateOperationsInput
   googleId: NullableStringFieldUpdateOperationsInput
   facebookId: NullableStringFieldUpdateOperationsInput
+  isTrash: BoolFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   city: CityUpdateOneWithoutUsersInput
@@ -2389,6 +2459,7 @@ input UserUpdateWithoutFollowingInput {
   status: EnumUserStatusFieldUpdateOperationsInput
   googleId: NullableStringFieldUpdateOperationsInput
   facebookId: NullableStringFieldUpdateOperationsInput
+  isTrash: BoolFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   city: CityUpdateOneWithoutUsersInput
@@ -2451,6 +2522,7 @@ input ProductUpdateWithoutLikesInput {
   viewsNumber: IntFieldUpdateOperationsInput
   publishStatus: EnumProductPublishStatusFieldUpdateOperationsInput
   productStatus: EnumProductStatusFieldUpdateOperationsInput
+  isTrash: BoolFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   images: ProductImageUpdateManyWithoutProductInput
@@ -2515,6 +2587,7 @@ input UserScalarWhereInput {
   googleId: StringNullableFilter
   facebookId: StringNullableFilter
   cityId: StringNullableFilter
+  isTrash: BoolFilter
   createdAt: DateTimeFilter
   updatedAt: DateTimeFilter
 }
@@ -2532,6 +2605,7 @@ input UserUpdateManyMutationInput {
   status: EnumUserStatusFieldUpdateOperationsInput
   googleId: NullableStringFieldUpdateOperationsInput
   facebookId: NullableStringFieldUpdateOperationsInput
+  isTrash: BoolFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
@@ -2568,6 +2642,7 @@ input UserUpdateWithoutFollowedByInput {
   status: EnumUserStatusFieldUpdateOperationsInput
   googleId: NullableStringFieldUpdateOperationsInput
   facebookId: NullableStringFieldUpdateOperationsInput
+  isTrash: BoolFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   city: CityUpdateOneWithoutUsersInput
@@ -2652,6 +2727,7 @@ input ProductScalarWhereInput {
   authorId: StringNullableFilter
   publishStatus: EnumProductPublishStatusFilter
   productStatus: EnumProductStatusFilter
+  isTrash: BoolFilter
   createdAt: DateTimeFilter
   updatedAt: DateTimeFilter
 }
@@ -2667,6 +2743,7 @@ input ProductUpdateManyMutationInput {
   viewsNumber: IntFieldUpdateOperationsInput
   publishStatus: EnumProductPublishStatusFieldUpdateOperationsInput
   productStatus: EnumProductStatusFieldUpdateOperationsInput
+  isTrash: BoolFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
 }
@@ -2711,6 +2788,14 @@ input ProductUpdateManyWithWhereWithoutBrandInput {
   data: ProductUpdateManyMutationInput!
 }
 
+input BrandUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  isTrash: BoolFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
 input ProductCreateInput {
   id: String
   title: String!
@@ -2722,6 +2807,7 @@ input ProductCreateInput {
   viewsNumber: Int!
   publishStatus: ProductPublishStatus!
   productStatus: ProductStatus!
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
   images: ProductImageCreateNestedManyWithoutProductInput
@@ -2744,6 +2830,7 @@ input ProductUpdateInput {
   viewsNumber: IntFieldUpdateOperationsInput
   publishStatus: EnumProductPublishStatusFieldUpdateOperationsInput
   productStatus: EnumProductStatusFieldUpdateOperationsInput
+  isTrash: BoolFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   images: ProductImageUpdateManyWithoutProductInput
@@ -2758,6 +2845,7 @@ input ProductUpdateInput {
 input CategoryCreateInput {
   id: String
   name: String!
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
   products: ProductCreateNestedManyWithoutCategoryInput
@@ -2781,6 +2869,7 @@ input ProductCreateWithoutCategoryInput {
   viewsNumber: Int!
   publishStatus: ProductPublishStatus!
   productStatus: ProductStatus!
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
   images: ProductImageCreateNestedManyWithoutProductInput
@@ -2815,6 +2904,7 @@ input ProductCreateManyCategoryInput {
   authorId: String
   publishStatus: ProductPublishStatus!
   productStatus: ProductStatus!
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -2822,6 +2912,7 @@ input ProductCreateManyCategoryInput {
 input CategoryUpdateInput {
   id: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
+  isTrash: BoolFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   products: ProductUpdateManyWithoutCategoryInput
@@ -2858,6 +2949,7 @@ input ProductUpdateWithoutCategoryInput {
   viewsNumber: IntFieldUpdateOperationsInput
   publishStatus: EnumProductPublishStatusFieldUpdateOperationsInput
   productStatus: EnumProductStatusFieldUpdateOperationsInput
+  isTrash: BoolFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   images: ProductImageUpdateManyWithoutProductInput
@@ -2881,6 +2973,7 @@ input ProductUpdateManyWithWhereWithoutCategoryInput {
 input CityCreateInput {
   id: String
   name: String!
+  isTrash: Boolean
   createdAt: DateTime
   updatedAt: DateTime
   products: ProductCreateNestedManyWithoutCityInput
@@ -2890,6 +2983,7 @@ input CityCreateInput {
 input CityUpdateInput {
   id: StringFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
+  isTrash: BoolFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   products: ProductUpdateManyWithoutCityInput
@@ -2927,6 +3021,7 @@ input UserUpdateInput {
   status: EnumUserStatusFieldUpdateOperationsInput
   googleId: NullableStringFieldUpdateOperationsInput
   facebookId: NullableStringFieldUpdateOperationsInput
+  isTrash: BoolFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   city: CityUpdateOneWithoutUsersInput

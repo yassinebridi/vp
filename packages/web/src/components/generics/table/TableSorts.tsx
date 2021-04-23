@@ -1,7 +1,13 @@
-import { Sorts, MyDialog } from "@components";
+import { MyDialog, Sorts } from "@components";
 import { Popover, Transition } from "@headlessui/react";
 import { PlusIcon, XIcon } from "@heroicons/react/outline";
-import { capitalize, getSortKind, useMyParams, useTableContext } from "@utils";
+import {
+  capitalize,
+  getSortKind,
+  useMyParams,
+  usePageState,
+  useTableContext,
+} from "@utils";
 import React from "react";
 import { useQueryClient } from "react-query";
 import { useHistory } from "react-router";
@@ -10,6 +16,7 @@ import { KindType } from "./Sorts";
 
 export interface TableSortsProps {}
 const TableSorts: React.FC<TableSortsProps> = () => {
+  const { component } = usePageState();
   const sortsMapper = {
     asc: "Ascending",
     desc: "Descending",
@@ -51,7 +58,7 @@ const TableSorts: React.FC<TableSortsProps> = () => {
     router.push({
       search: queryParams.toString(),
     });
-    queryClient.resetQueries({ queryKey: ["brands"] });
+    queryClient.resetQueries({ queryKey: [component] });
   };
   const handleAddSort = (name, kind) => {
     setSortState({ name, kind });
@@ -62,7 +69,7 @@ const TableSorts: React.FC<TableSortsProps> = () => {
     if (inputValue.length > 0) {
       setSortsQuery(inputValue, "pushIn");
       setPageNo(1);
-      queryClient.resetQueries({ queryKey: ["brands"] });
+      queryClient.resetQueries({ queryKey: [component] });
     }
   };
   return (

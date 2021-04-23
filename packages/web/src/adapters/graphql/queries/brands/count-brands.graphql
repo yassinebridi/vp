@@ -1,0 +1,17 @@
+query countBrands(
+  $where: BrandWhereInput
+  $orderBy: [BrandOrderByInput!]
+  $cursor: BrandWhereUniqueInput
+  $take: Int
+  $skip: Int
+  $distinct: [BrandScalarFieldEnum!]
+) {
+  countBrands(
+    where: $where
+    orderBy: $orderBy
+    cursor: $cursor
+    take: $take
+    skip: $skip
+    distinct: $distinct
+  )
+}

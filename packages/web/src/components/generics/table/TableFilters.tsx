@@ -4,6 +4,7 @@ import { PlusIcon, XIcon } from "@heroicons/react/outline";
 import {
   capitalize,
   getFilterKind,
+  usePageState,
   useMyParams,
   useTableContext,
 } from "@utils";
@@ -21,6 +22,7 @@ const stringStateMapper = {
 
 export interface TableFiltersProps {}
 const TableFilters: React.FC<TableFiltersProps> = () => {
+  const { component } = usePageState();
   const queryClient = useQueryClient();
   const router = useHistory();
   const queryParams = new URLSearchParams(location.search);
@@ -62,7 +64,7 @@ const TableFilters: React.FC<TableFiltersProps> = () => {
     router.push({
       search: queryParams.toString(),
     });
-    queryClient.resetQueries({ queryKey: ["brands"] });
+    queryClient.resetQueries({ queryKey: [component] });
   };
   const handleAddFilter = (name, kind) => {
     setFilterState({ name, kind });
@@ -74,7 +76,7 @@ const TableFilters: React.FC<TableFiltersProps> = () => {
     if (inputValue.length > 0) {
       setFiltersQuery(inputValue, "replace");
       setPageNo(1);
-      queryClient.resetQueries({ queryKey: ["brands"] });
+      queryClient.resetQueries({ queryKey: [component] });
     }
   };
   return (

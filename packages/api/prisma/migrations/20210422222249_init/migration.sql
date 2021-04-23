@@ -5,7 +5,7 @@ CREATE TYPE "UserRole" AS ENUM ('admin', 'editor', 'visitor');
 CREATE TYPE "UserStatus" AS ENUM ('blocked', 'active');
 
 -- CreateEnum
-CREATE TYPE "ProductPublishStatus" AS ENUM ('published', 'draft', 'trash');
+CREATE TYPE "ProductPublishStatus" AS ENUM ('published', 'draft');
 
 -- CreateEnum
 CREATE TYPE "ProductStatus" AS ENUM ('new_with_tags', 'new', 'like_new', 'medium', 'normal', 'low', 'degraded');
@@ -31,6 +31,7 @@ CREATE TABLE "User" (
     "googleId" TEXT,
     "facebookId" TEXT,
     "cityId" TEXT,
+    "isTrash" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -53,6 +54,7 @@ CREATE TABLE "Product" (
     "authorId" TEXT,
     "publishStatus" "ProductPublishStatus" NOT NULL,
     "productStatus" "ProductStatus" NOT NULL,
+    "isTrash" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -76,6 +78,7 @@ CREATE TABLE "ProductImage" (
 CREATE TABLE "Brand" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "isTrash" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -86,6 +89,7 @@ CREATE TABLE "Brand" (
 CREATE TABLE "Category" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "isTrash" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -96,6 +100,7 @@ CREATE TABLE "Category" (
 CREATE TABLE "City" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "isTrash" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 

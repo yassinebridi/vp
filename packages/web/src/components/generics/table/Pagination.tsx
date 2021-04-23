@@ -1,6 +1,6 @@
 import { PageSizeSelect } from "@components";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/outline";
-import { paginate } from "@utils";
+import { paginate, usePageState } from "@utils";
 import clsx from "clsx";
 import React from "react";
 import { useQueryClient } from "react-query";
@@ -11,16 +11,17 @@ export interface PaginationProps {
   paginator: ReturnType<typeof paginate>;
 }
 const Pagination: React.FC<PaginationProps> = ({ isLoading, paginator }) => {
+  const { component } = usePageState();
   const queryClient = useQueryClient();
   const [_, setPageNo] = useQueryParam("pageNo");
 
   const handleNext = () => {
     setPageNo(paginator.nextPage, "pushIn");
-    queryClient.resetQueries({ queryKey: ["brands"] });
+    queryClient.resetQueries({ queryKey: [component] });
   };
   const handlePrev = () => {
     setPageNo(paginator.prevPage, "pushIn");
-    queryClient.resetQueries({ queryKey: ["brands"] });
+    queryClient.resetQueries({ queryKey: [component] });
   };
   return (
     <div className="flex items-center justify-between min-w-full px-6 my-3 mt-6 text-sm space-x-6 dark:text-gray-300">

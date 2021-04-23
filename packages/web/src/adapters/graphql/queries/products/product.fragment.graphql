@@ -8,7 +8,9 @@ fragment ProductFields on Product {
   viewsNumber
   publishStatus
   productStatus
+  isTrash
   createdAt
+  updatedAt
   images {
     id
     title

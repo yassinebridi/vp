@@ -1,5 +1,11 @@
 import { HomeLayout } from "@layouts";
-import { BrandsPage, HomePage, LoginPage, SettingsPage } from "@pages";
+import {
+  BrandsPage,
+  BrandsTrashPage,
+  HomePage,
+  LoginPage,
+  SettingsPage,
+} from "@pages";
 import { TableProvider } from "@utils";
 import React from "react";
 import {
@@ -23,6 +29,14 @@ const App: React.FC<AppProps> = () => {
             path="/brands"
             isTable={true}
             component={BrandsPage}
+            layout={HomeLayout}
+          />
+          <CustomRoute
+            title="Brands (Trash) | Videplacard"
+            exact
+            path="/brands/trash"
+            isTable={true}
+            component={BrandsTrashPage}
             layout={HomeLayout}
           />
           <CustomRoute

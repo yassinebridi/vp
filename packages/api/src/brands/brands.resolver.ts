@@ -8,13 +8,15 @@ import {
   Resolver,
 } from '@nestjs/graphql';
 import {
-  FindManyBrandArgs,
-  FindUniqueBrandArgs,
   Brand,
   BrandCreateInput,
   BrandWhereUniqueInput,
-  UpdateOneBrandArgs,
+  DeleteManyBrandArgs,
+  FindManyBrandArgs,
+  FindUniqueBrandArgs,
   Product,
+  UpdateManyBrandArgs,
+  UpdateOneBrandArgs,
 } from 'src/@generated';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Brands } from './all-brands.model';
@@ -32,6 +34,11 @@ export class BrandsResolver {
     return this.brandsService.getAllBrands(getAllBrandsInput);
   }
 
+  @Query(() => Number)
+  countBrands(@Args() countBrandsInput: FindManyBrandArgs) {
+    return this.brandsService.countBrands(countBrandsInput);
+  }
+
   @Query(() => Brand)
   getOneBrand(@Args() getOneBrandInput: FindUniqueBrandArgs) {
     return this.brandsService.getOneBrand(getOneBrandInput);
@@ -46,10 +53,19 @@ export class BrandsResolver {
   updateBrand(@Args() updateBrandInput: UpdateOneBrandArgs) {
     return this.brandsService.updateBrand(updateBrandInput);
   }
+  @Mutation(() => Boolean)
+  updateBrands(@Args() updateBrandsInput: UpdateManyBrandArgs) {
+    return this.brandsService.updateBrands(updateBrandsInput);
+  }
 
   @Mutation(() => Boolean)
   removeBrand(@Args('whereBrandInput') whereBrandInput: BrandWhereUniqueInput) {
     return this.brandsService.removeBrand(whereBrandInput);
+  }
+
+  @Mutation(() => Boolean)
+  removeBrands(@Args() removeBrandsInput: DeleteManyBrandArgs) {
+    return this.brandsService.removeBrands(removeBrandsInput);
   }
 
   @Mutation(() => Boolean)

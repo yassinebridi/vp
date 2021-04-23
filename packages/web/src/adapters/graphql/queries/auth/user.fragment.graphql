@@ -6,6 +6,7 @@ fragment UserFields on User {
   email
   avatar
   role
+  isTrash
   createdAt
   updatedAt
 }

@@ -1,7 +1,6 @@
 import { BrandsQueryVariables, useBrandsQuery } from "@adapters";
 import {
   BrandsTable,
-  BulkAction,
   FilterButton,
   PageHeader,
   Pagination,
@@ -11,8 +10,15 @@ import {
   TableSettingsDropdown,
   TableSorts,
 } from "@components";
+import BrandsBulkAction from "@components/brands/BrandsBulkAction";
 import { SpinnerIcon } from "@design-system";
-import { paginate, useFilterStore, useMyParams, useSortStore } from "@utils";
+import {
+  PageStateProvider,
+  paginate,
+  useFilterStore,
+  useMyParams,
+  useSortStore,
+} from "@utils";
 import React from "react";
 
 export interface BrandsPageProps {}
@@ -45,6 +51,7 @@ const BrandsPage: React.FC<BrandsPageProps> = () => {
     skip,
     orderBy,
     where: {
+      isTrash: { equals: false },
       name:
         searchTerm || filter
           ? {
@@ -69,47 +76,53 @@ const BrandsPage: React.FC<BrandsPageProps> = () => {
     paginate(brandsData.getAllBrands.totalPages, pageNo, pageSize, 100);
 
   return (
-    <div className="px-6 py-6">
-      <PageHeader component="brands" />
-      <div className="mt-6">
-        <div className="flex items-center justify-between min-w-full px-6 text-gray-600 dark:text-gray-400">
-          <TableSearch />
+    <PageStateProvider
+      component="brands"
+      countComponent="countBrands"
+      isTrash={false}
+    >
+      <div className="px-6 py-6">
+        <PageHeader />
+        <div className="mt-6">
+          <div className="flex items-center justify-between min-w-full px-6 text-gray-600 dark:text-gray-400">
+            <TableSearch />
 
-          <div className="flex items-center justify-between space-x-3">
-            <SortButton />
-            <FilterButton />
-            <TableSettingsDropdown />
+            <div className="flex items-center justify-between space-x-3">
+              <SortButton />
+              <FilterButton />
+              <TableSettingsDropdown />
+            </div>
           </div>
+
+          {filterProps.open && (
+            <div className="my-2">
+              <TableFilters />
+            </div>
+          )}
+          {sortProps.open && (
+            <div className="my-2">
+              <TableSorts />
+            </div>
+          )}
+
+          {isLoading ? (
+            <div className="flex flex-col items-center justify-center h-44">
+              <SpinnerIcon cn="w-8 h-8" />
+            </div>
+          ) : brandsData.getAllBrands.totalPages === 0 ? (
+            <div className="flex flex-col items-center justify-center text-gray-600 h-44 dark:text-gray-300">
+              No items at the moment
+            </div>
+          ) : (
+            <BrandsTable brands={brandsData} />
+          )}
+
+          <Pagination isLoading={isLoading} paginator={paginator} />
+
+          <BrandsBulkAction />
         </div>
-
-        {filterProps.open && (
-          <div className="my-2">
-            <TableFilters />
-          </div>
-        )}
-        {sortProps.open && (
-          <div className="my-2">
-            <TableSorts />
-          </div>
-        )}
-
-        {isLoading ? (
-          <div className="flex flex-col items-center justify-center h-44">
-            <SpinnerIcon cn="w-8 h-8" />
-          </div>
-        ) : brandsData.getAllBrands.totalPages === 0 ? (
-          <div className="flex flex-col items-center justify-center text-gray-600 h-44 dark:text-gray-300">
-            No items at the moment
-          </div>
-        ) : (
-          <BrandsTable brands={brandsData} />
-        )}
-
-        <Pagination isLoading={isLoading} paginator={paginator} />
-
-        <BulkAction />
       </div>
-    </div>
+    </PageStateProvider>
   );
 };
 

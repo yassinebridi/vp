@@ -36,6 +36,7 @@ export type Brand = {
   id: Scalars['ID'];
   name: Scalars['String'];
   products?: Maybe<Array<Product>>;
+  isTrash: Scalars['Boolean'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
 };
@@ -44,6 +45,7 @@ export type BrandCountAggregate = {
   __typename?: 'BrandCountAggregate';
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['Int']>;
+  isTrash?: Maybe<Scalars['Int']>;
   createdAt?: Maybe<Scalars['Int']>;
   updatedAt?: Maybe<Scalars['Int']>;
   _all: Scalars['Int'];
@@ -52,6 +54,7 @@ export type BrandCountAggregate = {
 export type BrandCreateInput = {
   id?: Maybe<Scalars['String']>;
   name: Scalars['String'];
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   products?: Maybe<ProductCreateNestedManyWithoutBrandInput>;
@@ -71,6 +74,7 @@ export type BrandCreateOrConnectWithoutProductsInput = {
 export type BrandCreateWithoutProductsInput = {
   id?: Maybe<Scalars['String']>;
   name: Scalars['String'];
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -79,6 +83,7 @@ export type BrandMaxAggregate = {
   __typename?: 'BrandMaxAggregate';
   id?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -87,6 +92,7 @@ export type BrandMinAggregate = {
   __typename?: 'BrandMinAggregate';
   id?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -94,6 +100,7 @@ export type BrandMinAggregate = {
 export type BrandOrderByInput = {
   id?: Maybe<SortOrder>;
   name?: Maybe<SortOrder>;
+  isTrash?: Maybe<SortOrder>;
   createdAt?: Maybe<SortOrder>;
   updatedAt?: Maybe<SortOrder>;
 };
@@ -106,6 +113,7 @@ export type BrandRelationFilter = {
 export enum BrandScalarFieldEnum {
   Id = 'id',
   Name = 'name',
+  IsTrash = 'isTrash',
   CreatedAt = 'createdAt',
   UpdatedAt = 'updatedAt'
 }
@@ -113,9 +121,18 @@ export enum BrandScalarFieldEnum {
 export type BrandUpdateInput = {
   id?: Maybe<StringFieldUpdateOperationsInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
+  isTrash?: Maybe<BoolFieldUpdateOperationsInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   products?: Maybe<ProductUpdateManyWithoutBrandInput>;
+};
+
+export type BrandUpdateManyMutationInput = {
+  id?: Maybe<StringFieldUpdateOperationsInput>;
+  name?: Maybe<StringFieldUpdateOperationsInput>;
+  isTrash?: Maybe<BoolFieldUpdateOperationsInput>;
+  createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
+  updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
 };
 
 export type BrandUpdateOneRequiredWithoutProductsInput = {
@@ -129,6 +146,7 @@ export type BrandUpdateOneRequiredWithoutProductsInput = {
 export type BrandUpdateWithoutProductsInput = {
   id?: Maybe<StringFieldUpdateOperationsInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
+  isTrash?: Maybe<BoolFieldUpdateOperationsInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -145,6 +163,7 @@ export type BrandWhereInput = {
   id?: Maybe<StringFilter>;
   name?: Maybe<StringFilter>;
   products?: Maybe<ProductListRelationFilter>;
+  isTrash?: Maybe<BoolFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
 };
@@ -170,6 +189,7 @@ export type Category = {
   id: Scalars['ID'];
   name: Scalars['String'];
   products?: Maybe<Array<Product>>;
+  isTrash: Scalars['Boolean'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
 };
@@ -178,6 +198,7 @@ export type CategoryCountAggregate = {
   __typename?: 'CategoryCountAggregate';
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['Int']>;
+  isTrash?: Maybe<Scalars['Int']>;
   createdAt?: Maybe<Scalars['Int']>;
   updatedAt?: Maybe<Scalars['Int']>;
   _all: Scalars['Int'];
@@ -186,6 +207,7 @@ export type CategoryCountAggregate = {
 export type CategoryCreateInput = {
   id?: Maybe<Scalars['String']>;
   name: Scalars['String'];
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   products?: Maybe<ProductCreateNestedManyWithoutCategoryInput>;
@@ -205,6 +227,7 @@ export type CategoryCreateOrConnectWithoutProductsInput = {
 export type CategoryCreateWithoutProductsInput = {
   id?: Maybe<Scalars['String']>;
   name: Scalars['String'];
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -213,6 +236,7 @@ export type CategoryMaxAggregate = {
   __typename?: 'CategoryMaxAggregate';
   id?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -221,6 +245,7 @@ export type CategoryMinAggregate = {
   __typename?: 'CategoryMinAggregate';
   id?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -228,6 +253,7 @@ export type CategoryMinAggregate = {
 export type CategoryOrderByInput = {
   id?: Maybe<SortOrder>;
   name?: Maybe<SortOrder>;
+  isTrash?: Maybe<SortOrder>;
   createdAt?: Maybe<SortOrder>;
   updatedAt?: Maybe<SortOrder>;
 };
@@ -240,6 +266,7 @@ export type CategoryRelationFilter = {
 export enum CategoryScalarFieldEnum {
   Id = 'id',
   Name = 'name',
+  IsTrash = 'isTrash',
   CreatedAt = 'createdAt',
   UpdatedAt = 'updatedAt'
 }
@@ -247,6 +274,7 @@ export enum CategoryScalarFieldEnum {
 export type CategoryUpdateInput = {
   id?: Maybe<StringFieldUpdateOperationsInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
+  isTrash?: Maybe<BoolFieldUpdateOperationsInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   products?: Maybe<ProductUpdateManyWithoutCategoryInput>;
@@ -263,6 +291,7 @@ export type CategoryUpdateOneRequiredWithoutProductsInput = {
 export type CategoryUpdateWithoutProductsInput = {
   id?: Maybe<StringFieldUpdateOperationsInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
+  isTrash?: Maybe<BoolFieldUpdateOperationsInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -279,6 +308,7 @@ export type CategoryWhereInput = {
   id?: Maybe<StringFilter>;
   name?: Maybe<StringFilter>;
   products?: Maybe<ProductListRelationFilter>;
+  isTrash?: Maybe<BoolFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
 };
@@ -304,6 +334,7 @@ export type City = {
   name: Scalars['String'];
   products?: Maybe<Array<Product>>;
   users?: Maybe<Array<User>>;
+  isTrash: Scalars['Boolean'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
 };
@@ -312,6 +343,7 @@ export type CityCountAggregate = {
   __typename?: 'CityCountAggregate';
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['Int']>;
+  isTrash?: Maybe<Scalars['Int']>;
   createdAt?: Maybe<Scalars['Int']>;
   updatedAt?: Maybe<Scalars['Int']>;
   _all: Scalars['Int'];
@@ -320,6 +352,7 @@ export type CityCountAggregate = {
 export type CityCreateInput = {
   id?: Maybe<Scalars['String']>;
   name: Scalars['String'];
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   products?: Maybe<ProductCreateNestedManyWithoutCityInput>;
@@ -351,6 +384,7 @@ export type CityCreateOrConnectWithoutUsersInput = {
 export type CityCreateWithoutProductsInput = {
   id?: Maybe<Scalars['String']>;
   name: Scalars['String'];
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   users?: Maybe<UserCreateNestedManyWithoutCityInput>;
@@ -359,6 +393,7 @@ export type CityCreateWithoutProductsInput = {
 export type CityCreateWithoutUsersInput = {
   id?: Maybe<Scalars['String']>;
   name: Scalars['String'];
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   products?: Maybe<ProductCreateNestedManyWithoutCityInput>;
@@ -368,6 +403,7 @@ export type CityMaxAggregate = {
   __typename?: 'CityMaxAggregate';
   id?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -376,6 +412,7 @@ export type CityMinAggregate = {
   __typename?: 'CityMinAggregate';
   id?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -383,6 +420,7 @@ export type CityMinAggregate = {
 export type CityOrderByInput = {
   id?: Maybe<SortOrder>;
   name?: Maybe<SortOrder>;
+  isTrash?: Maybe<SortOrder>;
   createdAt?: Maybe<SortOrder>;
   updatedAt?: Maybe<SortOrder>;
 };
@@ -395,6 +433,7 @@ export type CityRelationFilter = {
 export enum CityScalarFieldEnum {
   Id = 'id',
   Name = 'name',
+  IsTrash = 'isTrash',
   CreatedAt = 'createdAt',
   UpdatedAt = 'updatedAt'
 }
@@ -402,6 +441,7 @@ export enum CityScalarFieldEnum {
 export type CityUpdateInput = {
   id?: Maybe<StringFieldUpdateOperationsInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
+  isTrash?: Maybe<BoolFieldUpdateOperationsInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   products?: Maybe<ProductUpdateManyWithoutCityInput>;
@@ -429,6 +469,7 @@ export type CityUpdateOneWithoutUsersInput = {
 export type CityUpdateWithoutProductsInput = {
   id?: Maybe<StringFieldUpdateOperationsInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
+  isTrash?: Maybe<BoolFieldUpdateOperationsInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   users?: Maybe<UserUpdateManyWithoutCityInput>;
@@ -437,6 +478,7 @@ export type CityUpdateWithoutProductsInput = {
 export type CityUpdateWithoutUsersInput = {
   id?: Maybe<StringFieldUpdateOperationsInput>;
   name?: Maybe<StringFieldUpdateOperationsInput>;
+  isTrash?: Maybe<BoolFieldUpdateOperationsInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   products?: Maybe<ProductUpdateManyWithoutCityInput>;
@@ -460,6 +502,7 @@ export type CityWhereInput = {
   name?: Maybe<StringFilter>;
   products?: Maybe<ProductListRelationFilter>;
   users?: Maybe<UserListRelationFilter>;
+  isTrash?: Maybe<BoolFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
 };
@@ -1027,7 +1070,9 @@ export type Mutation = {
   __typename?: 'Mutation';
   createBrand: Scalars['Boolean'];
   updateBrand: Scalars['Boolean'];
+  updateBrands: Scalars['Boolean'];
   removeBrand: Scalars['Boolean'];
+  removeBrands: Scalars['Boolean'];
   bulkBrands: Scalars['Boolean'];
   bulkRemoveBrands: Scalars['Boolean'];
   createProduct: Scalars['Boolean'];
@@ -1066,8 +1111,19 @@ export type MutationUpdateBrandArgs = {
 };
 
 
+export type MutationUpdateBrandsArgs = {
+  data: BrandUpdateManyMutationInput;
+  where?: Maybe<BrandWhereInput>;
+};
+
+
 export type MutationRemoveBrandArgs = {
   whereBrandInput: BrandWhereUniqueInput;
+};
+
+
+export type MutationRemoveBrandsArgs = {
+  where?: Maybe<BrandWhereInput>;
 };
 
 
@@ -1308,6 +1364,7 @@ export type Product = {
   likes?: Maybe<Array<Like>>;
   publishStatus: ProductPublishStatus;
   productStatus: ProductStatus;
+  isTrash: Scalars['Boolean'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
 };
@@ -1334,6 +1391,7 @@ export type ProductCountAggregate = {
   authorId?: Maybe<Scalars['Int']>;
   publishStatus?: Maybe<Scalars['Int']>;
   productStatus?: Maybe<Scalars['Int']>;
+  isTrash?: Maybe<Scalars['Int']>;
   createdAt?: Maybe<Scalars['Int']>;
   updatedAt?: Maybe<Scalars['Int']>;
   _all: Scalars['Int'];
@@ -1350,6 +1408,7 @@ export type ProductCreateInput = {
   viewsNumber: Scalars['Int'];
   publishStatus: ProductPublishStatus;
   productStatus: ProductStatus;
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   images?: Maybe<ProductImageCreateNestedManyWithoutProductInput>;
@@ -1375,6 +1434,7 @@ export type ProductCreateManyAuthorInput = {
   brandId: Scalars['String'];
   publishStatus: ProductPublishStatus;
   productStatus: ProductStatus;
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -1398,6 +1458,7 @@ export type ProductCreateManyBrandInput = {
   authorId?: Maybe<Scalars['String']>;
   publishStatus: ProductPublishStatus;
   productStatus: ProductStatus;
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -1421,6 +1482,7 @@ export type ProductCreateManyCategoryInput = {
   authorId?: Maybe<Scalars['String']>;
   publishStatus: ProductPublishStatus;
   productStatus: ProductStatus;
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -1444,6 +1506,7 @@ export type ProductCreateManyCityInput = {
   authorId?: Maybe<Scalars['String']>;
   publishStatus: ProductPublishStatus;
   productStatus: ProductStatus;
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -1534,6 +1597,7 @@ export type ProductCreateWithoutAuthorInput = {
   viewsNumber: Scalars['Int'];
   publishStatus: ProductPublishStatus;
   productStatus: ProductStatus;
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   images?: Maybe<ProductImageCreateNestedManyWithoutProductInput>;
@@ -1555,6 +1619,7 @@ export type ProductCreateWithoutBrandInput = {
   viewsNumber: Scalars['Int'];
   publishStatus: ProductPublishStatus;
   productStatus: ProductStatus;
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   images?: Maybe<ProductImageCreateNestedManyWithoutProductInput>;
@@ -1576,6 +1641,7 @@ export type ProductCreateWithoutCategoryInput = {
   viewsNumber: Scalars['Int'];
   publishStatus: ProductPublishStatus;
   productStatus: ProductStatus;
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   images?: Maybe<ProductImageCreateNestedManyWithoutProductInput>;
@@ -1597,6 +1663,7 @@ export type ProductCreateWithoutCityInput = {
   viewsNumber: Scalars['Int'];
   publishStatus: ProductPublishStatus;
   productStatus: ProductStatus;
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   images?: Maybe<ProductImageCreateNestedManyWithoutProductInput>;
@@ -1618,6 +1685,7 @@ export type ProductCreateWithoutFavoritesInput = {
   viewsNumber: Scalars['Int'];
   publishStatus: ProductPublishStatus;
   productStatus: ProductStatus;
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   images?: Maybe<ProductImageCreateNestedManyWithoutProductInput>;
@@ -1639,6 +1707,7 @@ export type ProductCreateWithoutLikesInput = {
   viewsNumber: Scalars['Int'];
   publishStatus: ProductPublishStatus;
   productStatus: ProductStatus;
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   images?: Maybe<ProductImageCreateNestedManyWithoutProductInput>;
@@ -1837,6 +1906,7 @@ export type ProductMaxAggregate = {
   authorId?: Maybe<Scalars['String']>;
   publishStatus?: Maybe<ProductPublishStatus>;
   productStatus?: Maybe<ProductStatus>;
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -1857,6 +1927,7 @@ export type ProductMinAggregate = {
   authorId?: Maybe<Scalars['String']>;
   publishStatus?: Maybe<ProductPublishStatus>;
   productStatus?: Maybe<ProductStatus>;
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -1876,14 +1947,14 @@ export type ProductOrderByInput = {
   authorId?: Maybe<SortOrder>;
   publishStatus?: Maybe<SortOrder>;
   productStatus?: Maybe<SortOrder>;
+  isTrash?: Maybe<SortOrder>;
   createdAt?: Maybe<SortOrder>;
   updatedAt?: Maybe<SortOrder>;
 };
 
 export enum ProductPublishStatus {
   Published = 'published',
-  Draft = 'draft',
-  Trash = 'trash'
+  Draft = 'draft'
 }
 
 export type ProductRelationFilter = {
@@ -1906,6 +1977,7 @@ export enum ProductScalarFieldEnum {
   AuthorId = 'authorId',
   PublishStatus = 'publishStatus',
   ProductStatus = 'productStatus',
+  IsTrash = 'isTrash',
   CreatedAt = 'createdAt',
   UpdatedAt = 'updatedAt'
 }
@@ -1928,6 +2000,7 @@ export type ProductScalarWhereInput = {
   authorId?: Maybe<StringNullableFilter>;
   publishStatus?: Maybe<EnumProductPublishStatusFilter>;
   productStatus?: Maybe<EnumProductStatusFilter>;
+  isTrash?: Maybe<BoolFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
 };
@@ -1977,6 +2050,7 @@ export type ProductUpdateInput = {
   viewsNumber?: Maybe<IntFieldUpdateOperationsInput>;
   publishStatus?: Maybe<EnumProductPublishStatusFieldUpdateOperationsInput>;
   productStatus?: Maybe<EnumProductStatusFieldUpdateOperationsInput>;
+  isTrash?: Maybe<BoolFieldUpdateOperationsInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   images?: Maybe<ProductImageUpdateManyWithoutProductInput>;
@@ -1999,6 +2073,7 @@ export type ProductUpdateManyMutationInput = {
   viewsNumber?: Maybe<IntFieldUpdateOperationsInput>;
   publishStatus?: Maybe<EnumProductPublishStatusFieldUpdateOperationsInput>;
   productStatus?: Maybe<EnumProductStatusFieldUpdateOperationsInput>;
+  isTrash?: Maybe<BoolFieldUpdateOperationsInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -2130,6 +2205,7 @@ export type ProductUpdateWithoutAuthorInput = {
   viewsNumber?: Maybe<IntFieldUpdateOperationsInput>;
   publishStatus?: Maybe<EnumProductPublishStatusFieldUpdateOperationsInput>;
   productStatus?: Maybe<EnumProductStatusFieldUpdateOperationsInput>;
+  isTrash?: Maybe<BoolFieldUpdateOperationsInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   images?: Maybe<ProductImageUpdateManyWithoutProductInput>;
@@ -2151,6 +2227,7 @@ export type ProductUpdateWithoutBrandInput = {
   viewsNumber?: Maybe<IntFieldUpdateOperationsInput>;
   publishStatus?: Maybe<EnumProductPublishStatusFieldUpdateOperationsInput>;
   productStatus?: Maybe<EnumProductStatusFieldUpdateOperationsInput>;
+  isTrash?: Maybe<BoolFieldUpdateOperationsInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   images?: Maybe<ProductImageUpdateManyWithoutProductInput>;
@@ -2172,6 +2249,7 @@ export type ProductUpdateWithoutCategoryInput = {
   viewsNumber?: Maybe<IntFieldUpdateOperationsInput>;
   publishStatus?: Maybe<EnumProductPublishStatusFieldUpdateOperationsInput>;
   productStatus?: Maybe<EnumProductStatusFieldUpdateOperationsInput>;
+  isTrash?: Maybe<BoolFieldUpdateOperationsInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   images?: Maybe<ProductImageUpdateManyWithoutProductInput>;
@@ -2193,6 +2271,7 @@ export type ProductUpdateWithoutCityInput = {
   viewsNumber?: Maybe<IntFieldUpdateOperationsInput>;
   publishStatus?: Maybe<EnumProductPublishStatusFieldUpdateOperationsInput>;
   productStatus?: Maybe<EnumProductStatusFieldUpdateOperationsInput>;
+  isTrash?: Maybe<BoolFieldUpdateOperationsInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   images?: Maybe<ProductImageUpdateManyWithoutProductInput>;
@@ -2214,6 +2293,7 @@ export type ProductUpdateWithoutFavoritesInput = {
   viewsNumber?: Maybe<IntFieldUpdateOperationsInput>;
   publishStatus?: Maybe<EnumProductPublishStatusFieldUpdateOperationsInput>;
   productStatus?: Maybe<EnumProductStatusFieldUpdateOperationsInput>;
+  isTrash?: Maybe<BoolFieldUpdateOperationsInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   images?: Maybe<ProductImageUpdateManyWithoutProductInput>;
@@ -2235,6 +2315,7 @@ export type ProductUpdateWithoutLikesInput = {
   viewsNumber?: Maybe<IntFieldUpdateOperationsInput>;
   publishStatus?: Maybe<EnumProductPublishStatusFieldUpdateOperationsInput>;
   productStatus?: Maybe<EnumProductStatusFieldUpdateOperationsInput>;
+  isTrash?: Maybe<BoolFieldUpdateOperationsInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   images?: Maybe<ProductImageUpdateManyWithoutProductInput>;
@@ -2304,6 +2385,7 @@ export type ProductWhereInput = {
   likes?: Maybe<LikeListRelationFilter>;
   publishStatus?: Maybe<EnumProductPublishStatusFilter>;
   productStatus?: Maybe<EnumProductStatusFilter>;
+  isTrash?: Maybe<BoolFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
 };
@@ -2321,6 +2403,7 @@ export type Products = {
 export type Query = {
   __typename?: 'Query';
   getAllBrands: Brands;
+  countBrands: Scalars['Float'];
   getOneBrand: Brand;
   getAllProducts: Products;
   getOneProduct: Product;
@@ -2335,6 +2418,16 @@ export type Query = {
 
 
 export type QueryGetAllBrandsArgs = {
+  where?: Maybe<BrandWhereInput>;
+  orderBy?: Maybe<Array<BrandOrderByInput>>;
+  cursor?: Maybe<BrandWhereUniqueInput>;
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  distinct?: Maybe<Array<BrandScalarFieldEnum>>;
+};
+
+
+export type QueryCountBrandsArgs = {
   where?: Maybe<BrandWhereInput>;
   orderBy?: Maybe<Array<BrandOrderByInput>>;
   cursor?: Maybe<BrandWhereUniqueInput>;
@@ -2486,6 +2579,7 @@ export type User = {
   likes?: Maybe<Array<Like>>;
   followedBy?: Maybe<Array<User>>;
   following?: Maybe<Array<User>>;
+  isTrash: Scalars['Boolean'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
   name: Scalars['String'];
@@ -2506,6 +2600,7 @@ export type UserCountAggregate = {
   googleId?: Maybe<Scalars['Int']>;
   facebookId?: Maybe<Scalars['Int']>;
   cityId?: Maybe<Scalars['Int']>;
+  isTrash?: Maybe<Scalars['Int']>;
   createdAt?: Maybe<Scalars['Int']>;
   updatedAt?: Maybe<Scalars['Int']>;
   _all: Scalars['Int'];
@@ -2524,6 +2619,7 @@ export type UserCreateManyCityInput = {
   status?: Maybe<UserStatus>;
   googleId?: Maybe<Scalars['String']>;
   facebookId?: Maybe<Scalars['String']>;
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -2613,6 +2709,7 @@ export type UserCreateWithoutCityInput = {
   status?: Maybe<UserStatus>;
   googleId?: Maybe<Scalars['String']>;
   facebookId?: Maybe<Scalars['String']>;
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   products?: Maybe<ProductCreateNestedManyWithoutAuthorInput>;
@@ -2635,6 +2732,7 @@ export type UserCreateWithoutFavoritesInput = {
   status?: Maybe<UserStatus>;
   googleId?: Maybe<Scalars['String']>;
   facebookId?: Maybe<Scalars['String']>;
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   city?: Maybe<CityCreateNestedOneWithoutUsersInput>;
@@ -2657,6 +2755,7 @@ export type UserCreateWithoutFollowedByInput = {
   status?: Maybe<UserStatus>;
   googleId?: Maybe<Scalars['String']>;
   facebookId?: Maybe<Scalars['String']>;
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   city?: Maybe<CityCreateNestedOneWithoutUsersInput>;
@@ -2679,6 +2778,7 @@ export type UserCreateWithoutFollowingInput = {
   status?: Maybe<UserStatus>;
   googleId?: Maybe<Scalars['String']>;
   facebookId?: Maybe<Scalars['String']>;
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   city?: Maybe<CityCreateNestedOneWithoutUsersInput>;
@@ -2701,6 +2801,7 @@ export type UserCreateWithoutLikesInput = {
   status?: Maybe<UserStatus>;
   googleId?: Maybe<Scalars['String']>;
   facebookId?: Maybe<Scalars['String']>;
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   city?: Maybe<CityCreateNestedOneWithoutUsersInput>;
@@ -2723,6 +2824,7 @@ export type UserCreateWithoutProductsInput = {
   status?: Maybe<UserStatus>;
   googleId?: Maybe<Scalars['String']>;
   facebookId?: Maybe<Scalars['String']>;
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
   city?: Maybe<CityCreateNestedOneWithoutUsersInput>;
@@ -2753,6 +2855,7 @@ export type UserMaxAggregate = {
   googleId?: Maybe<Scalars['String']>;
   facebookId?: Maybe<Scalars['String']>;
   cityId?: Maybe<Scalars['String']>;
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -2772,6 +2875,7 @@ export type UserMinAggregate = {
   googleId?: Maybe<Scalars['String']>;
   facebookId?: Maybe<Scalars['String']>;
   cityId?: Maybe<Scalars['String']>;
+  isTrash?: Maybe<Scalars['Boolean']>;
   createdAt?: Maybe<Scalars['DateTime']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -2790,6 +2894,7 @@ export type UserOrderByInput = {
   googleId?: Maybe<SortOrder>;
   facebookId?: Maybe<SortOrder>;
   cityId?: Maybe<SortOrder>;
+  isTrash?: Maybe<SortOrder>;
   createdAt?: Maybe<SortOrder>;
   updatedAt?: Maybe<SortOrder>;
 };
@@ -2819,6 +2924,7 @@ export enum UserScalarFieldEnum {
   GoogleId = 'googleId',
   FacebookId = 'facebookId',
   CityId = 'cityId',
+  IsTrash = 'isTrash',
   CreatedAt = 'createdAt',
   UpdatedAt = 'updatedAt'
 }
@@ -2840,6 +2946,7 @@ export type UserScalarWhereInput = {
   googleId?: Maybe<StringNullableFilter>;
   facebookId?: Maybe<StringNullableFilter>;
   cityId?: Maybe<StringNullableFilter>;
+  isTrash?: Maybe<BoolFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
 };
@@ -2862,6 +2969,7 @@ export type UserUpdateInput = {
   status?: Maybe<EnumUserStatusFieldUpdateOperationsInput>;
   googleId?: Maybe<NullableStringFieldUpdateOperationsInput>;
   facebookId?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  isTrash?: Maybe<BoolFieldUpdateOperationsInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   city?: Maybe<CityUpdateOneWithoutUsersInput>;
@@ -2885,6 +2993,7 @@ export type UserUpdateManyMutationInput = {
   status?: Maybe<EnumUserStatusFieldUpdateOperationsInput>;
   googleId?: Maybe<NullableStringFieldUpdateOperationsInput>;
   facebookId?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  isTrash?: Maybe<BoolFieldUpdateOperationsInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
 };
@@ -3002,6 +3111,7 @@ export type UserUpdateWithoutCityInput = {
   status?: Maybe<EnumUserStatusFieldUpdateOperationsInput>;
   googleId?: Maybe<NullableStringFieldUpdateOperationsInput>;
   facebookId?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  isTrash?: Maybe<BoolFieldUpdateOperationsInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   products?: Maybe<ProductUpdateManyWithoutAuthorInput>;
@@ -3024,6 +3134,7 @@ export type UserUpdateWithoutFavoritesInput = {
   status?: Maybe<EnumUserStatusFieldUpdateOperationsInput>;
   googleId?: Maybe<NullableStringFieldUpdateOperationsInput>;
   facebookId?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  isTrash?: Maybe<BoolFieldUpdateOperationsInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   city?: Maybe<CityUpdateOneWithoutUsersInput>;
@@ -3046,6 +3157,7 @@ export type UserUpdateWithoutFollowedByInput = {
   status?: Maybe<EnumUserStatusFieldUpdateOperationsInput>;
   googleId?: Maybe<NullableStringFieldUpdateOperationsInput>;
   facebookId?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  isTrash?: Maybe<BoolFieldUpdateOperationsInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   city?: Maybe<CityUpdateOneWithoutUsersInput>;
@@ -3068,6 +3180,7 @@ export type UserUpdateWithoutFollowingInput = {
   status?: Maybe<EnumUserStatusFieldUpdateOperationsInput>;
   googleId?: Maybe<NullableStringFieldUpdateOperationsInput>;
   facebookId?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  isTrash?: Maybe<BoolFieldUpdateOperationsInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   city?: Maybe<CityUpdateOneWithoutUsersInput>;
@@ -3090,6 +3203,7 @@ export type UserUpdateWithoutLikesInput = {
   status?: Maybe<EnumUserStatusFieldUpdateOperationsInput>;
   googleId?: Maybe<NullableStringFieldUpdateOperationsInput>;
   facebookId?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  isTrash?: Maybe<BoolFieldUpdateOperationsInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   city?: Maybe<CityUpdateOneWithoutUsersInput>;
@@ -3112,6 +3226,7 @@ export type UserUpdateWithoutProductsInput = {
   status?: Maybe<EnumUserStatusFieldUpdateOperationsInput>;
   googleId?: Maybe<NullableStringFieldUpdateOperationsInput>;
   facebookId?: Maybe<NullableStringFieldUpdateOperationsInput>;
+  isTrash?: Maybe<BoolFieldUpdateOperationsInput>;
   createdAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   updatedAt?: Maybe<DateTimeFieldUpdateOperationsInput>;
   city?: Maybe<CityUpdateOneWithoutUsersInput>;
@@ -3177,6 +3292,7 @@ export type UserWhereInput = {
   likes?: Maybe<LikeListRelationFilter>;
   followedBy?: Maybe<UserListRelationFilter>;
   following?: Maybe<UserListRelationFilter>;
+  isTrash?: Maybe<BoolFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   updatedAt?: Maybe<DateTimeFilter>;
 };
@@ -3232,6 +3348,14 @@ export type BulkBrandsMutation = (
   & Pick<Mutation, 'bulkBrands'>
 );
 
+export type BulkRemoveBrandsMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type BulkRemoveBrandsMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'bulkRemoveBrands'>
+);
+
 export type CreateBrandMutationVariables = Exact<{
   createBrandInput: BrandCreateInput;
 }>;
@@ -3252,12 +3376,14 @@ export type RemoveBrandMutation = (
   & Pick<Mutation, 'removeBrand'>
 );
 
-export type BulkRemoveBrandsMutationVariables = Exact<{ [key: string]: never; }>;
+export type RemoveBrandsMutationVariables = Exact<{
+  where: BrandWhereInput;
+}>;
 
 
-export type BulkRemoveBrandsMutation = (
+export type RemoveBrandsMutation = (
   { __typename?: 'Mutation' }
-  & Pick<Mutation, 'bulkRemoveBrands'>
+  & Pick<Mutation, 'removeBrands'>
 );
 
 export type UpdateBrandMutationVariables = Exact<{
@@ -3269,6 +3395,17 @@ export type UpdateBrandMutationVariables = Exact<{
 export type UpdateBrandMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'updateBrand'>
+);
+
+export type UpdateBrandsMutationVariables = Exact<{
+  data: BrandUpdateManyMutationInput;
+  where: BrandWhereInput;
+}>;
+
+
+export type UpdateBrandsMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'updateBrands'>
 );
 
 export type BulkCategoriesMutationVariables = Exact<{
@@ -3449,7 +3586,7 @@ export type SearchUsersMutation = (
 
 export type UserFieldsFragment = (
   { __typename?: 'User' }
-  & Pick<User, 'id' | 'name' | 'firstName' | 'lastName' | 'email' | 'avatar' | 'role' | 'createdAt' | 'updatedAt'>
+  & Pick<User, 'id' | 'name' | 'firstName' | 'lastName' | 'email' | 'avatar' | 'role' | 'isTrash' | 'createdAt' | 'updatedAt'>
 );
 
 export type GetOneUserQueryVariables = Exact<{
@@ -3485,7 +3622,7 @@ export type UsersQuery = (
 
 export type BrandFieldsFragment = (
   { __typename?: 'Brand' }
-  & Pick<Brand, 'id' | 'name' | 'createdAt' | 'updatedAt'>
+  & Pick<Brand, 'id' | 'name' | 'isTrash' | 'createdAt' | 'updatedAt'>
   & { products?: Maybe<Array<(
     { __typename?: 'Product' }
     & Pick<Product, 'id'>
@@ -3527,6 +3664,21 @@ export type BrandsQuery = (
   ) }
 );
 
+export type CountBrandsQueryVariables = Exact<{
+  where?: Maybe<BrandWhereInput>;
+  orderBy?: Maybe<Array<BrandOrderByInput> | BrandOrderByInput>;
+  cursor?: Maybe<BrandWhereUniqueInput>;
+  take?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+  distinct?: Maybe<Array<BrandScalarFieldEnum> | BrandScalarFieldEnum>;
+}>;
+
+
+export type CountBrandsQuery = (
+  { __typename?: 'Query' }
+  & Pick<Query, 'countBrands'>
+);
+
 export type CategoriesQueryVariables = Exact<{
   where?: Maybe<CategoryWhereInput>;
   orderBy?: Maybe<Array<CategoryOrderByInput> | CategoryOrderByInput>;
@@ -3551,7 +3703,7 @@ export type CategoriesQuery = (
 
 export type CategoryFieldsFragment = (
   { __typename?: 'Category' }
-  & Pick<Category, 'id' | 'name' | 'createdAt' | 'updatedAt'>
+  & Pick<Category, 'id' | 'name' | 'isTrash' | 'createdAt' | 'updatedAt'>
   & { products?: Maybe<Array<(
     { __typename?: 'Product' }
     & Pick<Product, 'id'>
@@ -3595,7 +3747,7 @@ export type CitiesQuery = (
 
 export type CityFieldsFragment = (
   { __typename?: 'City' }
-  & Pick<City, 'id' | 'name' | 'createdAt' | 'updatedAt'>
+  & Pick<City, 'id' | 'name' | 'isTrash' | 'createdAt' | 'updatedAt'>
   & { products?: Maybe<Array<(
     { __typename?: 'Product' }
     & Pick<Product, 'id'>
@@ -3617,7 +3769,7 @@ export type CityQuery = (
 
 export type ProductFieldsFragment = (
   { __typename?: 'Product' }
-  & Pick<Product, 'title' | 'desc' | 'price' | 'size' | 'season' | 'dateOfPurchase' | 'viewsNumber' | 'publishStatus' | 'productStatus' | 'createdAt'>
+  & Pick<Product, 'title' | 'desc' | 'price' | 'size' | 'season' | 'dateOfPurchase' | 'viewsNumber' | 'publishStatus' | 'productStatus' | 'isTrash' | 'createdAt' | 'updatedAt'>
   & { images?: Maybe<Array<(
     { __typename?: 'ProductImage' }
     & Pick<ProductImage, 'id' | 'title' | 'desc' | 'url'>
@@ -3686,6 +3838,7 @@ export const UserFieldsFragmentDoc = `
   email
   avatar
   role
+  isTrash
   createdAt
   updatedAt
 }
@@ -3694,6 +3847,7 @@ export const BrandFieldsFragmentDoc = `
     fragment BrandFields on Brand {
   id
   name
+  isTrash
   createdAt
   updatedAt
   products {
@@ -3705,6 +3859,7 @@ export const CategoryFieldsFragmentDoc = `
     fragment CategoryFields on Category {
   id
   name
+  isTrash
   createdAt
   updatedAt
   products {
@@ -3716,6 +3871,7 @@ export const CityFieldsFragmentDoc = `
     fragment CityFields on City {
   id
   name
+  isTrash
   createdAt
   updatedAt
   products {
@@ -3734,7 +3890,9 @@ export const ProductFieldsFragmentDoc = `
   viewsNumber
   publishStatus
   productStatus
+  isTrash
   createdAt
+  updatedAt
   images {
     id
     title
@@ -3818,6 +3976,19 @@ export const useBulkBrandsMutation = <
       (variables?: BulkBrandsMutationVariables) => client<BulkBrandsMutation, BulkBrandsMutationVariables>(BulkBrandsDocument, variables)(),
       options
     );
+export const BulkRemoveBrandsDocument = `
+    mutation bulkRemoveBrands {
+  bulkRemoveBrands
+}
+    `;
+export const useBulkRemoveBrandsMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<BulkRemoveBrandsMutation, TError, BulkRemoveBrandsMutationVariables, TContext>) => 
+    useMutation<BulkRemoveBrandsMutation, TError, BulkRemoveBrandsMutationVariables, TContext>(
+      (variables?: BulkRemoveBrandsMutationVariables) => client<BulkRemoveBrandsMutation, BulkRemoveBrandsMutationVariables>(BulkRemoveBrandsDocument, variables)(),
+      options
+    );
 export const CreateBrandDocument = `
     mutation createBrand($createBrandInput: BrandCreateInput!) {
   createBrand(createBrandInput: $createBrandInput)
@@ -3844,17 +4015,17 @@ export const useRemoveBrandMutation = <
       (variables?: RemoveBrandMutationVariables) => client<RemoveBrandMutation, RemoveBrandMutationVariables>(RemoveBrandDocument, variables)(),
       options
     );
-export const BulkRemoveBrandsDocument = `
-    mutation bulkRemoveBrands {
-  bulkRemoveBrands
+export const RemoveBrandsDocument = `
+    mutation removeBrands($where: BrandWhereInput!) {
+  removeBrands(where: $where)
 }
     `;
-export const useBulkRemoveBrandsMutation = <
+export const useRemoveBrandsMutation = <
       TError = unknown,
       TContext = unknown
-    >(options?: UseMutationOptions<BulkRemoveBrandsMutation, TError, BulkRemoveBrandsMutationVariables, TContext>) => 
-    useMutation<BulkRemoveBrandsMutation, TError, BulkRemoveBrandsMutationVariables, TContext>(
-      (variables?: BulkRemoveBrandsMutationVariables) => client<BulkRemoveBrandsMutation, BulkRemoveBrandsMutationVariables>(BulkRemoveBrandsDocument, variables)(),
+    >(options?: UseMutationOptions<RemoveBrandsMutation, TError, RemoveBrandsMutationVariables, TContext>) => 
+    useMutation<RemoveBrandsMutation, TError, RemoveBrandsMutationVariables, TContext>(
+      (variables?: RemoveBrandsMutationVariables) => client<RemoveBrandsMutation, RemoveBrandsMutationVariables>(RemoveBrandsDocument, variables)(),
       options
     );
 export const UpdateBrandDocument = `
@@ -3868,6 +4039,19 @@ export const useUpdateBrandMutation = <
     >(options?: UseMutationOptions<UpdateBrandMutation, TError, UpdateBrandMutationVariables, TContext>) => 
     useMutation<UpdateBrandMutation, TError, UpdateBrandMutationVariables, TContext>(
       (variables?: UpdateBrandMutationVariables) => client<UpdateBrandMutation, UpdateBrandMutationVariables>(UpdateBrandDocument, variables)(),
+      options
+    );
+export const UpdateBrandsDocument = `
+    mutation updateBrands($data: BrandUpdateManyMutationInput!, $where: BrandWhereInput!) {
+  updateBrands(data: $data, where: $where)
+}
+    `;
+export const useUpdateBrandsMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<UpdateBrandsMutation, TError, UpdateBrandsMutationVariables, TContext>) => 
+    useMutation<UpdateBrandsMutation, TError, UpdateBrandsMutationVariables, TContext>(
+      (variables?: UpdateBrandsMutationVariables) => client<UpdateBrandsMutation, UpdateBrandsMutationVariables>(UpdateBrandsDocument, variables)(),
       options
     );
 export const BulkCategoriesDocument = `
@@ -4208,6 +4392,32 @@ export const useBrandsQuery = <
       options
     );
 useBrandsQuery.getKey = (variables?: BrandsQueryVariables) => ['brands', variables];
+
+export const CountBrandsDocument = `
+    query countBrands($where: BrandWhereInput, $orderBy: [BrandOrderByInput!], $cursor: BrandWhereUniqueInput, $take: Int, $skip: Int, $distinct: [BrandScalarFieldEnum!]) {
+  countBrands(
+    where: $where
+    orderBy: $orderBy
+    cursor: $cursor
+    take: $take
+    skip: $skip
+    distinct: $distinct
+  )
+}
+    `;
+export const useCountBrandsQuery = <
+      TData = CountBrandsQuery,
+      TError = unknown
+    >(
+      variables?: CountBrandsQueryVariables, 
+      options?: UseQueryOptions<CountBrandsQuery, TError, TData>
+    ) => 
+    useQuery<CountBrandsQuery, TError, TData>(
+      ['countBrands', variables],
+      client<CountBrandsQuery, CountBrandsQueryVariables>(CountBrandsDocument, variables),
+      options
+    );
+useCountBrandsQuery.getKey = (variables?: CountBrandsQueryVariables) => ['countBrands', variables];
 
 export const CategoriesDocument = `
     query categories($where: CategoryWhereInput, $orderBy: [CategoryOrderByInput!], $cursor: CategoryWhereUniqueInput, $take: Int, $skip: Int, $distinct: [CategoryScalarFieldEnum!]) {

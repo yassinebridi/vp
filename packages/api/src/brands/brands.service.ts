@@ -5,16 +5,18 @@ import {
   Logger,
   NotFoundException,
 } from '@nestjs/common';
+import * as Chance from 'chance';
 import { I18nRequestScopeService } from 'nestjs-i18n';
 import {
-  FindManyBrandArgs,
-  FindUniqueBrandArgs,
   BrandCreateInput,
   BrandWhereUniqueInput,
+  DeleteManyBrandArgs,
+  FindManyBrandArgs,
+  FindUniqueBrandArgs,
+  UpdateManyBrandArgs,
   UpdateOneBrandArgs,
 } from 'src/@generated';
 import { PrismaService } from 'src/prisma/prisma.service';
-import * as Chance from 'chance';
 
 @Injectable()
 export class BrandsService {
@@ -37,6 +39,10 @@ export class BrandsService {
       totalPages: brandsTransaction[0],
       nodes: brandsTransaction[1],
     };
+  }
+
+  async countBrands(countBrandsInput: FindManyBrandArgs) {
+    return await this.prismaService.brand.count(countBrandsInput);
   }
 
   async getOneBrand(getOneBrandInput: FindUniqueBrandArgs) {
@@ -86,6 +92,21 @@ export class BrandsService {
     }
   }
 
+  async updateBrands(updateBrandsInput: UpdateManyBrandArgs) {
+    console.log('updateBrandsInput: ', updateBrandsInput);
+    try {
+      const a = await this.prismaService.brand.updateMany(updateBrandsInput);
+      console.log('a: ', a);
+
+      return true;
+    } catch (error) {
+      this.logger.error(error);
+      throw new InternalServerErrorException(
+        await this.translateService.translate('brands.update'),
+      );
+    }
+  }
+
   async removeBrand(where: BrandWhereUniqueInput) {
     const brand = await this.prismaService.brand.findUnique({
       where,
@@ -98,6 +119,24 @@ export class BrandsService {
     }
     try {
       await this.prismaService.brand.delete({ where });
+
+      return true;
+    } catch (error) {
+      this.logger.error(error);
+      if (error.code === 'P2002') {
+        throw new ConflictException(
+          await this.translateService.translate('brands.generics.conflict'),
+        );
+      }
+      throw new InternalServerErrorException(
+        await this.translateService.translate('brands.remove'),
+      );
+    }
+  }
+
+  async removeBrands(deleteManyBrandArgs: DeleteManyBrandArgs) {
+    try {
+      await this.prismaService.brand.deleteMany(deleteManyBrandArgs);
 
       return true;
     } catch (error) {

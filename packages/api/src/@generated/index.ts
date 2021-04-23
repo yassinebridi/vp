@@ -21,6 +21,7 @@ export enum UserScalarFieldEnum {
     googleId = "googleId",
     facebookId = "facebookId",
     cityId = "cityId",
+    isTrash = "isTrash",
     createdAt = "createdAt",
     updatedAt = "updatedAt"
 }
@@ -50,6 +51,7 @@ export enum ProductScalarFieldEnum {
     authorId = "authorId",
     publishStatus = "publishStatus",
     productStatus = "productStatus",
+    isTrash = "isTrash",
     createdAt = "createdAt",
     updatedAt = "updatedAt"
 }
@@ -105,8 +107,7 @@ export enum ProductSeason {
 
 export enum ProductPublishStatus {
     published = "published",
-    draft = "draft",
-    trash = "trash"
+    draft = "draft"
 }
 
 export enum LikeScalarFieldEnum {
@@ -128,6 +129,7 @@ export enum FavoriteScalarFieldEnum {
 export enum CityScalarFieldEnum {
     id = "id",
     name = "name",
+    isTrash = "isTrash",
     createdAt = "createdAt",
     updatedAt = "updatedAt"
 }
@@ -135,6 +137,7 @@ export enum CityScalarFieldEnum {
 export enum CategoryScalarFieldEnum {
     id = "id",
     name = "name",
+    isTrash = "isTrash",
     createdAt = "createdAt",
     updatedAt = "updatedAt"
 }
@@ -142,6 +145,7 @@ export enum CategoryScalarFieldEnum {
 export enum BrandScalarFieldEnum {
     id = "id",
     name = "name",
+    isTrash = "isTrash",
     createdAt = "createdAt",
     updatedAt = "updatedAt"
 }
@@ -200,6 +204,8 @@ export class BrandCountAggregateInput {
     @Field(() => Boolean, {nullable:true})
     name?: true;
     @Field(() => Boolean, {nullable:true})
+    isTrash?: true;
+    @Field(() => Boolean, {nullable:true})
     createdAt?: true;
     @Field(() => Boolean, {nullable:true})
     updatedAt?: true;
@@ -214,6 +220,8 @@ export class BrandCountAggregate {
     @Field(() => Int, {nullable:true})
     name?: number;
     @Field(() => Int, {nullable:true})
+    isTrash?: number;
+    @Field(() => Int, {nullable:true})
     createdAt?: number;
     @Field(() => Int, {nullable:true})
     updatedAt?: number;
@@ -227,6 +235,8 @@ export class BrandCreateManyInput {
     id?: string;
     @Field(() => String, {nullable:false})
     name!: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -257,6 +267,8 @@ export class BrandCreateWithoutProductsInput {
     id?: string;
     @Field(() => String, {nullable:false})
     name!: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -269,6 +281,8 @@ export class BrandCreateInput {
     id?: string;
     @Field(() => String, {nullable:false})
     name!: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -283,6 +297,8 @@ export class BrandGroupBy {
     id!: string;
     @Field(() => String, {nullable:false})
     name!: string;
+    @Field(() => Boolean, {nullable:false})
+    isTrash!: boolean;
     @Field(() => Date, {nullable:false})
     createdAt!: Date | string;
     @Field(() => Date, {nullable:false})
@@ -302,6 +318,8 @@ export class BrandMaxAggregateInput {
     @Field(() => Boolean, {nullable:true})
     name?: true;
     @Field(() => Boolean, {nullable:true})
+    isTrash?: true;
+    @Field(() => Boolean, {nullable:true})
     createdAt?: true;
     @Field(() => Boolean, {nullable:true})
     updatedAt?: true;
@@ -313,6 +331,8 @@ export class BrandMaxAggregate {
     id?: string;
     @Field(() => String, {nullable:true})
     name?: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -326,6 +346,8 @@ export class BrandMinAggregateInput {
     @Field(() => Boolean, {nullable:true})
     name?: true;
     @Field(() => Boolean, {nullable:true})
+    isTrash?: true;
+    @Field(() => Boolean, {nullable:true})
     createdAt?: true;
     @Field(() => Boolean, {nullable:true})
     updatedAt?: true;
@@ -337,6 +359,8 @@ export class BrandMinAggregate {
     id?: string;
     @Field(() => String, {nullable:true})
     name?: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -349,6 +373,8 @@ export class BrandOrderByInput {
     id?: SortOrder;
     @Field(() => SortOrder, {nullable:true})
     name?: SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    isTrash?: SortOrder;
     @Field(() => SortOrder, {nullable:true})
     createdAt?: SortOrder;
     @Field(() => SortOrder, {nullable:true})
@@ -375,6 +401,8 @@ export class BrandScalarWhereWithAggregatesInput {
     id?: InstanceType<typeof StringWithAggregatesFilter>;
     @Field(() => StringWithAggregatesFilter, {nullable:true})
     name?: InstanceType<typeof StringWithAggregatesFilter>;
+    @Field(() => BoolWithAggregatesFilter, {nullable:true})
+    isTrash?: InstanceType<typeof BoolWithAggregatesFilter>;
     @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeWithAggregatesFilter>;
     @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
@@ -387,6 +415,8 @@ export class BrandUncheckedCreateWithoutProductsInput {
     id?: string;
     @Field(() => String, {nullable:false})
     name!: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -399,6 +429,8 @@ export class BrandUncheckedCreateInput {
     id?: string;
     @Field(() => String, {nullable:false})
     name!: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -413,6 +445,8 @@ export class BrandUncheckedUpdateManyInput {
     id?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     name?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -425,6 +459,8 @@ export class BrandUncheckedUpdateWithoutProductsInput {
     id?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     name?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -437,6 +473,8 @@ export class BrandUncheckedUpdateInput {
     id?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     name?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -451,6 +489,8 @@ export class BrandUpdateManyMutationInput {
     id?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     name?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -477,6 +517,8 @@ export class BrandUpdateWithoutProductsInput {
     id?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     name?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -489,6 +531,8 @@ export class BrandUpdateInput {
     id?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     name?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -525,6 +569,8 @@ export class BrandWhereInput {
     name?: InstanceType<typeof StringFilter>;
     @Field(() => ProductListRelationFilter, {nullable:true})
     products?: InstanceType<typeof ProductListRelationFilter>;
+    @Field(() => BoolFilter, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFilter>;
     @Field(() => DateTimeFilter, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFilter>;
     @Field(() => DateTimeFilter, {nullable:true})
@@ -539,6 +585,8 @@ export class Brand {
     name!: string;
     @Field(() => [Product], {nullable:true})
     products?: Array<Product>;
+    @Field(() => Boolean, {nullable:false,defaultValue:false})
+    isTrash!: boolean;
     @Field(() => Date, {nullable:false})
     createdAt!: Date | string;
     @Field(() => Date, {nullable:false})
@@ -694,6 +742,8 @@ export class CategoryCountAggregateInput {
     @Field(() => Boolean, {nullable:true})
     name?: true;
     @Field(() => Boolean, {nullable:true})
+    isTrash?: true;
+    @Field(() => Boolean, {nullable:true})
     createdAt?: true;
     @Field(() => Boolean, {nullable:true})
     updatedAt?: true;
@@ -708,6 +758,8 @@ export class CategoryCountAggregate {
     @Field(() => Int, {nullable:true})
     name?: number;
     @Field(() => Int, {nullable:true})
+    isTrash?: number;
+    @Field(() => Int, {nullable:true})
     createdAt?: number;
     @Field(() => Int, {nullable:true})
     updatedAt?: number;
@@ -721,6 +773,8 @@ export class CategoryCreateManyInput {
     id?: string;
     @Field(() => String, {nullable:false})
     name!: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -751,6 +805,8 @@ export class CategoryCreateWithoutProductsInput {
     id?: string;
     @Field(() => String, {nullable:false})
     name!: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -763,6 +819,8 @@ export class CategoryCreateInput {
     id?: string;
     @Field(() => String, {nullable:false})
     name!: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -777,6 +835,8 @@ export class CategoryGroupBy {
     id!: string;
     @Field(() => String, {nullable:false})
     name!: string;
+    @Field(() => Boolean, {nullable:false})
+    isTrash!: boolean;
     @Field(() => Date, {nullable:false})
     createdAt!: Date | string;
     @Field(() => Date, {nullable:false})
@@ -796,6 +856,8 @@ export class CategoryMaxAggregateInput {
     @Field(() => Boolean, {nullable:true})
     name?: true;
     @Field(() => Boolean, {nullable:true})
+    isTrash?: true;
+    @Field(() => Boolean, {nullable:true})
     createdAt?: true;
     @Field(() => Boolean, {nullable:true})
     updatedAt?: true;
@@ -807,6 +869,8 @@ export class CategoryMaxAggregate {
     id?: string;
     @Field(() => String, {nullable:true})
     name?: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -820,6 +884,8 @@ export class CategoryMinAggregateInput {
     @Field(() => Boolean, {nullable:true})
     name?: true;
     @Field(() => Boolean, {nullable:true})
+    isTrash?: true;
+    @Field(() => Boolean, {nullable:true})
     createdAt?: true;
     @Field(() => Boolean, {nullable:true})
     updatedAt?: true;
@@ -831,6 +897,8 @@ export class CategoryMinAggregate {
     id?: string;
     @Field(() => String, {nullable:true})
     name?: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -843,6 +911,8 @@ export class CategoryOrderByInput {
     id?: SortOrder;
     @Field(() => SortOrder, {nullable:true})
     name?: SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    isTrash?: SortOrder;
     @Field(() => SortOrder, {nullable:true})
     createdAt?: SortOrder;
     @Field(() => SortOrder, {nullable:true})
@@ -869,6 +939,8 @@ export class CategoryScalarWhereWithAggregatesInput {
     id?: InstanceType<typeof StringWithAggregatesFilter>;
     @Field(() => StringWithAggregatesFilter, {nullable:true})
     name?: InstanceType<typeof StringWithAggregatesFilter>;
+    @Field(() => BoolWithAggregatesFilter, {nullable:true})
+    isTrash?: InstanceType<typeof BoolWithAggregatesFilter>;
     @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeWithAggregatesFilter>;
     @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
@@ -881,6 +953,8 @@ export class CategoryUncheckedCreateWithoutProductsInput {
     id?: string;
     @Field(() => String, {nullable:false})
     name!: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -893,6 +967,8 @@ export class CategoryUncheckedCreateInput {
     id?: string;
     @Field(() => String, {nullable:false})
     name!: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -907,6 +983,8 @@ export class CategoryUncheckedUpdateManyInput {
     id?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     name?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -919,6 +997,8 @@ export class CategoryUncheckedUpdateWithoutProductsInput {
     id?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     name?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -931,6 +1011,8 @@ export class CategoryUncheckedUpdateInput {
     id?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     name?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -945,6 +1027,8 @@ export class CategoryUpdateManyMutationInput {
     id?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     name?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -971,6 +1055,8 @@ export class CategoryUpdateWithoutProductsInput {
     id?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     name?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -983,6 +1069,8 @@ export class CategoryUpdateInput {
     id?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     name?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -1019,6 +1107,8 @@ export class CategoryWhereInput {
     name?: InstanceType<typeof StringFilter>;
     @Field(() => ProductListRelationFilter, {nullable:true})
     products?: InstanceType<typeof ProductListRelationFilter>;
+    @Field(() => BoolFilter, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFilter>;
     @Field(() => DateTimeFilter, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFilter>;
     @Field(() => DateTimeFilter, {nullable:true})
@@ -1033,6 +1123,8 @@ export class Category {
     name!: string;
     @Field(() => [Product], {nullable:true})
     products?: Array<Product>;
+    @Field(() => Boolean, {nullable:false,defaultValue:false})
+    isTrash!: boolean;
     @Field(() => Date, {nullable:false})
     createdAt!: Date | string;
     @Field(() => Date, {nullable:false})
@@ -1188,6 +1280,8 @@ export class CityCountAggregateInput {
     @Field(() => Boolean, {nullable:true})
     name?: true;
     @Field(() => Boolean, {nullable:true})
+    isTrash?: true;
+    @Field(() => Boolean, {nullable:true})
     createdAt?: true;
     @Field(() => Boolean, {nullable:true})
     updatedAt?: true;
@@ -1202,6 +1296,8 @@ export class CityCountAggregate {
     @Field(() => Int, {nullable:true})
     name?: number;
     @Field(() => Int, {nullable:true})
+    isTrash?: number;
+    @Field(() => Int, {nullable:true})
     createdAt?: number;
     @Field(() => Int, {nullable:true})
     updatedAt?: number;
@@ -1215,6 +1311,8 @@ export class CityCreateManyInput {
     id?: string;
     @Field(() => String, {nullable:false})
     name!: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -1263,6 +1361,8 @@ export class CityCreateWithoutProductsInput {
     id?: string;
     @Field(() => String, {nullable:false})
     name!: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -1277,6 +1377,8 @@ export class CityCreateWithoutUsersInput {
     id?: string;
     @Field(() => String, {nullable:false})
     name!: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -1291,6 +1393,8 @@ export class CityCreateInput {
     id?: string;
     @Field(() => String, {nullable:false})
     name!: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -1307,6 +1411,8 @@ export class CityGroupBy {
     id!: string;
     @Field(() => String, {nullable:false})
     name!: string;
+    @Field(() => Boolean, {nullable:false})
+    isTrash!: boolean;
     @Field(() => Date, {nullable:false})
     createdAt!: Date | string;
     @Field(() => Date, {nullable:false})
@@ -1326,6 +1432,8 @@ export class CityMaxAggregateInput {
     @Field(() => Boolean, {nullable:true})
     name?: true;
     @Field(() => Boolean, {nullable:true})
+    isTrash?: true;
+    @Field(() => Boolean, {nullable:true})
     createdAt?: true;
     @Field(() => Boolean, {nullable:true})
     updatedAt?: true;
@@ -1337,6 +1445,8 @@ export class CityMaxAggregate {
     id?: string;
     @Field(() => String, {nullable:true})
     name?: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -1350,6 +1460,8 @@ export class CityMinAggregateInput {
     @Field(() => Boolean, {nullable:true})
     name?: true;
     @Field(() => Boolean, {nullable:true})
+    isTrash?: true;
+    @Field(() => Boolean, {nullable:true})
     createdAt?: true;
     @Field(() => Boolean, {nullable:true})
     updatedAt?: true;
@@ -1361,6 +1473,8 @@ export class CityMinAggregate {
     id?: string;
     @Field(() => String, {nullable:true})
     name?: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -1373,6 +1487,8 @@ export class CityOrderByInput {
     id?: SortOrder;
     @Field(() => SortOrder, {nullable:true})
     name?: SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    isTrash?: SortOrder;
     @Field(() => SortOrder, {nullable:true})
     createdAt?: SortOrder;
     @Field(() => SortOrder, {nullable:true})
@@ -1399,6 +1515,8 @@ export class CityScalarWhereWithAggregatesInput {
     id?: InstanceType<typeof StringWithAggregatesFilter>;
     @Field(() => StringWithAggregatesFilter, {nullable:true})
     name?: InstanceType<typeof StringWithAggregatesFilter>;
+    @Field(() => BoolWithAggregatesFilter, {nullable:true})
+    isTrash?: InstanceType<typeof BoolWithAggregatesFilter>;
     @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeWithAggregatesFilter>;
     @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
@@ -1411,6 +1529,8 @@ export class CityUncheckedCreateWithoutProductsInput {
     id?: string;
     @Field(() => String, {nullable:false})
     name!: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -1425,6 +1545,8 @@ export class CityUncheckedCreateWithoutUsersInput {
     id?: string;
     @Field(() => String, {nullable:false})
     name!: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -1439,6 +1561,8 @@ export class CityUncheckedCreateInput {
     id?: string;
     @Field(() => String, {nullable:false})
     name!: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -1455,6 +1579,8 @@ export class CityUncheckedUpdateManyInput {
     id?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     name?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -1467,6 +1593,8 @@ export class CityUncheckedUpdateWithoutProductsInput {
     id?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     name?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -1481,6 +1609,8 @@ export class CityUncheckedUpdateWithoutUsersInput {
     id?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     name?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -1495,6 +1625,8 @@ export class CityUncheckedUpdateInput {
     id?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     name?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -1511,6 +1643,8 @@ export class CityUpdateManyMutationInput {
     id?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     name?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -1555,6 +1689,8 @@ export class CityUpdateWithoutProductsInput {
     id?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     name?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -1569,6 +1705,8 @@ export class CityUpdateWithoutUsersInput {
     id?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     name?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -1583,6 +1721,8 @@ export class CityUpdateInput {
     id?: InstanceType<typeof StringFieldUpdateOperationsInput>;
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     name?: InstanceType<typeof StringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -1631,6 +1771,8 @@ export class CityWhereInput {
     products?: InstanceType<typeof ProductListRelationFilter>;
     @Field(() => UserListRelationFilter, {nullable:true})
     users?: InstanceType<typeof UserListRelationFilter>;
+    @Field(() => BoolFilter, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFilter>;
     @Field(() => DateTimeFilter, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFilter>;
     @Field(() => DateTimeFilter, {nullable:true})
@@ -1647,6 +1789,8 @@ export class City {
     products?: Array<Product>;
     @Field(() => [User], {nullable:true})
     users?: Array<User>;
+    @Field(() => Boolean, {nullable:false,defaultValue:false})
+    isTrash!: boolean;
     @Field(() => Date, {nullable:false})
     createdAt!: Date | string;
     @Field(() => Date, {nullable:false})
@@ -4638,6 +4782,8 @@ export class ProductCountAggregateInput {
     @Field(() => Boolean, {nullable:true})
     productStatus?: true;
     @Field(() => Boolean, {nullable:true})
+    isTrash?: true;
+    @Field(() => Boolean, {nullable:true})
     createdAt?: true;
     @Field(() => Boolean, {nullable:true})
     updatedAt?: true;
@@ -4675,6 +4821,8 @@ export class ProductCountAggregate {
     publishStatus?: number;
     @Field(() => Int, {nullable:true})
     productStatus?: number;
+    @Field(() => Int, {nullable:true})
+    isTrash?: number;
     @Field(() => Int, {nullable:true})
     createdAt?: number;
     @Field(() => Int, {nullable:true})
@@ -4719,6 +4867,8 @@ export class ProductCreateManyAuthorInput {
     publishStatus!: ProductPublishStatus;
     @Field(() => ProductStatus, {nullable:false})
     productStatus!: ProductStatus;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -4761,6 +4911,8 @@ export class ProductCreateManyBrandInput {
     publishStatus!: ProductPublishStatus;
     @Field(() => ProductStatus, {nullable:false})
     productStatus!: ProductStatus;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -4803,6 +4955,8 @@ export class ProductCreateManyCategoryInput {
     publishStatus!: ProductPublishStatus;
     @Field(() => ProductStatus, {nullable:false})
     productStatus!: ProductStatus;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -4845,6 +4999,8 @@ export class ProductCreateManyCityInput {
     publishStatus!: ProductPublishStatus;
     @Field(() => ProductStatus, {nullable:false})
     productStatus!: ProductStatus;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -4881,6 +5037,8 @@ export class ProductCreateManyInput {
     publishStatus!: ProductPublishStatus;
     @Field(() => ProductStatus, {nullable:false})
     productStatus!: ProductStatus;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -5043,6 +5201,8 @@ export class ProductCreateWithoutAuthorInput {
     publishStatus!: ProductPublishStatus;
     @Field(() => ProductStatus, {nullable:false})
     productStatus!: ProductStatus;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -5083,6 +5243,8 @@ export class ProductCreateWithoutBrandInput {
     publishStatus!: ProductPublishStatus;
     @Field(() => ProductStatus, {nullable:false})
     productStatus!: ProductStatus;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -5123,6 +5285,8 @@ export class ProductCreateWithoutCategoryInput {
     publishStatus!: ProductPublishStatus;
     @Field(() => ProductStatus, {nullable:false})
     productStatus!: ProductStatus;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -5163,6 +5327,8 @@ export class ProductCreateWithoutCityInput {
     publishStatus!: ProductPublishStatus;
     @Field(() => ProductStatus, {nullable:false})
     productStatus!: ProductStatus;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -5203,6 +5369,8 @@ export class ProductCreateWithoutFavoritesInput {
     publishStatus!: ProductPublishStatus;
     @Field(() => ProductStatus, {nullable:false})
     productStatus!: ProductStatus;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -5243,6 +5411,8 @@ export class ProductCreateWithoutImagesInput {
     publishStatus!: ProductPublishStatus;
     @Field(() => ProductStatus, {nullable:false})
     productStatus!: ProductStatus;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -5283,6 +5453,8 @@ export class ProductCreateWithoutLikesInput {
     publishStatus!: ProductPublishStatus;
     @Field(() => ProductStatus, {nullable:false})
     productStatus!: ProductStatus;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -5323,6 +5495,8 @@ export class ProductCreateInput {
     publishStatus!: ProductPublishStatus;
     @Field(() => ProductStatus, {nullable:false})
     productStatus!: ProductStatus;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -5373,6 +5547,8 @@ export class ProductGroupBy {
     publishStatus!: ProductPublishStatus;
     @Field(() => ProductStatus, {nullable:false})
     productStatus!: ProductStatus;
+    @Field(() => Boolean, {nullable:false})
+    isTrash!: boolean;
     @Field(() => Date, {nullable:false})
     createdAt!: Date | string;
     @Field(() => Date, {nullable:false})
@@ -5430,6 +5606,8 @@ export class ProductMaxAggregateInput {
     @Field(() => Boolean, {nullable:true})
     productStatus?: true;
     @Field(() => Boolean, {nullable:true})
+    isTrash?: true;
+    @Field(() => Boolean, {nullable:true})
     createdAt?: true;
     @Field(() => Boolean, {nullable:true})
     updatedAt?: true;
@@ -5465,6 +5643,8 @@ export class ProductMaxAggregate {
     publishStatus?: ProductPublishStatus;
     @Field(() => ProductStatus, {nullable:true})
     productStatus?: ProductStatus;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -5502,6 +5682,8 @@ export class ProductMinAggregateInput {
     @Field(() => Boolean, {nullable:true})
     productStatus?: true;
     @Field(() => Boolean, {nullable:true})
+    isTrash?: true;
+    @Field(() => Boolean, {nullable:true})
     createdAt?: true;
     @Field(() => Boolean, {nullable:true})
     updatedAt?: true;
@@ -5537,6 +5719,8 @@ export class ProductMinAggregate {
     publishStatus?: ProductPublishStatus;
     @Field(() => ProductStatus, {nullable:true})
     productStatus?: ProductStatus;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -5573,6 +5757,8 @@ export class ProductOrderByInput {
     publishStatus?: SortOrder;
     @Field(() => SortOrder, {nullable:true})
     productStatus?: SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    isTrash?: SortOrder;
     @Field(() => SortOrder, {nullable:true})
     createdAt?: SortOrder;
     @Field(() => SortOrder, {nullable:true})
@@ -5623,6 +5809,8 @@ export class ProductScalarWhereWithAggregatesInput {
     publishStatus?: InstanceType<typeof EnumProductPublishStatusWithAggregatesFilter>;
     @Field(() => EnumProductStatusWithAggregatesFilter, {nullable:true})
     productStatus?: InstanceType<typeof EnumProductStatusWithAggregatesFilter>;
+    @Field(() => BoolWithAggregatesFilter, {nullable:true})
+    isTrash?: InstanceType<typeof BoolWithAggregatesFilter>;
     @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeWithAggregatesFilter>;
     @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
@@ -5665,6 +5853,8 @@ export class ProductScalarWhereInput {
     publishStatus?: InstanceType<typeof EnumProductPublishStatusFilter>;
     @Field(() => EnumProductStatusFilter, {nullable:true})
     productStatus?: InstanceType<typeof EnumProductStatusFilter>;
+    @Field(() => BoolFilter, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFilter>;
     @Field(() => DateTimeFilter, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFilter>;
     @Field(() => DateTimeFilter, {nullable:true})
@@ -5763,6 +5953,8 @@ export class ProductUncheckedCreateWithoutAuthorInput {
     publishStatus!: ProductPublishStatus;
     @Field(() => ProductStatus, {nullable:false})
     productStatus!: ProductStatus;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -5803,6 +5995,8 @@ export class ProductUncheckedCreateWithoutBrandInput {
     publishStatus!: ProductPublishStatus;
     @Field(() => ProductStatus, {nullable:false})
     productStatus!: ProductStatus;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -5843,6 +6037,8 @@ export class ProductUncheckedCreateWithoutCategoryInput {
     publishStatus!: ProductPublishStatus;
     @Field(() => ProductStatus, {nullable:false})
     productStatus!: ProductStatus;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -5883,6 +6079,8 @@ export class ProductUncheckedCreateWithoutCityInput {
     publishStatus!: ProductPublishStatus;
     @Field(() => ProductStatus, {nullable:false})
     productStatus!: ProductStatus;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -5925,6 +6123,8 @@ export class ProductUncheckedCreateWithoutFavoritesInput {
     publishStatus!: ProductPublishStatus;
     @Field(() => ProductStatus, {nullable:false})
     productStatus!: ProductStatus;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -5965,6 +6165,8 @@ export class ProductUncheckedCreateWithoutImagesInput {
     publishStatus!: ProductPublishStatus;
     @Field(() => ProductStatus, {nullable:false})
     productStatus!: ProductStatus;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -6005,6 +6207,8 @@ export class ProductUncheckedCreateWithoutLikesInput {
     publishStatus!: ProductPublishStatus;
     @Field(() => ProductStatus, {nullable:false})
     productStatus!: ProductStatus;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -6045,6 +6249,8 @@ export class ProductUncheckedCreateInput {
     publishStatus!: ProductPublishStatus;
     @Field(() => ProductStatus, {nullable:false})
     productStatus!: ProductStatus;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -6189,6 +6395,8 @@ export class ProductUncheckedUpdateManyWithoutProductsInput {
     publishStatus?: InstanceType<typeof EnumProductPublishStatusFieldUpdateOperationsInput>;
     @Field(() => EnumProductStatusFieldUpdateOperationsInput, {nullable:true})
     productStatus?: InstanceType<typeof EnumProductStatusFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -6225,6 +6433,8 @@ export class ProductUncheckedUpdateManyInput {
     publishStatus?: InstanceType<typeof EnumProductPublishStatusFieldUpdateOperationsInput>;
     @Field(() => EnumProductStatusFieldUpdateOperationsInput, {nullable:true})
     productStatus?: InstanceType<typeof EnumProductStatusFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -6259,6 +6469,8 @@ export class ProductUncheckedUpdateWithoutAuthorInput {
     publishStatus?: InstanceType<typeof EnumProductPublishStatusFieldUpdateOperationsInput>;
     @Field(() => EnumProductStatusFieldUpdateOperationsInput, {nullable:true})
     productStatus?: InstanceType<typeof EnumProductStatusFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -6299,6 +6511,8 @@ export class ProductUncheckedUpdateWithoutBrandInput {
     publishStatus?: InstanceType<typeof EnumProductPublishStatusFieldUpdateOperationsInput>;
     @Field(() => EnumProductStatusFieldUpdateOperationsInput, {nullable:true})
     productStatus?: InstanceType<typeof EnumProductStatusFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -6339,6 +6553,8 @@ export class ProductUncheckedUpdateWithoutCategoryInput {
     publishStatus?: InstanceType<typeof EnumProductPublishStatusFieldUpdateOperationsInput>;
     @Field(() => EnumProductStatusFieldUpdateOperationsInput, {nullable:true})
     productStatus?: InstanceType<typeof EnumProductStatusFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -6379,6 +6595,8 @@ export class ProductUncheckedUpdateWithoutCityInput {
     publishStatus?: InstanceType<typeof EnumProductPublishStatusFieldUpdateOperationsInput>;
     @Field(() => EnumProductStatusFieldUpdateOperationsInput, {nullable:true})
     productStatus?: InstanceType<typeof EnumProductStatusFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -6421,6 +6639,8 @@ export class ProductUncheckedUpdateWithoutFavoritesInput {
     publishStatus?: InstanceType<typeof EnumProductPublishStatusFieldUpdateOperationsInput>;
     @Field(() => EnumProductStatusFieldUpdateOperationsInput, {nullable:true})
     productStatus?: InstanceType<typeof EnumProductStatusFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -6461,6 +6681,8 @@ export class ProductUncheckedUpdateWithoutImagesInput {
     publishStatus?: InstanceType<typeof EnumProductPublishStatusFieldUpdateOperationsInput>;
     @Field(() => EnumProductStatusFieldUpdateOperationsInput, {nullable:true})
     productStatus?: InstanceType<typeof EnumProductStatusFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -6501,6 +6723,8 @@ export class ProductUncheckedUpdateWithoutLikesInput {
     publishStatus?: InstanceType<typeof EnumProductPublishStatusFieldUpdateOperationsInput>;
     @Field(() => EnumProductStatusFieldUpdateOperationsInput, {nullable:true})
     productStatus?: InstanceType<typeof EnumProductStatusFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -6541,6 +6765,8 @@ export class ProductUncheckedUpdateInput {
     publishStatus?: InstanceType<typeof EnumProductPublishStatusFieldUpdateOperationsInput>;
     @Field(() => EnumProductStatusFieldUpdateOperationsInput, {nullable:true})
     productStatus?: InstanceType<typeof EnumProductStatusFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -6575,6 +6801,8 @@ export class ProductUpdateManyMutationInput {
     publishStatus?: InstanceType<typeof EnumProductPublishStatusFieldUpdateOperationsInput>;
     @Field(() => EnumProductStatusFieldUpdateOperationsInput, {nullable:true})
     productStatus?: InstanceType<typeof EnumProductStatusFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -6825,6 +7053,8 @@ export class ProductUpdateWithoutAuthorInput {
     publishStatus?: InstanceType<typeof EnumProductPublishStatusFieldUpdateOperationsInput>;
     @Field(() => EnumProductStatusFieldUpdateOperationsInput, {nullable:true})
     productStatus?: InstanceType<typeof EnumProductStatusFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -6865,6 +7095,8 @@ export class ProductUpdateWithoutBrandInput {
     publishStatus?: InstanceType<typeof EnumProductPublishStatusFieldUpdateOperationsInput>;
     @Field(() => EnumProductStatusFieldUpdateOperationsInput, {nullable:true})
     productStatus?: InstanceType<typeof EnumProductStatusFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -6905,6 +7137,8 @@ export class ProductUpdateWithoutCategoryInput {
     publishStatus?: InstanceType<typeof EnumProductPublishStatusFieldUpdateOperationsInput>;
     @Field(() => EnumProductStatusFieldUpdateOperationsInput, {nullable:true})
     productStatus?: InstanceType<typeof EnumProductStatusFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -6945,6 +7179,8 @@ export class ProductUpdateWithoutCityInput {
     publishStatus?: InstanceType<typeof EnumProductPublishStatusFieldUpdateOperationsInput>;
     @Field(() => EnumProductStatusFieldUpdateOperationsInput, {nullable:true})
     productStatus?: InstanceType<typeof EnumProductStatusFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -6985,6 +7221,8 @@ export class ProductUpdateWithoutFavoritesInput {
     publishStatus?: InstanceType<typeof EnumProductPublishStatusFieldUpdateOperationsInput>;
     @Field(() => EnumProductStatusFieldUpdateOperationsInput, {nullable:true})
     productStatus?: InstanceType<typeof EnumProductStatusFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -7025,6 +7263,8 @@ export class ProductUpdateWithoutImagesInput {
     publishStatus?: InstanceType<typeof EnumProductPublishStatusFieldUpdateOperationsInput>;
     @Field(() => EnumProductStatusFieldUpdateOperationsInput, {nullable:true})
     productStatus?: InstanceType<typeof EnumProductStatusFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -7065,6 +7305,8 @@ export class ProductUpdateWithoutLikesInput {
     publishStatus?: InstanceType<typeof EnumProductPublishStatusFieldUpdateOperationsInput>;
     @Field(() => EnumProductStatusFieldUpdateOperationsInput, {nullable:true})
     productStatus?: InstanceType<typeof EnumProductStatusFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -7105,6 +7347,8 @@ export class ProductUpdateInput {
     publishStatus?: InstanceType<typeof EnumProductPublishStatusFieldUpdateOperationsInput>;
     @Field(() => EnumProductStatusFieldUpdateOperationsInput, {nullable:true})
     productStatus?: InstanceType<typeof EnumProductStatusFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -7245,6 +7489,8 @@ export class ProductWhereInput {
     publishStatus?: InstanceType<typeof EnumProductPublishStatusFilter>;
     @Field(() => EnumProductStatusFilter, {nullable:true})
     productStatus?: InstanceType<typeof EnumProductStatusFilter>;
+    @Field(() => BoolFilter, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFilter>;
     @Field(() => DateTimeFilter, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFilter>;
     @Field(() => DateTimeFilter, {nullable:true})
@@ -7295,6 +7541,8 @@ export class Product {
     publishStatus!: ProductPublishStatus;
     @Field(() => ProductStatus, {nullable:false})
     productStatus!: ProductStatus;
+    @Field(() => Boolean, {nullable:false,defaultValue:false})
+    isTrash!: boolean;
     @Field(() => Date, {nullable:false})
     createdAt!: Date | string;
     @Field(() => Date, {nullable:false})
@@ -8242,6 +8490,8 @@ export class UserCountAggregateInput {
     @Field(() => Boolean, {nullable:true})
     cityId?: true;
     @Field(() => Boolean, {nullable:true})
+    isTrash?: true;
+    @Field(() => Boolean, {nullable:true})
     createdAt?: true;
     @Field(() => Boolean, {nullable:true})
     updatedAt?: true;
@@ -8277,6 +8527,8 @@ export class UserCountAggregate {
     facebookId?: number;
     @Field(() => Int, {nullable:true})
     cityId?: number;
+    @Field(() => Int, {nullable:true})
+    isTrash?: number;
     @Field(() => Int, {nullable:true})
     createdAt?: number;
     @Field(() => Int, {nullable:true})
@@ -8319,6 +8571,8 @@ export class UserCreateManyCityInput {
     googleId?: string;
     @Field(() => String, {nullable:true})
     facebookId?: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -8353,6 +8607,8 @@ export class UserCreateManyInput {
     facebookId?: string;
     @Field(() => String, {nullable:true})
     cityId?: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -8495,6 +8751,8 @@ export class UserCreateWithoutCityInput {
     googleId?: string;
     @Field(() => String, {nullable:true})
     facebookId?: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -8537,6 +8795,8 @@ export class UserCreateWithoutFavoritesInput {
     googleId?: string;
     @Field(() => String, {nullable:true})
     facebookId?: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -8579,6 +8839,8 @@ export class UserCreateWithoutFollowedByInput {
     googleId?: string;
     @Field(() => String, {nullable:true})
     facebookId?: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -8621,6 +8883,8 @@ export class UserCreateWithoutFollowingInput {
     googleId?: string;
     @Field(() => String, {nullable:true})
     facebookId?: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -8663,6 +8927,8 @@ export class UserCreateWithoutLikesInput {
     googleId?: string;
     @Field(() => String, {nullable:true})
     facebookId?: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -8705,6 +8971,8 @@ export class UserCreateWithoutProductsInput {
     googleId?: string;
     @Field(() => String, {nullable:true})
     facebookId?: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -8747,6 +9015,8 @@ export class UserCreateInput {
     googleId?: string;
     @Field(() => String, {nullable:true})
     facebookId?: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -8793,6 +9063,8 @@ export class UserGroupBy {
     facebookId?: string;
     @Field(() => String, {nullable:true})
     cityId?: string;
+    @Field(() => Boolean, {nullable:false})
+    isTrash!: boolean;
     @Field(() => Date, {nullable:false})
     createdAt!: Date | string;
     @Field(() => Date, {nullable:false})
@@ -8844,6 +9116,8 @@ export class UserMaxAggregateInput {
     @Field(() => Boolean, {nullable:true})
     cityId?: true;
     @Field(() => Boolean, {nullable:true})
+    isTrash?: true;
+    @Field(() => Boolean, {nullable:true})
     createdAt?: true;
     @Field(() => Boolean, {nullable:true})
     updatedAt?: true;
@@ -8877,6 +9151,8 @@ export class UserMaxAggregate {
     facebookId?: string;
     @Field(() => String, {nullable:true})
     cityId?: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -8912,6 +9188,8 @@ export class UserMinAggregateInput {
     @Field(() => Boolean, {nullable:true})
     cityId?: true;
     @Field(() => Boolean, {nullable:true})
+    isTrash?: true;
+    @Field(() => Boolean, {nullable:true})
     createdAt?: true;
     @Field(() => Boolean, {nullable:true})
     updatedAt?: true;
@@ -8945,6 +9223,8 @@ export class UserMinAggregate {
     facebookId?: string;
     @Field(() => String, {nullable:true})
     cityId?: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -8979,6 +9259,8 @@ export class UserOrderByInput {
     facebookId?: SortOrder;
     @Field(() => SortOrder, {nullable:true})
     cityId?: SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    isTrash?: SortOrder;
     @Field(() => SortOrder, {nullable:true})
     createdAt?: SortOrder;
     @Field(() => SortOrder, {nullable:true})
@@ -9027,6 +9309,8 @@ export class UserScalarWhereWithAggregatesInput {
     facebookId?: InstanceType<typeof StringNullableWithAggregatesFilter>;
     @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
     cityId?: InstanceType<typeof StringNullableWithAggregatesFilter>;
+    @Field(() => BoolWithAggregatesFilter, {nullable:true})
+    isTrash?: InstanceType<typeof BoolWithAggregatesFilter>;
     @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeWithAggregatesFilter>;
     @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
@@ -9067,6 +9351,8 @@ export class UserScalarWhereInput {
     facebookId?: InstanceType<typeof StringNullableFilter>;
     @Field(() => StringNullableFilter, {nullable:true})
     cityId?: InstanceType<typeof StringNullableFilter>;
+    @Field(() => BoolFilter, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFilter>;
     @Field(() => DateTimeFilter, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFilter>;
     @Field(() => DateTimeFilter, {nullable:true})
@@ -9111,6 +9397,8 @@ export class UserUncheckedCreateWithoutCityInput {
     googleId?: string;
     @Field(() => String, {nullable:true})
     facebookId?: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -9151,6 +9439,8 @@ export class UserUncheckedCreateWithoutFavoritesInput {
     facebookId?: string;
     @Field(() => String, {nullable:true})
     cityId?: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -9189,6 +9479,8 @@ export class UserUncheckedCreateWithoutFollowedByInput {
     facebookId?: string;
     @Field(() => String, {nullable:true})
     cityId?: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -9229,6 +9521,8 @@ export class UserUncheckedCreateWithoutFollowingInput {
     facebookId?: string;
     @Field(() => String, {nullable:true})
     cityId?: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -9269,6 +9563,8 @@ export class UserUncheckedCreateWithoutLikesInput {
     facebookId?: string;
     @Field(() => String, {nullable:true})
     cityId?: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -9307,6 +9603,8 @@ export class UserUncheckedCreateWithoutProductsInput {
     facebookId?: string;
     @Field(() => String, {nullable:true})
     cityId?: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -9345,6 +9643,8 @@ export class UserUncheckedCreateInput {
     facebookId?: string;
     @Field(() => String, {nullable:true})
     cityId?: string;
+    @Field(() => Boolean, {nullable:true})
+    isTrash?: boolean;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -9411,6 +9711,8 @@ export class UserUncheckedUpdateManyWithoutFollowedByInput {
     facebookId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     cityId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -9445,6 +9747,8 @@ export class UserUncheckedUpdateManyWithoutFollowingInput {
     facebookId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     cityId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -9477,6 +9781,8 @@ export class UserUncheckedUpdateManyWithoutUsersInput {
     googleId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     facebookId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -9511,6 +9817,8 @@ export class UserUncheckedUpdateManyInput {
     facebookId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     cityId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -9543,6 +9851,8 @@ export class UserUncheckedUpdateWithoutCityInput {
     googleId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     facebookId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -9583,6 +9893,8 @@ export class UserUncheckedUpdateWithoutFavoritesInput {
     facebookId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     cityId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -9621,6 +9933,8 @@ export class UserUncheckedUpdateWithoutFollowedByInput {
     facebookId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     cityId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -9661,6 +9975,8 @@ export class UserUncheckedUpdateWithoutFollowingInput {
     facebookId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     cityId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -9701,6 +10017,8 @@ export class UserUncheckedUpdateWithoutLikesInput {
     facebookId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     cityId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -9739,6 +10057,8 @@ export class UserUncheckedUpdateWithoutProductsInput {
     facebookId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     cityId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -9777,6 +10097,8 @@ export class UserUncheckedUpdateInput {
     facebookId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     cityId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -9815,6 +10137,8 @@ export class UserUpdateManyMutationInput {
     googleId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     facebookId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -10023,6 +10347,8 @@ export class UserUpdateWithoutCityInput {
     googleId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     facebookId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -10065,6 +10391,8 @@ export class UserUpdateWithoutFavoritesInput {
     googleId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     facebookId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -10107,6 +10435,8 @@ export class UserUpdateWithoutFollowedByInput {
     googleId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     facebookId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -10149,6 +10479,8 @@ export class UserUpdateWithoutFollowingInput {
     googleId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     facebookId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -10191,6 +10523,8 @@ export class UserUpdateWithoutLikesInput {
     googleId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     facebookId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -10233,6 +10567,8 @@ export class UserUpdateWithoutProductsInput {
     googleId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     facebookId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -10275,6 +10611,8 @@ export class UserUpdateInput {
     googleId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     facebookId?: InstanceType<typeof NullableStringFieldUpdateOperationsInput>;
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFieldUpdateOperationsInput>;
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -10401,6 +10739,8 @@ export class UserWhereInput {
     followedBy?: InstanceType<typeof UserListRelationFilter>;
     @Field(() => UserListRelationFilter, {nullable:true})
     following?: InstanceType<typeof UserListRelationFilter>;
+    @Field(() => BoolFilter, {nullable:true})
+    isTrash?: InstanceType<typeof BoolFilter>;
     @Field(() => DateTimeFilter, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFilter>;
     @Field(() => DateTimeFilter, {nullable:true})
@@ -10447,6 +10787,8 @@ export class User {
     followedBy?: Array<User>;
     @Field(() => [User], {nullable:true})
     following?: Array<User>;
+    @Field(() => Boolean, {nullable:false,defaultValue:false})
+    isTrash!: boolean;
     @Field(() => Date, {nullable:false})
     createdAt!: Date | string;
     @Field(() => Date, {nullable:false})
