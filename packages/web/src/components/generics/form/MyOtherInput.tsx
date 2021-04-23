@@ -11,6 +11,7 @@ type MyOtherInputProps = React.DetailedHTMLProps<
   register: UseFormRegister<any>;
   name: string;
   errors: any;
+  isLoading: boolean;
 };
 
 const MyOtherInput: FC<MyOtherInputProps> = ({
@@ -19,6 +20,7 @@ const MyOtherInput: FC<MyOtherInputProps> = ({
   label,
   placeholder,
   register,
+  isLoading,
   ...props
 }) => {
   return (
@@ -36,7 +38,7 @@ const MyOtherInput: FC<MyOtherInputProps> = ({
 
       <input
         className="px-4 py-2 text-gray-700 bg-gray-200 outline-none rounded-md dark:text-gray-200 dark:bg-gray-900 ringify"
-        placeholder={placeholder}
+        placeholder={isLoading ? "Loading.." : placeholder}
         {...register(name, { required: true })}
         {...props}
       />

@@ -64,6 +64,7 @@ const CreateBrand: React.FC<CreateBrandProps> = () => {
 
   return (
     <ActionBar
+      withButton={true}
       onClose={onClose}
       onOpen={onOpen}
       isOpen={isOpen}
@@ -72,6 +73,7 @@ const CreateBrand: React.FC<CreateBrandProps> = () => {
       onSubmit={handleSubmit(onSubmit)}
       icon={<PlusIcon className="w-10 h-10 p-2" />}
       buttonText={null}
+      type="create"
       buttonClasses="text-white bg-purple-500 rounded-full hover:bg-purple-600 active:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50"
     >
       <div className="mb-3">

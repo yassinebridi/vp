@@ -1,11 +1,11 @@
 import {
   BrandUpdateInput,
   UpdateBrandMutationVariables,
+  useBrandQuery,
   useUpdateBrandMutation,
 } from "@adapters";
 import { useToast } from "@chakra-ui/react";
 import { ActionBar, MyOtherInput } from "@components";
-import { PlusIcon } from "@heroicons/react/outline";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { usePageState } from "@utils";
 import { UpdateBrandSchema } from "@vp/common";
@@ -16,17 +16,15 @@ import { useQueryClient } from "react-query";
 export interface UpdateBrandProps {
   id: string;
   onClose: () => void;
-  onOpen: () => void;
   isOpen: boolean;
 }
-const UpdateBrand: React.FC<UpdateBrandProps> = ({
-  id,
-  onClose,
-  onOpen,
-  isOpen,
-}) => {
+const UpdateBrand: React.FC<UpdateBrandProps> = ({ id, onClose, isOpen }) => {
   const { component, countComponent } = usePageState();
   const { mutateAsync, isLoading } = useUpdateBrandMutation();
+  const { data, isLoading: isBrandLoading } = useBrandQuery(
+    { where: { id } },
+    { enabled: isOpen }
+  );
   const queryClient = useQueryClient();
   const toast = useToast();
 
@@ -34,19 +32,20 @@ const UpdateBrand: React.FC<UpdateBrandProps> = ({
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
   } = useForm<Pick<BrandUpdateInput, "name">>({
     reValidateMode: "onBlur",
     resolver: yupResolver(UpdateBrandSchema),
-    defaultValues: {
-      name: { set: "okok" },
-    },
   });
-  console.log("errors: ", errors);
+
+  React.useEffect(() => {
+    if (data) {
+      setValue("name.set", data.getOneBrand.name);
+    }
+  }, [data]);
 
   const onSubmit = async (data: UpdateBrandMutationVariables["data"]) => {
-    console.log("data: ", data);
-    console.log("data: ");
     try {
       const res = await mutateAsync({ where: { id }, data });
       if (res.updateBrand) {
@@ -73,18 +72,15 @@ const UpdateBrand: React.FC<UpdateBrandProps> = ({
       });
     }
   };
-
   return (
     <ActionBar
       onClose={onClose}
-      onOpen={onOpen}
       isOpen={isOpen}
       headerText="Update brand"
+      withButton={false}
       isLoading={isLoading}
       onSubmit={handleSubmit(onSubmit)}
-      icon={<PlusIcon className="w-10 h-10 p-2" />}
-      buttonText={null}
-      buttonClasses="text-white bg-purple-500 rounded-full hover:bg-purple-600 active:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50"
+      type="update"
     >
       <div className="mb-3">
         <MyOtherInput
@@ -93,6 +89,7 @@ const UpdateBrand: React.FC<UpdateBrandProps> = ({
           placeholder="Name"
           register={register}
           errors={errors?.name}
+          isLoading={isBrandLoading}
         />
       </div>
     </ActionBar>

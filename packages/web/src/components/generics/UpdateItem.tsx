@@ -5,26 +5,15 @@ import React from "react";
 export interface UpdateItemProps {
   id: string;
   onClose: () => void;
-  onOpen: () => void;
   isOpen: boolean;
 }
-const UpdateItem: React.FC<UpdateItemProps> = ({
-  id,
-  onClose,
-  onOpen,
-  isOpen,
-}) => {
+const UpdateItem: React.FC<UpdateItemProps> = ({ id, onClose, isOpen }) => {
   const { component } = usePageState();
 
   return (
     <>
       {component === "brands" ? (
-        <UpdateBrand
-          id={id}
-          onClose={onClose}
-          onOpen={onOpen}
-          isOpen={isOpen}
-        />
+        <UpdateBrand id={id} onClose={onClose} isOpen={isOpen} />
       ) : null}
     </>
   );

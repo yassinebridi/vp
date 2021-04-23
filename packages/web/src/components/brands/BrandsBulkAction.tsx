@@ -29,7 +29,7 @@ const BrandsBulkAction: React.FC<BrandsBulkActionProps> = () => {
       itemIds.push({ id: { equals: selectedId } })
     );
     if (isTrash && type === "remove") {
-      const res = await removeBrandsMutateAsync({ where: { AND: itemIds } });
+      const res = await removeBrandsMutateAsync({ where: { OR: itemIds } });
       if (res.removeBrands) {
         return true;
       } else {
@@ -37,7 +37,7 @@ const BrandsBulkAction: React.FC<BrandsBulkActionProps> = () => {
       }
     } else if (isTrash && type === "restore") {
       const res = await updateBrandsMutateAsync({
-        where: { AND: itemIds },
+        where: { OR: itemIds },
         data: {
           isTrash: {
             set: false,
@@ -51,7 +51,7 @@ const BrandsBulkAction: React.FC<BrandsBulkActionProps> = () => {
       }
     } else {
       const res = await updateBrandsMutateAsync({
-        where: { AND: itemIds },
+        where: { OR: itemIds },
         data: {
           isTrash: {
             set: true,

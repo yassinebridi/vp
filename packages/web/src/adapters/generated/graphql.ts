@@ -3638,7 +3638,7 @@ export type BrandQuery = (
   { __typename?: 'Query' }
   & { getOneBrand: (
     { __typename?: 'Brand' }
-    & Pick<Brand, 'id'>
+    & BrandFieldsFragment
   ) }
 );
 
@@ -4344,10 +4344,10 @@ useUsersQuery.getKey = (variables?: UsersQueryVariables) => ['users', variables]
 export const BrandDocument = `
     query brand($where: BrandWhereUniqueInput!) {
   getOneBrand(where: $where) {
-    id
+    ...BrandFields
   }
 }
-    `;
+    ${BrandFieldsFragmentDoc}`;
 export const useBrandQuery = <
       TData = BrandQuery,
       TError = unknown

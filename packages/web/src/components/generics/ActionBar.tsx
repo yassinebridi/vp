@@ -9,24 +9,29 @@ import {
   DrawerProps,
 } from "@chakra-ui/react";
 import { SpinnerIcon } from "@design-system";
+import clsx from "clsx";
 import React from "react";
 
 export interface ActionBarProps {
+  buttonText?: string;
+  buttonClasses?: string;
+  withButton: boolean;
+  icon?: any;
   headerText: string;
-  buttonText: string;
-  buttonClasses: string;
-  icon: any;
+  type: "update" | "create";
   isLoading: boolean;
   size?: DrawerProps["size"];
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   onClose: () => void;
-  onOpen: () => void;
+  onOpen?: () => void;
   isOpen: boolean;
 }
 const ActionBar: React.FC<ActionBarProps> = ({
-  headerText,
+  withButton,
   buttonText,
   buttonClasses,
+  headerText,
+  type,
   icon,
   isLoading,
   size,
@@ -40,10 +45,12 @@ const ActionBar: React.FC<ActionBarProps> = ({
 
   return (
     <>
-      <button ref={btnRef} onClick={onOpen} className={buttonClasses}>
-        {icon && icon}
-        {buttonText && buttonText}
-      </button>
+      {withButton && (
+        <button ref={btnRef} onClick={onOpen} className={buttonClasses}>
+          {icon && icon}
+          {buttonText && buttonText}
+        </button>
+      )}
       <Drawer
         isOpen={isOpen}
         onClose={onClose}
@@ -80,10 +87,15 @@ const ActionBar: React.FC<ActionBarProps> = ({
                   </button>
                   <button
                     type="submit"
-                    className="flex items-center justify-center w-full px-3 py-2 text-sm font-bold text-white bg-blue-600 rounded-lg space-x-2 ringify active:bg-blue-700 hover:bg-blue-500 dark:active:bg-blue-800 dark:hover:bg-blue-600 dark:bg-blue-700"
+                    className={clsx(
+                      "flex items-center justify-center w-full px-3 py-2 text-sm font-bold text-white rounded-lg space-x-2 ringify ",
+                      type === "create"
+                        ? "bg-blue-600 active:bg-blue-700 hover:bg-blue-500 dark:active:bg-blue-800 dark:hover:bg-blue-600 dark:bg-blue-700"
+                        : "bg-yellow-600 active:bg-yellow-700 hover:bg-yellow-500 dark:active:bg-yellow-800 dark:hover:bg-yellow-600 dark:bg-yellow-700"
+                    )}
                   >
                     {isLoading && <SpinnerIcon cn="h-4 w-4" />}
-                    <span>Create</span>
+                    <span>{type === "create" ? "Create" : "Update"}</span>
                   </button>
                 </div>
               </DrawerFooter>

@@ -1,5 +1,5 @@
 query brand($where: BrandWhereUniqueInput!) {
   getOneBrand(where: $where) {
-    id
+    ...BrandFields
   }
 }
