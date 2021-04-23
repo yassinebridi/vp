@@ -1,5 +1,3 @@
-import { useDisclosure } from "@chakra-ui/react";
-import { UpdateItem } from "@components";
 import { ArrowDownIcon, ArrowUpIcon } from "@heroicons/react/outline";
 import { useTableContext } from "@utils";
 import clsx from "clsx";
@@ -17,9 +15,6 @@ const Table: React.FC<TableProps> = ({
   columnsArray,
   hiddenColumnsArray,
 }) => {
-  const { isOpen: isOpen, onOpen, onClose } = useDisclosure();
-  const [id, setId] = React.useState<string>();
-
   const {
     setColumns,
     setTableState,
@@ -124,11 +119,7 @@ const Table: React.FC<TableProps> = ({
                 return (
                   <tr
                     {...row.getRowProps()}
-                    className="cursor-pointer hover:bg-[#f7f7f7] active:bg-gray-100 dark:active:bg-gray-800 dark:hover:bg-gray-850"
-                    onClick={() => {
-                      setId(row.original.id);
-                      onOpen();
-                    }}
+                    className="hover:bg-[#f7f7f7] dark:hover:bg-gray-850"
                   >
                     {row.cells.map((cell, i) => (
                       <td
@@ -149,8 +140,6 @@ const Table: React.FC<TableProps> = ({
           </table>
         </div>
       </div>
-
-      <UpdateItem isOpen={isOpen} onClose={onClose} id={id} />
     </>
   );
 };
