@@ -1,4 +1,4 @@
-import { BrandsQueryVariables, useBrandsQuery } from "@adapters";
+import { BrandsQueryVariables, SortOrder, useBrandsQuery } from "@adapters";
 import {
   BrandsBulkAction,
   BrandsTable,
@@ -45,6 +45,8 @@ const BrandsTrashPage: React.FC<BrandsTrashPageProps> = () => {
   if (sort) {
     sort.name ? orderBy.push({ name: sort.name }) : undefined;
     sort.date ? orderBy.push({ createdAt: sort.date }) : undefined;
+  } else {
+    orderBy = [{ createdAt: SortOrder.Desc }];
   }
   const brandsVariables: BrandsQueryVariables = {
     take,

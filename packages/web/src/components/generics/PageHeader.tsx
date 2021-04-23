@@ -1,5 +1,6 @@
 import { useCountBrandsQuery } from "@adapters";
-import { ArrowRightIcon, MenuIcon, PlusIcon } from "@heroicons/react/outline";
+import { NewItem } from "@components";
+import { ArrowRightIcon, MenuIcon } from "@heroicons/react/outline";
 import { capitalize, useExpandSidebarStore, usePageState } from "@utils";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -46,9 +47,7 @@ const PageHeader: React.FC<PageHeaderProps> = () => {
             </span>
           )}
         </Link>
-        <button className="text-white bg-purple-500 rounded-full hover:bg-purple-600 active:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50">
-          <PlusIcon className="w-10 h-10 p-2" />
-        </button>
+        <NewItem />
       </div>
     </div>
   );

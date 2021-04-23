@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import React from "react";
 
 export interface SpinnerIcon {
@@ -5,7 +6,7 @@ export interface SpinnerIcon {
 }
 const SpinnerIcon: React.FC<SpinnerIcon> = ({ cn }) => (
   <svg
-    className={`${cn} stroke-current animate-spin -ml-1 mr-3`}
+    className={clsx(cn, "stroke-current animate-spin")}
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     fill="none"

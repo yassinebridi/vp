@@ -113,7 +113,7 @@ const MyDialog: React.FC<MyDialogProps> = ({
                 <button
                   type="button"
                   className={clsx(
-                    "inline-flex justify-center px-4 py-2 text-sm font-semibold text-white border border-transparent rounded-md ringify",
+                    "inline-flex justify-center space-x-2 px-4 py-2 text-sm font-semibold text-white border border-transparent rounded-md ringify",
                     actionButton.cs
                       ? actionButton.cs
                       : "bg-purple-500 hover:bg-purple-400 active:bg-purple-600",
@@ -122,7 +122,7 @@ const MyDialog: React.FC<MyDialogProps> = ({
                   onClick={handleDoneFn}
                 >
                   {actionButton.isLoading && <SpinnerIcon cn="h-5 w-5" />}
-                  {actionButton.title}
+                  <span>{actionButton.title}</span>
                 </button>
               </div>
             </div>

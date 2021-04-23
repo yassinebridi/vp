@@ -93,10 +93,8 @@ export class BrandsService {
   }
 
   async updateBrands(updateBrandsInput: UpdateManyBrandArgs) {
-    console.log('updateBrandsInput: ', updateBrandsInput);
     try {
-      const a = await this.prismaService.brand.updateMany(updateBrandsInput);
-      console.log('a: ', a);
+      await this.prismaService.brand.updateMany(updateBrandsInput);
 
       return true;
     } catch (error) {

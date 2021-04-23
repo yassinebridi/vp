@@ -1,6 +1,4 @@
 import {
-  Button,
-  ButtonProps,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
@@ -9,45 +7,55 @@ import {
   DrawerHeader,
   DrawerOverlay,
   DrawerProps,
-  useDisclosure,
 } from "@chakra-ui/react";
-import { MyButton } from "@components";
+import { SpinnerIcon } from "@design-system";
 import React from "react";
 
 export interface ActionBarProps {
-  buttonText: string;
   headerText: string;
+  buttonText: string;
+  icon: any;
   isLoading: boolean;
-  openButtonProps?: ButtonProps & { className?: string };
   size?: DrawerProps["size"];
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  onClose: () => void;
+  onOpen: () => void;
+  isOpen: boolean;
 }
 const ActionBar: React.FC<ActionBarProps> = ({
-  buttonText,
   headerText,
+  buttonText,
+  icon,
   isLoading,
-  openButtonProps,
   size,
   onSubmit,
+  onClose,
+  onOpen,
+  isOpen,
   children,
 }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
 
   return (
     <>
-      <Button ref={btnRef} onClick={onOpen} {...openButtonProps}>
-        {buttonText}
-      </Button>
+      <button
+        ref={btnRef}
+        onClick={onOpen}
+        className="text-white bg-purple-500 rounded-full hover:bg-purple-600 active:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50"
+      >
+        {icon && icon}
+        {buttonText && buttonText}
+      </button>
       <Drawer
         isOpen={isOpen}
-        size={size || "xs"}
         onClose={onClose}
+        size={size || "xs"}
         finalFocusRef={btnRef}
+        closeOnOverlayClick={false}
       >
         <DrawerOverlay>
           <DrawerContent overflowY="auto">
-            <DrawerCloseButton className="right-3" />
+            <DrawerCloseButton className="right-3 dark:text-white" />
             <DrawerHeader
               fontSize="lg"
               className="text-gray-800 dark:text-gray-100"
@@ -64,22 +72,22 @@ const ActionBar: React.FC<ActionBarProps> = ({
               </DrawerBody>
 
               <DrawerFooter>
-                <MyButton
-                  variant="outline"
-                  className="ringify"
-                  px={8}
-                  onClick={onClose}
-                >
-                  Cancel
-                </MyButton>
-                <MyButton
-                  type="submit"
-                  w="full"
-                  isLoading={isLoading}
-                  colorScheme="blue"
-                >
-                  Save
-                </MyButton>
+                <div className="flex w-full space-x-2">
+                  <button
+                    type="button"
+                    className="flex items-center justify-center px-3 py-2 text-sm font-bold text-white bg-gray-400 rounded-lg space-x-2 ringify active:bg-gray-700 hover:bg-gray-500 dark:active:bg-gray-800 dark:hover:bg-gray-500 dark:bg-gray-600"
+                    onClick={onClose}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="flex items-center justify-center w-full px-3 py-2 text-sm font-bold text-white bg-blue-600 rounded-lg space-x-2 ringify active:bg-blue-700 hover:bg-blue-500 dark:active:bg-blue-800 dark:hover:bg-blue-600 dark:bg-blue-700"
+                  >
+                    {isLoading && <SpinnerIcon cn="h-4 w-4" />}
+                    <span>Create</span>
+                  </button>
+                </div>
               </DrawerFooter>
             </form>
           </DrawerContent>
