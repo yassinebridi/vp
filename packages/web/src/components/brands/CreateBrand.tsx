@@ -15,12 +15,12 @@ import { useQueryClient } from "react-query";
 
 export interface CreateBrandProps {}
 const CreateBrand: React.FC<CreateBrandProps> = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const { component, countComponent } = usePageState();
-  const { mutateAsync, isLoading } = useCreateBrandMutation();
   const queryClient = useQueryClient();
   const toast = useToast();
+  const { component, countComponent } = usePageState();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const { mutateAsync, isLoading } = useCreateBrandMutation();
 
   const {
     register,

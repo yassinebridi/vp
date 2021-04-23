@@ -23,6 +23,7 @@ const Pagination: React.FC<PaginationProps> = ({ isLoading, paginator }) => {
     setPageNo(paginator.prevPage, "pushIn");
     queryClient.resetQueries({ queryKey: [component] });
   };
+
   return (
     <div className="flex items-center justify-between min-w-full px-6 my-3 mt-6 text-sm space-x-6 dark:text-gray-300">
       {isLoading ? (

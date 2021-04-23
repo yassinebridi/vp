@@ -4,8 +4,7 @@ import {
   useUpdateBrandMutation,
 } from "@adapters";
 import { ColumnActions, Table } from "@components";
-import { ActionKindType } from "@components/generics/table/ColumnActions";
-import { formatDate, usePageState } from "@utils";
+import { ActionKindType, formatDate, usePageState } from "@utils";
 import React from "react";
 
 export interface BrandsTableProps {

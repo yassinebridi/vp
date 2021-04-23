@@ -19,14 +19,15 @@ export interface UpdateBrandProps {
   isOpen: boolean;
 }
 const UpdateBrand: React.FC<UpdateBrandProps> = ({ id, onClose, isOpen }) => {
+  const queryClient = useQueryClient();
+  const toast = useToast();
   const { component, countComponent } = usePageState();
   const { mutateAsync, isLoading } = useUpdateBrandMutation();
+
   const { data, isLoading: isBrandLoading } = useBrandQuery(
     { where: { id } },
     { enabled: isOpen }
   );
-  const queryClient = useQueryClient();
-  const toast = useToast();
 
   const {
     register,

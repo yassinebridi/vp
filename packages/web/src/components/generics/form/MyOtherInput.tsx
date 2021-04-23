@@ -11,7 +11,7 @@ type MyOtherInputProps = React.DetailedHTMLProps<
   register: UseFormRegister<any>;
   name: string;
   errors: any;
-  isLoading: boolean;
+  isLoading?: boolean;
 };
 
 const MyOtherInput: FC<MyOtherInputProps> = ({

@@ -1,5 +1,4 @@
-import { useCountBrandsQuery } from "@adapters";
-import { CreateItem } from "@components";
+import { CreateItem, TrashCount } from "@components";
 import { ArrowRightIcon, MenuIcon } from "@heroicons/react/outline";
 import { capitalize, useExpandSidebarStore, usePageState } from "@utils";
 import React from "react";
@@ -10,9 +9,6 @@ const PageHeader: React.FC<PageHeaderProps> = () => {
   const { component, isTrash } = usePageState();
   const { expandSidebarProps, setExpandSidebarProps } = useExpandSidebarStore();
 
-  const { data, isLoading } = useCountBrandsQuery({
-    where: { isTrash: { equals: true } },
-  });
   return (
     <div className="flex items-center justify-between px-[1.06rem]">
       <div className="flex items-center space-x-4">
@@ -41,11 +37,8 @@ const PageHeader: React.FC<PageHeaderProps> = () => {
             <span className="pl-1 text-sm">Trash</span>
             <ArrowRightIcon className="w-4 h-4" />
           </span>
-          {isLoading ? null : (
-            <span className="absolute flex items-center px-1 text-xs font-bold text-white bg-red-500 rounded-full -right-1 -top-1">
-              {data.countBrands}
-            </span>
-          )}
+
+          <TrashCount />
         </Link>
         <CreateItem />
       </div>

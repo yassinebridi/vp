@@ -16,30 +16,24 @@ import { KindType } from "./Sorts";
 
 export interface TableSortsProps {}
 const TableSorts: React.FC<TableSortsProps> = () => {
-  const { component } = usePageState();
-  const sortsMapper = {
-    asc: "Ascending",
-    desc: "Descending",
-  };
   const queryClient = useQueryClient();
   const router = useHistory();
-  const queryParams = new URLSearchParams(location.search);
-  const [sort] = useMyParams<[object]>([{ query: "sort", type: "object" }]);
-
+  const { component } = usePageState();
   const { columns, tableState } = useTableContext();
+
   let [isOpen, setIsOpen] = React.useState(false);
   const [inputValue, setInputValue] = React.useState<string>();
-
   let [sortState, setSortState] = React.useState<{
     name: string;
     kind: KindType;
   }>();
 
+  const queryParams = new URLSearchParams(location.search);
+  const [sort] = useMyParams<[object]>([{ query: "sort", type: "object" }]);
+  const [__, setPageNo] = useQueryParam("pageNo");
   const [_, setSortsQuery] = useQueryParam(
     sortState ? `sort.${sortState.name}` : ""
   );
-
-  const [__, setPageNo] = useQueryParam("pageNo");
 
   const tableStateReady = tableState !== undefined;
   const columnsReady = columns.length > 0 && columns;
@@ -71,6 +65,11 @@ const TableSorts: React.FC<TableSortsProps> = () => {
       setPageNo(1);
       queryClient.resetQueries({ queryKey: [component] });
     }
+  };
+
+  const sortsMapper = {
+    asc: "Ascending",
+    desc: "Descending",
   };
   return (
     <div className="flex flex-wrap flex-gap-4">

@@ -8,9 +8,8 @@ import { useQueryParam } from "use-query-params";
 
 export interface PageSizeSelectProps {}
 const PageSizeSelect: React.FC<PageSizeSelectProps> = () => {
-  const { component } = usePageState();
-
   const queryClient = useQueryClient();
+  const { component } = usePageState();
   const [selected, setSelected] = React.useState(sizes[1]);
   const [__, setPageSize] = useQueryParam("pageSize");
 

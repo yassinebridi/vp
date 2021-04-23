@@ -22,28 +22,26 @@ const stringStateMapper = {
 
 export interface TableFiltersProps {}
 const TableFilters: React.FC<TableFiltersProps> = () => {
-  const { component } = usePageState();
   const queryClient = useQueryClient();
   const router = useHistory();
-  const queryParams = new URLSearchParams(location.search);
-  const [filter] = useMyParams<[object]>([{ query: "filter", type: "object" }]);
-
+  const { component } = usePageState();
   const { columns, tableState } = useTableContext();
+
   let [isOpen, setIsOpen] = React.useState(false);
   const [inputValue, setInputValue] = React.useState<string>();
   const [stringState, setStringState] = React.useState<string>();
-
   let [filterState, setFilterState] = React.useState<{
     name: string;
     kind: KindType;
   }>();
 
+  const queryParams = new URLSearchParams(location.search);
+  const [filter] = useMyParams<[object]>([{ query: "filter", type: "object" }]);
   const [_, setFiltersQuery] = useQueryParam(
     filterState
       ? `filter.${filterState.name}.${stringStateMapper[stringState]}`
       : ""
   );
-
   const [__, setPageNo] = useQueryParam("pageNo");
 
   const tableStateReady = tableState !== undefined;

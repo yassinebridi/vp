@@ -7,11 +7,10 @@ import {
   PencilAltIcon,
   TrashIcon,
 } from "@heroicons/react/outline";
-import { usePageState } from "@utils";
+import { ActionKindType, usePageState } from "@utils";
 import React from "react";
 import { useQueryClient } from "react-query";
 
-export type ActionKindType = "remove" | "restore";
 export interface ColumnActionsProps {
   id: string;
   handleAsyncRemove: (id: string, type: ActionKindType) => Promise<boolean>;

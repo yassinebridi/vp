@@ -1,7 +1,6 @@
-import { useUpdateBrandsMutation, useRemoveBrandsMutation } from "@adapters";
+import { useRemoveBrandsMutation, useUpdateBrandsMutation } from "@adapters";
 import { BulkAction } from "@components";
-import { ActionKindType } from "@components/generics/table/ColumnActions";
-import { usePageState } from "@utils";
+import { ActionKindType, usePageState } from "@utils";
 import React from "react";
 
 export interface BrandsBulkActionProps {}

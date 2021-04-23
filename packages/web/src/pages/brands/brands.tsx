@@ -1,5 +1,6 @@
 import { BrandsQueryVariables, SortOrder, useBrandsQuery } from "@adapters";
 import {
+  BrandsBulkAction,
   BrandsTable,
   FilterButton,
   PageHeader,
@@ -10,7 +11,6 @@ import {
   TableSettingsDropdown,
   TableSorts,
 } from "@components";
-import BrandsBulkAction from "@components/brands/BrandsBulkAction";
 import { SpinnerIcon } from "@design-system";
 import {
   PageStateProvider,

@@ -76,6 +76,7 @@ const Table: React.FC<TableProps> = ({
     setSelectedIds(selectedFlatRowsId);
     setTableActions({ toggleAllRowsSelected });
   }, [setColumns, setTableState, state, selectedFlatRows]);
+
   return (
     <>
       <div className="flex flex-col">
@@ -120,7 +121,6 @@ const Table: React.FC<TableProps> = ({
             <tbody {...getTableBodyProps()}>
               {rows.map((row) => {
                 prepareRow(row);
-                console.log("row: ", row);
                 return (
                   <tr
                     {...row.getRowProps()}

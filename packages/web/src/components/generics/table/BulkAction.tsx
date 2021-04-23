@@ -1,9 +1,8 @@
 import { useToast } from "@chakra-ui/react";
 import { MyDialog } from "@components";
-import { usePageState, useTableContext } from "@utils";
+import { ActionKindType, usePageState, useTableContext } from "@utils";
 import React from "react";
 import { useQueryClient } from "react-query";
-import { ActionKindType } from "./ColumnActions";
 
 export interface BulkActionProps {
   bulkAction?: boolean;
@@ -17,12 +16,12 @@ const BulkAction: React.FC<BulkActionProps> = ({
   handleAsyncRemove,
   isLoading,
 }) => {
-  const { component, countComponent, isTrash } = usePageState();
-  const { tableState, tableActions, selectedIds } = useTableContext();
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [actionKind, setActionKind] = React.useState<ActionKindType>();
   const queryClient = useQueryClient();
   const toast = useToast();
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [actionKind, setActionKind] = React.useState<ActionKindType>();
+  const { component, countComponent, isTrash } = usePageState();
+  const { tableState, tableActions, selectedIds } = useTableContext();
 
   const handleDone = async () => {
     try {
