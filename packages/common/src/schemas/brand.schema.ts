@@ -5,13 +5,7 @@ export const CreateBrandSchema = yup.object().shape({
 });
 
 export const UpdateBrandSchema = yup.object().shape({
-  where: yup
-    .object()
-    .shape({
-      id: yup.string().required(),
-    })
-    .required(),
-  data: yup.object().shape({
-    name: yup.string(),
+  name: yup.object().shape({
+    set: yup.string(),
   }),
 });

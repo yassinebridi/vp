@@ -13,8 +13,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useQueryClient } from "react-query";
 
-export interface NewBrandProps {}
-const NewBrand: React.FC<NewBrandProps> = () => {
+export interface CreateBrandProps {}
+const CreateBrand: React.FC<CreateBrandProps> = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { component, countComponent } = usePageState();
@@ -67,11 +67,12 @@ const NewBrand: React.FC<NewBrandProps> = () => {
       onClose={onClose}
       onOpen={onOpen}
       isOpen={isOpen}
-      headerText="New brand"
+      headerText="Create a brand"
       isLoading={isLoading}
       onSubmit={handleSubmit(onSubmit)}
       icon={<PlusIcon className="w-10 h-10 p-2" />}
       buttonText={null}
+      buttonClasses="text-white bg-purple-500 rounded-full hover:bg-purple-600 active:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50"
     >
       <div className="mb-3">
         <MyOtherInput
@@ -86,4 +87,4 @@ const NewBrand: React.FC<NewBrandProps> = () => {
   );
 };
 
-export default NewBrand;
+export default CreateBrand;

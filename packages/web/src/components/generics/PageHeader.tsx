@@ -1,5 +1,5 @@
 import { useCountBrandsQuery } from "@adapters";
-import { NewItem } from "@components";
+import { CreateItem } from "@components";
 import { ArrowRightIcon, MenuIcon } from "@heroicons/react/outline";
 import { capitalize, useExpandSidebarStore, usePageState } from "@utils";
 import React from "react";
@@ -47,7 +47,7 @@ const PageHeader: React.FC<PageHeaderProps> = () => {
             </span>
           )}
         </Link>
-        <NewItem />
+        <CreateItem />
       </div>
     </div>
   );

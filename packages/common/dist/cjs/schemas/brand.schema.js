@@ -25,14 +25,8 @@ exports.CreateBrandSchema = yup.object().shape({
     name: yup.string().required(),
 });
 exports.UpdateBrandSchema = yup.object().shape({
-    where: yup
-        .object()
-        .shape({
-        id: yup.string().required(),
-    })
-        .required(),
-    data: yup.object().shape({
-        name: yup.string(),
+    name: yup.object().shape({
+        set: yup.string(),
     }),
 });
 //# sourceMappingURL=brand.schema.js.map

@@ -14,6 +14,7 @@ import React from "react";
 export interface ActionBarProps {
   headerText: string;
   buttonText: string;
+  buttonClasses: string;
   icon: any;
   isLoading: boolean;
   size?: DrawerProps["size"];
@@ -25,6 +26,7 @@ export interface ActionBarProps {
 const ActionBar: React.FC<ActionBarProps> = ({
   headerText,
   buttonText,
+  buttonClasses,
   icon,
   isLoading,
   size,
@@ -38,11 +40,7 @@ const ActionBar: React.FC<ActionBarProps> = ({
 
   return (
     <>
-      <button
-        ref={btnRef}
-        onClick={onOpen}
-        className="text-white bg-purple-500 rounded-full hover:bg-purple-600 active:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50"
-      >
+      <button ref={btnRef} onClick={onOpen} className={buttonClasses}>
         {icon && icon}
         {buttonText && buttonText}
       </button>

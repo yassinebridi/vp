@@ -3,10 +3,7 @@ export declare const CreateBrandSchema: yup.ObjectSchema<yup.Shape<object | unde
     name: string;
 }>, object>;
 export declare const UpdateBrandSchema: yup.ObjectSchema<yup.Shape<object | undefined, {
-    where: object & {
-        id: any;
-    };
-    data: yup.Shape<object | undefined, {
-        name: any;
+    name: yup.Shape<object | undefined, {
+        set: any;
     }>;
 }>, object>;

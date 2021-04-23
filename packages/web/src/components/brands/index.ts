@@ -1,5 +1,6 @@
 import BrandsTable from "./brands.table";
 import BrandsBulkAction from "./BrandsBulkAction";
-import NewBrand from "./NewBrand";
+import CreateBrand from "./CreateBrand";
+import UpdateBrand from "./UpdateBrand";
 
-export { BrandsTable, BrandsBulkAction, NewBrand };
+export { BrandsTable, BrandsBulkAction, CreateBrand, UpdateBrand };
