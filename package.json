@@ -14,16 +14,20 @@
   "scripts": {
     "api": "yarn workspace @vp/api",
     "web": "yarn workspace @vp/web",
+    "gn": "yarn workspace @vp/genom",
     "common": "yarn workspace @vp/common",
-    "dev:api": "yarn api start:dev",
-    "dev:api:vite": "yarn api start:dev:vite",
-    "dev:web": "yarn web dev",
-    "gen:web": "yarn web gen",
     "nest": "yarn api nest",
-    "build:api": "yarn api build",
-    "build:common": "yarn common build",
-    "build:common:watch": "yarn common build:watch",
     "sa": "yarn api scaffold",
-    "sw": "yarn web scaffold"
+    "sw": "yarn web scaffold",
+    "api:dev": "yarn api start:dev",
+    "api:dev:vite": "yarn api start:dev:vite",
+    "api:build": "yarn api build",
+    "web:dev": "yarn web dev",
+    "web:gen": "yarn web gen",
+    "common:build": "yarn common build",
+    "common:build:watch": "yarn common build:watch",
+    "gn:dev": "yarn gn dev",
+    "gn:build": "yarn gn build",
+    "gn:start": "yarn gn start"
   }
 }
