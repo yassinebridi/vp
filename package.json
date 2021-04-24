@@ -17,8 +17,8 @@
     "gn": "yarn workspace @vp/genom",
     "common": "yarn workspace @vp/common",
     "nest": "yarn api nest",
-    "sa": "yarn api scaffold",
-    "sw": "yarn web scaffold",
+    "sca": "yarn api scaffold",
+    "scw": "yarn web scaffold",
     "api:dev": "yarn api start:dev",
     "api:dev:vite": "yarn api start:dev:vite",
     "api:build": "yarn api build",
@@ -28,6 +28,7 @@
     "common:build:watch": "yarn common build:watch",
     "gn:dev": "yarn gn dev",
     "gn:build": "yarn gn build",
+    "gn:watch": "yarn gn watch",
     "gn:start": "yarn gn start"
   }
 }

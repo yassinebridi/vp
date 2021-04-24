@@ -9,7 +9,7 @@
     "build": "tsc && vite build",
     "serve": "vite preview",
     "gen": "graphql-codegen --config codegen.yml",
-    "scaffold": "cd src && hygen"
+    "scaffold": "sh -c 'schematics @vp/genom:${0}'"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.0.9",
@@ -20,6 +20,7 @@
     "@heroicons/react": "^1.0.1",
     "@hookform/resolvers": "^2.3.2",
     "@vp/common": "*",
+    "@vp/genom": "*",
     "clsx": "^1.1.1",
     "dayjs": "^1.10.4",
     "focus-visible": "^5.2.0",

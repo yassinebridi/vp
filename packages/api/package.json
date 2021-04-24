@@ -5,7 +5,7 @@
   "description": "API package for videplacard",
   "author": "Yassine Bridi <ybridi@gmail.com>",
   "scripts": {
-    "scaffold": "cd src && hygen",
+    "scaffold": "sh -c 'schematics @vp/genom:${0}'",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -38,6 +38,7 @@
     "@nestjs/platform-express": "^7.6.15",
     "@prisma/client": "2.20.1",
     "@vp/common": "*",
+    "@vp/genom": "*",
     "apollo-server-express": "^2.23.0",
     "bcrypt": "^5.0.1",
     "chance": "^1.1.7",
