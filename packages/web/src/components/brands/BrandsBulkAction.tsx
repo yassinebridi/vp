@@ -18,7 +18,6 @@ const BrandsBulkAction: React.FC<BrandsBulkActionProps> = () => {
 
   const isBulkLoading = isTrash ? isRemoveBrandsLoading : isUpdateBrandsLoading;
 
-  // TODO: Fix not removing more than two records
   const handleAsyncRemove = async (
     selectedIds: string[],
     type: ActionKindType
