@@ -18,7 +18,6 @@ const <%=classify(name)%>BulkAction: React.FC<<%=classify(name)%>BulkActionProps
 
   const isBulkLoading = isTrash ? isRemove<%=classify(name)%>Loading : isUpdate<%=classify(name)%>Loading;
 
-  // TODO: Fix not removing more than two records
   const handleAsyncRemove = async (
     selectedIds: string[],
     type: ActionKindType
