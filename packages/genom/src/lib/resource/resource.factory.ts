@@ -33,7 +33,8 @@ export function main(options: ResourceOptions): Rule {
       chain([
         mergeSourceRoot(options),
         addDeclarationToModule(options),
-        mergeWith(generate(options)),
+        mergeWith(generateFiles(options)),
+        mergeWith(generateI18n(options)),
       ])
     )(tree, context);
   };
@@ -54,9 +55,9 @@ function transform(options: ResourceOptions): ResourceOptions {
   return target;
 }
 
-function generate(options: ResourceOptions): Source {
-  return (context: SchematicContext) =>
-    apply(url(join("./files" as Path)), [
+function generateFiles(options: ResourceOptions): Source {
+  return (context: SchematicContext) => {
+    return apply(url(join("./files" as Path)), [
       template({
         ...strings,
         ...options,
@@ -68,10 +69,29 @@ function generate(options: ResourceOptions): Source {
         },
         singular: (name: string) => pluralize.singular(name),
       }),
-      move(options.path),
+      move(options.path || ""),
     ])(context);
+  };
 }
 
+function generateI18n(options: ResourceOptions): Source {
+  return (context: SchematicContext) => {
+    return apply(url(join("./i18n" as Path)), [
+      template({
+        ...strings,
+        ...options,
+        lowercased: (name: string) => {
+          const classifiedName = classify(name);
+          return (
+            classifiedName.charAt(0).toLowerCase() + classifiedName.slice(1)
+          );
+        },
+        singular: (name: string) => pluralize.singular(name),
+      }),
+      move("src/i18n"),
+    ])(context);
+  };
+}
 function addDeclarationToModule(options: ResourceOptions): Rule {
   return (tree: Tree) => {
     options.module = new ModuleFinder(tree).find({

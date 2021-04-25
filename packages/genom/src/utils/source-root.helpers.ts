@@ -1,25 +1,24 @@
-import { join, normalize } from '@angular-devkit/core';
-import { Rule, Tree } from '@angular-devkit/schematics';
-import { DEFAULT_PATH_NAME } from '../lib/defaults';
+import { join, normalize } from "@angular-devkit/core";
+import { Rule, Tree } from "@angular-devkit/schematics";
 
 export function isInRootDirectory(
   host: Tree,
-  extraFiles: string[] = [],
+  extraFiles: string[] = []
 ): boolean {
-  const files = ['nest-cli.json', 'nest.json'].concat(extraFiles || []);
-  return files.map(file => host.exists(file)).some(isPresent => isPresent);
+  const files = ["nest-cli.json", "nest.json"].concat(extraFiles || []);
+  return files.map((file) => host.exists(file)).some((isPresent) => isPresent);
 }
 
 export function mergeSourceRoot<
   T extends { sourceRoot?: string; path?: string } = any
 >(options: T): Rule {
   return (host: Tree) => {
-    const isInRoot = isInRootDirectory(host, ['tsconfig.json', 'package.json']);
+    const isInRoot = isInRootDirectory(host, ["tsconfig.json", "package.json"]);
     if (!isInRoot) {
       return host;
     }
     const defaultSourceRoot =
-      options.sourceRoot !== undefined ? options.sourceRoot : DEFAULT_PATH_NAME;
+      options.sourceRoot !== undefined ? options.sourceRoot : "src";
 
     options.path =
       options.path !== undefined
