@@ -1,12 +1,12 @@
-query countBrands(
-  $where: BrandWhereInput
-  $orderBy: [BrandOrderByInput!]
-  $cursor: BrandWhereUniqueInput
+query count<%=classify(name)%>(
+  $where: <%=singular(classify(name))%>WhereInput
+  $orderBy: [<%=singular(classify(name))%>OrderByInput!]
+  $cursor: <%=singular(classify(name))%>WhereUniqueInput
   $take: Int
   $skip: Int
-  $distinct: [BrandScalarFieldEnum!]
+  $distinct: [<%=singular(classify(name))%>ScalarFieldEnum!]
 ) {
-  countBrands(
+  count<%=classify(name)%>(
     where: $where
     orderBy: $orderBy
     cursor: $cursor
