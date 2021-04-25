@@ -22,7 +22,7 @@ import {
   ModuleDeclarator,
   ModuleFinder,
   NameParser,
-} from "../../utils";
+} from "../../../utils";
 import { ResourceOptions } from "./resource.schema";
 
 export function main(options: ResourceOptions): Rule {

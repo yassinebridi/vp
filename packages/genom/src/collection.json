@@ -2,9 +2,14 @@
   "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
   "schematics": {
     "resource": {
-      "factory": "./lib/resource/resource.factory#main",
+      "factory": "./lib/api/resource/resource.factory#main",
       "description": "Create a Nest resource.",
-      "schema": "./lib/resource/schema.json"
+      "schema": "./lib/api/resource/schema.json"
+    },
+    "graphql": {
+      "factory": "./lib/web/graphql/graphql.factory#main",
+      "description": "Create a graphql resource.",
+      "schema": "./lib/web/graphql/schema.json"
     }
   }
 }
