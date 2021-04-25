@@ -1,10 +1,6 @@
 {
   "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
   "schematics": {
-    "genom": {
-      "description": "A blank schematic.",
-      "factory": "./genom/index#genom"
-    },
     "resource": {
       "factory": "./lib/resource/resource.factory#main",
       "description": "Create a Nest resource.",
