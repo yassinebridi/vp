@@ -1,4 +1,4 @@
-query <%=name>(
+query <%=name%>(
   $where: <%=singular(classify(name))%>WhereInput
   $orderBy: [<%=singular(classify(name))%>OrderByInput!]
   $cursor: <%=singular(classify(name))%>WhereUniqueInput

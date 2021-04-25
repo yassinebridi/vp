@@ -56,7 +56,7 @@ function generateFiles(options: ResourceOptions): Source {
         },
         singular: (name: string) => pluralize.singular(name),
       }),
-      move(options.path || "adapters/graphql"),
+      move(`src/adapters/graphql`),
     ])(context);
   };
 }
