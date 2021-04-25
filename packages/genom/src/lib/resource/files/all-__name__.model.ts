@@ -1,10 +1,10 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { <%=classify(singular(name))%> } from 'src/@generated';
+import { <%=singular(classify(name))%> } from 'src/@generated';
 
 @ObjectType()
 export class <%=classify(name)%> {
   @Field(() => Int)
   totalPages: number;
-  @Field(() => [<%=classify(singular(name))%>])
-  nodes!: Array<<%=classify(singular(name))%>>;
+  @Field(() => [<%=singular(classify(name))%>])
+  nodes!: Array<<%=singular(classify(name))%>>;
 }

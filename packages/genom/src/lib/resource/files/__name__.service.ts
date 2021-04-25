@@ -7,11 +7,11 @@ import {
 } from '@nestjs/common';
 import { I18nRequestScopeService } from 'nestjs-i18n';
 import {
-  FindMany<%=classify(singular(name))%>Args,
-  FindUnique<%=classify(singular(name))%>Args,
-  <%=classify(singular(name))%>CreateInput,
-  <%=classify(singular(name))%>WhereUniqueInput,
-  UpdateOne<%=classify(singular(name))%>Args,
+  FindMany<%=singular(classify(name))%>Args,
+  FindUnique<%=singular(classify(name))%>Args,
+  <%=singular(classify(name))%>CreateInput,
+  <%=singular(classify(name))%>WhereUniqueInput,
+  UpdateOne<%=singular(classify(name))%>Args,
 } from 'src/@generated';
 import { PrismaService } from 'src/prisma/prisma.service';
 
@@ -23,52 +23,52 @@ export class <%=classify(name)%>Service {
     private readonly translateService: I18nRequestScopeService,
   ) {}
 
-  async getAll<%=classify(name)%>(getAll<%=classify(name)%>Input: FindMany<%=classify(singular(name))%>Args) {
-    const <%=name>Transaction = await this.prismaService.$transaction([
-      this.prismaService.<%=name%>.count(getAll<%=classify(name)%>Input),
-      this.prismaService.<%=name%>.findMany(getAll<%=classify(name)%>Input),
+  async getAll<%=classify(name)%>(getAll<%=classify(name)%>Input: FindMany<%=singular(classify(name))%>Args) {
+    const <%=name%>Transaction = await this.prismaService.$transaction([
+      this.prismaService.<%=singular(name)%>.count(getAll<%=classify(name)%>Input),
+      this.prismaService.<%=singular(name)%>.findMany(getAll<%=classify(name)%>Input),
     ]);
 
     return {
-      totalPages: <%=name>Transaction[0],
-      nodes: <%=name>Transaction[1],
+      totalPages: <%=name%>Transaction[0],
+      nodes: <%=name%>Transaction[1],
     };
   }
 
-  async getOne<%=classify(singular(name))%>(getOne<%=classify(singular(name))%>Input: FindUnique<%=classify(singular(name))%>Args) {
-    return await this.prismaService.<%=name%>.findUnique(getOne<%=classify(singular(name))%>Input);
+  async getOne<%=singular(classify(name))%>(getOne<%=singular(classify(name))%>Input: FindUnique<%=singular(classify(name))%>Args) {
+    return await this.prismaService.<%=singular(name)%>.findUnique(getOne<%=singular(classify(name))%>Input);
   }
 
-  async create<%=classify(singular(name))%>(create<%=classify(singular(name))%>Input: <%=classify(singular(name))%>CreateInput) {
+  async create<%=singular(classify(name))%>(create<%=singular(classify(name))%>Input: <%=singular(classify(name))%>CreateInput) {
     try {
-      await this.prismaService.<%=name%>.create({
-        data: create<%=classify(singular(name))%>Input,
+      await this.prismaService.<%=singular(name)%>.create({
+        data: create<%=singular(classify(name))%>Input,
       });
 
       return true;
     } catch (error) {
       this.logger.error(error);
       throw new InternalServerErrorException(
-        await this.translateService.translate('<%=name>.create'),
+        await this.translateService.translate('<%=name%>.create'),
       );
     }
   }
 
-  async update<%=classify(singular(name))%>(update<%=classify(singular(name))%>Input: UpdateOne<%=classify(singular(name))%>Args) {
-    const { data, where } = update<%=classify(singular(name))%>Input;
+  async update<%=singular(classify(name))%>(update<%=singular(classify(name))%>Input: UpdateOne<%=singular(classify(name))%>Args) {
+    const { data, where } = update<%=singular(classify(name))%>Input;
 
-    const <%=name%> = await this.prismaService.<%=name%>.findUnique({
+    const <%=singular(name)%> = await this.prismaService.<%=singular(name)%>.findUnique({
       where,
       select: { id: true },
     });
-    if (!<%=name%>) {
+    if (!<%=singular(name)%>) {
       throw new NotFoundException(
-        await this.translateService.translate('<%=name>.generics.no_item'),
+        await this.translateService.translate('<%=name%>.generics.no_item'),
       );
     }
 
     try {
-      await this.prismaService.<%=name%>.update({
+      await this.prismaService.<%=singular(name)%>.update({
         where,
         data,
       });
@@ -77,34 +77,34 @@ export class <%=classify(name)%>Service {
     } catch (error) {
       this.logger.error(error);
       throw new InternalServerErrorException(
-        await this.translateService.translate('<%=name>.update'),
+        await this.translateService.translate('<%=name%>.update'),
       );
     }
   }
 
-  async remove<%=classify(singular(name))%>(where: <%=classify(singular(name))%>WhereUniqueInput) {
-    const <%=name%> = await this.prismaService.<%=name%>.findUnique({
+  async remove<%=singular(classify(name))%>(where: <%=singular(classify(name))%>WhereUniqueInput) {
+    const <%=singular(name)%> = await this.prismaService.<%=singular(name)%>.findUnique({
       where,
       select: { id: true },
     });
-    if (!<%=name%>) {
+    if (!<%=singular(name)%>) {
       throw new NotFoundException(
-        await this.translateService.translate('<%=name>.generics.no_item'),
+        await this.translateService.translate('<%=name%>.generics.no_item'),
       );
     }
     try {
-      await this.prismaService.<%=name%>.delete({ where });
+      await this.prismaService.<%=singular(name)%>.delete({ where });
 
       return true;
     } catch (error) {
       this.logger.error(error);
       if (error.code === 'P2002') {
         throw new ConflictException(
-          await this.translateService.translate('<%=name>.generics.conflict'),
+          await this.translateService.translate('<%=name%>.generics.conflict'),
         );
       }
       throw new InternalServerErrorException(
-        await this.translateService.translate('<%=name>.remove'),
+        await this.translateService.translate('<%=name%>.remove'),
       );
     }
   }
@@ -116,13 +116,13 @@ export class <%=classify(name)%>Service {
 
   async bulkRemove<%=classify(name)%>(): Promise<boolean | Error> {
     try {
-      await this.prismaService.<%=name%>.deleteMany({});
+      await this.prismaService.<%=singular(name)%>.deleteMany({});
 
       return true;
     } catch (error) {
       this.logger.error(error);
       throw new ConflictException(
-        await this.translateService.translate('<%=name>.generics.conflict'),
+        await this.translateService.translate('<%=name%>.generics.conflict'),
       );
     }
   }
