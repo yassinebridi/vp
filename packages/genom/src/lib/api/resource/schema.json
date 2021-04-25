@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "SchematicsNestResource",
-  "title": "Nest Resource Options Schema",
+  "id": "SchematicsApiResource",
+  "title": "Api Resource Options Schema",
   "type": "object",
   "properties": {
     "name": {
@@ -11,7 +11,7 @@
         "$source": "argv",
         "index": 0
       },
-      "x-prompt": "What name would you like to use for this resource (plural, e.g., \"users\")?"
+      "x-prompt": "What name would you like to use for this api resource (plural, e.g., \"users\")?"
     },
     "path": {
       "type": "string",
@@ -20,7 +20,7 @@
     },
     "sourceRoot": {
       "type": "string",
-      "description": "Nest resource source root directory."
+      "description": "Api resource source root directory."
     }
   },
   "required": ["name"]

@@ -3,13 +3,18 @@
   "schematics": {
     "resource": {
       "factory": "./lib/api/resource/resource.factory#main",
-      "description": "Create a Nest resource.",
+      "description": "Create an api resource.",
       "schema": "./lib/api/resource/schema.json"
     },
     "graphql": {
       "factory": "./lib/web/graphql/graphql.factory#main",
       "description": "Create a graphql resource.",
       "schema": "./lib/web/graphql/schema.json"
+    },
+    "page": {
+      "factory": "./lib/web/page/page.factory#main",
+      "description": "Create a web resource.",
+      "schema": "./lib/web/page/schema.json"
     }
   }
 }
