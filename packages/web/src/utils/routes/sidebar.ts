@@ -20,21 +20,11 @@ export const routes = [
         icon: UsersIcon,
         name: "users",
       },
-      // {
-      //   path: "/categories",
-      //   icon: CollectionIcon,
-      //   name: "categories",
-      // },
       {
         path: "/brands",
         icon: TemplateIcon,
         name: "brands",
       },
-      // {
-      //   path: "/cities",
-      //   icon: GlobeIcon,
-      //   name: "cities",
-      // },
     ],
   },
 ];
