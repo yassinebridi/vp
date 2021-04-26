@@ -17,12 +17,16 @@ import {
   UpdateMany<%=singular(classify(name))%>Args,
   UpdateOne<%=singular(classify(name))%>Args,
 } from 'src/@generated';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { <%=classify(name)%> } from './all-<%=name%>.model';
 import { <%=classify(name)%>Service } from './<%=name%>.service';
 
 @Resolver(() => <%=singular(classify(name))%>)
 export class <%=classify(name)%>Resolver {
-  constructor(private readonly<%=name%>Service:<%=classify(name)%>Service) {}
+  constructor(
+    private readonly <%=name%>Service: <%=classify(name)%>Service,
+    private readonly prismaService: PrismaService,
+  ) {}
 
   @Query(() => <%=classify(name)%>)
   getAll<%=classify(name)%>(@Args() getAll<%=classify(name)%>Input: FindMany<%=singular(classify(name))%>Args) {
