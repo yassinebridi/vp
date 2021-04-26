@@ -379,7 +379,7 @@ const { data: ${name}Data, isLoading: ${name}IsLoading } = useCount${classify(
         0,
         Writers.object({
           name: `"${name}"`,
-          count: `${name}Data && ${name}Data.count${classify(name)}`,
+          count: `"${name}Data && ${name}Data.count${classify(name)}"`,
         })
       );
 
