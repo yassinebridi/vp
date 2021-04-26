@@ -1,0 +1,27 @@
+#!/bin/sh
+
+RED="\e[31m"
+GREEN="\e[32m"
+ENDCOLOR="\e[0m"
+
+if [ -z "$1" ]
+then
+  echo -e "${RED}The name(plural) attribute should be provided, eg: ./gen brands${NOCOLOR}"
+else
+  echo -e "${GREEN}Generating api resources(API)${NOCOLOR}"
+  cd packages/api && schematics @vp/genom:resource $1
+  cd ../..
+  echo -e "${GREEN}Generating crud yup schemas(Common)${NOCOLOR}"
+  cd packages/common && schematics @vp/genom:schema $1
+  cd ../..
+  echo -e "${GREEN}Building the common package(Common)${NOCOLOR}"
+  yarn common:build
+  echo -e "${GREEN}Generating graphql resources(WEB)${NOCOLOR}"
+  cd packages/web && schematics @vp/genom:graphql $1
+  cd ../..
+  echo -e "${GREEN}Generating graphql client hooks(WEB)${NOCOLOR}"
+  yarn web:gen
+  echo -e "${GREEN}Generating the page(WEB)${NOCOLOR}"
+  cd packages/web && schematics @vp/genom:page $1
+  cd ../..
+fi
