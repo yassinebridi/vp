@@ -1,6 +1,0 @@
-mutation updateCity(
-  $data: CityUpdateInput!
-  $where: CityWhereUniqueInput!
-) {
-  updateCity(data: $data, where: $where)
-}

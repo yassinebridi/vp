@@ -1,9 +1,0 @@
-{
-  "generics": {
-    "no_item": "Ce city n'existe pas",
-    "conflict": "Vous ne pouvez pas supprimer ce city, car il y a un conflit"
-  },
-  "create": "Un problème est survenu lors de la création de ce city ",
-  "update": "Un problème est survenu lors de l'édition  de ce city",
-  "remove": "Un problème est survenu lors de la suppression de ce city"
-}

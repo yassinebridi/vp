@@ -1,9 +1,0 @@
-{
-  "generics": {
-    "no_item": "This category doesn't exist",
-    "conflict": "You can't remove this category, because there is a conflict"
-  },
-  "create": "There was a problem when creating this category",
-  "update": "There was a problem when updating this category",
-  "remove": "There was a problem when deleting this category"
-}

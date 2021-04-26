@@ -1,3 +1,0 @@
-mutation bulkCities($number: Int!) {
-  bulkCities(number: $number)
-}

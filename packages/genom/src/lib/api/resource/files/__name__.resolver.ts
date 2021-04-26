@@ -19,6 +19,11 @@ export class <%=classify(name)%>Resolver {
     return this.<%=name%>Service.getAll<%=classify(name)%>(getAll<%=classify(name)%>Input);
   }
 
+  @Query(() => Number)
+  count<%=classify(name)%>(@Args() count<%=classify(name)%>Input: FindMany<%=singular(classify(name))%>Args) {
+    return this.<%=name%>Service.count<%=classify(name)%>(count<%=classify(name)%>Input);
+  }
+
   @Query(() => <%=singular(classify(name))%>)
   getOne<%=singular(classify(name))%>(@Args() getOne<%=singular(classify(name))%>Input: FindUnique<%=singular(classify(name))%>Args) {
     return this.<%=name%>Service.getOne<%=singular(classify(name))%>(getOne<%=singular(classify(name))%>Input);

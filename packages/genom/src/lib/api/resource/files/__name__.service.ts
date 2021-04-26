@@ -35,6 +35,10 @@ export class <%=classify(name)%>Service {
     };
   }
 
+  async count<%=classify(name)%>(count<%=classify(name)%>Input: FindMany<%=singular(classify(name))%>Args) {
+    return await this.prismaService.<%=singular(name)%>.count(count<%=classify(name)%>Input);
+  }
+
   async getOne<%=singular(classify(name))%>(getOne<%=singular(classify(name))%>Input: FindUnique<%=singular(classify(name))%>Args) {
     return await this.prismaService.<%=singular(name)%>.findUnique(getOne<%=singular(classify(name))%>Input);
   }

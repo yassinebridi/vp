@@ -1,9 +1,0 @@
-{
-  "generics": {
-    "no_item": "Ce category n'existe pas",
-    "conflict": "Vous ne pouvez pas supprimer ce category, car il y a un conflit"
-  },
-  "create": "Un problème est survenu lors de la création de ce category ",
-  "update": "Un problème est survenu lors de l'édition  de ce category",
-  "remove": "Un problème est survenu lors de la suppression de ce category"
-}

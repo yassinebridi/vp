@@ -1,3 +1,0 @@
-mutation removeCity($whereCityInput: CityWhereUniqueInput!) {
-  removeCity(whereCityInput: $whereCityInput)
-}

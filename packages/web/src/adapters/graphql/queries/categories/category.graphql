@@ -1,5 +1,0 @@
-query category($where: CategoryWhereUniqueInput!) {
-  getOneCategory(where: $where) {
-    id
-  }
-}

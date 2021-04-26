@@ -1,5 +1,0 @@
-query city($where: CityWhereUniqueInput!) {
-  getOneCity(where: $where) {
-    id
-  }
-}
