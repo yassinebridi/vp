@@ -10,7 +10,8 @@ export interface UpdateItemProps {
 const UpdateItem: React.FC<UpdateItemProps> = ({ id, onClose, isOpen }) => {
   const { component } = usePageState();
 
-  const items: { name: string; jsx: JSX.Element }[] = [
+  //These data arrays are much cleaner, and easier for the genom package(local package) to inject new code
+  const items = [
     {
       name: "brands",
       jsx: <UpdateBrand id={id} onClose={onClose} isOpen={isOpen} />,

@@ -26,14 +26,16 @@ export function main(options: ResourceOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {
     return branchAndMerge(
       chain([
-        // mergeSourceRoot(options),
-        // mergeWith(generatePage(options)),
-        // mergeWith(generateComponent(options)),
-        // updateComponentsIndex(options),
+        mergeSourceRoot(options),
+        mergeWith(generatePage(options)),
+        mergeWith(generateComponent(options)),
+        updateComponentsIndex(options),
         updatePagesIndex(options),
-        // updateRoutes(options),
-        // updateCreateItem(options),
-        // updateUpdateItem(options),
+        updateRoutes(options),
+        updateCreateItem(options),
+        updateUpdateItem(options),
+        updateApp(options),
+        updateTrashCount(options),
       ])
     )(tree, context);
   };
@@ -259,6 +261,128 @@ function updateUpdateItem(options: ResourceOptions): Rule {
           )} id={id} onClose={onClose} isOpen={isOpen} />`,
         })
       );
+      tree.overwrite(filePath, srcFile.getFullText());
+    } catch (e) {
+      context.logger.error(e.message);
+    }
+  };
+}
+function updateApp(options: ResourceOptions): Rule {
+  return (tree: Tree, context: SchematicContext) => {
+    const { name } = options;
+    const filePath = join("src" as Path, "App.tsx");
+    const srcContent = tree.read(filePath).toString("utf-8");
+    const project = new Project({
+      manipulationSettings: { indentationText: IndentationText.TwoSpaces },
+    });
+
+    const srcFile = project.createSourceFile(filePath, srcContent, {
+      overwrite: true,
+    });
+
+    try {
+      const impDec = srcFile.getImportDeclaration(
+        (imp) => imp.getModuleSpecifier().getText() === '"@pages"'
+      );
+      impDec.insertNamedImports(0, [
+        {
+          name: `${classify(name)}Page`,
+        },
+        {
+          name: `${classify(name)}TrashPage`,
+        },
+      ]);
+
+      const jsx = srcFile.getFirstDescendantByKind(
+        SyntaxKind.JsxSelfClosingElement
+      );
+
+      srcFile.insertText(jsx.getStartLinePos(), (writer) => {
+        writer.write(
+          `<CustomRoute
+            title="${classify(name)} | Videplacard"
+            exact
+            path="/${name}"
+            isTable={true}
+            component={${classify(name)}Page}
+            layout={HomeLayout}
+          />
+          <CustomRoute
+            title="${classify(name)} (Trash) | Videplacard"
+            exact
+            path="/${name}/trash"
+            isTable={true}
+            component={${classify(name)}TrashPage}
+            layout={HomeLayout}
+          />
+          `
+        );
+      });
+      srcFile.formatText();
+      tree.overwrite(filePath, srcFile.getFullText());
+    } catch (e) {
+      context.logger.error(e.message);
+    }
+  };
+}
+function updateTrashCount(options: ResourceOptions): Rule {
+  return (tree: Tree, context: SchematicContext) => {
+    const { name } = options;
+    const filePath = join("src" as Path, "components/generics/TrashCount.tsx");
+    const srcContent = tree.read(filePath).toString("utf-8");
+    const project = new Project({
+      manipulationSettings: { indentationText: IndentationText.TwoSpaces },
+    });
+
+    const srcFile = project.createSourceFile(filePath, srcContent, {
+      overwrite: true,
+    });
+
+    try {
+      const impDec = srcFile.getImportDeclaration(
+        (imp) => imp.getModuleSpecifier().getText() === '"@adapters"'
+      );
+      impDec.insertNamedImport(0, {
+        name: `useCount${classify(name)}Query`,
+      });
+
+      const varDec = srcFile.getFirstDescendantByKind(SyntaxKind.ArrowFunction);
+
+      varDec.insertStatements(2, (writer) => {
+        writer.write(
+          `
+const { data: ${name}Data, isLoading: ${name}IsLoading } = useCount${classify(
+            name
+          )}Query(
+  {
+    where: { isTrash: { equals: true } },
+  },
+  {
+    enabled: component === "${name}",
+  }
+);
+`
+        );
+      });
+
+      const arrays = srcFile.getDescendantsOfKind(
+        SyntaxKind.ArrayLiteralExpression
+      );
+      arrays[0].insertElement(
+        0,
+        Writers.object({
+          name: `"${name}"`,
+          loading: `${name}IsLoading`,
+        })
+      );
+      arrays[1].insertElement(
+        0,
+        Writers.object({
+          name: `"${name}"`,
+          count: `${name}Data.count${classify(name)}`,
+        })
+      );
+
       tree.overwrite(filePath, srcFile.getFullText());
     } catch (e) {
       context.logger.error(e.message);
