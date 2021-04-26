@@ -15,6 +15,7 @@
     "@types/yup": "^0.29.6"
   },
   "scripts": {
+    "scaffold": "sh -c 'schematics @vp/genom:${0}'",
     "build": "tsc -p tsconfig.json && tsc -p tsconfig.cjs.json"
   }
 }

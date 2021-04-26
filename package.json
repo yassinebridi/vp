@@ -19,6 +19,7 @@
     "nest": "yarn api nest",
     "sca": "yarn api scaffold",
     "scw": "yarn web scaffold",
+    "scc": "yarn common scaffold",
     "api:dev": "yarn api start:dev",
     "api:dev:vite": "yarn api start:dev:vite",
     "api:build": "yarn api build",
