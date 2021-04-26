@@ -30,8 +30,8 @@ export function main(options: ResourceOptions): Rule {
         // mergeWith(generatePage(options)),
         // mergeWith(generateComponent(options)),
         // updateComponentsIndex(options),
-        // updatePagesIndex(options),
-        updateRoutes(options),
+        updatePagesIndex(options),
+        // updateRoutes(options),
         // updateCreateItem(options),
         // updateUpdateItem(options),
       ])
@@ -134,12 +134,16 @@ function updatePagesIndex(options: ResourceOptions): Rule {
         defaultImport: `${classify(name)}TrashPage`,
         moduleSpecifier: `./${name}/trash`,
       });
-      srcFile.addExportDeclarations([
+
+      const expDec = srcFile.getExportDeclaration((exp) => {
+        return exp.hasNamedExports();
+      });
+      expDec.insertNamedExports(0, [
         {
-          namedExports: [`${classify(name)}Page`],
+          name: `${classify(name)}Page`,
         },
         {
-          namedExports: [`${classify(name)}TrashPage`],
+          name: `${classify(name)}TrashPage`,
         },
       ]);
 
