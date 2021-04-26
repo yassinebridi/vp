@@ -1,4 +1,5 @@
 fragment <%=singular(classify(name))%>Fields on <%=singular(classify(name))%> {
   id
+  name
   isTrash
 }

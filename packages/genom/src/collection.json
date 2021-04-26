@@ -15,6 +15,11 @@
       "factory": "./lib/web/page/page.factory#main",
       "description": "Create a web resource.",
       "schema": "./lib/web/page/schema.json"
+    },
+    "schema": {
+      "factory": "./lib/common/schema/schema.factory#main",
+      "description": "Create a yup schema.",
+      "schema": "./lib/common/schema/schema.json"
     }
   }
 }

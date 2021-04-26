@@ -7,10 +7,12 @@ import {
 } from '@nestjs/common';
 import { I18nRequestScopeService } from 'nestjs-i18n';
 import {
-  FindMany<%=singular(classify(name))%>Args,
-  FindUnique<%=singular(classify(name))%>Args,
   <%=singular(classify(name))%>CreateInput,
   <%=singular(classify(name))%>WhereUniqueInput,
+  DeleteMany<%=singular(classify(name))%>Args,
+  FindMany<%=singular(classify(name))%>Args,
+  FindUnique<%=singular(classify(name))%>Args,
+  UpdateMany<%=singular(classify(name))%>Args,
   UpdateOne<%=singular(classify(name))%>Args,
 } from 'src/@generated';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -86,6 +88,19 @@ export class <%=classify(name)%>Service {
     }
   }
 
+  async update<%=classify(name)%>(update<%=classify(name)%>Input: UpdateMany<%=singular(classify(name))%>Args) {
+    try {
+      await this.prismaService.<%=singular(name)%>.updateMany(update<%=classify(name)%>Input);
+
+      return true;
+    } catch (error) {
+      this.logger.error(error);
+      throw new InternalServerErrorException(
+        await this.translateService.translate('<%=name%>.update'),
+      );
+    }
+  }
+
   async remove<%=singular(classify(name))%>(where: <%=singular(classify(name))%>WhereUniqueInput) {
     const <%=singular(name)%> = await this.prismaService.<%=singular(name)%>.findUnique({
       where,
@@ -98,6 +113,24 @@ export class <%=classify(name)%>Service {
     }
     try {
       await this.prismaService.<%=singular(name)%>.delete({ where });
+
+      return true;
+    } catch (error) {
+      this.logger.error(error);
+      if (error.code === 'P2002') {
+        throw new ConflictException(
+          await this.translateService.translate('<%=name%>.generics.conflict'),
+        );
+      }
+      throw new InternalServerErrorException(
+        await this.translateService.translate('<%=name%>.remove'),
+      );
+    }
+  }
+
+  async remove<%=classify(name)%>(deleteMany<%=singular(classify(name))%>Args: DeleteMany<%=singular(classify(name))%>Args) {
+    try {
+      await this.prismaService.<%=singular(name)%>.deleteMany(deleteMany<%=singular(classify(name))%>Args);
 
       return true;
     } catch (error) {
