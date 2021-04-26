@@ -68,7 +68,6 @@ const <%=classify(name)%>Table: React.FC<<%=classify(name)%>TableProps> = ({ <%=
   let dataArray: {
     id: string;
     name: string;
-    products: number;
     date: string;
   }[] = [];
   <%=name%>.getAll<%=classify(name)%> &&
@@ -76,7 +75,6 @@ const <%=classify(name)%>Table: React.FC<<%=classify(name)%>TableProps> = ({ <%=
       dataArray.push({
         id: <%=singular(name)%>.id,
         name: <%=singular(name)%>.name,
-        products: <%=singular(name)%>.products.length,
         date: <%=singular(name)%>.createdAt,
       });
     });
@@ -94,12 +92,6 @@ const <%=classify(name)%>Table: React.FC<<%=classify(name)%>TableProps> = ({ <%=
           </span>
         );
       },
-    },
-    {
-      Header: "Products",
-      accessor: "products",
-      kind: "number",
-      width: "20%",
     },
     {
       Header: "Date",
