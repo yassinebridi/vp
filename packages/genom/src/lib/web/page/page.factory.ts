@@ -178,7 +178,7 @@ function updateRoutes(options: ResourceOptions): Rule {
 
       // Insert this object in the second routes array(which is a sub routes), in the last array position of those sub routes
       subMenuArr.insertElement(
-        subMenuArr.getChildCount() + 1,
+        subMenuArr.getChildCount() - 1,
         Writers.object({
           path: `"/${name}"`,
           icon: "HomeIcon",
