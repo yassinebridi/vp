@@ -28,7 +28,7 @@ const TrashCount: React.FC<TrashCountProps> = () => {
   const dataArr = [
     {
       name: "brands",
-      count: brandsData.countBrands,
+      count: brandsData && brandsData.countBrands,
     },
   ];
   return (
