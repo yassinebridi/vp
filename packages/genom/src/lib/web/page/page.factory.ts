@@ -15,7 +15,8 @@ import {
   url,
 } from "@angular-devkit/schematics";
 import * as pluralize from "pluralize";
-import { Project, SyntaxKind, Writers } from "ts-morph";
+import { singular } from "pluralize";
+import { IndentationText, Project, SyntaxKind, Writers } from "ts-morph";
 import { Location, mergeSourceRoot, NameParser } from "../../../utils";
 import { ResourceOptions } from "./page.schema";
 
@@ -25,12 +26,14 @@ export function main(options: ResourceOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {
     return branchAndMerge(
       chain([
-        mergeSourceRoot(options),
-        mergeWith(generatePage(options)),
-        mergeWith(generateComponent(options)),
-        updateComponentsIndex(options),
-        updatePagesIndex(options),
+        // mergeSourceRoot(options),
+        // mergeWith(generatePage(options)),
+        // mergeWith(generateComponent(options)),
+        // updateComponentsIndex(options),
+        // updatePagesIndex(options),
         updateRoutes(options),
+        // updateCreateItem(options),
+        // updateUpdateItem(options),
       ])
     )(tree, context);
   };
@@ -85,13 +88,14 @@ function generateComponent(options: ResourceOptions): Source {
     ])(context);
   };
 }
-
 function updateComponentsIndex(options: ResourceOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {
     const { name } = options;
     const filePath = join("src" as Path, "components/index.ts");
     const srcContent = tree.read(filePath).toString("utf-8");
-    const project = new Project();
+    const project = new Project({
+      manipulationSettings: { indentationText: IndentationText.TwoSpaces },
+    });
 
     const srcFile = project.createSourceFile(filePath, srcContent, {
       overwrite: true,
@@ -109,13 +113,14 @@ function updateComponentsIndex(options: ResourceOptions): Rule {
     }
   };
 }
-
 function updatePagesIndex(options: ResourceOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {
     const { name } = options;
     const filePath = join("src" as Path, "pages/index.ts");
     const srcContent = tree.read(filePath).toString("utf-8");
-    const project = new Project();
+    const project = new Project({
+      manipulationSettings: { indentationText: IndentationText.TwoSpaces },
+    });
 
     const srcFile = project.createSourceFile(filePath, srcContent, {
       overwrite: true,
@@ -144,14 +149,14 @@ function updatePagesIndex(options: ResourceOptions): Rule {
     }
   };
 }
-
 function updateRoutes(options: ResourceOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {
     const { name } = options;
-    console.log("name: ", name);
     const filePath = join("src" as Path, "utils/routes/sidebar.ts");
     const srcContent = tree.read(filePath).toString("utf-8");
-    const project = new Project();
+    const project = new Project({
+      manipulationSettings: { indentationText: IndentationText.TwoSpaces },
+    });
 
     const srcFile = project.createSourceFile(filePath, srcContent, {
       overwrite: true,
@@ -161,12 +166,93 @@ function updateRoutes(options: ResourceOptions): Rule {
       const init = varDec.getInitializerIfKindOrThrow(
         SyntaxKind.ArrayLiteralExpression
       );
-      init.insertElement(
-        0,
+      const subMenuArr = init.getFirstDescendantByKind(
+        SyntaxKind.ArrayLiteralExpression
+      );
+
+      // Insert this object in the second routes array(which is a sub routes), in the last array position of those sub routes
+      subMenuArr.insertElement(
+        subMenuArr.getChildCount() + 1,
         Writers.object({
           path: `"/${name}"`,
           icon: "HomeIcon",
           name: `"${name}"`,
+        })
+      );
+      tree.overwrite(filePath, srcFile.getFullText());
+    } catch (e) {
+      context.logger.error(e.message);
+    }
+  };
+}
+function updateCreateItem(options: ResourceOptions): Rule {
+  return (tree: Tree, context: SchematicContext) => {
+    const { name } = options;
+    const filePath = join("src" as Path, "components/generics/CreateItem.tsx");
+    const srcContent = tree.read(filePath).toString("utf-8");
+    const project = new Project({
+      manipulationSettings: { indentationText: IndentationText.TwoSpaces },
+    });
+
+    const srcFile = project.createSourceFile(filePath, srcContent, {
+      overwrite: true,
+    });
+
+    try {
+      const impDec = srcFile.getImportDeclaration(
+        (imp) => imp.getModuleSpecifier().getText() === '"@components"'
+      );
+      impDec.insertNamedImport(0, {
+        name: `Create${singular(classify(name))}`,
+      });
+
+      const varDec = srcFile.getFirstDescendantByKind(
+        SyntaxKind.ArrayLiteralExpression
+      );
+      varDec.insertElement(
+        0,
+        Writers.object({
+          name: `"${name}"`,
+          jsx: `<Create${singular(classify(name))} />`,
+        })
+      );
+      tree.overwrite(filePath, srcFile.getFullText());
+    } catch (e) {
+      context.logger.error(e.message);
+    }
+  };
+}
+function updateUpdateItem(options: ResourceOptions): Rule {
+  return (tree: Tree, context: SchematicContext) => {
+    const { name } = options;
+    const filePath = join("src" as Path, "components/generics/UpdateItem.tsx");
+    const srcContent = tree.read(filePath).toString("utf-8");
+    const project = new Project({
+      manipulationSettings: { indentationText: IndentationText.TwoSpaces },
+    });
+
+    const srcFile = project.createSourceFile(filePath, srcContent, {
+      overwrite: true,
+    });
+
+    try {
+      const impDec = srcFile.getImportDeclaration(
+        (imp) => imp.getModuleSpecifier().getText() === '"@components"'
+      );
+      impDec.insertNamedImport(0, {
+        name: `Update${singular(classify(name))}`,
+      });
+
+      const varDec = srcFile.getFirstDescendantByKind(
+        SyntaxKind.ArrayLiteralExpression
+      );
+      varDec.insertElement(
+        0,
+        Writers.object({
+          name: `"${name}"`,
+          jsx: `<Update${singular(
+            classify(name)
+          )} id={id} onClose={onClose} isOpen={isOpen} />`,
         })
       );
       tree.overwrite(filePath, srcFile.getFullText());

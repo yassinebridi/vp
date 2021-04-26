@@ -10,13 +10,14 @@ export interface UpdateItemProps {
 const UpdateItem: React.FC<UpdateItemProps> = ({ id, onClose, isOpen }) => {
   const { component } = usePageState();
 
-  return (
-    <>
-      {component === "brands" ? (
-        <UpdateBrand id={id} onClose={onClose} isOpen={isOpen} />
-      ) : null}
-    </>
-  );
+  const items: { name: string; jsx: JSX.Element }[] = [
+    {
+      name: "brands",
+      jsx: <UpdateBrand id={id} onClose={onClose} isOpen={isOpen} />,
+    },
+  ];
+
+  return <>{items.find((item) => item.name === component).jsx}</>;
 };
 
 export default UpdateItem;

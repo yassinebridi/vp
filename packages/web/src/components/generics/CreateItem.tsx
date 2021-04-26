@@ -6,7 +6,13 @@ export interface CreateItemProps {}
 const CreateItem: React.FC<CreateItemProps> = () => {
   const { component } = usePageState();
 
-  return <>{component === "brands" ? <CreateBrand /> : null}</>;
+  const items: { name: string; jsx: JSX.Element }[] = [
+    {
+      name: "brands",
+      jsx: <CreateBrand />,
+    },
+  ];
+  return <>{items.find((item) => item.name === component).jsx}</>;
 };
 
 export default CreateItem;
