@@ -24,11 +24,11 @@ var RegisterSchema = _yup.object.call(void 0, ).shape({
 
 
 var CreateBrandSchema = _yup.object.call(void 0, ).shape({
-  name: _yup.string.call(void 0, ).required()
+  name: _yup.string.call(void 0, ).min(2).required()
 });
 var UpdateBrandSchema = _yup.object.call(void 0, ).shape({
   name: _yup.object.call(void 0, ).shape({
-    set: _yup.string.call(void 0, )
+    set: _yup.string.call(void 0, ).min(2).required()
   })
 });
 

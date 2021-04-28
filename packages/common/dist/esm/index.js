@@ -24,11 +24,11 @@ import {
   string as string2
 } from "yup";
 var CreateBrandSchema = object2().shape({
-  name: string2().required()
+  name: string2().min(2).required()
 });
 var UpdateBrandSchema = object2().shape({
   name: object2().shape({
-    set: string2()
+    set: string2().min(2).required()
   })
 });
 export {
