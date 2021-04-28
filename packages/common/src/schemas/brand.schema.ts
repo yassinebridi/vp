@@ -6,6 +6,6 @@ export const CreateBrandSchema = yup.object().shape({
 
 export const UpdateBrandSchema = yup.object().shape({
   name: yup.object().shape({
-    set: yup.string().min(2),
+    set: yup.string().min(2).required(),
   }),
 });

@@ -70,7 +70,7 @@ function generateFiles(options: ResourceOptions): Source {
 function updateIndex(options: ResourceOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {
     const { name } = options;
-    const filePath = join("src" as Path, "index.ts");
+    const filePath = join("src" as Path, "schemas/index.ts");
     const srcContent = tree.read(filePath).toString("utf-8");
     const project = new Project({
       manipulationSettings: { indentationText: IndentationText.TwoSpaces },
@@ -82,7 +82,7 @@ function updateIndex(options: ResourceOptions): Rule {
     try {
       srcFile
         .insertExportDeclaration(0, {
-          moduleSpecifier: `./schemas/${singular(name)}.schema`,
+          moduleSpecifier: `./${singular(name)}.schema`,
         })
         .toNamespaceExport();
 
