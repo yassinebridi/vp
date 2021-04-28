@@ -16,7 +16,7 @@
       "@utils/*": ["src/utils/*"]
     },
     "target": "ESNext",
-    "lib": ["DOM", "DOM.Iterable", "ESNext", "WebWorker"],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "types": ["vite/client", "node"],
     "allowJs": false,
     "skipLibCheck": false,

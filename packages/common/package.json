@@ -4,18 +4,18 @@
   "version": "0.1.0",
   "description": "A yup validator between api and web",
   "author": "Yassine Bridi <ybridi@gmail.com>",
-  "main": "dist/cjs/index.js",
+  "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "typings": "dist/index.d.ts",
   "dependencies": {
-    "yup": "^0.29.3",
-    "@vp/genom": "*"
+    "yup": "^0.29.3"
   },
   "devDependencies": {
-    "@types/yup": "^0.29.6"
+    "@types/yup": "^0.29.6",
+    "rimraf": "^3.0.2",
+    "tsup": "^4.10.0"
   },
   "scripts": {
-    "scaffold": "sh -c 'schematics @vp/genom:${0}'",
-    "build": "tsc -p tsconfig.json && tsc -p tsconfig.cjs.json"
+    "build": "rimraf dist && tsup src/index.ts --format esm,cjs --dts --legacy-output --sourcemap"
   }
 }
