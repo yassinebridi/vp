@@ -4,7 +4,7 @@ import { ObjectSchema } from 'yup';
 
 @Injectable()
 export class YupValidationPipe implements PipeTransform {
-  constructor(private readonly schema: ObjectSchema<{}>) {}
+  constructor(private readonly schema: ObjectSchema<Record<string, never>>) {}
 
   async transform(value: any, metadata: ArgumentMetadata) {
     if (metadata.type === 'body') {
