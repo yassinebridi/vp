@@ -4,13 +4,13 @@ import qs from "qs";
 import { useLocation } from "react-router-dom";
 
 export const capitalize = (text: string) => {
-  let wordsArray = text.toLowerCase().split(" ");
+  let firstCodeUnit = text[0];
 
-  let capsArray = wordsArray.map((word) => {
-    return word.replace(word[0], word[0].toUpperCase());
-  });
+  if (firstCodeUnit < "\uD800" || firstCodeUnit > "\uDFFF") {
+    return text[0].toUpperCase() + text.slice(1);
+  }
 
-  return capsArray.join(" ");
+  return text.slice(0, 2).toUpperCase() + text.slice(2);
 };
 
 export const toDateTime = (secs: string) => {
